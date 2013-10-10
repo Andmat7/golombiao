@@ -1,0 +1,296 @@
+@font-face {
+
+font-family: arial_narrow;
+
+src: url("../fonts/Arial_Narrow.ttf") format(‘truetype’);
+
+}
+@font-face {
+
+font-family: arial_bold;
+
+src: url("../fonts/Arial_bold.ttf") format(‘truetype’);
+
+}
+
+
+
+
+.aspect_ratio{
+
+	height: 951px;
+	width: 600px;
+	overflow: hidden;
+}
+#before_register_container{
+	background-image: url("../images/before_register.png");
+	background-size: 100%  100%;
+	background-repeat: no-repeat;
+	height: 100%;
+	width: 100%;
+}
+#register_container{
+	background-image: url("../images/register.png");
+	background-size: 100%  100%;
+	background-repeat: no-repeat;
+	height: 100%;
+	width: 100%;
+	border: 1px solid white;
+}
+
+#home_container{
+	background-image: url("../images/home.png");
+	background-size: 100%  100%;
+	background-repeat: no-repeat;
+	height: 100%;
+	width: 100%;
+}
+
+#play_container{
+	background-image: url("../images/play.png");
+	background-size: 100%  100%;
+	background-repeat: no-repeat;
+	height: 100%;
+	width: 100%;
+}
+#create_container{
+	background-image: url("../images/create.png");
+	background-size: 100%  100%;
+	background-repeat: no-repeat;
+	height: 100%;
+	width: 100%;
+	border: 1px solid white;
+}
+#photo_container{
+	float: left;
+	width: 39.7%;
+	height: 25%;
+	background-color: #3487C6;
+	position: relative;
+	top: 71px;
+	left: 34px;
+
+
+}
+#photo{
+	width: 90%;
+	height: 90%;
+	margin: 5%;
+}
+
+#information{
+	text-align: center;
+	color: white;
+	float: left;
+	width: 43%;
+	height: 9%;
+	position: relative;
+	top: 219px;
+	left: 78px;
+}
+
+#name_user{
+	float: left;
+	clear: left;
+color: white;
+font-family: arial_bold;
+font-size: 1.8em
+
+}
+#age_user{
+	margin-top: 2%;
+float: left;
+clear: left;
+font-family: arial;
+	
+}
+
+#location_user{
+	margin-top: 2%;
+	float: left;
+	clear: left;
+font-family: arial;
+
+}
+
+
+.login_facebook{
+	width: 12%;
+	height: 8%;
+	position: relative;
+	top: 18%;
+	left: 65%;
+}
+
+.register_facebook{
+		width: 30%;
+		height: 19%;
+		position: relative;
+		top: -1%;
+		left: 57%;
+}
+
+#input_email{
+	width: 50%;
+	position: relative;
+	top: 10%;
+	left: 25%;
+	margin-top: 42%;
+}
+
+#input_pass{
+	width: 50%;
+	position: relative;
+	top: 10%;
+	left: 25%;
+
+}
+#input_pass{
+	width: 50%;
+	position: relative;
+	top: 10%;
+	left: 25%;
+
+}
+.ui-btn {
+	width: 25%;
+	margin-left: 52%;
+
+}
+
+.register{
+
+		width: 30%;
+		height: 19%;
+		position: relative;
+		top: 18%;
+		left: 16%;
+
+}
+
+
+.input_txt_complete.name{
+	margin-top: 39%;
+}
+.input_txt_complete{
+	margin-left: 10%;
+	margin-top: 6%;
+	width: 80% ! important;
+
+}
+.input_txt_half{
+	margin-left: 10%;
+	margin-top: 6%;
+	width: 40% ! important;
+	float: left;
+}
+
+.input_bton_half{
+
+	position: relative;
+	margin-left: -18%;
+	margin-top: 6%;
+	left: 10%
+}
+.study{
+	float: right;
+	position: relative;
+	width: 25%;
+	right: 18%;
+}
+
+.identf1{
+	float: left;
+	clear: left;
+	position: relative;
+	left: 29%;
+	margin-top: 3%;
+	font-family: bold arial;
+	font-size: 1.3em;
+	}
+#identf2{
+	float: left;
+position: relative;
+width: 91%;
+margin-top: 2%;
+left: 5%;
+
+
+}
+.radio_butt{
+	margin-left: 13%;	
+	width: 15%;
+	height: 10%;
+	float: left;
+	font-family: bold arial;
+		font-size: 1.3em;
+
+}
+.new_submit {
+	position: relative;
+	width: 25%;
+	margin-left: 56%;
+}
+.input_bton_half2{
+float: left;
+margin-left: 10%;
+margin-top: 4%;
+
+}
+
+.input_bton_half2 .ui-select .ui-btn{
+	width: 100%;
+	margin-left: 0;
+
+}
+
+.study .ui-select .ui-btn{
+	width: 100%;
+	margin-left: 0;
+
+}
+.new_submit .ui-btn{
+	width: 100%;
+	margin-left: 0%;
+
+}
+
+.toplay{
+width: 46%;
+height: 25%;
+position: relative;
+top: 35%;
+left: 3%;
+}
+.toplay2{
+width: 100%;
+height: 100%;
+}
+
+.join{
+
+width: 58%;
+height: 20%;
+position: relative;
+top: 19%;
+left: 26%;
+}
+
+.create{
+width: 58%;
+height: 20%;
+position: relative;
+top: 22%;
+left: 26%;
+}
+.create2{
+width: 100%;
+height: 100%;
+}
+
+.name_team{
+
+margin-top: 32%;
+
+	
+}

@@ -1,0 +1,160 @@
+<!DOCTYPE html> 
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Aplic. Web de jQuery Mobile</title>
+
+	<link href="jquery-mobile/jquery.mobile-1.0.min.css" rel="stylesheet" type="text/css"/>
+	<script src="jquery-mobile/jquery-1.6.4.min.js" type="text/javascript"></script>
+	<script src="jquery-mobile/jquery.mobile-1.0.min.js" type="text/javascript"></script>
+	<script src="phonegap.js"></script>
+	<script src="cdv-plugin-fb-connect.js"></script>
+	<script src="facebook-js-sdk.js"></script>
+	<script type="text/javascript" src="script/script.js"></script>
+	<link rel="stylesheet" type="text/css" href="styles/styles.css">
+
+</head> 
+<body> 
+
+
+	<div id="fb-root"></div>
+
+
+	<div data-role="page" id="before_register">
+		<div class="aspect_ratio">
+			<div  id="before_register_container">
+				<div onclick="login()"class="login_facebook"></div>
+				<form>
+					<input id="input_email" type="text" name="email" placeholder="email" ><br>
+					<input id="input_pass" type="password" name="pass" placeholder="password" >
+					<input type="submit" class="enviar_login" value="Enviar">
+				</form>
+
+				<div onclick="register()" class="register"></div>
+				<div onclick="register_facebook()" class="register_facebook"></div>
+			</div>
+		</div>
+	</div>
+
+
+
+	<div data-role="page" id="register">
+		<div class="aspect_ratio">
+			<div  id="register_container">
+				<form id="form_register">
+
+					<input class="input_txt_complete name" type="text"  name="name" value="" placeholder="Nombre"/>
+
+					<input class="input_txt_complete" type="email"  name="email" value="" placeholder="Correo"/>
+					<input  class="input_txt_complete" type="text"  name="city" value="" placeholder="Ciudad"/>
+					<input class="input_txt_half" type="text"  name="birthday" value="" placeholder="Edad"/>
+					<div class="input_bton_half2">
+						<select  name="gender">
+							<option  value="1">Hombre</option>
+							<option  value="2">Mujer</option>
+							<option  value="3">No se</option>
+						</select>
+					</div>
+					
+						<div class="identf1">Estudia?</div>
+						<div class="study">
+						<select id="study_1" name="study" onchange="level_function()">
+							<option value="1">Si</option>
+							<option  value="2">No</option>
+						</select>
+					</div>
+
+					<div id="identf2">
+
+						<div class="radio_butt">
+							<input type="radio" name="school_level" value="1">Primaria</div>
+						<div class="radio_butt">
+							<input type="radio" name="school_level" value="2">Bachillerato</div>
+						<div class="radio_butt">
+							<input type="radio" name="school_level" value="3">Universitario</div>
+					</div>
+
+
+
+					<input style="margin-top: 10%;"class="input_txt_complete" type="password"  name="encrypted_password" value="" placeholder="password"/>
+					<input class="input_txt_complete" type="password"  name="encrypted_password" value="" placeholder="repita el password"/>
+					<div class="new_submit">
+					<input id="register_server" onclick="data_server()" type="button"value="Registrar">
+					</div>
+				</form>	
+			</div>
+		</div>
+
+	</div>
+
+
+
+
+
+
+
+
+	<div data-role="page" id="home">
+		<div class="aspect_ratio">
+			<div  id="home_container">
+				<div id="photo_container">
+					<img id="photo" src="http://graph.facebook.com/Marja.viiro/picture?width=200&height=200" >
+					<div >
+
+
+					</div>
+
+				</div>
+				<div id="information">	
+					<span id="name_user">Marja Viro</span>	
+					<span id="age_user">23 Años</span>
+					<span id="location_user">Bogota-Colombia</span>
+
+				</div>
+				<div class="toplay" ><a  href="#play"><div class="toplay2" ></div></a></div>
+
+			</div>
+			
+		</div>
+
+	</div>
+
+	<div data-role="page" id="play">
+		<div class="aspect_ratio">
+			<div  id="play_container">
+				<div class="join"></div>
+				<div class="create" ><a  href="#create"><div class="create2" ></div></a></div>
+
+
+			</div>
+
+
+		</div>
+		</div>
+	<div data-role="page" id="create">
+		<div class="aspect_ratio">
+			<div  id="create_container">
+
+			<form id="form_create">
+					<input class="input_txt_complete name_team" type="text"  name="name_team" value="" placeholder="Nombre del equipo"/>
+
+					<input class="input_txt_complete" type="text"  name="location_team" value="" placeholder="ciudad"/>
+					<input class="input_txt_complete" type="text"  name="zone_team" value="" placeholder="Barrio"/>
+					<input class="input_txt_complete" type="text"  name="description_team" value="" placeholder="Description"/>
+					
+					<input id="register_server" onclick="data_server_team()" type="button"value="Registrar">
+					</div>
+				</form>	
+			</div>
+
+
+		</div>
+		</div>
+
+
+
+
+
+
+</body>
+</html>

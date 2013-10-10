@@ -1,0 +1,10 @@
+[16-Jul-2013 16:19:41 America/Denver] PHP Parse error:  syntax error, unexpected $end in /home4/granhos1/public_html/andres-corredor/klassroom/application/models/materia.php on line 407
+[16-Jul-2013 16:20:22 America/Denver] PHP Parse error:  syntax error, unexpected $end in /home4/granhos1/public_html/andres-corredor/klassroom/application/models/materia.php on line 407
+[16-Jul-2013 16:23:12 America/Denver] PHP Warning:  Unterminated comment starting line 407 in /home4/granhos1/public_html/andres-corredor/klassroom/application/models/materia.php on line 407
+[23-Jul-2013 15:35:33 America/Denver] PHP Fatal error:  Call to undefined method Materia::buscar_horarios() in /home4/granhos1/public_html/andres-corredor/klassroom/application/controllers/materias.php on line 89
+[23-Jul-2013 15:35:36 America/Denver] PHP Fatal error:  Call to undefined method Materia::buscar_horarios() in /home4/granhos1/public_html/andres-corredor/klassroom/application/controllers/materias.php on line 89
+[23-Jul-2013 15:36:12 America/Denver] PHP Fatal error:  Call to undefined method Materia::buscar_horarios() in /home4/granhos1/public_html/andres-corredor/klassroom/application/controllers/materias.php on line 89
+[23-Jul-2013 15:36:33 America/Denver] PHP Fatal error:  Call to undefined method Materia::buscar_horarios() in /home4/granhos1/public_html/andres-corredor/klassroom/application/controllers/materias.php on line 91
+[23-Jul-2013 15:36:59 America/Denver] PHP Fatal error:  Call to undefined method Materia::buscar_horarios() in /home4/granhos1/public_html/andres-corredor/klassroom/application/controllers/materias.php on line 91
+[23-Jul-2013 15:37:17 America/Denver] PHP Fatal error:  Call to undefined method Materia::buscar_horarios() in /home4/granhos1/public_html/andres-corredor/klassroom/application/controllers/materias.php on line 91
+[23-Jul-2013 15:37:46 America/Denver] PHP Fatal error:  Call to undefined method Materia::buscar_horarios() in /home4/granhos1/public_html/andres-corredor/klassroom/application/controllers/materias.php on line 91

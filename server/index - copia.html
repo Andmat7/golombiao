@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+<meta charset=utf-8 />
+<title>My Facebook App</title>
+</head>
+<body>
+
+
+  <div id="fb-root"></div>
+<script>
+  window.fbAsyncInit = function() {
+    // init the FB JS SDK
+    FB.init({
+      appId      : '431026877004103',                        // App ID from the app dashboard
+      channelUrl : '//http://codfe.byethost12.com/golomb_face', // Channel file for x-domain comms
+      status     : true,                                 // Check Facebook Login status
+      xfbml      : true                                  // Look for social plugins on the page
+    });
+
+    // Additional initialization code such as adding Event Listeners goes here
+  };
+
+  // Load the SDK asynchronously
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/all.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<button class = 'loginButton'>  Press me to Login </button>
+	<div>
+		<h2>register</h2>
+		<form method="POST" action="http://localhost/golombiao_server/index.php/users/new_user">
+
+			<input type="text"  name="first_name" value="Andres"/>
+			<input type="text"  name="last_name" value="Castellanos"/>
+			<input type="text"  name="age" value="23"/>
+			<select name="gender">
+				  <option  value="1">Hombre</option>
+				  <option  value="2">Mujer</option>
+				  <option  value="3">No se</option>
+				</select>
+			<input type="text"  name="email" value="ccast2@gmail.com"/>
+			<input type="text"  name="city" value="Bogota"/>
+			Estudia?
+			<select name="study">
+				  <option value="1">Si</option>
+				  <option  value="2">No</option>
+				</select>
+			
+			<input type="radio" name="school_level" value="1">Primaria
+			<input type="radio" name="school_level" value="2">Bachillerato
+			<input type="radio" name="school_level" value="3">Universitario
+			<input type="text"  name="encrypted_password" value="pass"/>
+				
+		<input type="submit">
+
+		</form>
+	</div>
+
+
+
+
+
+
+<script type="text/javascript" src="faceboosk.js"></script>
+
+  
+</body>
+</html>
+
+
+
+
+
+
+
+
