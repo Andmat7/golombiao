@@ -54,6 +54,20 @@ class user extends CI_Model {
 			return false;
 		}
 	}
+		public function get($id)
+	{
+		$this->db->get_where('users', array('id' => $id));
+				$q = $this->db->get('users');
+		if($q -> num_rows() == 1)
+		{
+			$user=$q->result_array();
+			return $user[0];
+		}
+		else
+		{
+			return false;
+		}
+	}
 
 
 

@@ -14,17 +14,19 @@ class MY_Controller extends CI_Controller
  		$this->load->model('user','',TRUE);
  		$this->load->helper('url');
  		$type= $this->uri->segment(1);
-
+        
  		if (!($type=='login' || $type=='register')) {
-			//$this->_verifylogin();
+
+			$this->_verifylogin();
 			
  		}
+        
 
 
  	}
  	public function _verifylogin()
  	{
- 		echo "se llama a verifi";
+ 		
  		$email = $this->input->post('email');
  		$session_id= $this->input->post('session_id');
 

@@ -1,17 +1,28 @@
-var server="http://192.168.0.102/golombiao_server/index.php"
-var logued_in=false;
-var birthday="01/20/1990";
-var first_name= "Andres";
-var last_name= "Castellanos";
-var name= "Andres Castellanos";
-var username= "Andresc26";
-var city="Bogotá, Colombia";
-var post_values = {
-            email:"cast2",
-            session_id: "cast2"
-          };
+jQuery.validator.setDefaults({
+  debug: true,
+  success: "valid"
+});
 
+var server="http://localhost/golombiao/server/index.php/";
+var user;
+
+var post_values = {
+    email:"cast2",
+    session_id: "cast2"
+};
+
+user= {
+            email:"ccast2@hotmail.com",
+            first_name: 'Andres',
+            last_name:'Castellanos',
+            username: "Andresc26",
+            city: "Bogotá, Colombia",
+            birthday:"01/20/1990",
+        };
+    
 $(window).load(function() {
+		
+  
 	FB.init({
 		appId:431026877004103,
 		nativeInterface: CDV.FB,
@@ -19,58 +30,12 @@ $(window).load(function() {
 		status:true, 
 		xfbml:true
 	});
+
+
 });
 
-function data_server_team(){
 
 
-	$(':input', "#form_create").each(function(index, input_element) {
-             post_values[input_element.name] = $(input_element).val();
-          });
-	$.post(server+"/teams/new_team", post_values, function(response) {
-		console.log(response);
-		if (response==1) {
-			alert("Bienvenido")
-			$("#name_user").html(post_values.name)
-			$("#age_user").html(post_values.birthday)
-
-			$("#location_user").html(post_values.city)
-			city=post_values.city;
-			window.location.href = 'index.html#home';
-		}else{
-			alert("email en uso")
-		}
-
-	});
-
-
-
-
-
-}
-
-function data_server(){
-
-	console.log("data_server");
-	$(':input', "#form_register").each(function(index, input_element) {
-             post_values[input_element.name] = $(input_element).val();
-          });
-	$.post(server+"/users/new_user", post_values, function(response) {
-		console.log(response);
-		if (response==1) {
-			alert("Bienvenido")
-			$("#name_user").html(post_values.name)
-			$("#age_user").html(post_values.birthday)
-
-			$("#location_user").html(post_values.city)
-			city=post_values.city;
-			window.location.href = 'index.html#home';
-		}else{
-			alert("email en uso")
-		}
-
-	});
-}
 
 
 function level_function(){
@@ -168,3 +133,76 @@ function register(){
 
 }
 
+
+//register
+
+function data_server(){
+
+    
+    $(':input', "#form_register").each(function(index, input_element) {
+             post_values[input_element.name] = $(input_element).val();
+          });
+    $.post(server+"login/newuser", post_values, function(response) {
+        console.log(response);
+        if (response==1) {
+            alert("Bienvenido");
+            $("#name_user").html(post_values.name);
+            $("#age_user").html(post_values.birthday);
+
+            $("#location_user").html(post_values.city);
+            city=post_values.city;
+            window.location.href = 'index.html#home';
+        }else{
+            alert("email en uso");
+        }
+
+    });
+}
+
+$( document ).on( "pageshow", "#before_register", function() {
+  
+});
+
+$( document ).on( "pageshow", "#register", function() {
+   $( "#form_register" ).validate({
+    rules:{
+        name:{
+            required: true
+        },
+      age: {
+        required: true,
+        number: true
+        },
+    password: "required",
+    password_again: {
+      equalTo: "#password"
+        }
+    },
+    submitHandler: function( form ) {
+        $(':input', "#form_register").each(function(index, input_element) {
+             post_values[input_element.name] = $(input_element).val();
+          });
+        $.post(server+"login/newuser", post_values, function(response) {
+            console.log(response);
+            if (response==1) {
+                alert("Bienvenido");
+                $("#name_user").html(post_values.name);
+                $("#age_user").html(post_values.birthday);
+
+                $("#location_user").html(post_values.city);
+                city=post_values.city;
+                window.location.href = 'index.html#home';
+            }else{
+                alert("email en uso");
+            }
+
+        });
+        }
+
+});
+});
+
+$('#register').live('pageshow',function(event, ui){
+  
+
+});

@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url']	= 'http://localhost/klassroom/';
+$config['base_url']	= 'http://localhost/golombiao/server/';
 
 /*
 |--------------------------------------------------------------------------

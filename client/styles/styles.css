@@ -129,29 +129,6 @@ font-family: arial;
 		top: -1%;
 		left: 57%;
 }
-
-#input_email{
-	width: 50%;
-	position: relative;
-	top: 10%;
-	left: 25%;
-	margin-top: 42%;
-}
-
-#input_pass{
-	width: 50%;
-	position: relative;
-	top: 10%;
-	left: 25%;
-
-}
-#input_pass{
-	width: 50%;
-	position: relative;
-	top: 10%;
-	left: 25%;
-
-}
 .ui-btn {
 	width: 25%;
 	margin-left: 52%;
@@ -293,4 +270,11 @@ height: 100%;
 margin-top: 32%;
 
 	
+}
+#form_login {
+	top: 22%;
+width: 59%;
+margin: 0 auto;
+position: relative;
+
 }

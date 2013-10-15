@@ -3,8 +3,7 @@
 class Login extends MY_Controller {
 	function __construct()
 	{
-		echo "en login controler";
-		error_reporting(E_ALL);
+
 		ini_set('display_errors', 'On');
 		parent::__construct();
 		$this->load->model('user','',TRUE);
@@ -45,12 +44,19 @@ class Login extends MY_Controller {
 
 	public function newuser()
 	{
-		$user = $this->input->post('user');
-		$email = $this->input->post('email');
-		$pass =  $this->input->post('encrypted_password');
-		$output=$this->user->create($user,$email,$pass);
-
-		echo (json_encode($output));
+	$first_name= $this->input->post('first_name');
+		$last_name= $this->input->post('last_name');
+		$age= $this->input->post('age');
+		$gender= $this->input->post('gender');
+		$email= $this->input->post('email');
+		$city= $this->input->post('city');
+		$city= $this->input->post('departament');
+		$study= $this->input->post('study');
+		$school_level= $this->input->post('school_level');
+		$encrypted_password= $this->input->post('encrypted_password');
+		$output=$this->user->new_user($first_name,$last_name,$age,$gender,$email,$city,$study,$school_level,$encrypted_password);
+	
+		echo $output;
 	}
 
 	
