@@ -14,11 +14,10 @@ class Login extends MY_Controller {
 		$json_reply=array();
 		if (!$email || !$encrypted_password) {
 			$json_reply["error"]=true;
-			$json_reply["logged_in"]=false;
 			$json_reply['message_error']="Email y password requeridos";
 		}else{
 			$json_reply = array('email' => $email, 
-				'logged_in' =>  FALSE,
+				'error' =>  true,
 				'session_id' => ''
 				);
 
@@ -27,12 +26,15 @@ class Login extends MY_Controller {
 
 			if($user){
 				$json_reply["session_id"]=$this->user->generar_session_id($user['id']);
-				$json_reply["rol"]=$user['rol'];
 				$json_reply["user_id"]=$user['id'];
-				$json_reply["name"]=$user['name'];
-				$json_reply["subscription_expires"]=$user['subscription_expires'];
-				$json_reply['logged_in']=TRUE;
+				$json_reply["name"]=$user['first_name']+$user['last_name'];
+				$json_reply["email"]=$user['email'];
+				//$json_reply["subscription_expires"]=$user['subscription_expires'];
+				$json_reply['error']=false;
+			}else{
+				$json_reply['message_error']='usuario y contraseña inválidos';
 			}
+
 		}
 		echo json_encode($json_reply);
 
@@ -44,19 +46,26 @@ class Login extends MY_Controller {
 
 	public function newuser()
 	{
-	$first_name= $this->input->post('first_name');
+		$first_name= $this->input->post('first_name');
 		$last_name= $this->input->post('last_name');
 		$age= $this->input->post('age');
 		$gender= $this->input->post('gender');
 		$email= $this->input->post('email');
 		$city= $this->input->post('city');
-		$city= $this->input->post('departament');
 		$study= $this->input->post('study');
 		$school_level= $this->input->post('school_level');
 		$encrypted_password= $this->input->post('encrypted_password');
 		$output=$this->user->new_user($first_name,$last_name,$age,$gender,$email,$city,$study,$school_level,$encrypted_password);
-	
-		echo $output;
+		if($output){
+			$json_reply["error"]=false;
+
+		}else{
+			$json_reply["error"]=true;
+			$json_reply['message_error']="Email ya registrado";
+
+		}
+		echo json_encode($json_reply);
+		
 	}
 
 	

@@ -14,6 +14,7 @@
 	<script src="cdv-plugin-fb-connect.js"></script>
 	<script src="facebook-js-sdk.js"></script>
 
+	<script type="text/javascript" src="script/sha256.js"></script>
 	<script type="text/javascript" src="script/script.js"></script>
 	<link rel="stylesheet" type="text/css" href="styles/styles.css">
 
@@ -21,7 +22,7 @@
 <body> 
 
 
-	<div id="search_container"></div>
+<div id="search_container"></div>
 
 	<div id="fb-root"></div>
 
@@ -30,12 +31,10 @@
 		<div class="aspect_ratio">
 			<div  id="before_register_container">
 				<div onclick="login()"class="login_facebook"></div>
-				<form id="form_login">
+				<form id="form_login" >
 					<input id="input_email" type="text" name="email" placeholder="email" ><br>
-					<input id="input_pass" type="password" name="pass" placeholder="password" >
-					<div id="submit_form_login">
-						<input type="submit" class="enviar_login" value="Enviar">
-					</div>
+					<input id="input_pass" type="password" name="encrypted_password" placeholder="password" >
+					<input type="submit" class="enviar_login" value="Ingresar">
 				</form>
 
 				<div onclick="register()" class="register"></div>
@@ -50,49 +49,53 @@
 		<div class="aspect_ratio">
 			<div  id="register_container">
 				<form id="form_register">
-					<div id="camp_container2">
-						<div>
-							<input class="input_txt_complete name required" type="text"  name="name" value="" placeholder="Nombre"/>
-						</div>
 
-						<input class="input_txt_complete" type="email"  name="email" value="" placeholder="Correo"/>
-						<div class="identf1">Departamento</div>
-						<select name="departamento" id="departamento" >
-							<option value="">Departamento</option>
-							<option value="1">Antioquia</option>
-							<option value="2">Atlántico</option>
-							<option value="3">Bolívar</option>
-							<option value="4">Boyacá</option>
-							<option value="5">Caldas</option>
-							<option value="6">Cauca</option>
-							<option value="7">Cesar</option>
-							<option value="8">Córdoba</option>
-							<option value="9">Cundinamarca</option>
-							<option value="10">Guajira</option>
-							<option value="11">Huila</option>
-							<option value="12">Magdalena</option>
-							<option value="13">Meta</option>
-							<option value="14">Nariño</option>
-							<option value="15">Norte de Santander</option>
-							<option value="16">Quindío</option>
-							<option value="17">Risaralda</option>
-							<option value="18">Santander</option>
-							<option value="19">Sucre</option>
-							<option value="20">Tolima</option>
-							<option value="21">Valle del Cauca</option>
+					<input class="input_txt_complete name required" type="text"  name="name" value="" placeholder="Nombre"/>
+
+					<input class="input_txt_complete" type="email"  name="email" value="" placeholder="Correo"/>
+					<div class="identf1">Departamento</div>
+					<select name="departamento" id="departamento" >
+						<option value="">Departamento</option>
+						<option value="1">Antioquia</option>
+						<option value="2">Atlántico</option>
+						<option value="3">Bolívar</option>
+						<option value="4">Boyacá</option>
+						<option value="5">Caldas</option>
+						<option value="6">Cauca</option>
+						<option value="7">Cesar</option>
+						<option value="8">Córdoba</option>
+						<option value="9">Cundinamarca</option>
+						<option value="10">Guajira</option>
+						<option value="11">Huila</option>
+						<option value="12">Magdalena</option>
+						<option value="13">Meta</option>
+						<option value="14">Nariño</option>
+						<option value="15">Norte de Santander</option>
+						<option value="16">Quindío</option>
+						<option value="17">Risaralda</option>
+						<option value="18">Santander</option>
+						<option value="19">Sucre</option>
+						<option value="20">Tolima</option>
+						<option value="21">Valle del Cauca</option>
+					</select>
+					<input class="input_txt_complete required" type="text"  name="ciudad" value="" placeholder="ciudad"/>
+					<input class="input_txt_half required" type="text"  name="age" value="" placeholder="Edad"/>
+					<div class="input_bton_half2 required">
+						<select  name="gender">
+							<option  value="1">Hombre</option>
+							<option  value="2">Mujer</option>
+							<option  value="3">No se</option>
 						</select>
 						<input class="input_txt_complete required" type="text"  name="ciudad" value="" placeholder="ciudad"/>
 					</div>
-					<div id="camp_container">
-						<div class="half_width">
-							<input class="input_txt_half required" type="text"  name="age" value="" placeholder="Edad"/> </div>
-							<div class="half_width">
-								<select  name="gender">
-									<option  value="1">Hombre</option>
-									<option  value="2">Mujer</option>
-									<option  value="3">No se</option>
-								</select>
-							</div>
+					
+						<div class="identf1">Estudia?</div>
+						<div class="study">
+						<select id="study_1" name="study" onchange="level_function()">
+							<option value="1">Si</option>
+							<option  value="2">No</option>
+						</select>
+					</div>
 
 							<div class="half_width identf1">Estudia?</div>
 							<div class="half_width study">
@@ -163,7 +166,6 @@
 				</div>
 
 			</div>
-
 		</div>
 
 		<div data-role="page" id="play">
