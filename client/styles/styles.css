@@ -243,5 +243,10 @@ text-align: center;
 	top: 20%;
 	left: 10%;
 
-	
+
+}
+
+.join_checkbox{
+width: 37%;
+float: right;
 }
