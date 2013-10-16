@@ -7,7 +7,8 @@ var server="http://localhost/golombiao/server/index.php/";
 var user;
 
 var session = {
-  session_id:false
+  session_id:false,
+  email:"un email"
 };
 
 user= {
@@ -26,7 +27,7 @@ $(window).load(function() {
 		appId:431026877004103,
 		nativeInterface: CDV.FB,
 		cookie:true,
-		status:true, 
+		status:true,
 		xfbml:true
 	});
 
@@ -45,11 +46,11 @@ function login(){
         FB.api('/me', function(response) {
           if (response) {
            logued_in=true;
-           $("#name_user").html(response.name)
-           $("#age_user").html(response.birthday)
+           $("#name_user").html(response.name);
+           $("#age_user").html(response.birthday);
            photoUrl="https://graph.facebook.com/"+response.username+"/picture?width=150&height=150";
            $("#photo").attr("src",photoUrl);
-           $("#location_user").html(response.location.name)
+           $("#location_user").html(response.location.name);
            console.log(response);
            window.location.href = 'index.html#home';
          };
@@ -117,10 +118,13 @@ function register(){
 }
 
 
-//register
+//login
 
 
-$( document ).on( "pageshow", "#before_register", function() {
+$( document ).on( "pageshow", "#login", function() {
+
+
+
   $( "#form_login" ).validate({
     rules:{
       email:{
@@ -140,16 +144,15 @@ $( document ).on( "pageshow", "#before_register", function() {
      });
       post_values.encrypted_password=CryptoJS.SHA256(post_values.encrypted_password).toString(CryptoJS.enc.Base64);
       $.post(server+"login", post_values, function(response) {
-        var post_values= {};
-        response = jQuery.parseJSON(response);
-        console.log(response);
-        if (!(response.error)) {
-          session.session_id=response.session_id;
-          session.email=response.email;
-          $("#name_user").html(response.name);
-                //$("#age_user").html(post_values.birthday);
 
-                //$("#location_user").html(post_values.city);
+        response = jQuery.parseJSON(response);
+        if (!(response.error)) {
+          localStorage.setItem('session_id',response.session_id)
+          localStorage.setItem('email',response.email)
+          $("#name_user").html(response.first_name +' '+ response.last_name);
+          $("#age_user").html(response.age);
+
+          $("#location_user").html(response.city);
                 //city=post_values.city;
                 window.location.href = 'index.html#home';
               }else{
@@ -162,20 +165,32 @@ $( document ).on( "pageshow", "#before_register", function() {
 
   });
 });
+function level_function(select){
+  if($(select).val()==1){
+    $("#identf2").show();
+  }else{
+    $("#identf2").hide();
+  }
+  
+
+}
 
 $( document ).on( "pageshow", "#register", function() {
  $( "#form_register" ).validate({
   rules:{
-    name:{
+    first_name:{
+      required: true
+    },
+    last_name:{
       required: true
     },
     age: {
       required: true,
       number: true
     },
-    password: "required",
+    encrypted_password: "required",
     password_again: {
-      equalTo: "#password"
+      equalTo: "#encrypted_password"
     }
   },
   submitHandler: function( form ) {
@@ -192,8 +207,7 @@ $( document ).on( "pageshow", "#register", function() {
       console.log(response);
 
       if (!(response.error)) {
-        alert("Bienvenido");
-        $("#name_user").html(post_values.name);
+        $("#name_user").html(post_values.first_name+" "+post_values.last_name);
         $("#age_user").html(post_values.birthday);
 
         $("#location_user").html(post_values.city);
@@ -209,3 +223,42 @@ $( document ).on( "pageshow", "#register", function() {
 });
 });
 
+
+$( document ).on( "pageshow", "#create", function() {
+  $( "#form_create" ).validate({
+    rules:{
+      name_team:{
+        required:true,
+      },
+      departamento:{
+        required:true
+      },
+      city:{
+        required:true
+      }
+    },
+
+    submitHandler: function( form ) {
+      var post_values= {
+          session_id:localStorage.getItem('session_id'),
+          email:localStorage.getItem('email')
+        };
+      $(':input', "#form_create").each(function(index, input_element) {
+       post_values[input_element.name] = $(input_element).val();
+
+     });
+      $.post(server+"teams/new_team", post_values, function(response) {
+        
+        
+        response = jQuery.parseJSON(response);
+        if (!(response.error)) {
+          alert("grupo creado");
+          
+        }else{
+          alert(response.message_error);
+        }
+      });
+    }
+
+  });
+});

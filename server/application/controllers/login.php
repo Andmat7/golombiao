@@ -27,14 +27,15 @@ class Login extends MY_Controller {
 			if($user){
 				$json_reply["session_id"]=$this->user->generar_session_id($user['id']);
 				$json_reply["user_id"]=$user['id'];
-				$json_reply["name"]=$user['first_name']+$user['last_name'];
+				$json_reply["first_name"]=$user['first_name'];
+				$json_reply["last_name"]=$user['last_name'];
 				$json_reply["email"]=$user['email'];
+				$json_reply["age"]=$user['age'];
 				//$json_reply["subscription_expires"]=$user['subscription_expires'];
 				$json_reply['error']=false;
 			}else{
 				$json_reply['message_error']='usuario y contraseña inválidos';
 			}
-
 		}
 		echo json_encode($json_reply);
 
@@ -52,10 +53,11 @@ class Login extends MY_Controller {
 		$gender= $this->input->post('gender');
 		$email= $this->input->post('email');
 		$city= $this->input->post('city');
+		$departamento= $this->input->post('departamento');
 		$study= $this->input->post('study');
 		$school_level= $this->input->post('school_level');
 		$encrypted_password= $this->input->post('encrypted_password');
-		$output=$this->user->new_user($first_name,$last_name,$age,$gender,$email,$city,$study,$school_level,$encrypted_password);
+		$output=$this->user->new_user($first_name,$last_name,$age,$gender,$email,$city,$study,$school_level,$encrypted_password,$departamento);
 		if($output){
 			$json_reply["error"]=false;
 

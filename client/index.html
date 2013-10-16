@@ -27,7 +27,7 @@
 	<div id="fb-root"></div>
 
 
-	<div data-role="page" id="before_register">
+	<div data-role="page" id="login">
 		<div class="aspect_ratio">
 			<div  id="before_register_container">
 				<div onclick="login()"class="login_facebook"></div>
@@ -50,10 +50,11 @@
 			<div  id="register_container">
 				<form id="form_register">
 
-					<input class="input_txt_complete name required" type="text"  name="name" value="" placeholder="Nombre"/>
+					<input class="input_txt_complete name required" type="text"  name="first_name" value="" placeholder="Nombres"/>
+					<input class="input_txt_complete name required" type="text"  name="last_name" value="" placeholder="Apellidos"/>
 
 					<input class="input_txt_complete" type="email"  name="email" value="" placeholder="Correo"/>
-					<div class="identf1">Departamento</div>
+					<input class="input_txt_half required" type="text"  name="age" value="" placeholder="Edad"/>
 					<select name="departamento" id="departamento" >
 						<option value="">Departamento</option>
 						<option value="1">Antioquia</option>
@@ -78,48 +79,52 @@
 						<option value="20">Tolima</option>
 						<option value="21">Valle del Cauca</option>
 					</select>
-					<input class="input_txt_complete required" type="text"  name="ciudad" value="" placeholder="ciudad"/>
-					<div class="half_width"><input class="required" type="text"  name="age" value="" placeholder="Edad"/></div>
-					<div class="half_width">
+					<input class="input_txt_complete required" type="text"  name="city" value="" placeholder="ciudad"/>
+					
+					<div class="input_bton_half2 required">
 						<select  name="gender">
+							<option  value="" >Género</option>
 							<option  value="1">Hombre</option>
 							<option  value="2">Mujer</option>
 						</select>
-						</div>
-					<div class="required">
-							<div class="half_width identf1">Estudia?</div>
-							<div class="half_width study">
-								<select id="study_1" name="study" onchange="level_function()">
-									<option value="1">Si</option>
-									<option  value="2">No</option>
-								</select>
-							</div>
+						
+					</div>
+							
+					<div class="half_width study">
+						<select id="study_1" name="study" onchange="level_function(this)">
+							<option value="">Estudia</option>
+							<option value="1">Si</option>
+							<option  value="2">No</option>
+						</select>
+					</div>
 
 
-							<div id="identf2" data-role="fieldcontain">
-								<fieldset data-role="controlgroup">
-									<legend>Seleccione su grado de estudios:</legend>
-									<input type="radio" name="radio-choice-1" id="radio-choice-1" value="choice-1" checked="checked" />
-									<label for="radio-choice-1">Primaria</label>
+					<div id="identf2" data-role="fieldcontain" style="display:none">
+						<fieldset data-role="controlgroup">
+							<legend>Seleccione su grado de estudios:</legend>
+							<input type="radio" name="school_level" id="school_level" value="1" checked="checked" />
+							<label for="school_level">Primaria</label>
 
-									<input type="radio" name="radio-choice-1" id="radio-choice-2" value="choice-2"  />
-									<label for="radio-choice-2">Bachillerato</label>
+							<input type="radio" name="school_level" id="radio-choice-2" value="2"  />
+							<label for="radio-choice-2">Bachillerato</label>
 
-									<input type="radio" name="radio-choice-1" id="radio-choice-3" value="choice-3"  />
-									<label for="radio-choice-3">Universitario</label>
-								</fieldset>
-							</div>
+							<input type="radio" name="school_level" id="radio-choice-3" value="3"  />
+							<label for="radio-choice-3">Universitario</label>
+						</fieldset>
+					</div>
 
-
-						</div>
-						<div class="camp_container3">
-							<input type="password"  name="password" value="" placeholder="password"/>
+					<div class="camp_container3">
+							<input type="password"  name="encrypted_password" value="" placeholder="password" id="encrypted_password"/>
 
 							<input  type="password"  name="re_password" value="" placeholder="repita el password"/>
 							<div class="new_submit">
 								<input id="register_server" onclick="" type="submit" value="Registrar">
 							</div>
+					</div>
+
+
 						</div>
+						
 					</form>	
 
 				</div>
@@ -138,7 +143,7 @@
 			<div class="aspect_ratio">
 				<div  id="home_container">
 					<div id="photo_container">
-						<img id="photo" src="http://graph.facebook.com/Marja.viiro/picture?width=200&height=200" >
+						<img id="photo" src="http://graph.facebook.com/Golombiao/picture?width=200&height=200" >
 						<div >
 
 
@@ -146,8 +151,8 @@
 
 					</div>
 					<div id="information">	
-						<span id="name_user">Marja Viro</span>	
-						<span id="age_user">23 Años</span>
+						<span id="name_user">u </span>	
+						<span id="age_user">23 </span> años
 						<span id="location_user">Bogota-Colombia</span>
 
 					</div>
@@ -180,10 +185,11 @@
 					<div  id="create_container">
 
 						<form id="form_create">
-							<input class="input_txt_complete name_team" type="text"  name="name_team" value="" placeholder="Nombre del equipo"/>
+							<input class="input_txt_complete name_team" type="text"  name="name" value="" placeholder="Nombre del equipo"/>
 
 
-							<select name="ciudad" id="ciudad">
+							<select name="departamento" >
+								<option          >Departamento</option>
 								<option value="1">Antioquia</option>
 								<option value="2">Atlántico</option>
 								<option value="3">Bolívar</option>
@@ -206,10 +212,12 @@
 								<option value="20">Tolima</option>
 								<option value="21">Valle del Cauca</option>
 							</select>
+							<input class="input_txt_complete" type="text"  name="city" value="" placeholder="Ciudad"/>
 							<input class="input_txt_complete" type="text"  name="zone_team" value="" placeholder="Barrio"/>
-							<input class="input_txt_complete" type="text"  name="description_team" value="" placeholder="Description"/>
+							<textarea placeholder="Descripción" name="descripcion" id="" cols="30" rows="20"  ></textarea>
+							
 
-							<input id="register_server" onclick="data_server_team()" type="button"value="Registrar">
+							<input id="register_server"  type="submit" value="Crear">
 						</div>
 					</form>	
 				</div>

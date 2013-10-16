@@ -2,7 +2,7 @@
 
 class user extends CI_Model {
 
-	public function new_user($first_name,$last_name,$age,$gender,$email,$city,$study,$school_level,$encrypted_password)
+	public function new_user($first_name,$last_name,$age,$gender,$email,$city,$study,$school_level,$encrypted_password,$departamento)
 	{	
 
 		$this->db->where('email', $email);
@@ -14,7 +14,7 @@ class user extends CI_Model {
 		}
 		else
 		{
-		$data = array(
+			$data = array(
 					'first_name'=>$first_name,
 					'last_name'=>$last_name,
 					'age'=>$age,
@@ -23,10 +23,11 @@ class user extends CI_Model {
 					'city'=>$city,
 					'study'=>$study,
 					'school_level'=>$school_level,
-					'encrypted_password'=>$encrypted_password					
-					);
-				$this->db->insert('users',$data);
-		$output=true;
+					'encrypted_password'=>$encrypted_password,
+					'departamento'=>$departamento					
+			);
+			$this->db->insert('users',$data);
+			$output=true;
 		}
 
 
