@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Teams extends MY_Controller {
+class Cities extends MY_Controller {
 	function __construct()
 	{
 
@@ -19,7 +19,7 @@ class Teams extends MY_Controller {
 		$description= $this->input->post('descripcion');
 
 		
-		$output=$this->team->new_team($name,$departamento,$city,$zone_team,$description,$this->_USER['id');
+		$output=$this->team->new_team($name,$departamento,$city,$zone_team,$description,$this->_USER['id']);
 		$json_reply["error"]=false;
 		//$json_reply['message_error']="Email y password requeridos";
 		echo json_encode($json_reply);

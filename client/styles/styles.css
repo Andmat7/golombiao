@@ -67,6 +67,23 @@
 	border: 1px solid white;
 }
 
+#convocate_container{
+	background-image: url("../images/convocate.png");
+	background-size: 100%  100%;
+	background-repeat: no-repeat;
+	height: 100%;
+	width: 100%;
+	border: 1px solid white;
+}
+#results_container{
+	background-image: url("../images/results.png");
+	background-size: 100%  100%;
+	background-repeat: no-repeat;
+	height: 100%;
+	width: 100%;
+	border: 1px solid white;
+}
+
 
 
 .login_facebook{
@@ -125,7 +142,7 @@
 	width: 45%;
 
 	margin: 0 auto;
-text-align: center;
+	text-align: center;
 }
 
 
@@ -198,11 +215,62 @@ text-align: center;
 
 
 .toplay{
-	width: 46%;
-	height: 25%;
+	width: 43%;
+	height: 22%;
 	position: relative;
-	top: 35%;
+	top: 37%;
 	left: 3%;
+	border: 1px solid red;
+}
+
+.tojoin {
+	width: 51%;
+	height: 21%;
+	position: relative;
+	top: 8%;
+	left: 33%;
+	border: 1px solid red;
+}
+
+.tocreate {
+	width: 52%;
+	height: 19%;
+	position: relative;
+	top: 11%;
+	left: 33%;
+	border: 1px solid red;
+}
+
+.first_square {
+	width: 24%;
+	height: 5%;
+	position: relative;
+	top: 1.5%;
+	left: 4%;
+	border: 1px solid red;
+}
+
+.last_square {
+	width: 24%;
+	height: 5%;
+	position: relative;
+	top: -3.5%;
+	left: 72%;
+	border: 1px solid red;
+}
+
+
+.togalery{
+
+	width: 43%;
+	height: 22%;
+	position: relative;
+	top: 15%;
+	left: 53%;
+	border: 1px solid red;
+
+
+
 }
 
 .join{
@@ -244,6 +312,49 @@ text-align: center;
 }
 
 .join_checkbox{
-width: 37%;
-float: right;
+	width: 37%;
+	float: right;
+}
+
+
+.headers{
+	height: 10%;
+}
+.footers{
+	height: 10%;
+	background-image: url("../images/home_icon.png");
+	background-size: 16% 79%;
+	background-position-x: 50%;
+	background-position-y: 50%;
+	background-repeat: no-repeat;
+	width: 100%;
+	border: 1px solid white;
+	position:absolute;
+	bottom:0;
+
+}
+
+.header_div{
+
+	width: 33%;
+	height: 100%;
+	border: 1px solid white;
+	float: left;
+	text-align: center;
+
+}
+
+.age_position{
+
+	position: relative;
+	top: 10%;
+	float: left
+
+}
+
+.gender_position{
+
+	position: relative;
+	left: 25%;
+	
 }

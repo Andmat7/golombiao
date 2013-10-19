@@ -2,6 +2,7 @@
 
 class user extends CI_Model {
 
+
 	public function new_user($first_name,$last_name,$age,$gender,$email,$city,$study,$school_level,$encrypted_password,$departamento)
 	{	
 
@@ -321,6 +322,20 @@ class user extends CI_Model {
 				{
 					$output= array('success'=>'false','message_error'=>'Las contraseñas no coinciden');
 				}
+				return $output;
+
+
+
+	}
+
+	public function sel_city($id)
+	{
+				$this->db->where('idDepartamento', $id);
+				$q = $this->db->get('ciudades');
+				$cities=$q->result_array();
+				
+					$output= $cities;
+				
 				return $output;
 
 

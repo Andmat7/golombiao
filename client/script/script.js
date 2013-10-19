@@ -116,6 +116,25 @@ function register(){
 
 
 }
+function sel_city(departamento) {
+   
+     var post_values={
+          session_id:localStorage.getItem('session_id'),
+          email:localStorage.getItem('email')
+        };
+      post_values[departamento.name] = departamento.value;
+      $(".ciudad").html('<option value="0">Ciudad</option>');
+       $.post(server+"login/select_city", post_values , function(response) {
+
+      response = jQuery.parseJSON(response);
+      for (var i = 0; i <= response.length  ; i++) {
+        var j=i+1;
+        $(".ciudad").append("<option value="+j+">"+response[i]["nombre"]+"</option>");
+      }
+
+
+    });
+}
 
 
 //login
@@ -222,7 +241,8 @@ $( document ).on( "pageshow", "#register", function() {
 
 });
 });
-
+
+
 
 $( document ).on( "pageshow", "#create", function() {
   $( "#form_create" ).validate({

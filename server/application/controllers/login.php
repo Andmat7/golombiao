@@ -70,6 +70,14 @@ class Login extends MY_Controller {
 		
 	}
 
+	public function select_city()
+	{		
+
+		$id= $this->input->post('departamento');
+		$output=$this->user->sel_city($id);
+
+			echo json_encode($output);
+	}
 	
 
 	
