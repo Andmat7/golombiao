@@ -77,47 +77,6 @@ class user extends CI_Model {
 
 
 
-	public function find_partners($id)
-	{
-		$this->db->where('id_subject', $id);
-
-		$q = $this->db->get('student_subject');
-		$subjects=$q->result_array();
-		
-		if ($q -> num_rows() > 1 ) {
-			foreach ($subjects as $key => $value) {
-				$this->db->where('id',$subjects[$key]['id_student']);
-				$q= $this->db->get('users');
-				$users=$q->result_array();
-
-				$user[$key]=$users[0];
-				$user[$key]['partner-name']=$user[$key]['name'];
-				$user[$key]['partner-email']=$user[$key]['email'];
-				$user[$key]['partner-phone']=$user[$key]['phone'];	
-				
-				unset($user[$key]['id']);
-				unset($user[$key]['email']);
-				unset($user[$key]['name']);
-				unset($user[$key]['phone']);
-				unset($user[$key]['username']);
-				unset($user[$key]['encrypted_password']);
-				unset($user[$key]['session_id']);
-				unset($user[$key]['rol']);
-				unset($user[$key]['timesession']);
-
-			}
-
-		$output=$user;
-
-		}else {
-			$output=array ('success'=>'false','message_error'=>'No se encontraron usuarios asociados a esta asignatura','id_error'=>'1');
-
-		}
-		return $output;
-	}
-
-
-
 	public function generar_session_id($user_id)
 	{
 		$data = array(               
@@ -171,21 +130,6 @@ class user extends CI_Model {
 		return substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, $length);
 	}
 
-	public function create($user,$email,$pass)
-	{
-
-		$data = array(
-			'username'=>$user,
-			'encrypted_password'=>$pass,
-			'email'=>$email);
-
-		$pb1=$this->db->where('email', $email);
-		/*print_r($pb1);
-		exit;*/
-		$this->db->insert('users',$data);
-		$output= array('success' => 'true');
-		return $output;
-	}
 
 
 	public function subscribe($id_subject,$id_user)

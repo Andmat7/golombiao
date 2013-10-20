@@ -3,7 +3,7 @@ jQuery.validator.setDefaults({
   success: "valid"
 });
 
-var server="http://192.168.0.102/golombiao/server/index.php/";
+var server="http://localhost/golombiao/server/index.php/";
 var user;
 
 var session = {
@@ -48,7 +48,7 @@ function login(){
            logued_in=true;
            $("#name_user").html(response.name);
            $("#age_user").html(response.birthday);
-           photoUrl="https://graph.facebook.com/"+response.username+"/picture?width=300&height=400";
+           photoUrl="https://graph.facebook.com/"+response.username+"/picture?width=150&height=150";
            $("#photo").attr("src",photoUrl);
            $("#location_user").html(response.location.name);
            console.log(response);
@@ -129,7 +129,7 @@ function sel_city(departamento) {
       response = jQuery.parseJSON(response);
       for (var i = 0; i <= response.length  ; i++) {
         var j=i+1;
-        $(".ciudad").append("<option value="+j+">"+response[i]["nombre"]+"</option>");
+        $(".ciudad").append("<option value="+response[i]["idCiudad"]+">"+response[i]["nombre"]+"</option>");
       }
 
 
@@ -179,7 +179,7 @@ $( document ).on( "pageshow", "#home", function() {
 
 });
 
-
+//login
 $( document ).on( "pageshow", "#login", function() {
 
 
@@ -314,7 +314,129 @@ $( document ).on( "pageshow", "#create", function() {
         
         response = jQuery.parseJSON(response);
         if (!(response.error)) {
+          localStorage.setItem('team_id',response.team_id);
+          localStorage.setItem('name_team',response.name_team);
+          
           alert("grupo creado");
+          
+        }else{
+          alert(response.message_error);
+        }
+      });
+    }
+
+  });
+});
+$( document ).on( "pageshow", "#join", function() {
+
+ $("#join .ciudad").on( "change",
+  function  (e) {
+    var post_values= {
+          session_id:localStorage.getItem('session_id'),
+          email:localStorage.getItem('email'),
+          id_city:this.value
+
+        };
+    $.post(server+"teams/get_fromcity", post_values, function(response) {
+        $("#join .teams_city").html("");
+        
+        response = jQuery.parseJSON(response);
+        if (!(response.error)) {
+          if(response.length===0) {
+            alert("no hay equipos para esta ciudad o municipio");
+          }else{
+            for (var i = response.length - 1; i >= 0; i--) {
+              console.log(response[i]);
+              var team_div='<div data-role="collapsible">'+
+                '<div data-role="fieldcontain" class="join_checkbox" >'+
+                  '<fieldset data-role="controlgroup">'+
+                    '<input type="checkbox" name="join_to_team" id="checkbox" class="custom" value="'+response[i].id+'" team_name="'+response[i].name+'"/>'+
+                    '<label for="checkbox">unirse</label>'+
+                  '</fieldset>'+
+                '</div>'+
+                '<h3>'+response[i].name+'</h3>'+
+                '<p>'+
+                  '<ul>'+
+                    'Jugadores'+
+                    '<li>jugador 1</li>'+                    
+                  '</ul>'+
+                '</p>'+
+              '</div>';
+              $("#join .teams_city").append(team_div);
+
+            }
+            $('#join').find('div[data-role=collapsible]').collapsible();
+            $('#join').find("input[type='checkbox']").checkboxradio();
+            $('#join').find("input[type='checkbox']").bind( "change", function(event, ui) {
+              
+              
+            var team_name =$(this).attr('team_name');
+            var post_values= {
+              session_id:localStorage.getItem('session_id'),
+              email:localStorage.getItem('email'),
+              team_id:$(this).val(),
+
+
+            };
+            $.post(server+"teams/suscribe", post_values, function(response) {
+              if (!(response.error)) {
+                localStorage.setItem('team_id',response.team_id);
+                localStorage.setItem('name_team',response.name_team);
+
+                alert("Te has unido al grupo  "+team_name);
+                window.location.href = 'index.html#convocate';
+              }else{
+                alert(response.message_error);
+              }
+
+            });
+            });
+          
+
+          }
+
+          
+
+          
+        }else{
+          alert(response.message_error);
+        }
+      });
+  }
+  );
+
+  $( "#form_create" ).validate({
+    rules:{
+      name_team:{
+        required:true,
+      },
+      departamento:{
+        required:true
+      },
+      city:{
+        required:true
+      }
+    },
+
+    submitHandler: function( form ) {
+      var post_values= {
+          session_id:localStorage.getItem('session_id'),
+          email:localStorage.getItem('email')
+        };
+      $(':input', "#form_create").each(function(index, input_element) {
+       post_values[input_element.name] = $(input_element).val();
+
+     });
+      $.post(server+"teams/new_team", post_values, function(response) {
+        
+        
+        response = jQuery.parseJSON(response);
+        if (!(response.error)) {
+          localStorage.setItem('team_id',response.team_id);
+          localStorage.setItem('name_team',response.name_team);
+          
+          alert("grupo creado");
+          window.location.href = 'index.html#convocate';
           
         }else{
           alert(response.message_error);
