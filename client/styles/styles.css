@@ -163,30 +163,30 @@
 
 #photo_container{
 	float: left;
-	width: 39.7%;
-	height: 25%;
-	background-color: #3487C6;
+	width: 36%;
+	height: 30%;
+	background-color: #679F25;
 	position: relative;
-	top: 71px;
-	left: 34px;
+	top: 43px;
+	left: 49px;
 
 
 }
 #photo{
 	width: 90%;
-	height: 90%;
+	height: 92%;
 	margin: 5%;
 }
 
-#information{
-	text-align: center;
-	color: white;
-	float: left;
-	width: 43%;
-	height: 9%;
-	position: relative;
-	top: 219px;
-	left: 78px;
+#information {
+text-align: center;
+color: white;
+float: left;
+width: 43%;
+height: 9%;
+position: relative;
+top: 22%;
+left: 17%;
 }
 
 #name_user{

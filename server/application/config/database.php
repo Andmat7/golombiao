@@ -42,11 +42,11 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] =  'root';
-//$db['default']['username'] =  'granhos1_dbuser'; /*granhos1_dbuser*/
-$db['default']['password'] = ''; /*corredor10 */
-//$db['default']['database'] = 'granhos1_klassroom';
-$db['default']['database'] = 'golombiao_db';
+//$db['default']['username'] =  'b12_13667251';
+$db['default']['username'] =  'root'; /*granhos1_dbuser*/
+//$db['default']['password'] = '31381977'; /*corredor10 */
+$db['default']['database'] = '';
+$db['default']['database'] = 'golombiao_db';//'b12_13667251_golombiao_db';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

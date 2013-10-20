@@ -3,7 +3,7 @@ jQuery.validator.setDefaults({
   success: "valid"
 });
 
-var server="http://localhost/golombiao/server/index.php/";
+var server="http://192.168.0.102/golombiao/server/index.php/";
 var user;
 
 var session = {
@@ -21,7 +21,7 @@ user= {
 };
 
 $(window).load(function() {
-
+      
 
 	FB.init({
 		appId:431026877004103,
@@ -48,7 +48,7 @@ function login(){
            logued_in=true;
            $("#name_user").html(response.name);
            $("#age_user").html(response.birthday);
-           photoUrl="https://graph.facebook.com/"+response.username+"/picture?width=150&height=150";
+           photoUrl="https://graph.facebook.com/"+response.username+"/picture?width=300&height=400";
            $("#photo").attr("src",photoUrl);
            $("#location_user").html(response.location.name);
            console.log(response);
@@ -97,7 +97,7 @@ function register_facebook(){
      $( "input:text[name=email]" ).val(response.email);
      $( "input:text[name=city]" ).val(response.location.name);
      $( "input:text[name=birthday]" ).val(response.birthday);
-     photoUrl="https://graph.facebook.com/"+response.username+"/picture?width=150&height=150";
+     photoUrl="https://graph.facebook.com/"+response.username+"/picture?width=300&height=400";
      $("#photo").attr("src",photoUrl);
 
    }); 
@@ -137,7 +137,47 @@ function sel_city(departamento) {
 }
 
 
-//login
+
+
+function camera(){
+   console.log("camera");
+
+  navigator.camera.getPicture(onSuccess, onFail, { quality: 50, 
+    destinationType: Camera.DestinationType.FILE_URI,
+    targetWidth: 300,
+    targetHeight: 400,
+    correctOrientation: true
+    }); 
+
+  function onSuccess(imageURI) {
+      var image = document.getElementById('photo');
+      localStorage.setItem("photo_"+localStorage.getItem("id_user"),imageURI);
+      image.src = localStorage.getItem("photo_"+localStorage.getItem("id_user"));
+  }
+
+  function onFail(message) {
+      alert('Failed because: ' + message);
+  }
+
+
+}
+
+
+
+//for unique photo
+
+
+$( document ).on( "pageshow", "#home", function() {
+  var image = document.getElementById('photo');
+      if (localStorage.getItem("photo_"+localStorage.getItem("id_user"))) {
+        image.src = localStorage.getItem("photo_"+localStorage.getItem("id_user"));
+      }else{
+
+        image.src ="http://graph.facebook.com/DiannaNuvan/picture?width=300&height=400";
+      }
+
+
+});
 
 
 $( document ).on( "pageshow", "#login", function() {
@@ -168,6 +208,7 @@ $( document ).on( "pageshow", "#login", function() {
         if (!(response.error)) {
           localStorage.setItem('session_id',response.session_id)
           localStorage.setItem('email',response.email)
+          localStorage.setItem('id_user',response.user_id)
           $("#name_user").html(response.first_name +' '+ response.last_name);
           $("#age_user").html(response.age);
 
@@ -226,9 +267,10 @@ $( document ).on( "pageshow", "#register", function() {
       console.log(response);
 
       if (!(response.error)) {
+
+        localStorage.setItem('id_user',response.id_user)
         $("#name_user").html(post_values.first_name+" "+post_values.last_name);
         $("#age_user").html(post_values.birthday);
-
         $("#location_user").html(post_values.city);
         city=post_values.city;
         window.location.href = 'index.html#home';
