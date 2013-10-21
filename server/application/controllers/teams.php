@@ -15,7 +15,7 @@ class Teams extends MY_Controller {
 		$departamento= $this->input->post('departamento');
 		$zone_team= $this->input->post('zone_team');
 		$description= $this->input->post('descripcion');
-		$ciudad= $this->input->post('ciudad	');
+		$ciudad= $this->input->post('ciudad');
 		$output=$this->team->new_team($name,$departamento,$ciudad,$zone_team,$description,$this->_USER['id']);
 		
 		$json_reply["error"]=true;
@@ -49,12 +49,25 @@ class Teams extends MY_Controller {
 		$team_id= $this->input->post('team_id');
 		$result=$this->team->add_user($this->_USER['id'],$team_id);
 			if($result){
-				$json_reply["name_team"]=$name;	
+				
 				$json_reply["team_id"]=$team_id;
 				$json_reply["error"]=false;
 			}
 		echo json_encode($json_reply);
 	}
+
+
+	public function verify_team()
+	{
+		
+		$result=$this->team->verify_team($this->_USER['id']);
+
+
+		echo json_encode($result);
+	}
+
+
+
 
 
 

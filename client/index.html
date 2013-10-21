@@ -38,7 +38,6 @@
 				</form>
 
 				<div onclick="register()" class="register"></div>
-				<div onclick="register_facebook()" class="register_facebook"></div>
 			</div>
 		</div>
 	</div>
@@ -190,10 +189,116 @@
 			<div class="first_square" onclick="window.location.href = 'index.html#play';"></div>
 			<div class="last_square" onclick="window.location.href = 'index.html#results';"></div>
 
+
+			<div class="your_team">
+						<ul class="own_teams">
+							Tus Equipos
+							
+						</ul>
+					</div>
+			<div class="vs_team">
+				<div class="vs">V.S.</div>
+				<input class="id" type="hidden"  name="id_time" value=""/>
+					<form id="form_vs">
+						<div class="total_width">
+						<select name="departamento" class="departamento" onchange="sel_city(this)">
+							<option value="">Departamento</option>
+							<option value="1">Antioquia</option>
+							<option value="2">Atlántico</option>
+							<option value="3">Bolívar</option>
+							<option value="4">Boyacá</option>
+							<option value="5">Caldas</option>
+							<option value="6">Cauca</option>
+							<option value="7">Cesar</option>
+							<option value="8">Córdoba</option>
+							<option value="9">Cundinamarca</option>
+							<option value="10">Guajira</option>
+							<option value="11">Huila</option>
+							<option value="12">Magdalena</option>
+							<option value="13">Meta</option>
+							<option value="14">Nariño</option>
+							<option value="15">Norte de Santander</option>
+							<option value="16">Quindío</option>
+							<option value="17">Risaralda</option>
+							<option value="18">Santander</option>
+							<option value="19">Sucre</option>
+							<option value="20">Tolima</option>
+							<option value="21">Valle del Cauca</option>
+						</select>
+					</div>
+					<div class="total_width">
+						<select name="ciudad" class="ciudad" onchange="vs_team(this)" >
+							<option value="">Ciudad</option>
+						</select>
+					</div>
+				</form>
+
+
+			</div>
+			<div class="vs_team2">
+						<ul class="vs_teams3">
+							Equipos Contrarios
+							
+						</ul>
+						
+					</div>
+			<div class="send_request"><input type="submit" class="enviar_login" value="Seleccionar Equipos" onclick="zone(this)"></div>
+
+
+
 		</div>
 	</div>		
 
 </div>
+
+<div data-role="page" id="convocate2">
+	<div class="aspect_ratio">
+		<div id="convocate2_container">
+			<div class="two_teams">
+				<div class="my_team"></div><div class="Vs_convocate2">V.S.</div><div class="the_other_team"></div>
+							
+			</div>
+			<div class="half_width2">
+						<select name="principios" class="principios">
+							<option value="">Principios</option>
+							<option value="1">No Violencia</option>
+							<option value="2">Libertad de expresión</option>
+							<option value="3">No discriminación</option>
+							<option value="4">Cuidar el entorno</option>
+							<option value="5">Participación activa</option>
+							<option value="6">Cuidarse y cuidar al otro</option>
+							<option value="7">Igualdad</option>
+						</select>
+					</div>
+				<div id="match_site">
+					<div class="total_width"><input class="input_txt_complete" type="text"  name="name" value="" placeholder="Ubicacion"/></div>
+					<div class="half_width">
+					<label for="date">Fecha:</label>
+					<input type="date" name="date" id="date" value=""  />
+					</div>
+					<div class="half_width">
+					<label for="name">Hora:</label>
+   					 <input type="time" name="time" id="name" value=""  />
+					</div>
+				</div>
+			<div class="half_width">
+						<select name="game_type" class="game_type">
+							<option value="">Juego</option>
+							<option value="1">Basquetball</option>
+							<option value="2">Ultimate</option>
+							<option value="3">Micro</option>
+							<option value="4">Futbol</option>
+						</select>
+					</div>
+			<div class="send_request"><input type="submit" class="enviar_login" value="Enviar Solicitud" onclick="request_game(this)"></div>
+
+
+		</div>
+	</div>		
+
+</div>
+
+
 <div data-role="page" id="results">
 	<div class="aspect_ratio">
 		<div id="results_container">

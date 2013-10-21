@@ -75,6 +75,15 @@
 	width: 100%;
 	border: 1px solid white;
 }
+#convocate2_container{
+	background-image: url("../images/convocate.png");
+	background-size: 100%  100%;
+	background-repeat: no-repeat;
+	height: 100%;
+	width: 100%;
+}
+
+
 #results_container{
 	background-image: url("../images/results.png");
 	background-size: 100%  100%;
@@ -106,8 +115,9 @@
 	width: 30%;
 	height: 19%;
 	position: relative;
-	top: 48%;
-	left: 16%;
+	top: 43%;
+	left: 35%;
+	border: 1px solid red;
 }
 
 
@@ -145,7 +155,14 @@
 	text-align: center;
 }
 
+.total_width{
 
+	width: 80%;
+	margin-left: 10%;
+
+	margin: 0 auto;
+	text-align: center;
+}
 #form_register .ui-field-contain .ui-controlgroup-controls{
 
 	width: 50%;
@@ -179,14 +196,14 @@
 }
 
 #information {
-text-align: center;
-color: white;
-float: left;
-width: 43%;
-height: 9%;
-position: relative;
-top: 22%;
-left: 17%;
+	text-align: center;
+	color: white;
+	float: left;
+	width: 43%;
+	height: 9%;
+	position: relative;
+	top: 22%;
+	left: 17%;
 }
 
 #name_user{
@@ -357,4 +374,104 @@ left: 17%;
 	position: relative;
 	left: 25%;
 	
+}
+
+.your_team {
+	position: relative;
+	top: 4%;
+	left: 7%;
+	width: 80%;
+}
+.team{
+
+	margin-top: 7%;
+
+	background-color: #AFCF8B;
+}
+.name_team{
+
+}
+.other_team{
+	float: right;
+}
+.own_teams{
+	font-size: 1.7em;
+
+}
+
+#form_vs {
+	width: 80%;
+	position: relative;
+	left: 10%;
+	margin-top: 4%;
+}
+
+.green{
+
+	background-color: #AFCF8B;
+
+}
+
+.red{
+	background-color: #F19C79;
+
+}
+.vs {
+	font-size: 2em;
+	position: relative;
+	margin-top: 12%;
+	text-align: center;
+}
+
+.vs_team2 {
+	position: relative;
+	left: 7%;
+	width: 80%;
+}
+
+.vs_teams3{
+	font-size: 1.7em;
+
+}
+
+.send_request {
+	margin-top: 10%;
+	margin-left: 20%;
+	width: 60%;
+}
+.two_teams {
+	width: 80%;
+	height: 12%;
+	position: relative;
+	top: 15%;
+	left: 10%;
+	border: 1px solid red;
+}
+
+.my_team {
+	float: left;
+}
+.Vs_convocate2 {
+	float: left;
+	text-align: center;
+	clear: left;
+	margin-left: 43%;
+	font-size: 2em;
+}
+.the_other_team {
+	float: right;
+	clear: right;
+}
+
+.my_team .name_team,.the_other_team .name_team{
+	font-size: 2em;
+
+
+}
+
+.half_width2 {
+width: 45%;
+margin: 0 auto;
+text-align: center;
+margin-top: 30%;
 }

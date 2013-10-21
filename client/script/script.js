@@ -3,7 +3,7 @@ jQuery.validator.setDefaults({
   success: "valid"
 });
 
-var server="http://localhost/golombiao/server/index.php/";
+var server="http://192.168.0.102/golombiao/server/index.php/";
 var user;
 
 var session = {
@@ -21,7 +21,7 @@ user= {
 };
 
 $(window).load(function() {
-      
+
 
 	FB.init({
 		appId:431026877004103,
@@ -48,7 +48,7 @@ function login(){
            logued_in=true;
            $("#name_user").html(response.name);
            $("#age_user").html(response.birthday);
-           photoUrl="https://graph.facebook.com/"+response.username+"/picture?width=150&height=150";
+           photoUrl="https://graph.facebook.com/"+response.username+"/picture?width=300&height=400";
            $("#photo").attr("src",photoUrl);
            $("#location_user").html(response.location.name);
            console.log(response);
@@ -116,48 +116,124 @@ function register(){
 
 
 }
-function sel_city(departamento) {
-   
-     var post_values={
-          session_id:localStorage.getItem('session_id'),
-          email:localStorage.getItem('email')
-        };
-      post_values[departamento.name] = departamento.value;
-      $(".ciudad").html('<option value="0">Ciudad</option>');
-       $.post(server+"login/select_city", post_values , function(response) {
 
-      response = jQuery.parseJSON(response);
+function select_own_team(team){
+
+  console.log("asdasd");
+  $(team).parent().find("li").addClass("green").removeClass("red");
+  $(team).addClass("red").removeClass("green");
+
+
+
+}
+
+
+function zone(teams){
+
+  console.log("asdasd");
+  $(teams).parent().parent().parent().find(".your_team .red").html();
+  $(teams).parent().parent().parent().find(".vs_team2 .red").html();
+  $("#convocate2 .my_team").html($(teams).parent().parent().parent().find(".your_team .red").html());
+  $("#convocate2 .the_other_team").html($(teams).parent().parent().parent().find(".vs_team2 .red").html());
+  window.location.href = 'index.html#convocate2';
+}
+
+function request_game(submit){
+
+  console.log("asdasd");
+  alert("se ha enviado una solicitud al lider del otro equipo");
+
+
+}
+
+
+
+
+
+
+
+
+function vs_team(vs_steam){
+
+  console.log("asdasd");
+  var post_values={
+    session_id:localStorage.getItem('session_id'),
+    email:localStorage.getItem('email'),
+    id_city:vs_steam.value
+  };
+  $.post(server+"teams/get_fromcity", post_values, function(response) {
+    response = jQuery.parseJSON(response);
+    if (!(response.error)) {
+      $(".vs_teams3").html('Equipos Contrarios');
       for (var i = 0; i <= response.length  ; i++) {
         var j=i+1;
-        $(".ciudad").append("<option value="+response[i]["idCiudad"]+">"+response[i]["nombre"]+"</option>");
+        $(".vs_teams3").append("<li class='team' onclick='select_own_team(this)'><div class='name_team'>"+response[i]['name']+"</div> <input class='id' type='hidden'  name='id_team' value='"+response[i]['id']+"'/><div class='other_team'>"+response[i]['description']+"</div></li>");
       }
 
 
-    });
+
+
+
+    }else{
+      alert("Debes ser el creador de un equipo para poder convocar a juego");
+      window.location.href = 'index.html#play';
+    }
+
+
+
+
+
+  });
+
+
+
+}
+
+
+
+
+function sel_city(departamento) {
+
+ var post_values={
+  session_id:localStorage.getItem('session_id'),
+  email:localStorage.getItem('email')
+};
+post_values[departamento.name] = departamento.value;
+$(".ciudad").html('<option value="0">Ciudad</option>');
+$.post(server+"login/select_city", post_values , function(response) {
+
+  response = jQuery.parseJSON(response);
+  for (var i = 0; i <= response.length  ; i++) {
+    var j=i+1;
+    $(".ciudad").append("<option value="+response[i]["idCiudad"]+">"+response[i]["nombre"]+"</option>");
+  }
+
+
+});
 }
 
 
 
 
 function camera(){
-   console.log("camera");
+ console.log("camera");
 
-  navigator.camera.getPicture(onSuccess, onFail, { quality: 50, 
-    destinationType: Camera.DestinationType.FILE_URI,
-    targetWidth: 300,
-    targetHeight: 400,
-    correctOrientation: true
-    }); 
+ navigator.camera.getPicture(onSuccess, onFail, { quality: 50, 
+  destinationType: Camera.DestinationType.FILE_URI,
+  targetWidth: 300,
+  targetHeight: 400,
+  correctOrientation: true
+}); 
 
-  function onSuccess(imageURI) {
-      var image = document.getElementById('photo');
-      localStorage.setItem("photo_"+localStorage.getItem("id_user"),imageURI);
-      image.src = localStorage.getItem("photo_"+localStorage.getItem("id_user"));
-  }
+ function onSuccess(imageURI) {
+  var image = document.getElementById('photo');
+  localStorage.setItem("photo_"+localStorage.getItem("id_user"),imageURI);
+  image.src = localStorage.getItem("photo_"+localStorage.getItem("id_user"));
+}
 
-  function onFail(message) {
-      alert('Failed because: ' + message);
-  }
+function onFail(message) {
+  alert('Failed because: ' + message);
+}
 
 
 }
@@ -169,15 +245,53 @@ function camera(){
 
 $( document ).on( "pageshow", "#home", function() {
   var image = document.getElementById('photo');
-      if (localStorage.getItem("photo_"+localStorage.getItem("id_user"))) {
-        image.src = localStorage.getItem("photo_"+localStorage.getItem("id_user"));
-      }else{
+  if (localStorage.getItem("photo_"+localStorage.getItem("id_user"))) {
+    image.src = localStorage.getItem("photo_"+localStorage.getItem("id_user"));
+  }else{
 
-        image.src ="http://graph.facebook.com/DiannaNuvan/picture?width=300&height=400";
-      }
+    image.src ="http://graph.facebook.com/DiannaNuvan/picture?width=300&height=400";
+  }
 
 
 });
+
+
+$( document ).on( "pageshow", "#convocate", function() {
+  var post_values= {
+    session_id:localStorage.getItem('session_id'),
+    email:localStorage.getItem('email')
+  };
+
+
+  $.post(server+"teams/verify_team", post_values, function(response) {
+
+
+    response = jQuery.parseJSON(response);
+    if (!(response.error)) {
+      $(".own_teams").html('Tus Equipos');
+      for (var i = 0; i <= response.length  ; i++) {
+        var j=i+1;
+        $(".own_teams").append("<li class='team' onclick='select_own_team(this)'><div class='name_team'>"+response[i]['name']+"</div> <input class='id' type='hidden'  name='id_team' value='"+response[i]['id']+"'/><div class='other_team'>"+response[i]['description']+"</div></li>");
+      }
+
+
+
+
+
+    }else{
+      alert("Debes ser el creador de un equipo para poder convocar a juego");
+      window.location.href = 'index.html#play';
+    }
+
+
+
+
+  });
+
+
+});
+
+
 
 //login
 $( document ).on( "pageshow", "#login", function() {
@@ -302,16 +416,16 @@ $( document ).on( "pageshow", "#create", function() {
 
     submitHandler: function( form ) {
       var post_values= {
-          session_id:localStorage.getItem('session_id'),
-          email:localStorage.getItem('email')
-        };
+        session_id:localStorage.getItem('session_id'),
+        email:localStorage.getItem('email')
+      };
       $(':input', "#form_create").each(function(index, input_element) {
        post_values[input_element.name] = $(input_element).val();
 
      });
       $.post(server+"teams/new_team", post_values, function(response) {
-        
-        
+
+
         response = jQuery.parseJSON(response);
         if (!(response.error)) {
           localStorage.setItem('team_id',response.team_id);
@@ -332,44 +446,44 @@ $( document ).on( "pageshow", "#join", function() {
  $("#join .ciudad").on( "change",
   function  (e) {
     var post_values= {
-          session_id:localStorage.getItem('session_id'),
-          email:localStorage.getItem('email'),
-          id_city:this.value
+      session_id:localStorage.getItem('session_id'),
+      email:localStorage.getItem('email'),
+      id_city:this.value
 
-        };
+    };
     $.post(server+"teams/get_fromcity", post_values, function(response) {
-        $("#join .teams_city").html("");
-        
-        response = jQuery.parseJSON(response);
-        if (!(response.error)) {
-          if(response.length===0) {
-            alert("no hay equipos para esta ciudad o municipio");
-          }else{
-            for (var i = response.length - 1; i >= 0; i--) {
-              console.log(response[i]);
-              var team_div='<div data-role="collapsible">'+
-                '<div data-role="fieldcontain" class="join_checkbox" >'+
-                  '<fieldset data-role="controlgroup">'+
-                    '<input type="checkbox" name="join_to_team" id="checkbox" class="custom" value="'+response[i].id+'" team_name="'+response[i].name+'"/>'+
-                    '<label for="checkbox">unirse</label>'+
-                  '</fieldset>'+
-                '</div>'+
-                '<h3>'+response[i].name+'</h3>'+
-                '<p>'+
-                  '<ul>'+
-                    'Jugadores'+
-                    '<li>jugador 1</li>'+                    
-                  '</ul>'+
-                '</p>'+
-              '</div>';
-              $("#join .teams_city").append(team_div);
+      $("#join .teams_city").html("");
 
-            }
-            $('#join').find('div[data-role=collapsible]').collapsible();
-            $('#join').find("input[type='checkbox']").checkboxradio();
-            $('#join').find("input[type='checkbox']").bind( "change", function(event, ui) {
-              
-              
+      response = jQuery.parseJSON(response);
+      if (!(response.error)) {
+        if(response.length===0) {
+          alert("no hay equipos para esta ciudad o municipio");
+        }else{
+          for (var i = response.length - 1; i >= 0; i--) {
+            console.log(response[i]);
+            var team_div='<div data-role="collapsible">'+
+            '<div data-role="fieldcontain" class="join_checkbox" >'+
+            '<fieldset data-role="controlgroup">'+
+            '<input type="checkbox" name="join_to_team" id="checkbox" class="custom" value="'+response[i].id+'" team_name="'+response[i].name+'"/>'+
+            '<label for="checkbox">unirse</label>'+
+            '</fieldset>'+
+            '</div>'+
+            '<h3>'+response[i].name+'</h3>'+
+            '<p>'+
+            '<ul>'+
+            'Jugadores'+
+            '<li>jugador 1</li>'+                    
+            '</ul>'+
+            '</p>'+
+            '</div>';
+            $("#join .teams_city").append(team_div);
+
+          }
+          $('#join').find('div[data-role=collapsible]').collapsible();
+          $('#join').find("input[type='checkbox']").checkboxradio();
+          $('#join').find("input[type='checkbox']").bind( "change", function(event, ui) {
+
+
             var team_name =$(this).attr('team_name');
             var post_values= {
               session_id:localStorage.getItem('session_id'),
@@ -384,65 +498,64 @@ $( document ).on( "pageshow", "#join", function() {
                 localStorage.setItem('name_team',response.name_team);
 
                 alert("Te has unido al grupo  "+team_name);
-                window.location.href = 'index.html#convocate';
               }else{
                 alert(response.message_error);
               }
 
             });
-            });
+          });
           
 
-          }
-
-          
-
-          
-        }else{
-          alert(response.message_error);
         }
-      });
-  }
-  );
 
-  $( "#form_create" ).validate({
-    rules:{
-      name_team:{
-        required:true,
-      },
-      departamento:{
-        required:true
-      },
-      city:{
-        required:true
+
+
+
+      }else{
+        alert(response.message_error);
       }
+    });
+}
+);
+
+$( "#form_create" ).validate({
+  rules:{
+    name_team:{
+      required:true,
     },
-
-    submitHandler: function( form ) {
-      var post_values= {
-          session_id:localStorage.getItem('session_id'),
-          email:localStorage.getItem('email')
-        };
-      $(':input', "#form_create").each(function(index, input_element) {
-       post_values[input_element.name] = $(input_element).val();
-
-     });
-      $.post(server+"teams/new_team", post_values, function(response) {
-        
-        
-        response = jQuery.parseJSON(response);
-        if (!(response.error)) {
-          localStorage.setItem('team_id',response.team_id);
-          localStorage.setItem('name_team',response.name_team);
-          
-          alert("grupo creado");
-          window.location.href = 'index.html#convocate';
-          
-        }else{
-          alert(response.message_error);
-        }
-      });
+    departamento:{
+      required:true
+    },
+    city:{
+      required:true
     }
+  },
 
-  });
+  submitHandler: function( form ) {
+    var post_values= {
+      session_id:localStorage.getItem('session_id'),
+      email:localStorage.getItem('email')
+    };
+    $(':input', "#form_create").each(function(index, input_element) {
+     post_values[input_element.name] = $(input_element).val();
+
+   });
+    $.post(server+"teams/new_team", post_values, function(response) {
+
+
+      response = jQuery.parseJSON(response);
+      if (!(response.error)) {
+        localStorage.setItem('team_id',response.team_id);
+        localStorage.setItem('name_team',response.name_team);
+
+        alert("grupo creado");
+        window.location.href = 'index.html#convocate';
+
+      }else{
+        alert(response.message_error);
+      }
+    });
+  }
+
+});
 });

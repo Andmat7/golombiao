@@ -40,6 +40,20 @@ class team extends CI_Model {
 		return $output;
 
 	}
+	public function verify_team($id)
+	{
+				$this->db->where('leader_id', $id);
+				$q = $this->db->get('teams');
+
+				if ($q -> num_rows() != 0) {
+					return($json_reply=$q->result_array());
+
+				}
+				else{
+
+					return($json_reply["error"]=true);
+				}
+	}
 
 	
 }
