@@ -5,7 +5,16 @@ class team extends CI_Model {
 
 
 
-
+	public function get_players($team_id)
+	{
+		$this->db->select('user.first_name, user.last_name');
+		$this->db->from('users_teams');
+		$this->db->join('users', 'users.id = users_teams.id_user');
+		$this->db->where('users_teams.id_team', $team_id);
+		$q = $this->db->get();
+		$users=$q->result_array();
+		return $users;
+	}
 	public function new_team($name,$departamento,$ciudad,$zone_team,$descripcion,$user_id){
 		$data = array(
 			'name'=>$name,

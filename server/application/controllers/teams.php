@@ -66,6 +66,14 @@ class Teams extends MY_Controller {
 		echo json_encode($result);
 	}
 
+	public function get_players()
+	{
+		$team_id= $this->input->post('team_id');
+		$result=$this->team->get_players($team_id);
+		echo json_encode($result);
+	}
+
+
 
 
 
