@@ -44,8 +44,8 @@ $active_record = TRUE;
 $db['default']['hostname'] = 'localhost';
 //$db['default']['username'] =  'b12_13667251';
 $db['default']['username'] =  'root'; /*granhos1_dbuser*/
-//$db['default']['password'] = '31381977'; /*corredor10 */
-$db['default']['database'] = '';
+$db['default']['password'] = 'root'; /*corredor10 */
+
 $db['default']['database'] = 'golombiao_db';//'b12_13667251_golombiao_db';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';

@@ -254,6 +254,8 @@
 <div data-role="page" id="convocate2">
 	<div class="aspect_ratio">
 		<div id="convocate2_container">
+			<div class="first_square" onclick="window.location.href = 'index.html#play';"></div>
+   			<div class="last_square" onclick="window.location.href = 'index.html#results';"></div>
 			<div class="two_teams">
 				<div class="my_team"></div><div class="Vs_convocate2">V.S.</div><div class="the_other_team"></div>
 							
@@ -301,9 +303,105 @@
 
 <div data-role="page" id="results">
 	<div class="aspect_ratio">
+
+
+
 		<div id="results_container">
+
 			<div class="first_square" onclick="window.location.href = 'index.html#play';"></div>
 			<div class="last_square" onclick="window.location.href = 'index.html#convocate';"></div>
+			<div class="principio">
+				<img src="images/acuerdos/libertad.gif" alt=""/>
+				<div>
+					<label>El principio elegido es:</label>  
+					<div><h2>Libertad de expresión</h2> </div>
+				</div>	
+			</div>
+			 
+
+		
+			<div data-role="fieldcontain">
+				<label for="select-choice-custom2" class="select"></label>
+				<select name="select-choice-1" id="select-choice-custom2" data-native-menu="false">
+					<option value="">Barras de los 2 equipos</option>
+					<option value="0">ningún sol</option>
+					<option value="1">1 sol</option>
+					<option value="2">2 soles</option>
+					<option value="3">3 soles</option>
+				</select>
+			</div>
+				<div data-role="controlgroup" data-type="horizontal" class="botones_equipos" >
+				<a href="#" data-role="button"onclick="$('#otherteam').hide();$('#myteam').show()">Mi equipo</a>
+				<a href="#" data-role="button" onclick="$('#myteam').hide();$('#otherteam').show()">El otro</a>
+				
+			</div>
+			<div  id="myteam" style="display:none;">
+				<div data-role="fieldcontain">
+					<label for="select-choice-custom1" class="select"></label>
+					<select name="select-choice-1" id="select-choice-custom1" data-native-menu="false">
+						<option value="">Cumplimiento acuerdos de convivencia </br> en relacion principio que los contiene</option>
+						<option value="0">ningún sol</option>
+						<option value="1">1 sol</option>
+						<option value="2">2 soles</option>
+						<option value="3">3 soles</option>
+					</select>
+				 </div>	
+			   <div data-role="fieldcontain">
+					<label for="select-choice-custom4" class="select"></label>
+					<select name="select-choice-1" id="select-choice-custom4" data-native-menu="false">
+						<option value="">No de fallas</option>
+						<option value="4">0 faltas, 4 soles</option>
+						<option value="2">1 falta ,2 soles</option>
+						<option value="0">3 a 4 faltas ,menos de 2 soles</option>
+						<option value="1">0 faltas ,menos de 3 soles</option>
+					</select>
+				</div>
+				<div data-role="fieldcontain">
+					<label for="select-choice-custom5" class="select"></label>
+					<select name="select-choice-1" id="select-choice-custom5" data-native-menu="false">
+						<option value="">No de méritos</option>
+						<option value="4">Ningún jugador con mérito, menos 1 sol</option>
+						<option value="2">1 a 3 jugadores con mérito ,1 sol</option>
+						<option value="0">3 a 5 jugadores con mérito , 2 soles</option>
+						<option value="1">más de  5 jugadores con mérito, 3 soles</option>
+					</select>
+				</div>				
+			</div>
+			<div  id="otherteam" style="display:none;" 	>
+				<div data-role="fieldcontain">
+					<label for="select-choice-custom_8" class="select"></label>
+					<select name="select-choice-1" id="select-choice-custom_8" data-native-menu="false">
+						<option value="">Cumplimiento acuerdos de convivencia </br> en relacion principio que los contiene</option>
+						<option value="0">ningún sol</option>
+
+						<option value="1">1 sol</option>
+						<option value="2">2 soles</option>
+						<option value="3">3 soles</option>
+					</select>
+				</div>
+				<div data-role="fieldcontain">
+					<label for="select-choice-custom6" class="select"></label>
+					<select name="select-choice-1" id="select-choice-custom6" data-native-menu="false">
+						<option value="">No de fallas</option>
+						<option value="4">0 faltas, 4 soles</option>
+						<option value="2">1 falta ,2 soles</option>
+						<option value="0">3 a 4 faltas ,menos de 2 soles</option>
+						<option value="1">0 faltas ,menos de 3 soles</option>
+					</select>
+				</div>
+				<div data-role="fieldcontain">
+					<label for="select-choice-custom7" class="select"></label>
+					<select name="select-choice-1" id="select-choice-custom7" data-native-menu="false">
+						<option value="">No de méritos</option>
+						<option value="4">Ningún jugador con mérito, menos 1 sol</option>
+						<option value="2">1 a 3 jugadores con mérito ,1 sol</option>
+						<option value="0">3 a 5 jugadores con mérito , 2 soles</option>
+						<option value="1">más de  5 jugadores con mérito, 3 soles</option>
+					</select>
+				</div>
+			</div>
+			<div class="send_request"><input type="submit" class="enviar_login" value="Enviar Solicitud" onclick="alert('sus resultados se han enviado satisfactoriamente')"></div>
+
 
 		</div>
 	</div>		

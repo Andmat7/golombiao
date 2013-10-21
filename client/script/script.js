@@ -3,7 +3,7 @@ jQuery.validator.setDefaults({
   success: "valid"
 });
 
-var server="http://192.168.0.102/golombiao/server/index.php/";
+var server="http://localhost/golombiao/server/index.php/";
 var user;
 
 var session = {
@@ -461,7 +461,7 @@ $( document ).on( "pageshow", "#join", function() {
         }else{
           for (var i = response.length - 1; i >= 0; i--) {
             console.log(response[i]);
-            var team_div='<div data-role="collapsible">'+
+            var team_div='<div data-role="collapsible team_'+response[i].id+'" team_id="'+response[i].id+'">'+
             '<div data-role="fieldcontain" class="join_checkbox" >'+
             '<fieldset data-role="controlgroup">'+
             '<input type="checkbox" name="join_to_team" id="checkbox" class="custom" value="'+response[i].id+'" team_name="'+response[i].name+'"/>'+
@@ -470,9 +470,9 @@ $( document ).on( "pageshow", "#join", function() {
             '</div>'+
             '<h3>'+response[i].name+'</h3>'+
             '<p>'+
-            '<ul>'+
+            '<ul class="jugadores_'+response[i].id+'">'+
             'Jugadores'+
-            '<li>jugador 1</li>'+                    
+            '<li></li>'+
             '</ul>'+
             '</p>'+
             '</div>';
@@ -480,7 +480,34 @@ $( document ).on( "pageshow", "#join", function() {
 
           }
           $('#join').find('div[data-role=collapsible]').collapsible();
+          
           $('#join').find("input[type='checkbox']").checkboxradio();
+          $('#join').find('div[data-role=collapsible]').bind('expand', function () {
+              
+              var post_values= {
+              session_id:localStorage.getItem('session_id'),
+              email:localStorage.getItem('email'),
+              team_id:$(this).attr('team_id'),
+
+
+            };
+            $.post(server+"teams/get_players", post_values, function(response) {
+              response = jQuery.parseJSON(response);
+              $("#join .jugadores_"+post_values.team_id).html();
+              if (!(response.error)) {
+                for (var i = response.length - 1; i >= 0; i--) {
+                  var jugador='<li>'+response[i].name+'</li>';
+                  $("#join .jugadores_"+post_values.team_id).append(team_div);
+                }
+
+
+                alert("Te has unido al grupo  "+team_name);
+              }else{
+                alert(response.message_error);
+              }
+
+            });
+          });
           $('#join').find("input[type='checkbox']").bind( "change", function(event, ui) {
 
 

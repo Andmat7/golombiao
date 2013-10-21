@@ -475,3 +475,23 @@ margin: 0 auto;
 text-align: center;
 margin-top: 30%;
 }
+.botones_equipos{
+	text-align: center;
+}
+
+.ui-field-contain label.ui-select {
+
+width: 10%;
+margin: 0 2% 0 0;
+}
+.principio{
+	margin: 6% auto;
+	width: 80%;
+}
+.principio img{
+	float:left;
+	width: 20%;
+}
+.principio p{
+	float:left;
+}
