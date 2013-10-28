@@ -544,7 +544,32 @@ function level_function(select){
   
 
 }
+function load_map (position) {
 
+  var myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+    map  = new google.maps.Map(document.getElementById('geoLocation2'), {
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        center: myLocation,
+        zoom: 18
+    });
+  
+}
+
+$( document ).on( "pageshow", "#mapa", function() {
+  $("#geoLocation2").height();
+  $("#geoLocation2").width();
+  //navigator.geolocation.getCurrentPosition(load_map, load_map);
+      var colombialatlng = new google.maps.LatLng( 4.127285,-73.696289);
+    
+    colombia  = new google.maps.Map(document.getElementById('geoLocation2'), {
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        center: colombialatlng,
+        zoom: 5
+    });
+
+
+});
 $( document ).on( "pageshow", "#register", function() {
  $( "#form_register" ).validate({
   rules:{
