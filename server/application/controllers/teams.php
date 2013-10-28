@@ -17,19 +17,22 @@ class Teams extends MY_Controller {
 		$description= $this->input->post('descripcion');
 		$ciudad= $this->input->post('ciudad');
 		$output=$this->team->new_team($name,$departamento,$ciudad,$zone_team,$description,$this->_USER['id']);
-		
-		$json_reply["error"]=true;
 		if($output){
-					
+
 			$team_id=$this->db->insert_id();
 			$result=$this->team->add_user($this->_USER['id'],$team_id);
 			if($result){
 				$json_reply["name_team"]=$name;	
 				$json_reply["team_id"]=$team_id;
 				$json_reply["error"]=false;
-		
-
 			}
+
+		}else{
+			$json_reply["message_error"]="Solo puede inscribir maximo 3 equipos";
+			$json_reply["error"]=true;
+
+
+
 		}
 		
 		
@@ -40,7 +43,7 @@ class Teams extends MY_Controller {
 	public function get_fromcity()
 	{
 		$id_city= $this->input->post('id_city');
-		$output=$this->team->select_from_city($id_city);
+		$output=$this->team->select_from_city($id_city,$this->_USER['id']);
 		echo json_encode($output);
 		
 	}
@@ -48,12 +51,11 @@ class Teams extends MY_Controller {
 	{
 		$team_id= $this->input->post('team_id');
 		$result=$this->team->add_user($this->_USER['id'],$team_id);
-			if($result){
-				
-				$json_reply["team_id"]=$team_id;
-				$json_reply["error"]=false;
-			}
-		echo json_encode($json_reply);
+		if(!$result["error"]){
+
+			$result["team_id"]=$team_id;
+		}
+		echo json_encode($result);
 	}
 
 
@@ -66,18 +68,64 @@ class Teams extends MY_Controller {
 		echo json_encode($result);
 	}
 
-	public function get_players()
-	{
-		$team_id= $this->input->post('team_id');
-		$result=$this->team->get_players($team_id);
+	
+	public function conv_team()
+	{		
+		$tipo_consulta= $this->input->post('tipo_consulta');
+		$result=$this->team->verify_convocatory($this->_USER['id'], $tipo_consulta);
 		echo json_encode($result);
 	}
 
 
+	public function guardar_convocatoria()	{		
+		$datos = array('equipo_1' => $this->input->post('equipo_1'),
+			'equipo_2' => $this->input->post('equipo_2'),
+			'fecha' => $this->input->post('fecha'),
+			'hora' => $this->input->post('hora'),
+			'lugar' => $this->input->post('lugar'),
+			'principio' => $this->input->post('principio'),
+			'tipo_juego' => $this->input->post('tipo_juego'),
+			);
+		$result=$this->team->guardar_convocatoria($datos);
+		echo json_encode($result);
+	}
 
 
+	public function guardar_resultados()	{		
+		$datos = array('id_user' => $this->_USER['id'],
+			'id_conv' => $this->input->post('id_conv'),
+			'id_equipo' => $this->input->post('id_equipo'),
+			'principio' => $this->input->post('principio'),
+			'barra' => $this->input->post('barra'),
+			'cump_acuerdos' => $this->input->post('cump_acuerdos'),
+			'faltas' => $this->input->post('faltas'),
+			'meritos' => $this->input->post('meritos')
+			);
 
+		$existen_resultados=$this->team->existen_resultados($datos['id_user'], $datos['id_conv']);
 
+		if(!$existen_resultados) {
+			$this->team->guardar_resultados($datos);
+			$result['error']=false;
+		} else {
+			$result['error']=true;
+		}
+		echo json_encode($result);
+	}
+
+	public function existen_resultados() {
+		$id_conv = $this->input->post('id_conv');
+		$id_user = $this->_USER['id'];
+		$existen_resultados = $this->team->existen_resultados($id_user, $id_conv);
+		$result['error'] = !$existen_resultados;
+		echo json_encode($result);
+	}
+
+	public function promedio_resultados() {
+		$id_conv = $this->input->post('id_conv');
+		$result = $this->team->promedio_resultados($id_conv);
+		echo json_encode($result);
+	}
 
 }
 

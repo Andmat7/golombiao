@@ -4,6 +4,7 @@ jQuery.validator.setDefaults({
 });
 
 var server="http://localhost/golombiao/server/index.php/";
+var values={0:"none",1:"No violencia",2:"Libertad de expresión",3:"No discriminación",4:"Cuidar el entorno",5:"Participación activa",6:"Cuidarse y cuidar el otro",7:"Igualdad"};
 var user;
 
 var session = {
@@ -29,11 +30,51 @@ $(window).load(function() {
 		cookie:true,
 		status:true,
 		xfbml:true
-	});
+		});
+});
 
+
+$( document ).on("click", ".convocate_teams", function() {
+  console.log("Resultados");
+  var post_values= {
+    session_id:localStorage.getItem('session_id'),
+    email:localStorage.getItem('email'),
+    id_conv:$(this).attr("id")
+  };
+  $("#conv_result").val($(this).attr("id"));
+ $("#results .principio img").attr("src","images/acuerdos/"+$(this).attr("principio")+".png");
+ $("#results .principio h2").html(values[$(this).attr("principio")]);
+ $("#results #myteam input[name='id_equipo']").val($(this).attr("id_equipo1"));
+ $("#results #otherteam input[name='id_equipo']").val($(this).attr("id_equipo2"));
+
+
+  $.post(server+"teams/existen_resultados", post_values, function(response) {
+
+
+    response = jQuery.parseJSON(response);
+    if (!(response.error)) {
+      $.post(server+"teams/promedio_resultados", post_values, function(response2) {
+
+        window.location.href = 'index.html#results2';
+      });
+
+
+      
+    }else{
+      alert("Aun no has evaluado, por favor hazlo para ver los resultados");
+      window.location.href = 'index.html#results';
+
+      
+    }
+  });
 
 });
 
+
+$( document ).on( "pageshow", "#results", function() {
+  
+
+});
 
 function login(){
 
@@ -53,9 +94,9 @@ function login(){
            $("#location_user").html(response.location.name);
            console.log(response);
            window.location.href = 'index.html#home';
-         };
+         }
 
-       });  
+       });
       },{scope: 'publish_actions,email,user_birthday,user_location'});
 			
 			
@@ -64,23 +105,62 @@ function login(){
         FB.api('/me', function(response) {
           if (response) {
            logued_in=true;
-           $("#name_user").html(response.name)
-           $("#age_user").html(response.birthday)
+           $("#name_user").html(response.name);
+           $("#age_user").html(response.birthday);
            photoUrl="https://graph.facebook.com/"+response.username+"/picture?width=150&height=150";
            $("#photo").attr("src",photoUrl);
-           $("#location_user").html(response.location.name)
+           $("#location_user").html(response.location.name);
            console.log(response);
            window.location.href = 'index.html#home';
-         };
+         }
 
-       });  
+       });
       },{scope: 'publish_actions,email,user_birthday,user_location'});
-		}	
-	}); 
+		}
+  });
 
 
 
 }
+
+
+function send_results(){
+
+
+
+  var post_values={
+    session_id:localStorage.getItem('session_id'),
+    email:localStorage.getItem('email'),
+    id_conv:$("#conv_result").val(),
+    barra:$("#results #select-choice-custom2").val()
+
+  };
+  $(':input', "#results #myteam").each(function(index, input_element) {
+   post_values[input_element.name] = $(input_element).val();
+
+ });
+  $.post(server+"teams/guardar_resultados", post_values, function(response) {
+
+    response = jQuery.parseJSON(response);
+
+
+    if (!(response.error)) {
+      alert("se ha enviado una solicitud al lider del otro equipo");
+      window.location.href = 'index.html#my_conv';
+    }else{
+      alert(response.message_error);
+    }
+
+  });
+
+
+
+
+
+}
+
+
+
 function register_facebook(){
 
 	FB.login(function(response) {
@@ -91,19 +171,19 @@ function register_facebook(){
       $( "input:text[name=name]" ).val(response.name);
       if (response.gender=="male"){
         $( "select[name=gender]" ).val(1);
-      }else{ 		
-       $( "select[name=gender]" ).val(2); 			
-     }
-     $( "input:text[name=email]" ).val(response.email);
-     $( "input:text[name=city]" ).val(response.location.name);
-     $( "input:text[name=birthday]" ).val(response.birthday);
-     photoUrl="https://graph.facebook.com/"+response.username+"/picture?width=300&height=400";
-     $("#photo").attr("src",photoUrl);
+      }else{
+        $( "select[name=gender]" ).val(2);
+      }
+      $( "input:text[name=email]" ).val(response.email);
+      $( "input:text[name=city]" ).val(response.location.name);
+      $( "input:text[name=birthday]" ).val(response.birthday);
+      photoUrl="https://graph.facebook.com/"+response.username+"/picture?width=300&height=400";
+      $("#photo").attr("src",photoUrl);
 
-   }); 
+    });
 
 
-  },{scope: 'publish_actions,email,user_birthday,user_location'}); 
+  },{scope: 'publish_actions,email,user_birthday,user_location'});
 
 	window.location.href = 'index.html#register';
 
@@ -116,6 +196,45 @@ function register(){
 
 
 }
+
+
+function data_server_team(){
+
+  $('#join').find("input:checked").each(function(e) {
+
+    var team_name =$(this).attr('team_name');
+    var post_values= {
+      session_id:localStorage.getItem('session_id'),
+      email:localStorage.getItem('email'),
+      team_id:$(this).val(),
+
+    };
+    $.post(server+"teams/suscribe", post_values, function(response) {
+      response = jQuery.parseJSON(response);
+      if (!(response.error)) {
+        localStorage.setItem('team_id',response.team_id);
+        localStorage.setItem('name_team',response.name_team);
+
+        alert("Te has unido al grupo  "+team_name);
+      }else{
+        if (response.error_code==2) {
+
+
+        alert(response.message_error+team_name);
+      }else
+      {
+          alert(response.message_error);
+
+
+      }
+      }
+
+    });
+  });
+
+
+}
+
 
 function select_own_team(team){
 
@@ -140,8 +259,31 @@ function zone(teams){
 
 function request_game(submit){
 
-  console.log("asdasd");
-  alert("se ha enviado una solicitud al lider del otro equipo");
+
+  var post_values={
+    session_id:localStorage.getItem('session_id'),
+    email:localStorage.getItem('email'),
+    equipo_1:$("#convocate2 .my_team input").val(),
+    equipo_2:$("#convocate2 .the_other_team input").val()
+
+  };
+  $(':input', "#convocate2").each(function(index, input_element) {
+   post_values[input_element.name] = $(input_element).val();
+
+ });
+  $.post(server+"teams/guardar_convocatoria", post_values, function(response) {
+
+    response = jQuery.parseJSON(response);
+
+
+    if (!(response.error)) {
+      alert("se ha enviado una solicitud al lider del otro equipo");
+      window.location.href = 'index.html#my_conv';
+    }else{
+      alert(response.message_error);
+    }
+
+  });
 
 
 }
@@ -171,12 +313,8 @@ function vs_team(vs_steam){
       }
 
 
-
-
-
     }else{
-      alert("Debes ser el creador de un equipo para poder convocar a juego");
-      window.location.href = 'index.html#play';
+      alert(response.message_error);
     }
 
 
@@ -218,12 +356,12 @@ $.post(server+"login/select_city", post_values , function(response) {
 function camera(){
  console.log("camera");
 
- navigator.camera.getPicture(onSuccess, onFail, { quality: 50, 
+ navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
   destinationType: Camera.DestinationType.FILE_URI,
   targetWidth: 300,
   targetHeight: 400,
   correctOrientation: true
-}); 
+});
 
  function onSuccess(imageURI) {
   var image = document.getElementById('photo');
@@ -249,7 +387,7 @@ $( document ).on( "pageshow", "#home", function() {
     image.src = localStorage.getItem("photo_"+localStorage.getItem("id_user"));
   }else{
 
-    image.src ="http://graph.facebook.com/DiannaNuvan/picture?width=300&height=400";
+    image.src ="http://graph.facebook.com/Golombiao/picture?width=300&height=400";
   }
 
 
@@ -273,23 +411,74 @@ $( document ).on( "pageshow", "#convocate", function() {
         var j=i+1;
         $(".own_teams").append("<li class='team' onclick='select_own_team(this)'><div class='name_team'>"+response[i]['name']+"</div> <input class='id' type='hidden'  name='id_team' value='"+response[i]['id']+"'/><div class='other_team'>"+response[i]['description']+"</div></li>");
       }
-
-
-
-
-
     }else{
       alert("Debes ser el creador de un equipo para poder convocar a juego");
       window.location.href = 'index.html#play';
     }
+  });
+
+});
+
+$( document ).on( "pageshow", "#my_conv", function() {
+  var post_values= {
+    session_id:localStorage.getItem('session_id'),
+    email:localStorage.getItem('email'),
+    tipo_consulta:0
+  };
 
 
+  $.post(server+"teams/conv_team", post_values, function(response) {
 
 
+    response = jQuery.parseJSON(response);
+    if (!(response.error)) {
+      $("#title_mi_reto").html('<div class="title_my_conv">Mis convocatorias</div>');
+      for (var i = 0; i <= response.length  ; i++) {
+        var j=i+1;
+        $("#title_mi_reto").append('<div class=" convocate_teams" id_equipo1="'+response[i]["equipo_1"]+'" id_equipo2="'+response[i]["equipo_2"]+'" principio="'+response[i]["principio"]+'" id="'+response[i]["id"]+'"><div class="reto_my_team">'+response[i]["equipo_1_name"]+'  V.s. '+response[i]["equipo_2_name"]+'  </div><div class="check">'+response[i]["acepta_convocatoria"]+'</div><div class="date_conv">'+response[i]["hora"]+' '+response[i]["fecha"]+'</div></div>');
+
+      }
+    }else{
+      alert("En este momento no has convocado ningun Juego");
+      window.location.href = 'index.html#play';
+    }
+  });
+
+  post_values= {
+    session_id:localStorage.getItem('session_id'),
+    email:localStorage.getItem('email'),
+    tipo_consulta:1
+  };
+
+  $.post(server+"teams/conv_team", post_values, function(response2) {
+
+
+    response2 = jQuery.parseJSON(response2);
+    if (!(response2.error)) {
+      $("#title_mi_reto2").html('<div class="title_my_conv">Me convocaron</div>');
+      for (var i = 0; i <= response2.length  ; i++) {
+        var j=i+1;
+        $("#title_mi_reto2").append('<div class=" convocate_teams"  id_equipo1="'+response2[i]["equipo_1"]+'"  id_equipo2="'+response2[i]["equipo_2"]+'" principio="'+response2[i]["principio"]+'" id="'+response2[i]["id"]+'"><div class="reto_my_team">'+response2[i]["equipo_2"]+'  V.s. '+response2[i]["equipo_1_name"]+'</div><div class="check">'+response2[i]["acepta_convocatoria"]+'</div><div class="date_conv">'+response2[i]["hora"]+' '+response2[i]["fecha"]+'</div></div>');
+
+      }
+    }else{
+      alert("En este momento ten han convocado a ningun Juego");
+    }
   });
 
 
+
+
+
+
 });
+
+
+
+
+
+
+
 
 
 
@@ -320,9 +509,9 @@ $( document ).on( "pageshow", "#login", function() {
 
         response = jQuery.parseJSON(response);
         if (!(response.error)) {
-          localStorage.setItem('session_id',response.session_id)
-          localStorage.setItem('email',response.email)
-          localStorage.setItem('id_user',response.user_id)
+          localStorage.setItem('session_id',response.session_id);
+          localStorage.setItem('email',response.email);
+          localStorage.setItem('id_user',response.user_id);
           $("#name_user").html(response.first_name +' '+ response.last_name);
           $("#age_user").html(response.age);
 
@@ -382,7 +571,7 @@ $( document ).on( "pageshow", "#register", function() {
 
       if (!(response.error)) {
 
-        localStorage.setItem('id_user',response.id_user)
+        localStorage.setItem('id_user',response.id_user);
         $("#name_user").html(post_values.first_name+" "+post_values.last_name);
         $("#age_user").html(post_values.birthday);
         $("#location_user").html(post_values.city);
@@ -483,8 +672,8 @@ $( document ).on( "pageshow", "#join", function() {
           
           $('#join').find("input[type='checkbox']").checkboxradio();
           $('#join').find('div[data-role=collapsible]').bind('expand', function () {
-              
-              var post_values= {
+
+            var post_values= {
               session_id:localStorage.getItem('session_id'),
               email:localStorage.getItem('email'),
               team_id:$(this).attr('team_id'),
@@ -508,29 +697,7 @@ $( document ).on( "pageshow", "#join", function() {
 
             });
           });
-          $('#join').find("input[type='checkbox']").bind( "change", function(event, ui) {
-
-
-            var team_name =$(this).attr('team_name');
-            var post_values= {
-              session_id:localStorage.getItem('session_id'),
-              email:localStorage.getItem('email'),
-              team_id:$(this).val(),
-
-
-            };
-            $.post(server+"teams/suscribe", post_values, function(response) {
-              if (!(response.error)) {
-                localStorage.setItem('team_id',response.team_id);
-                localStorage.setItem('name_team',response.name_team);
-
-                alert("Te has unido al grupo  "+team_name);
-              }else{
-                alert(response.message_error);
-              }
-
-            });
-          });
+          
           
 
         }

@@ -27,114 +27,167 @@
 	<div id="fb-root"></div>
 
 
-	<div data-role="page" id="login">
-		<div class="aspect_ratio">
-			<div  id="before_register_container">
-				<div onclick="login()"class="login_facebook"></div>
-				<form id="form_login" >
-					<input id="input_email" type="text" name="email" placeholder="email" ><br>
-					<input id="input_pass" type="password" name="encrypted_password" placeholder="password" >
-					<input type="submit" class="enviar_login" value="Ingresar">
-				</form>
 
-				<div onclick="register()" class="register"></div>
+  <div data-role="page" id="login">
+  	<div class="aspect_ratio">
+  		<div  id="before_register_container">
+  			<div onclick="login()"class="login_facebook"></div>
+  			<form id="form_login" >
+  				<input id="input_email" type="text" name="email" placeholder="email" ><br>
+  				<input id="input_pass" type="password" name="encrypted_password" placeholder="password" >
+  				<input type="submit" class="enviar_login" value="Ingresar">
+  			</form>
+
+  			<div onclick="register()" class="register"></div>
+  		</div>
+  	</div>
+  </div>
+
+<div data-role="page" id="galeria">
+		<div class="aspect_ratio">
+			<div id="galeria_container" style="overflow: scroll;">
+				<div class="division_imagen">
+					<img alt="" src="images/home.png" class="imagen" />
+					<div class="descripcion">Imagen de blab blab balb r rrr rrr
+						rrr afsadfa sdf asdfsadfasdf sadf</div>
+				</div>
+
+				<div class="division_imagen">
+					<img alt="" src="images/home.png" class="imagen" />
+					<div class="descripcion">Imagen de blab blab balbrrrr
+						rrrrrraf sadfasdf asdfsadfasdf sadf</div>
+				</div>
+
+				<div class="division_imagen">
+					<img alt="" src="images/home.png" class="imagen" />
+					<div class="descripcion">Imagen de blab blab
+						balbrrrrrrrrrrafsadfasdf asdfsadfasdf sadf</div>
+				</div>
+				<div data-role="footer">
+					<img src="images/home_icon.png">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div data-role="page" id="mapa">
+		<div class="aspect_ratio">
+			<div id="maps_container" class="maps_container">
+				<div class="division_mapa">
+					<div id="google_map" class="google_map"></div>
+					<div style="margin-top: 10%">
+						<div class="map_descripcion">
+							<img src="images/home.png" />
+							<h4>Se jugo</h4>
+						</div>
+						<div class="map_descripcion">
+							<img src="images/home.png" />
+							<h4>No se jugo</h4>
+						</div>
+					</div>
+
+				</div>
+				<div data-role="footer">
+					<img src="images/home_icon.png">
+				</div>
 			</div>
 		</div>
 	</div>
 
 
 
-	<div data-role="page" id="register">
-		<div class="aspect_ratio">
-			<div  id="register_container">
-				<form id="form_register">
 
-					<input class="input_txt_complete name required" type="text"  name="first_name" value="" placeholder="Nombres"/>
-					<input class="input_txt_complete name required" type="text"  name="last_name" value="" placeholder="Apellidos"/>
+  <div data-role="page" id="register">
+  	<div class="aspect_ratio">
+  		<div  id="register_container">
+  			<form id="form_register">
 
-					<input class="input_txt_complete" type="email"  name="email" value="" placeholder="Correo"/>
-					<div class="half_width age_position"><input class="required" type="text"  name="age" value="" placeholder="Edad"/></div>
+  				<input class="input_txt_complete name required" type="text"  name="first_name" value="" placeholder="Nombres"/>
+  				<input class="input_txt_complete name required" type="text"  name="last_name" value="" placeholder="Apellidos"/>
 
-					<div class="half_width gender_position required">
-						<select  name="gender">
-							<option  value="" >Género</option>
-							<option  value="1">Hombre</option>
-							<option  value="2">Mujer</option>
-						</select>
-						
-					</div>
-					<div class="total_width">
-						<select name="departamento" class="departamento" onchange="sel_city(this)">
-							<option value="">Departamento</option>
-							<option value="1">Antioquia</option>
-							<option value="2">Atlántico</option>
-							<option value="3">Bolívar</option>
-							<option value="4">Boyacá</option>
-							<option value="5">Caldas</option>
-							<option value="6">Cauca</option>
-							<option value="7">Cesar</option>
-							<option value="8">Córdoba</option>
-							<option value="9">Cundinamarca</option>
-							<option value="10">Guajira</option>
-							<option value="11">Huila</option>
-							<option value="12">Magdalena</option>
-							<option value="13">Meta</option>
-							<option value="14">Nariño</option>
-							<option value="15">Norte de Santander</option>
-							<option value="16">Quindío</option>
-							<option value="17">Risaralda</option>
-							<option value="18">Santander</option>
-							<option value="19">Sucre</option>
-							<option value="20">Tolima</option>
-							<option value="21">Valle del Cauca</option>
-						</select>
-					</div>
-					<div class="total_width">
-						<select name="ciudad" class="ciudad" >
-							<option value="">Ciudad</option>
-						</select>
-					</div>
-					
+  				<input class="input_txt_complete" type="email"  name="email" value="" placeholder="Correo"/>
+  				<div class="half_width age_position"><input class="required" type="text"  name="age" value="" placeholder="Edad"/></div>
 
-					<div class="half_width study">
-						<select id="study_1" name="study" onchange="level_function(this)">
-							<option value="">Estudia</option>
-							<option value="1">Si</option>
-							<option  value="2">No</option>
-						</select>
-					</div>
+  				<div class="half_width gender_position required">
+  					<select  name="gender">
+  						<option  value="" >Género</option>
+  						<option  value="1">Hombre</option>
+  						<option  value="2">Mujer</option>
+  					</select>
+
+  				</div>
+  				<div class="total_width">
+  					<select name="departamento" class="departamento" onchange="sel_city(this)">
+  						<option value="">Departamento</option>
+  						<option value="1">Antioquia</option>
+  						<option value="2">Atlántico</option>
+  						<option value="3">Bolívar</option>
+  						<option value="4">Boyacá</option>
+  						<option value="5">Caldas</option>
+  						<option value="6">Cauca</option>
+  						<option value="7">Cesar</option>
+  						<option value="8">Córdoba</option>
+  						<option value="9">Cundinamarca</option>
+  						<option value="10">Guajira</option>
+  						<option value="11">Huila</option>
+  						<option value="12">Magdalena</option>
+  						<option value="13">Meta</option>
+  						<option value="14">Nariño</option>
+  						<option value="15">Norte de Santander</option>
+  						<option value="16">Quindío</option>
+  						<option value="17">Risaralda</option>
+  						<option value="18">Santander</option>
+  						<option value="19">Sucre</option>
+  						<option value="20">Tolima</option>
+  						<option value="21">Valle del Cauca</option>
+  					</select>
+  				</div>
+  				<div class="total_width">
+  					<select name="ciudad" class="ciudad" >
+  						<option value="">Ciudad</option>
+  					</select>
+  				</div>
 
 
-					<div id="identf2" data-role="fieldcontain" style="display:none">
-						<fieldset data-role="controlgroup">
-							<legend>Seleccione su grado de estudios:</legend>
-							<input type="radio" name="school_level" id="school_level" value="1" checked="checked" />
-							<label for="school_level">Primaria</label>
-
-							<input type="radio" name="school_level" id="radio-choice-2" value="2"  />
-							<label for="radio-choice-2">Bachillerato</label>
-
-							<input type="radio" name="school_level" id="radio-choice-3" value="3"  />
-							<label for="radio-choice-3">Universitario</label>
-						</fieldset>
-					</div>
-
-					<div class="camp_container3">
-						<input type="password"  name="encrypted_password" value="" placeholder="password" id="encrypted_password"/>
-
-						<input  type="password"  name="re_password" value="" placeholder="repita el password"/>
-						<div class="new_submit">
-							<input id="register_server" onclick="" type="submit" value="Registrar">
-						</div>
-					</div>
+  				<div class="half_width study">
+  					<select id="study_1" name="study" onchange="level_function(this)">
+  						<option value="">Estudia</option>
+  						<option value="1">Si</option>
+  						<option  value="2">No</option>
+  					</select>
+  				</div>
 
 
-				</div>
+  				<div id="identf2" data-role="fieldcontain" style="display:none">
+  					<fieldset data-role="controlgroup">
+  						<legend>Seleccione su grado de estudios:</legend>
+  						<input type="radio" name="school_level" id="school_level" value="1" checked="checked" />
+  						<label for="school_level">Primaria</label>
 
-			</form>	
+  						<input type="radio" name="school_level" id="radio-choice-2" value="2"  />
+  						<label for="radio-choice-2">Bachillerato</label>
 
-		</div>
-	</div>
+  						<input type="radio" name="school_level" id="radio-choice-3" value="3"  />
+  						<label for="radio-choice-3">Universitario</label>
+  					</fieldset>
+  				</div>
+
+  				<div class="camp_container3">
+  					<input type="password"  name="encrypted_password" value="" placeholder="password" id="encrypted_password"/>
+
+  					<input  type="password"  name="re_password" value="" placeholder="repita el password"/>
+  					<div class="new_submit">
+  						<input id="register_server" onclick="" type="submit" value="Registrar">
+  					</div>
+  				</div>
+
+
+  			</div>
+
+  		</form>	
+
+  	</div>
+  </div>
 
 </div>
 
@@ -191,16 +244,16 @@
 
 
 			<div class="your_team">
-						<ul class="own_teams">
-							Tus Equipos
-							
-						</ul>
-					</div>
+				<ul class="own_teams">
+					Tus Equipos
+
+				</ul>
+			</div>
 			<div class="vs_team">
 				<div class="vs">V.S.</div>
 				<input class="id" type="hidden"  name="id_time" value=""/>
-					<form id="form_vs">
-						<div class="total_width">
+				<form id="form_vs">
+					<div class="total_width">
 						<select name="departamento" class="departamento" onchange="sel_city(this)">
 							<option value="">Departamento</option>
 							<option value="1">Antioquia</option>
@@ -236,12 +289,12 @@
 
 			</div>
 			<div class="vs_team2">
-						<ul class="vs_teams3">
-							Equipos Contrarios
-							
-						</ul>
-						
-					</div>
+				<ul class="vs_teams3">
+					Equipos Contrarios
+
+				</ul>
+
+			</div>
 			<div class="send_request"><input type="submit" class="enviar_login" value="Seleccionar Equipos" onclick="zone(this)"></div>
 
 
@@ -255,43 +308,43 @@
 	<div class="aspect_ratio">
 		<div id="convocate2_container">
 			<div class="first_square" onclick="window.location.href = 'index.html#play';"></div>
-   			<div class="last_square" onclick="window.location.href = 'index.html#results';"></div>
+			<div class="last_square" onclick="window.location.href = 'index.html#results';"></div>
 			<div class="two_teams">
 				<div class="my_team"></div><div class="Vs_convocate2">V.S.</div><div class="the_other_team"></div>
-							
+
 			</div>
 			<div class="half_width2">
-						<select name="principios" class="principios">
-							<option value="">Principios</option>
-							<option value="1">No Violencia</option>
-							<option value="2">Libertad de expresión</option>
-							<option value="3">No discriminación</option>
-							<option value="4">Cuidar el entorno</option>
-							<option value="5">Participación activa</option>
-							<option value="6">Cuidarse y cuidar al otro</option>
-							<option value="7">Igualdad</option>
-						</select>
-					</div>
-				<div id="match_site">
-					<div class="total_width"><input class="input_txt_complete" type="text"  name="name" value="" placeholder="Ubicacion"/></div>
-					<div class="half_width">
+				<select name="principio" class="principios">
+					<option value="">Principios</option>
+					<option value="1">No Violencia</option>
+					<option value="2">Libertad de expresión</option>
+					<option value="3">No discriminación</option>
+					<option value="4">Cuidar el entorno</option>
+					<option value="5">Participación activa</option>
+					<option value="6">Cuidarse y cuidar al otro</option>
+					<option value="7">Igualdad</option>
+				</select>
+			</div>
+			<div id="match_site">
+				<div class="total_width"><input class="input_txt_complete" type="text"  name="lugar" value="" placeholder="Ubicacion"/></div>
+				<div class="half_width">
 					<label for="date">Fecha:</label>
-					<input type="date" name="date" id="date" value=""  />
-					</div>
-					<div class="half_width">
-					<label for="name">Hora:</label>
-   					 <input type="time" name="time" id="name" value=""  />
-					</div>
+					<input type="date" name="fecha" id="date" value=""  />
 				</div>
+				<div class="half_width">
+					<label for="name">Hora:</label>
+					<input type="time" name="hora" id="name" value=""  />
+				</div>
+			</div>
 			<div class="half_width">
-						<select name="game_type" class="game_type">
-							<option value="">Juego</option>
-							<option value="1">Basquetball</option>
-							<option value="2">Ultimate</option>
-							<option value="3">Micro</option>
-							<option value="4">Futbol</option>
-						</select>
-					</div>
+				<select name="tipo_juego" class="game_type">
+					<option value="">Juego</option>
+					<option value="1">Basquetball</option>
+					<option value="2">Ultimate</option>
+					<option value="3">Micro</option>
+					<option value="4">Futbol</option>
+				</select>
+			</div>
 			<div class="send_request"><input type="submit" class="enviar_login" value="Enviar Solicitud" onclick="request_game(this)"></div>
 
 
@@ -310,19 +363,22 @@
 
 			<div class="first_square" onclick="window.location.href = 'index.html#play';"></div>
 			<div class="last_square" onclick="window.location.href = 'index.html#convocate';"></div>
+			<div style="display:none"><input id="conv_result" onclick="" type="hidden">
+			   						<input id="princ_result" onclick="" type="hidden">
+			 </div>
 			<div class="principio">
-				<img src="images/acuerdos/libertad.gif" alt=""/>
+				<img src="images/acuerdos/1.png" alt=""/>
 				<div>
 					<label>El principio elegido es:</label>  
 					<div><h2>Libertad de expresión</h2> </div>
 				</div>	
 			</div>
-			 
 
-		
+
+
 			<div data-role="fieldcontain">
 				<label for="select-choice-custom2" class="select"></label>
-				<select name="select-choice-1" id="select-choice-custom2" data-native-menu="false">
+				<select name="barra" id="select-choice-custom2" data-native-menu="false">
 					<option value="">Barras de los 2 equipos</option>
 					<option value="0">ningún sol</option>
 					<option value="1">1 sol</option>
@@ -330,77 +386,78 @@
 					<option value="3">3 soles</option>
 				</select>
 			</div>
-				<div data-role="controlgroup" data-type="horizontal" class="botones_equipos" >
+			<div data-role="controlgroup" data-type="horizontal" class="botones_equipos" >
 				<a href="#" data-role="button"onclick="$('#otherteam').hide();$('#myteam').show()">Mi equipo</a>
 				<a href="#" data-role="button" onclick="$('#myteam').hide();$('#otherteam').show()">El otro</a>
 				
 			</div>
 			<div  id="myteam" style="display:none;">
+				<input name="id_equipo" onclick="" type="hidden" value="dasd">
 				<div data-role="fieldcontain">
 					<label for="select-choice-custom1" class="select"></label>
-					<select name="select-choice-1" id="select-choice-custom1" data-native-menu="false">
+					<select name="cump_acuerdos" id="select-choice-custom1" data-native-menu="false">
 						<option value="">Cumplimiento acuerdos de convivencia </br> en relacion principio que los contiene</option>
 						<option value="0">ningún sol</option>
 						<option value="1">1 sol</option>
 						<option value="2">2 soles</option>
 						<option value="3">3 soles</option>
 					</select>
-				 </div>	
-			   <div data-role="fieldcontain">
+				</div>	
+				<div data-role="fieldcontain">
 					<label for="select-choice-custom4" class="select"></label>
-					<select name="select-choice-1" id="select-choice-custom4" data-native-menu="false">
-						<option value="">No de fallas</option>
-						<option value="4">0 faltas, 4 soles</option>
+					<select name="faltas" id="select-choice-custom4" data-native-menu="false">
+						<option value="">No de faltas</option>
+						<option value="3">0 faltas, 4 soles</option>
 						<option value="2">1 falta ,2 soles</option>
-						<option value="0">3 a 4 faltas ,menos de 2 soles</option>
-						<option value="1">0 faltas ,menos de 3 soles</option>
+						<option value="-2">3 a 4 faltas ,menos de 2 soles</option>
+						<option value="-3">0 faltas ,menos de 3 soles</option>
+					</select>
+				</div>
+				<div data-role="fieldcontain">
+					<label for="select-choice-custom5" class="select"></label>
+					<select name="meritos" id="select-choice-custom5" data-native-menu="false">
+						<option value="">No de méritos</option>
+						<option value="-1">Ningún jugador con mérito, menos 1 sol</option>
+						<option value="1">1 a 3 jugadores con mérito ,1 sol</option>
+						<option value="2">3 a 5 jugadores con mérito , 2 soles</option>
+						<option value="3">más de  5 jugadores con mérito, 3 soles</option>
+					</select>
+				</div>				
+			</div>
+			<div  id="otherteam" style="display:none;" 	>
+				<input name="id_equipo" onclick="" type="hidden">
+				<div data-role="fieldcontain">
+					<label for="select-choice-custom1" class="select"></label>
+					<select name="cump_acuerdos" id="select-choice-custom1" data-native-menu="false">
+						<option value="">Cumplimiento acuerdos de convivencia </br> en relacion principio que los contiene</option>
+						<option value="0">ningún sol</option>
+						<option value="1">1 sol</option>
+						<option value="2">2 soles</option>
+						<option value="3">3 soles</option>
+					</select>
+				</div>	
+				<div data-role="fieldcontain">
+					<label for="select-choice-custom4" class="select"></label>
+					<select name="faltas" id="select-choice-custom4" data-native-menu="false">
+						<option value="">No de faltas</option>
+						<option value="3">0 faltas, 4 soles</option>
+						<option value="2">1 falta ,2 soles</option>
+						<option value="-2">3 a 4 faltas ,menos de 2 soles</option>
+						<option value="-3">0 faltas ,menos de 3 soles</option>
 					</select>
 				</div>
 				<div data-role="fieldcontain">
 					<label for="select-choice-custom5" class="select"></label>
 					<select name="select-choice-1" id="select-choice-custom5" data-native-menu="false">
 						<option value="">No de méritos</option>
-						<option value="4">Ningún jugador con mérito, menos 1 sol</option>
-						<option value="2">1 a 3 jugadores con mérito ,1 sol</option>
-						<option value="0">3 a 5 jugadores con mérito , 2 soles</option>
-						<option value="1">más de  5 jugadores con mérito, 3 soles</option>
+						<option value="-1">Ningún jugador con mérito, menos 1 sol</option>
+						<option value="1">1 a 3 jugadores con mérito ,1 sol</option>
+						<option value="2">3 a 5 jugadores con mérito , 2 soles</option>
+						<option value="3">más de  5 jugadores con mérito, 3 soles</option>
 					</select>
-				</div>				
+				</div>	
 			</div>
-			<div  id="otherteam" style="display:none;" 	>
-				<div data-role="fieldcontain">
-					<label for="select-choice-custom_8" class="select"></label>
-					<select name="select-choice-1" id="select-choice-custom_8" data-native-menu="false">
-						<option value="">Cumplimiento acuerdos de convivencia </br> en relacion principio que los contiene</option>
-						<option value="0">ningún sol</option>
-
-						<option value="1">1 sol</option>
-						<option value="2">2 soles</option>
-						<option value="3">3 soles</option>
-					</select>
-				</div>
-				<div data-role="fieldcontain">
-					<label for="select-choice-custom6" class="select"></label>
-					<select name="select-choice-1" id="select-choice-custom6" data-native-menu="false">
-						<option value="">No de fallas</option>
-						<option value="4">0 faltas, 4 soles</option>
-						<option value="2">1 falta ,2 soles</option>
-						<option value="0">3 a 4 faltas ,menos de 2 soles</option>
-						<option value="1">0 faltas ,menos de 3 soles</option>
-					</select>
-				</div>
-				<div data-role="fieldcontain">
-					<label for="select-choice-custom7" class="select"></label>
-					<select name="select-choice-1" id="select-choice-custom7" data-native-menu="false">
-						<option value="">No de méritos</option>
-						<option value="4">Ningún jugador con mérito, menos 1 sol</option>
-						<option value="2">1 a 3 jugadores con mérito ,1 sol</option>
-						<option value="0">3 a 5 jugadores con mérito , 2 soles</option>
-						<option value="1">más de  5 jugadores con mérito, 3 soles</option>
-					</select>
-				</div>
-			</div>
-			<div class="send_request"><input type="submit" class="enviar_login" value="Enviar Solicitud" onclick="alert('sus resultados se han enviado satisfactoriamente')"></div>
+			<div class="send_request"><input type="submit" class="send_results" value="Enviar Calificacion" onclick="send_results()"></div>
 
 
 		</div>
@@ -425,36 +482,36 @@
 
 
 				<div class="total_width">
-						<select name="departamento" class="departamento" onchange="sel_city(this)">
-							<option value="">Departamento</option>
-							<option value="1">Antioquia</option>
-							<option value="2">Atlántico</option>
-							<option value="3">Bolívar</option>
-							<option value="4">Boyacá</option>
-							<option value="5">Caldas</option>
-							<option value="6">Cauca</option>
-							<option value="7">Cesar</option>
-							<option value="8">Córdoba</option>
-							<option value="9">Cundinamarca</option>
-							<option value="10">Guajira</option>
-							<option value="11">Huila</option>
-							<option value="12">Magdalena</option>
-							<option value="13">Meta</option>
-							<option value="14">Nariño</option>
-							<option value="15">Norte de Santander</option>
-							<option value="16">Quindío</option>
-							<option value="17">Risaralda</option>
-							<option value="18">Santander</option>
-							<option value="19">Sucre</option>
-							<option value="20">Tolima</option>
-							<option value="21">Valle del Cauca</option>
-						</select>
-					</div>
-					<div class="total_width">
-						<select name="ciudad" class="ciudad" >
-							<option value="">Ciudad</option>
-						</select>
-					</div>
+					<select name="departamento" class="departamento" onchange="sel_city(this)">
+						<option value="">Departamento</option>
+						<option value="1">Antioquia</option>
+						<option value="2">Atlántico</option>
+						<option value="3">Bolívar</option>
+						<option value="4">Boyacá</option>
+						<option value="5">Caldas</option>
+						<option value="6">Cauca</option>
+						<option value="7">Cesar</option>
+						<option value="8">Córdoba</option>
+						<option value="9">Cundinamarca</option>
+						<option value="10">Guajira</option>
+						<option value="11">Huila</option>
+						<option value="12">Magdalena</option>
+						<option value="13">Meta</option>
+						<option value="14">Nariño</option>
+						<option value="15">Norte de Santander</option>
+						<option value="16">Quindío</option>
+						<option value="17">Risaralda</option>
+						<option value="18">Santander</option>
+						<option value="19">Sucre</option>
+						<option value="20">Tolima</option>
+						<option value="21">Valle del Cauca</option>
+					</select>
+				</div>
+				<div class="total_width">
+					<select name="ciudad" class="ciudad" >
+						<option value="">Ciudad</option>
+					</select>
+				</div>
 				<input class="input_txt_complete" type="text"  name="zone_team" value="" placeholder="Barrio"/>
 				<textarea placeholder="Descripción" name="descripcion" id="" cols="30" rows="20"  ></textarea>
 
@@ -469,6 +526,59 @@
 </div>
 
 
+<div data-role="page" id="my_conv">
+	<div class="aspect_ratio">
+		<div  id="convocate_container">
+
+			<div id="mi_reto">
+				<div id="title_mi_reto" class="title_retos"></div>
+
+
+
+			</div>
+			<div id="me_retaron">
+				<div id="title_mi_reto2" class="title_retos"></div>
+
+			</div>
+
+
+
+			
+		</div>
+
+	</div>
+</div>
+
+
+<div data-role="page" id="results2">
+	<div class="aspect_ratio">
+		<div  id="results_container">
+
+			<div id="mi_reto">
+				<div id="title_mi_reto" class="title_retos"></div>
+
+
+
+			</div>
+			<div id="me_retaron">
+				<div id="title_mi_reto2" class="title_retos"></div>
+
+			</div>
+
+
+
+			
+		</div>
+
+	</div>
+</div>
+
+
+
+
+
+
+
 
 
 <div data-role="page" id="join">
@@ -480,36 +590,36 @@
 			<form id="form_join">
 
 				<div class="total_width">
-						<select name="departamento" class="departamento" onchange="sel_city(this)">
-							<option value="">Departamento</option>
-							<option value="1">Antioquia</option>
-							<option value="2">Atlántico</option>
-							<option value="3">Bolívar</option>
-							<option value="4">Boyacá</option>
-							<option value="5">Caldas</option>
-							<option value="6">Cauca</option>
-							<option value="7">Cesar</option>
-							<option value="8">Córdoba</option>
-							<option value="9">Cundinamarca</option>
-							<option value="10">Guajira</option>
-							<option value="11">Huila</option>
-							<option value="12">Magdalena</option>
-							<option value="13">Meta</option>
-							<option value="14">Nariño</option>
-							<option value="15">Norte de Santander</option>
-							<option value="16">Quindío</option>
-							<option value="17">Risaralda</option>
-							<option value="18">Santander</option>
-							<option value="19">Sucre</option>
-							<option value="20">Tolima</option>
-							<option value="21">Valle del Cauca</option>
-						</select>
-					</div>
-					<div class="total_width">
-						<select name="ciudad" class="ciudad" >
-							<option value="">Ciudad</option>
-						</select>
-					</div>
+					<select name="departamento" class="departamento" onchange="sel_city(this)">
+						<option value="">Departamento</option>
+						<option value="1">Antioquia</option>
+						<option value="2">Atlántico</option>
+						<option value="3">Bolívar</option>
+						<option value="4">Boyacá</option>
+						<option value="5">Caldas</option>
+						<option value="6">Cauca</option>
+						<option value="7">Cesar</option>
+						<option value="8">Córdoba</option>
+						<option value="9">Cundinamarca</option>
+						<option value="10">Guajira</option>
+						<option value="11">Huila</option>
+						<option value="12">Magdalena</option>
+						<option value="13">Meta</option>
+						<option value="14">Nariño</option>
+						<option value="15">Norte de Santander</option>
+						<option value="16">Quindío</option>
+						<option value="17">Risaralda</option>
+						<option value="18">Santander</option>
+						<option value="19">Sucre</option>
+						<option value="20">Tolima</option>
+						<option value="21">Valle del Cauca</option>
+					</select>
+				</div>
+				<div class="total_width">
+					<select name="ciudad" class="ciudad" >
+						<option value="">Ciudad</option>
+					</select>
+				</div>
 				<div data-role="collapsible-set" class="teams_city">
 
 

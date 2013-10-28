@@ -34,6 +34,14 @@
 	width: 100%;
 	border: 1px solid white;
 }
+#galeria_container {
+	/*background-image: url("../images/register.png");
+	background-size: 100%  100%;
+	background-repeat: no-repeat;*/
+	height: 100%;
+	width: 100%;
+	border: 1px solid red;
+}
 
 #home_container{
 	background-image: url("../images/home.png");
@@ -117,7 +125,7 @@
 	position: relative;
 	top: 43%;
 	left: 35%;
-	border: 1px solid red;
+	
 }
 
 
@@ -237,7 +245,7 @@
 	position: relative;
 	top: 37%;
 	left: 3%;
-	border: 1px solid red;
+	
 }
 
 .tojoin {
@@ -246,7 +254,7 @@
 	position: relative;
 	top: 8%;
 	left: 33%;
-	border: 1px solid red;
+	
 }
 
 .tocreate {
@@ -255,7 +263,7 @@
 	position: relative;
 	top: 11%;
 	left: 33%;
-	border: 1px solid red;
+	
 }
 
 .first_square {
@@ -264,7 +272,7 @@
 	position: relative;
 	top: 1.5%;
 	left: 4%;
-	border: 1px solid red;
+	
 }
 
 .last_square {
@@ -273,7 +281,7 @@
 	position: relative;
 	top: -3.5%;
 	left: 72%;
-	border: 1px solid red;
+	
 }
 
 
@@ -284,7 +292,7 @@
 	position: relative;
 	top: 15%;
 	left: 53%;
-	border: 1px solid red;
+	
 
 
 
@@ -445,7 +453,7 @@
 	position: relative;
 	top: 15%;
 	left: 10%;
-	border: 1px solid red;
+	
 }
 
 .my_team {
@@ -470,10 +478,10 @@
 }
 
 .half_width2 {
-width: 45%;
-margin: 0 auto;
-text-align: center;
-margin-top: 30%;
+	width: 45%;
+	margin: 0 auto;
+	text-align: center;
+	margin-top: 30%;
 }
 .botones_equipos{
 	text-align: center;
@@ -481,17 +489,138 @@ margin-top: 30%;
 
 .ui-field-contain label.ui-select {
 
-width: 10%;
-margin: 0 2% 0 0;
+	width: 10%;
+	margin: 0 2% 0 0;
 }
 .principio{
 	margin: 6% auto;
 	width: 80%;
 }
-.principio img{
-	float:left;
+.principio img {
+	float: left;
 	width: 20%;
+	margin-top: 7%;
 }
 .principio p{
 	float:left;
 }
+
+.principio h2{
+	margin-left: 27%;
+	margin-top: 11%;
+}
+
+
+
+#mi_reto{}
+#title_mi_reto{
+	margin-top: 24%;
+	text-align: center;
+}
+#title_mi_reto2 {
+	margin-top: 6%;
+	text-align: center;
+}
+#title_retos{
+
+}
+
+.reto_my_team {
+	background-color: greenyellow;
+	font-size: 2.5em;
+	text-align: center;
+	border: 1px solid black;
+	width: 90%;
+	float: left;
+	height: 65%;
+
+}
+.check{
+
+
+}
+.date_conv {
+	float: right;
+	font-size: 1.4em;
+}
+
+.title_my_conv {
+	margin-bottom: 6%;
+	font-size: 4em;
+}
+
+.convocate_teams {
+	margin-bottom: 4%;
+	height: 82px;
+}
+
+
+
+.division_imagen {
+	margin-top: 10%;
+}
+
+.imagen {
+	width: 80%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.descripcion {
+	width: 75%;
+	border: 2px ridge #AFCF8B;
+	background-color: #99CC33;
+	margin: 0 auto;
+	padding: 2%;
+	font-family: Arial;
+	text-align: justify;
+	color: black;
+	font-weight: bold;
+	text-decoration: none;
+}
+
+.google_map {
+	width: 80%;
+	height: 350px;
+	border: 2px solid black;
+	margin-top: 10%;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+}
+
+.map_descripcion {
+	width: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #BCF5A9;
+	padding: 2%;
+	vertical-align: middle;
+}
+
+.map_descripcion img {
+	width: 20%;
+	vertical-align: middle;
+}
+
+.map_descripcion h4 {
+	display: inline;
+}
+
+.ui-footer {
+	width: 100%;
+	text-align: center;
+	background: none;
+	background-color: #99CC33;
+	position: absolute;
+	bottom: 0px; 
+}
+
+.ui-footer img {
+	width: 10%;
+}
+
+
+
