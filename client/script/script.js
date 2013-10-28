@@ -3,7 +3,7 @@ jQuery.validator.setDefaults({
   success: "valid"
 });
 
-var server="http://localhost/golombiao/server/index.php/";
+var server="http://codfe.co/golombiao/server/index.php/";
 var values={0:"none",1:"No violencia",2:"Libertad de expresión",3:"No discriminación",4:"Cuidar el entorno",5:"Participación activa",6:"Cuidarse y cuidar el otro",7:"Igualdad"};
 var user;
 
