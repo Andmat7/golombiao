@@ -227,5 +227,24 @@ class team extends CI_Model {
 
 		return $result_list;
 	}
+
+	public function maps_convocatoria() {
+		$this->db->where_not_in('id',null);
+		$q = $this->db->get('convocatoria');
+		$result_list = $q->result_array();
+
+		foreach ($result_list as $key => $value) {
+			$today=strtotime("now -5 hours ");
+			$convocate_date=strtotime($result_list[$key]['hora'])+strtotime($result_list[$key]['fecha'])-2*$today;
+
+			if ($convocate_date<0) {
+				$result_list[$key]['played']=0;
+
+			}else{
+				$result_list[$key]['played']=1;
+			}
+		}
+		return $result_list;
+	}
 	
 }

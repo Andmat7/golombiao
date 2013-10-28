@@ -82,7 +82,8 @@ class Teams extends MY_Controller {
 			'equipo_2' => $this->input->post('equipo_2'),
 			'fecha' => $this->input->post('fecha'),
 			'hora' => $this->input->post('hora'),
-			'lugar' => $this->input->post('lugar'),
+			'latitud' => $this->input->post('latitud'),
+			'longitud' => $this->input->post('longitud'),
 			'principio' => $this->input->post('principio'),
 			'tipo_juego' => $this->input->post('tipo_juego'),
 			);
@@ -126,6 +127,11 @@ class Teams extends MY_Controller {
 		$result = $this->team->promedio_resultados($id_conv);
 		echo json_encode($result);
 	}
+	public function maps_convocatoria() {
+		$result = $this->team->maps_convocatoria();
+		echo json_encode($result);
+	}
+
 
 }
 

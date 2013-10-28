@@ -24,6 +24,8 @@ user= {
 $(window).load(function() {
 
 
+
+
 	FB.init({
 		appId:431026877004103,
 		nativeInterface: CDV.FB,
@@ -31,6 +33,11 @@ $(window).load(function() {
 		status:true,
 		xfbml:true
 		});
+});
+
+$( document ).on("click", ".home_icon", function() {
+
+  window.location.href = 'index.html#home';
 });
 
 
@@ -753,3 +760,73 @@ $( "#form_create" ).validate({
 
 });
 });
+
+
+//maps
+
+
+
+    google.maps.event.addDomListener(window, 'load', setup);
+function onError(e){
+    console.log(e);
+
+}
+function setup() {
+    // wait for PhoneGap to load
+    document.addEventListener("deviceready", onDeviceReady, false);
+        
+    function onDeviceReady() {
+        // get device's geographical location and return it as a Position object (which is then passed to onSuccess)
+        navigator.geolocation.getCurrentPosition(onSuccess, onError);
+    }
+    function onError (e) {
+        console.log(e);
+    }
+}
+function onSuccess(position) {
+    var myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+    map  = new google.maps.Map(document.getElementById('geoLocation'), {
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    center: myLocation,
+    zoom: 15
+    });
+    var request = { location: myLocation, radius: currentRadiusValue, types: [currentPlaceType] };
+    infowindow  = new google.maps.InfoWindow();
+    google.maps.event.addListener(marker, 'click', function () {
+        infowindow.setContent(place.name);
+        infowindow.open(map, this);
+    });
+}
+
+
+
+    google.maps.event.addDomListener(window, 'load', setup2);
+
+function setup2() {
+    // wait for PhoneGap to load
+    document.addEventListener("deviceready", onDeviceReady2, false);
+        
+    function onDeviceReady2() {
+        // get device's geographical location and return it as a Position object (which is then passed to onSuccess)
+        navigator.geolocation.getCurrentPosition(onSuccess2, onError2);
+    }
+    function onError2 (e) {
+        console.log(e);
+    }
+}
+function onSuccess2(position) {
+    var myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+    map  = new google.maps.Map(document.getElementById('geoLocation2'), {
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    center: myLocation,
+    zoom: 15
+    });
+    var request = { location: myLocation, radius: currentRadiusValue, types: [currentPlaceType] };
+    infowindow  = new google.maps.InfoWindow();
+    google.maps.event.addListener(marker, 'click', function () {
+        infowindow.setContent(place.name);
+        infowindow.open(map, this);
+    });
+}

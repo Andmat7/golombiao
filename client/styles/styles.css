@@ -247,6 +247,15 @@
 	left: 3%;
 	
 }
+.tomaps{
+	width: 43%;
+	height: 22%;
+	position: relative;
+	top: 20%;
+	left: 3%;
+	
+}
+
 
 .tojoin {
 	width: 51%;
@@ -292,12 +301,16 @@
 	position: relative;
 	top: 15%;
 	left: 53%;
-	
-
-
-
 }
 
+.to_golombiao{
+
+	width: 43%;
+	height: 22%;
+	position: relative;
+	top: -2%;
+	left: 53%;
+}
 .join{
 
 	width: 58%;
@@ -601,7 +614,8 @@
 }
 
 .map_descripcion img {
-	width: 20%;
+	margin-left: 16%;
+	width: 5%;
 	vertical-align: middle;
 }
 
@@ -613,7 +627,7 @@
 	width: 100%;
 	text-align: center;
 	background: none;
-	background-color: #99CC33;
+	background-color: #679f25;
 	position: absolute;
 	bottom: 0px; 
 }
@@ -623,4 +637,28 @@
 }
 
 
+.fecha {
+	float: left;
+	margin-left: 3%;
+}
 
+.hora {
+	position: relative;
+	top: -14%;
+	left: 0%;
+	overflow: hidden;
+}
+
+#geoLocation2{
+
+	width: 498px;
+	height: 383px;
+	margin: 20px auto;
+	border: 1px solid blue;
+}
+.geolocation1{
+	width:438px;
+	height:199px;
+	margin:0 auto; 
+	border:1px solid blue;
+}
