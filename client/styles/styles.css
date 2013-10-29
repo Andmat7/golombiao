@@ -12,11 +12,19 @@
 	src: url("../fonts/Arial_bold.ttf") format(‘truetype’);
 
 }
+@font-face {
+
+	font-family: aller_bold;
+
+	src: url("../fonts/Aller_BdIt.ttf") format(‘truetype’);
+
+}
+
 
 .aspect_ratio{
 
-	height: 951px;
-	width: 600px;
+	height: 100%;
+	width: 100%;
 	overflow: hidden;
 }
 #before_register_container{
@@ -66,6 +74,17 @@
 	width: 100%;
 	border: 1px solid white;
 }
+#pre_conv_container{
+	background-image: url("../images/pre_conv.png");
+	background-size: 100%  100%;
+	background-repeat: no-repeat;
+	height: 100%;
+	width: 100%;
+	border: 1px solid white;
+
+
+}
+
 #join_container{
 	background-image: url("../images/join.png");
 	background-size: 100%  100%;
@@ -186,32 +205,29 @@
 
 
 
-#photo_container{
-	float: left;
-	width: 36%;
-	height: 30%;
-	background-color: #679F25;
-	position: relative;
-	top: 43px;
-	left: 49px;
-
-
+#photo_container {
+background-color: #679F25;
+float: left;
+left: 9%;
+position: relative;
+top: 5%;
+width: 38%;
 }
+
 #photo{
 	width: 90%;
-	height: 92%;
 	margin: 5%;
 }
 
 #information {
-	text-align: center;
-	color: white;
-	float: left;
-	width: 43%;
-	height: 9%;
-	position: relative;
-	top: 22%;
-	left: 17%;
+color: white;
+float: left;
+height: 9%;
+left: 16%;
+position: relative;
+text-align: center;
+top: 23%;
+width: 43%;
 }
 
 #name_user{
@@ -239,23 +255,23 @@
 }
 
 
-.toplay{
-	width: 43%;
-	height: 22%;
-	position: relative;
-	top: 37%;
-	left: 3%;
-	
-}
-.tomaps{
-	width: 43%;
-	height: 22%;
-	position: relative;
-	top: 20%;
-	left: 3%;
-	
+.toplay {
+clear: left;
+float: left;
+left: 5%;
+position: relative;
+top: 9%;
+width: 42.5%;
 }
 
+
+.tomaps {
+width: 42.5%;
+position: relative;
+top: 12%;
+left: 5%;
+float: left;
+}
 
 .tojoin {
 	width: 51%;
@@ -294,22 +310,20 @@
 }
 
 
-.togalery{
-
-	width: 43%;
-	height: 22%;
-	position: relative;
-	top: 15%;
-	left: 53%;
+.togalery {
+width: 43%;
+float: left;
+position: relative;
+top: 12%;
+left: 10%;
 }
 
-.to_golombiao{
-
-	width: 43%;
-	height: 22%;
-	position: relative;
-	top: -2%;
-	left: 53%;
+.to_golombiao {
+float: left;
+left: 10%;
+position: relative;
+top: 9%;
+width: 43%;
 }
 .join{
 
@@ -527,7 +541,7 @@
 
 #mi_reto{}
 #title_mi_reto{
-	margin-top: 24%;
+	margin-top: 10%;
 	text-align: center;
 }
 #title_mi_reto2 {
@@ -559,7 +573,7 @@
 
 .title_my_conv {
 	margin-bottom: 6%;
-	font-size: 4em;
+	font-size: 3em;
 }
 
 .convocate_teams {
@@ -629,12 +643,48 @@
 	background: none;
 	background-color: #679f25;
 	position: absolute;
-	bottom: 0px; 
+	bottom: 0px;
+	background-image: linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+background-image: -o-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+background-image: -moz-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+background-image: -webkit-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+background-image: -ms-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%); 
+
 }
 
 .ui-footer img {
 	width: 10%;
 }
+.ui-navbar li .ui-btn{
+background: none;
+background-color: #679f25;
+border: 1px solid #D2D2D3;
+background-image: linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+background-image: -o-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+background-image: -moz-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+background-image: -webkit-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+background-image: -ms-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+
+}
+#play .navbar{
+	position: absolute;
+	top: 0px;
+	width: 100%;
+}
+ .navbar .ui-btn-text  {
+text-shadow: 1px 1px 0 #000;
+color: white;
+font-size: 1.9em !important;
+}
+
+.ui-btn-text{
+	font-family: aller_bold;
+	font-size: 1.2em;
+}
+.ui-navbar li .ui-btn .ui-btn-inner {
+padding-top: 1em;
+padding-bottom: 1em;
+}	
 
 
 .fecha {

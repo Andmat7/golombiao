@@ -23,7 +23,7 @@ user= {
 
 $(window).load(function() {
 
-
+  $(".aspect_ratio").height($(window).height());
 
 
 	FB.init({
@@ -152,13 +152,31 @@ function send_results(){
 
 
     if (!(response.error)) {
-      alert("se ha enviado una solicitud al lider del otro equipo");
-      window.location.href = 'index.html#my_conv';
+          $(':input', "#results #otherteam").each(function(index, input_element) {
+               post_values2[input_element.name] = $(input_element).val();
+
+             });
+          $.post(server+"teams/guardar_resultados", post_values2, function(response2) {
+
+              response2 = jQuery.parseJSON(response2);
+
+
+              if (!(response2.error)) {
+                alert("se ha enviado una solicitud al lider del otro equipo");
+                window.location.href = 'index.html#my_conv';
+              }else{
+                alert(response2.message_error);
+              }
+
+            });
     }else{
       alert(response.message_error);
     }
 
   });
+
+
+
 
 
 
@@ -231,6 +249,8 @@ function data_server_team(){
       }else
       {
           alert(response.message_error);
+            window.location.href = 'index.html#my_conv';
+
 
 
       }
@@ -653,9 +673,11 @@ $( document ).on( "pageshow", "#create", function() {
           localStorage.setItem('name_team',response.name_team);
           
           alert("grupo creado");
+          window.location.href = 'index.html#convocate';
           
         }else{
           alert(response.message_error);
+          window.location.href = 'index.html#play';
         }
       });
     }

@@ -215,10 +215,11 @@
 				<span id="location_user">Bogota-Colombia</span>
 
 			</div>
-			<div class="toplay" onclick="window.location.href = 'index.html#play';"></div>
-			<div class="togalery" onclick="window.location.href = 'gol_pag.htm';"></div>
-			<div class="tomaps" onclick="window.location.href = 'index.html#mapa';"></div>
-			<div class="to_golombiao" onclick="window.location.href = 'index.html#galeria';"></div>
+			<img class="toplay" src="images/play_button.png" onclick="window.location.href = 'index.html#play';">
+			<img class="to_golombiao" src="images/golombiao_button.png" onclick="window.location.href = 'gol_pag.htm';">
+			<img class="tomaps" src="images/place_button.png" onclick="window.location.href = 'index.html#mapa';">
+			<img class="togalery" src="images/galery_button.png" onclick="window.location.href = 'index.html#galeria';">
+			
 
 		</div>
 
@@ -228,8 +229,13 @@
 <div data-role="page" id="play">
 	<div class="aspect_ratio">
 		<div id="play_container">
-			<div class="first_square" onclick="window.location.href = 'index.html#convocate';"></div>
-			<div class="last_square" onclick="window.location.href = 'index.html#results';"></div>
+			<div data-role="navbar" class="navbar">
+					<ul>
+						<li><a href="index.html#play">JUGAR</a></li>
+						<li><a href="index.html#pre_conv">CONVOCAR</a></li>
+						<li><a href="index.html#results">RESULTADOS</a></li>
+					</ul>
+				</div><!-- /navbar -->
 			<div class="tojoin" onclick="window.location.href = 'index.html#join';"></div>
 			<div class="tocreate" onclick="window.location.href = 'index.html#create';"></div>
 
@@ -243,8 +249,13 @@
 <div data-role="page" id="convocate">
 	<div class="aspect_ratio">
 		<div id="convocate_container">
-			<div class="first_square" onclick="window.location.href = 'index.html#play';"></div>
-			<div class="last_square" onclick="window.location.href = 'index.html#results';"></div>
+			<div data-role="navbar" class="navbar">
+					<ul>
+						<li><a href="index.html#play">JUGAR</a></li>
+						<li><a href="index.html#pre_conv">CONVOCAR</a></li>
+						<li><a href="index.html#results">RESULTADOS</a></li>
+					</ul>
+				</div>
 
 
 			<div class="your_team">
@@ -313,8 +324,14 @@
 <div data-role="page" id="convocate2">
 	<div class="aspect_ratio">
 		<div id="convocate2_container">
-			<div class="first_square" onclick="window.location.href = 'index.html#play';"></div>
-			<div class="last_square" onclick="window.location.href = 'index.html#results';"></div>
+			<div data-role="navbar" class="navbar">
+					<ul>
+						<li><a href="index.html#play">JUGAR</a></li>
+						<li><a href="index.html#pre_conv">CONVOCAR</a></li>
+						<li><a href="index.html#results">RESULTADOS</a></li>
+					</ul>
+				</div>
+
 			<div class="two_teams">
 				<div class="my_team"></div><div class="Vs_convocate2">V.S.</div><div class="the_other_team"></div>
 
@@ -354,6 +371,8 @@
 				</select>
 			</div>
 			<div class="send_request"><input type="submit" class="enviar_login" value="Enviar Solicitud" onclick="request_game(this)"></div>
+			
+
 			<div data-role="footer">
 					<img class="home_icon" src="images/home_icon.png">
 				</div>
@@ -370,9 +389,13 @@
 
 
 		<div id="results_container">
-
-			<div class="first_square" onclick="window.location.href = 'index.html#play';"></div>
-			<div class="last_square" onclick="window.location.href = 'index.html#convocate';"></div>
+							<div data-role="navbar" class="navbar">
+					<ul>
+						<li><a href="index.html#play">JUGAR</a></li>
+						<li><a href="index.html#pre_conv">CONVOCAR</a></li>
+						<li><a href="index.html#results">RESULTADOS</a></li>
+					</ul>
+				</div><!-- /navbar -->
 			<div style="display:none"><input id="conv_result" onclick="" type="hidden">
 			   						<input id="princ_result" onclick="" type="hidden">
 			 </div>
@@ -487,8 +510,13 @@
 <div data-role="page" id="create">
 	<div class="aspect_ratio">
 		<div  id="create_container">
-			<div class="first_square" onclick="window.location.href = 'index.html#convocate';"></div>
-			<div class="last_square" onclick="window.location.href = 'index.html#results';"></div>
+			<div data-role="navbar" class="navbar">
+					<ul>
+						<li><a href="index.html#play">JUGAR</a></li>
+						<li><a href="index.html#pre_conv">CONVOCAR</a></li>
+						<li><a href="index.html#results">RESULTADOS</a></li>
+					</ul>
+				</div><!-- /navbar -->
 
 			<form id="form_create">
 				<input class="input_txt_complete name_team" type="text"  name="name" value="" placeholder="Nombre del equipo"/>
@@ -548,6 +576,14 @@
 <div data-role="page" id="my_conv">
 	<div class="aspect_ratio">
 		<div  id="convocate_container">
+			<div data-role="navbar" class="navbar">
+					<ul>
+						<li><a href="index.html#play">JUGAR</a></li>
+						<li><a href="index.html#pre_conv">CONVOCAR</a></li>
+						<li><a href="index.html#results">RESULTADOS</a></li>
+					</ul>
+				</div><!-- /navbar -->
+
 
 			<div id="mi_reto">
 				<div id="title_mi_reto" class="title_retos"></div>
@@ -559,7 +595,7 @@
 				<div id="title_mi_reto2" class="title_retos"></div>
 
 			</div>
-
+			</div>
 			<div data-role="footer">
 					<img class="home_icon" src="images/home_icon.png">
 				</div>
@@ -574,6 +610,13 @@
 <div data-role="page" id="results2">
 	<div class="aspect_ratio">
 		<div  id="results_container">
+			<div data-role="navbar" class="navbar">
+					<ul>
+						<li><a href="index.html#play">JUGAR</a></li>
+						<li><a href="index.html#pre_conv">CONVOCAR</a></li>
+						<li><a href="index.html#results">RESULTADOS</a></li>
+					</ul>
+				</div><!-- /navbar -->
 
 			<div id="mi_reto">
 				<div id="title_mi_reto" class="title_retos"></div>
@@ -596,6 +639,29 @@
 	</div>
 </div>
 
+<div data-role="page" id="pre_conv">
+	<div class="aspect_ratio">
+		<div  id="pre_conv_container">
+			<div data-role="navbar" class="navbar">
+					<ul>
+						<li><a href="index.html#play">JUGAR</a></li>
+						<li><a href="index.html#pre_conv">CONVOCAR</a></li>
+						<li><a href="index.html#results">RESULTADOS</a></li>
+					</ul>
+				</div><!-- /navbar -->
+
+			<div class="tojoin" onclick="window.location.href = 'index.html#my_conv';"></div>
+			<div class="tocreate" onclick="window.location.href = 'index.html#convocate';"></div>
+			<div data-role="footer">
+					<img class="home_icon" src="images/home_icon.png">
+				</div>
+		</div>
+
+	</div>
+</div>
+
+
+
 
 
 
@@ -607,8 +673,13 @@
 <div data-role="page" id="join">
 	<div class="aspect_ratio">
 		<div  id="join_container">
-			<div class="first_square" onclick="window.location.href = 'index.html#convocate';"></div>
-			<div class="last_square" onclick="window.location.href = 'index.html#results';"></div>
+			<div data-role="navbar" class="navbar">
+					<ul>
+						<li><a href="index.html#play">JUGAR</a></li>
+						<li><a href="index.html#pre_conv">CONVOCAR</a></li>
+						<li><a href="index.html#results">RESULTADOS</a></li>
+					</ul>
+				</div><!-- /navbar -->
 
 			<form id="form_join">
 
