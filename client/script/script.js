@@ -7,10 +7,6 @@ var server="http://codfe.co/golombiao/server/index.php/";
 var values={0:"none",1:"No violencia",2:"Libertad de expresión",3:"No discriminación",4:"Cuidar el entorno",5:"Participación activa",6:"Cuidarse y cuidar el otro",7:"Igualdad"};
 var user;
 
-var session = {
-  session_id:false,
-  email:"un email"
-};
 
 user= {
   email:"ccast2@hotmail.com",
@@ -24,6 +20,13 @@ user= {
 $(window).load(function() {
 
   $(".aspect_ratio").height($(window).height());
+  $("#home .container").height($(window).height()*0.9);
+  $(".backButton").click(function() {
+  window.history.back();
+});
+
+   
+  
 
 
 	FB.init({
@@ -215,12 +218,7 @@ function register_facebook(){
 
 
 }
-function register(){
 
-	window.location.href = 'index.html#register';
-
-
-}
 
 
 function data_server_team(){
@@ -577,16 +575,38 @@ function load_map (position) {
 }
 
 $( document ).on( "pageshow", "#mapa", function() {
-  $("#geoLocation2").height();
-  $("#geoLocation2").width();
-  //navigator.geolocation.getCurrentPosition(load_map, load_map);
-      var colombialatlng = new google.maps.LatLng( 4.127285,-73.696289);
-    
-    colombia  = new google.maps.Map(document.getElementById('geoLocation2'), {
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        center: colombialatlng,
-        zoom: 5
-    });
+  var post_values= {
+    session_id:localStorage.getItem('session_id'),
+    email:localStorage.getItem('email')
+  };
+  $.post(server+"teams/maps_convocatoria", post_values, function(response) {
+    response = jQuery.parseJSON(response);
+          var colombialatlng = new google.maps.LatLng( 4.127285,-73.696289);
+    colombia  = new google.maps.Map(document.getElementById('colombia'), {
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          center: colombialatlng,
+          zoom: 5
+        });
+    for (var i = response.length - 1; i >= 0; i--) {
+          if (response[i].longitud!==0) {
+            var latlng= new google.maps.LatLng(response[i].latitud, response[i].longitud);
+            console.log(response[i]);
+            icon='http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
+            if(response[i].longitud==1){
+                icon='http://maps.google.com/mapfiles/ms/icons/red-dot.png';
+            }
+            new google.maps.Marker({
+                 position: latlng,
+                  map: colombia,
+                  icon: icon
+            });
+            
+
+
+          }
+        }
+          
+      });
 
 
 });
@@ -604,7 +624,7 @@ $( document ).on( "pageshow", "#register", function() {
       number: true
     },
     encrypted_password: "required",
-    password_again: {
+    re_password: {
       equalTo: "#encrypted_password"
     }
   },
@@ -639,8 +659,73 @@ $( document ).on( "pageshow", "#register", function() {
 });
 });
 
+var marker;
+function placeMarker(location) {
+  
+  if ( marker ) {
+    marker.setPosition(location);
+  } else {
+    marker = new google.maps.Marker({
+      position: location,
+      map: geolocation
+    });
+  }
 
+    var pos=marker.getPosition();
+    console.log(pos);
+    geolocation.setCenter(pos);
+    $("#latitud").val(marker.getPosition().lat());
+    $("#longitud").val(marker.getPosition().lng());
+    alert("añadida ubicación en: lat"+pos.lat()+"long"+pos.lng);
+}
+function load_map_loc (position) {
+console.log("cargo");
 
+  var myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+    geolocation  = new google.maps.Map(document.getElementById('geolocation'), {
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        center: myLocation,
+        zoom: 18
+    });
+    google.maps.event.addListener(geolocation,'click',function  (event) {
+       
+
+        placeMarker(event.latLng);
+
+   
+
+    });
+
+  
+}
+function load_map (err) {
+  console.log("no cargo");
+ console.warn('ERROR(' + err.code + '): ' + err.message);
+  var myLocation = new google.maps.LatLng(4.127285,-73.696289);
+
+    geolocation  = new google.maps.Map(document.getElementById('geolocation'), {
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        center: myLocation,
+        zoom: 18
+    });
+    google.maps.event.addListener(geolocation,'click',function  (event) {
+       
+
+        placeMarker(event.latLng);
+
+   
+
+    });
+
+  
+}
+
+$( document ).on( "pageshow", "#convocate2", function() {
+  navigator.geolocation.getCurrentPosition(load_map_loc, load_map,{maximumAge:60000, timeout:10000, enableHighAccuracy:true});
+
+    //alert("convoca2");
+});
 $( document ).on( "pageshow", "#create", function() {
   $( "#form_create" ).validate({
     rules:{
@@ -840,10 +925,10 @@ function onSuccess(position) {
     });
     var request = { location: myLocation, radius: currentRadiusValue, types: [currentPlaceType] };
     infowindow  = new google.maps.InfoWindow();
-    google.maps.event.addListener(marker, 'click', function () {
+   /* google.maps.event.addListener(marker, 'click', function () {
         infowindow.setContent(place.name);
         infowindow.open(map, this);
-    });
+    });*/
 }
 
 
@@ -877,3 +962,67 @@ function onSuccess2(position) {
         infowindow.open(map, this);
     });
 }
+
+
+
+        function get_galery_photo() {
+
+            // Retrieve image file location from specified source
+            console.log("enter onDeviceReady");
+            navigator.camera.getPicture(uploadPhoto,
+                                        function(message) { alert('get picture failed'); },
+                                        { quality: 50,
+                                        destinationType: navigator.camera.DestinationType.FILE_URI,
+                                        sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY }
+                                        );
+
+            console.log("end onDeviceReady");
+
+
+        }
+
+        function uploadPhoto(imageURI) {
+          console.log("enter uploadPhoto");
+            var options = new FileUploadOptions();
+            options.fileKey="userfile";
+            options.mimeType="image/jpg";
+            console.log("defined image");
+
+            var params = new Object();
+            params.value1 = "test";
+            params.value2 = "param";
+            console.log("defined param");
+
+            options.params = params;
+
+            console.log("object ready");
+            var ft = new FileTransfer();
+
+            ft.upload(imageURI, encodeURI(server+"upload/do_upload"), win, fail, options);
+            console.log("image sended");
+        }
+
+        function win(r) {
+            console.log("Code = " + r.responseCode);
+            console.log("Response = " + r.response);
+            console.log("Sent = " + r.bytesSent);
+            response=r.response;
+            response = jQuery.parseJSON(response);
+            console.log(response);
+            alert(response.message_success);
+        }
+
+        function fail(error) {
+            alert("Ha ocurrido un error: Code = " + error.code);
+        }
+
+
+$(window).scroll(function () {
+    var height = $(window).height();
+    var scrollTop = $(window).scrollTop();
+
+    if (scrollTop == height)
+      { $(window).height($(window).height() +10);
+      alert("Hola");
+    }
+});

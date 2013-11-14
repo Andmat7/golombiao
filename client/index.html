@@ -10,6 +10,7 @@
 	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 	<script src="script/jquery.validate.js" type="text/javascript"></script>
 	<script type="text/javascript" src="script/messages_es.js"></script>
+	<link rel="stylesheet" href="themes/golombiao.css" />
 	<script src="phonegap.js"></script>
 	<script src="cdv-plugin-fb-connect.js"></script>
 	<script src="facebook-js-sdk.js"></script>
@@ -17,6 +18,7 @@
 	<script type="text/javascript" src="script/sha256.js"></script>
 	<script type="text/javascript" src="script/script.js"></script>
 	<link rel="stylesheet" type="text/css" href="styles/styles.css">
+	<link href="styles/device.css" type="text/css" media="screen" rel="stylesheet"/>
 
 </head> 
 <body> 
@@ -28,40 +30,236 @@
 
 
 
-  <div data-role="page" id="login">
-  	<div class="aspect_ratio">
-  		<div  id="before_register_container">
-  			<div onclick="login()"class="login_facebook"></div>
-  			<form id="form_login" >
-  				<input id="input_email" type="email" name="email" placeholder="email" ><br>
-  				<input id="input_pass" type="password" name="encrypted_password" placeholder="password" >
-  				<input type="submit" class="enviar_login" value="Ingresar">
-  			</form>
 
-  			<div onclick="register()" class="register"></div>
-  		</div>
-  	</div>
-  </div>
+	<div data-role="page" id="login">
+		<!-- <a href="#mypanel">Open panel</a>
+		<div data-role="panel" id="mypanel" data-position="rightx" data-display="push">
+    
+</div> -->
 
-<div data-role="page" id="galeria">
+		<div class="container" align="center">
+			<a href="index.html#popupBasic" data-rel="popup" class="help">ayuda?	</a>
+			<div data-role="popup" id="popupBasic">
+				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+				<p>Si no tienes una cuenta puedes loguearte haciendo click en el icono de facebook o crear una desde ceros en el boton registrarse<p>
+			</div>
+
+			<div class="header"><h1>Ingresa</h1>
+				<img onclick="login()" class="login_facebook" src="images/faceButton.png">
+			</div>
+			<form id="form_login" >
+				<input id="input_email" type="email" name="email" placeholder="email" ><br>
+				<input id="input_pass" type="password" name="encrypted_password" placeholder="password" >
+				<input type="submit" class="enviar_login" value="Ingresar">
+			</form>
+			<h1>No tienes cuenta?</h1>
+			<a href="index.html#register" data-transition="flip">
+			<img class="register" src="images/registerButton.png">
+			</a>
+
+		</div>
+
+	</div>
+
+	<div data-role="page" id="register">
+		<div class="container" align="center">
+			<img onclick="register()" class="register" src="images/registerButton.png">
+			<form id="form_register">
+				<label>Nombres:</label>
+				<input type="text"  name="first_name" value="" placeholder="Nombres"/>
+				<label>Apellidos:</label>
+				<input type="text"  name="last_name" value="" placeholder="Apellidos"/>
+				<label>Email:</label>
+				<input class="input_txt_complete" type="email"  name="email" value="" placeholder="Correo"/>
+				<div class="small_input_left">
+					<label>Edad:</label>
+					<input class="required" type="text"  name="age" value="" placeholder="Edad"/>
+				</div>
+				<div class="small_input_right">
+					<label>Genero:</label>
+					<select  name="gender">
+						<option  value="" ></option>
+						<option  value="1">Hombre</option>
+						<option  value="2">Mujer</option>
+					</select>
+
+
+
+				</div>
+				<label>Departamento:</label>
+				<select name="departamento" class="departamento" onchange="sel_city(this)">
+					<option value=""></option>
+					<option value="1">Antioquia</option>
+					<option value="2">Atlántico</option>
+					<option value="3">Bolívar</option>
+					<option value="4">Boyacá</option>
+					<option value="5">Caldas</option>
+					<option value="6">Cauca</option>
+					<option value="7">Cesar</option>
+					<option value="8">Córdoba</option>
+					<option value="9">Cundinamarca</option>
+					<option value="10">Guajira</option>
+					<option value="11">Huila</option>
+					<option value="12">Magdalena</option>
+					<option value="13">Meta</option>
+					<option value="14">Nariño</option>
+					<option value="15">Norte de Santander</option>
+					<option value="16">Quindío</option>
+					<option value="17">Risaralda</option>
+					<option value="18">Santander</option>
+					<option value="19">Sucre</option>
+					<option value="20">Tolima</option>
+					<option value="21">Valle del Cauca</option>
+				</select>
+				<div class="small_input_left">
+					<label>Ciudad:</label>
+					<select name="ciudad" class="ciudad" >
+						<option value=""></option>
+					</select>
+				</div>
+				<div class="small_input_right">
+					<label>Estudia:</label>
+					<select id="study_1" name="study" onchange="level_function(this)">
+						<option value=""></option>
+						<option value="1">Si</option>
+						<option  value="2">No</option>
+					</select>
+				</div>
+				<div id="identf2"  data-role="fieldcontain" style="display:none">
+					<fieldset data-role="controlgroup">
+
+						<input type="radio" name="school_level" id="school_level" value="1" checked="checked" />
+						<label for="school_level">Primaria</label>
+
+						<input type="radio" name="school_level" id="radio-choice-2" value="2"  />
+						<label for="radio-choice-2">Bachillerato</label>
+
+						<input type="radio" name="school_level" id="radio-choice-3" value="3"  />
+						<label for="radio-choice-3">Universitario</label>
+					</fieldset>
+				</div>
+				<label>Password:</label>
+				<input type="password"  name="encrypted_password" value="" placeholder="password" id="encrypted_password"/>
+				<label>Repita el password:</label>
+				<input  type="password"  name="re_password" value="" placeholder="repita el password"/>
+
+				<input id="register_server" onclick="" type="submit" value="Registrar">
+
+			</form>
+
+
+
+		</div>
+
+		<div data-role="footer" align="center">
+			
+			<img class="backButton" src="images/backButton.png">
+
+		</div>
+
+	</div>
+
+	<div data-role="page" id="home">
+		
+			<div class="container">
+				<div id="photo_container">
+					<img id="photo" src="http://graph.facebook.com/Golombiao/picture?width=300&height=400" onclick="camera()">
+					<div >
+
+
+					</div>
+
+				</div>
+				<div id="information">	
+					<span id="name_user">u </span>	
+					<span id="age_user">23 años</span> 
+					<span id="location_user">Bogota-Colombia</span>
+
+				</div>
+				<div class="sections">
+				<a href="index.hrml#play" data-transition="flow">
+				<img class="toSection" src="images/play_button.png">
+				</a>
+				<a href="gol_pag.htm" data-transition="flow">
+				<img class="toSection rightSquare" src="images/golombiao_button.png" >
+				</a>
+				<a href="index.html#mapa" data-transition="flow">
+				<img class="toSection" src="images/place_button.png">
+				</a>
+				<a href="index.html#galeria" data-transition="flow">
+				<img class="toSection rightSquare" src="images/galery_button.png">
+				</a>
+				
+				</div>
+
+		</div>
+		
+			
+		<div data-role="footer"  align="center">
+		      <div> <!-- new bit -->
+		          <a href="index.html#closeSession" data-rel="popup">
+		          		<img class="configButton" src="images/configButton.png">
+		          		
+
+
+
+		           </a>
+		      </div> <!-- new bit -->
+		</div>
+		<div data-role="popup" id="closeSession">
+			<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+				<p>Deseas cerrar sesion?<p>
+					<a href="index.html#login" data-transition="flow">Si</a>
+			</div>
+
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<div data-role="page" id="galeria" data-transition="flip">
 		<div class="aspect_ratio">
 			<div id="galeria_container" >
+
 				<div  style="overflow: scroll;width:100%;height:100%">
-				<div class="division_imagen">
-					<img alt="" src="images/photos/1.png" class="imagen" />
-					<div class="descripcion">Lorem ipsum dolor sit amet. Dolores accusam sit sanctus. Justo at dolore sit stet aliquyam. Sed ad justo qui. Takimata duo dolor molestie ad dignissim clita praesent. Minim adipiscing eirmod. No elitr diam lorem. Takimata eos ipsum feugiat kasd assum eros ipsum. Dolores lorem eos est enim sadipscing. Ea consetetur vel duo nulla nonumy. Et euismod rebum nisl et dolor. Kasd laoreet et vulputate aliquyam clita</div>
-				</div>
+					<div class="division_imagen">
+						<img alt="" src="http://codfe.co/golombiao/server/uploads/image" class="imagen" />
+						<div class="descripcion">Lorem ipsum dolor sit amet. Dolores accusam sit sanctus. Justo at dolore sit stet aliquyam. Sed ad justo qui. Takimata duo dolor molestie ad dignissim clita praesent. Minim adipiscing eirmod. No elitr diam lorem. Takimata eos ipsum feugiat kasd assum eros ipsum. Dolores lorem eos est enim sadipscing. Ea consetetur vel duo nulla nonumy. Et euismod rebum nisl et dolor. Kasd laoreet et vulputate aliquyam clita</div>
+					</div>
 
-				<div class="division_imagen">
-					<img alt="" src="images/photos/2.png" class="imagen" />
-					<div class="descripcion">Lorem ipsum dolor sit amet. Dolores accusam sit sanctus. Justo at dolore sit stet aliquyam. Sed ad justo qui. Takimata duo dolor molestie ad dignissima</div>
-				</div>
+					<div class="division_imagen">
+						<img alt="" src="http://codfe.co/golombiao/server/uploads/image1" class="imagen" />
+						<div class="descripcion">Lorem ipsum dolor sit amet. Dolores accusam sit sanctus. Justo at dolore sit stet aliquyam. Sed ad justo qui. Takimata duo dolor molestie ad dignissima</div>
+					</div>
 
-				<div class="division_imagen">
-					<img alt="" src="images/photos/3.png" class="imagen" />
-					<div class="descripcion">Lorem ipsum dolor sit amet. Dolores accusam sit sanctus. Justo at dolore sit stet aliquyam. Sed ad justo qui. Takimata duo dolor molestie ad dignissim clita praesent. Minim adipiscing eirmod. No elitr diam lorem. Takimata eos ipsum feugiat kasd assum eros ipsum. Dolores lorem</div>
+					<div class="division_imagen">
+						<img alt="" src="http://codfe.co/golombiao/server/uploads/image2" class="imagen" />
+						<div class="descripcion">Lorem ipsum dolor sit amet. Dolores accusam sit sanctus. Justo at dolore sit stet aliquyam. Sed ad justo qui. Takimata duo dolor molestie ad dignissim clita praesent. Minim adipiscing eirmod. No elitr diam lorem. Takimata eos ipsum feugiat kasd assum eros ipsum. Dolores lorem</div>
+					</div>
+
+					<div class="division_imagen">
+						<img alt="" src="http://codfe.co/golombiao/server/uploads/image3" class="imagen" />
+						<div class="descripcion">Lorem ipsum dolor sit amet. Dolores accusam sit sanctus. Justo at dolore sit stet aliquyam. Sed ad justo qui. Takimata duo dolor molestie ad dignissim clita praesent. Minim adipiscing eirmod. No elitr diam lorem. Takimata eos ipsum feugiat kasd assum eros ipsum. Dolores lorem</div>
+					</div>
+
+					<div class="division_imagen">
+						<img alt="" src="http://codfe.co/golombiao/server/uploads/image4" class="imagen" />
+						<div class="descripcion">Lorem ipsum dolor sit amet. Dolores accusam sit sanctus. Justo at dolore sit stet aliquyam. Sed ad justo qui. Takimata duo dolor molestie ad dignissim clita praesent. Minim adipiscing eirmod. No elitr diam lorem. Takimata eos ipsum feugiat kasd assum eros ipsum. Dolores lorem</div>
+					</div>
 				</div>
-			</div>
 				<div data-role="footer">
 					<img class="home_icon" src="images/home_icon.png">
 				</div>
@@ -73,7 +271,7 @@
 		<div class="aspect_ratio">
 			<div id="maps_container" class="maps_container">
 				<div class="division_mapa">
-					<div id="geoLocation2" > </div>
+					<div id="colombia" > </div>
 					<div style="margin-top: 10%">
 						<div class="map_descripcion">
 							<img src="images/red_icon.png" />
@@ -97,99 +295,6 @@
 
 
 
-  <div data-role="page" id="register">
-  	<div class="aspect_ratio">
-  		<div  id="register_container">
-  			<form id="form_register">
-
-  				<input class="input_txt_complete name required" type="text"  name="first_name" value="" placeholder="Nombres"/>
-  				<input class="input_txt_complete name required" type="text"  name="last_name" value="" placeholder="Apellidos"/>
-
-  				<input class="input_txt_complete" type="email"  name="email" value="" placeholder="Correo"/>
-  				<div class="half_width age_position"><input class="required" type="text"  name="age" value="" placeholder="Edad"/></div>
-
-  				<div class="half_width gender_position required">
-  					<select  name="gender">
-  						<option  value="" >Género</option>
-  						<option  value="1">Hombre</option>
-  						<option  value="2">Mujer</option>
-  					</select>
-
-  				</div>
-  				<div class="total_width">
-  					<select name="departamento" class="departamento" onchange="sel_city(this)">
-  						<option value="">Departamento</option>
-  						<option value="1">Antioquia</option>
-  						<option value="2">Atlántico</option>
-  						<option value="3">Bolívar</option>
-  						<option value="4">Boyacá</option>
-  						<option value="5">Caldas</option>
-  						<option value="6">Cauca</option>
-  						<option value="7">Cesar</option>
-  						<option value="8">Córdoba</option>
-  						<option value="9">Cundinamarca</option>
-  						<option value="10">Guajira</option>
-  						<option value="11">Huila</option>
-  						<option value="12">Magdalena</option>
-  						<option value="13">Meta</option>
-  						<option value="14">Nariño</option>
-  						<option value="15">Norte de Santander</option>
-  						<option value="16">Quindío</option>
-  						<option value="17">Risaralda</option>
-  						<option value="18">Santander</option>
-  						<option value="19">Sucre</option>
-  						<option value="20">Tolima</option>
-  						<option value="21">Valle del Cauca</option>
-  					</select>
-  				</div>
-  				<div class="total_width">
-  					<select name="ciudad" class="ciudad" >
-  						<option value="">Ciudad</option>
-  					</select>
-  				</div>
-
-
-  				<div class="half_width study">
-  					<select id="study_1" name="study" onchange="level_function(this)">
-  						<option value="">Estudia</option>
-  						<option value="1">Si</option>
-  						<option  value="2">No</option>
-  					</select>
-  				</div>
-
-
-  				<div id="identf2" data-role="fieldcontain" style="display:none">
-  					<fieldset data-role="controlgroup">
-  						<legend>Seleccione su grado de estudios:</legend>
-  						<input type="radio" name="school_level" id="school_level" value="1" checked="checked" />
-  						<label for="school_level">Primaria</label>
-
-  						<input type="radio" name="school_level" id="radio-choice-2" value="2"  />
-  						<label for="radio-choice-2">Bachillerato</label>
-
-  						<input type="radio" name="school_level" id="radio-choice-3" value="3"  />
-  						<label for="radio-choice-3">Universitario</label>
-  					</fieldset>
-  				</div>
-
-  				<div class="camp_container3">
-  					<input type="password"  name="encrypted_password" value="" placeholder="password" id="encrypted_password"/>
-
-  					<input  type="password"  name="re_password" value="" placeholder="repita el password"/>
-  					<div class="new_submit">
-  						<input id="register_server" onclick="" type="submit" value="Registrar">
-  					</div>
-  				</div>
-
-
-  			</div>
-
-  		</form>	
-
-  	</div>
-  </div>
-
-</div>
 
 
 
@@ -198,76 +303,324 @@
 
 
 
-<div data-role="page" id="home">
-	<div class="aspect_ratio">
-		<div  id="home_container">
-			<div id="photo_container">
-				<img id="photo" src="http://graph.facebook.com/Golombiao/picture?width=300&height=400" onclick="camera()">
-				<div >
+
+
+	<div data-role="page" id="play">
+		<div class="aspect_ratio">
+			<div data-role="navbar" class="navbar">
+				<ul>
+					<li><a href="index.html#play"  data-transition="flip">JUGAR</a></li>
+					<li><a href="index.html#pre_conv"data-transition="flip">CONVOCAR</a></li>
+					<li><a href="index.html#results"data-transition="flip">RESULTADOS</a></li>
+				</ul>
+			</div><!-- /navbar -->
+			<div id="play_container">
+
+				<div class="tojoin" onclick="window.location.href = 'index.html#join';"></div>
+				<div class="tocreate" onclick="window.location.href = 'index.html#create';"></div>
+
+
+			</div>
+			<div data-role="footer">
+				<img class="home_icon" src="images/home_icon.png">
+			</div>
+		</div>		
+
+	</div>
+	<div data-role="page" id="convocate">
+		<div class="aspect_ratio">
+			<div data-role="navbar" class="navbar">
+				<ul>
+					<li><a href="index.html#play">JUGAR</a></li>
+					<li><a href="index.html#pre_conv">CONVOCAR</a></li>
+					<li><a href="index.html#results">RESULTADOS</a></li>
+				</ul>
+			</div>
+			<div id="convocate_container">
+				<div class="your_team">
+					<ul class="own_teams">
+						Tus Equipos
+
+					</ul>
+				</div>
+				<div class="vs_team">
+					<div class="vs">V.S.</div>
+					<input class="id" type="hidden"  name="id_time" value=""/>
+					<form id="form_vs">
+						<div class="total_width">
+							<select name="departamento" class="departamento" onchange="sel_city(this)">
+								<option value="">Departamento</option>
+								<option value="1">Antioquia</option>
+								<option value="2">Atlántico</option>
+								<option value="3">Bolívar</option>
+								<option value="4">Boyacá</option>
+								<option value="5">Caldas</option>
+								<option value="6">Cauca</option>
+								<option value="7">Cesar</option>
+								<option value="8">Córdoba</option>
+								<option value="9">Cundinamarca</option>
+								<option value="10">Guajira</option>
+								<option value="11">Huila</option>
+								<option value="12">Magdalena</option>
+								<option value="13">Meta</option>
+								<option value="14">Nariño</option>
+								<option value="15">Norte de Santander</option>
+								<option value="16">Quindío</option>
+								<option value="17">Risaralda</option>
+								<option value="18">Santander</option>
+								<option value="19">Sucre</option>
+								<option value="20">Tolima</option>
+								<option value="21">Valle del Cauca</option>
+							</select>
+						</div>
+						<div class="total_width">
+							<select name="ciudad" class="ciudad" onchange="vs_team(this)" >
+								<option value="">Ciudad</option>
+							</select>
+						</div>
+					</form>
 
 
 				</div>
+				<div class="vs_team2">
+					<ul class="vs_teams3">
+						Equipos Contrarios
 
+					</ul>
+
+				</div>
+				<div class="send_request"><input type="submit" class="enviar_login" value="Seleccionar Equipos" onclick="zone(this)"></div>
 			</div>
-			<div id="information">	
-				<span id="name_user">u </span>	
-				<span id="age_user">23 años</span> 
-				<span id="location_user">Bogota-Colombia</span>
-
+			<div data-role="footer">
+				<img class="home_icon" src="images/home_icon.png">
 			</div>
-			<img class="toplay" src="images/play_button.png" onclick="window.location.href = 'index.html#play';">
-			<img class="to_golombiao" src="images/golombiao_button.png" onclick="window.location.href = 'gol_pag.htm';">
-			<img class="tomaps" src="images/place_button.png" onclick="window.location.href = 'index.html#mapa';">
-			<img class="togalery" src="images/galery_button.png" onclick="window.location.href = 'index.html#galeria';">
-			
-
-		</div>
+		</div>		
 
 	</div>
-</div>
 
-<div data-role="page" id="play">
-	<div class="aspect_ratio">
-		<div id="play_container">
-			<div data-role="navbar" class="navbar">
+
+
+	<div data-role="page" id="convocate2">
+		<div class="aspect_ratio">
+			<div id="convocate2_container">
+				<div data-role="navbar" class="navbar">
+					<ul>
+						<li><a href="index.html#play">JUGAR</a></li>
+						<li><a href="index.html#pre_conv">CONVOCAR</a></li>
+						<li><a href="index.html#results">RESULTADOS</a></li>
+					</ul>
+				</div>
+
+				<div class="two_teams">
+					<div class="my_team"></div><div class="Vs_convocate2">V.S.</div><div class="the_other_team"></div>
+
+				</div>
+				<div class="half_width2">
+					<select name="principio" class="principios">
+						<option value="">Principios</option>
+						<option value="1">No Violencia</option>
+						<option value="2">Libertad de expresión</option>
+						<option value="3">No discriminación</option>
+						<option value="4">Cuidar el entorno</option>
+						<option value="5">Participación activa</option>
+						<option value="6">Cuidarse y cuidar al otro</option>
+						<option value="7">Igualdad</option>
+					</select>
+				</div>
+				<div id="match_site">
+					<div id="geolocation" class="geolocation1"> </div>
+					<div class="total_width"><input id="latitud" class="input_txt_complete" type="hidden"  name="latitud" value="" placeholder="Ubicacion"/></div>
+					<div class="total_width"><input id="longitud"class="input_txt_complete" type="hidden"  name="longitud" value="" placeholder="Ubicacion"/></div>
+					<div class="half_width fecha">
+						<label for="date">Fecha:</label>
+						<input type="date" name="fecha" id="date" value=""  />
+					</div>
+					<div class="half_width hora">
+						<label for="name">Hora:</label>
+						<input type="time" name="hora" id="name" value=""  />
+					</div>
+				</div>
+				<div class="half_width">
+					<select name="tipo_juego" class="game_type">
+						<option value="">Juego</option>
+						<option value="1">Basquetball</option>
+						<option value="2">Ultimate</option>
+						<option value="3">Micro</option>
+						<option value="4">Futbol</option>
+					</select>
+				</div>
+				<div class="send_request"><input type="submit" class="enviar_login" value="Enviar Solicitud" onclick="request_game(this)"></div>
+
+
+				<div data-role="footer">
+					<img class="home_icon" src="images/home_icon.png">
+				</div>
+
+			</div>
+		</div>		
+
+	</div>
+
+	<div data-role="dialog" id="dialog">
+		<form action="http://codfe.co/golombiao/server/index.php/upload/do_upload" method="post"enctype="multipart/form-data" data-ajax=false	>
+			<input type="file" name="userfile" size="20" />
+
+			<br /><br />
+
+			<input type="submit" value="upload" />
+
+		</form>
+	</div>
+
+
+	<div data-role="page" id="results">
+		<div class="aspect_ratio">
+
+
+
+			<div id="results_container">
+				<div data-role="navbar" class="navbar">
 					<ul>
 						<li><a href="index.html#play">JUGAR</a></li>
 						<li><a href="index.html#pre_conv">CONVOCAR</a></li>
 						<li><a href="index.html#results">RESULTADOS</a></li>
 					</ul>
 				</div><!-- /navbar -->
-			<div class="tojoin" onclick="window.location.href = 'index.html#join';"></div>
-			<div class="tocreate" onclick="window.location.href = 'index.html#create';"></div>
+				<div class="upload_photo">
+					<input  type="button" name="my_photo" value="Subir foto" onclick="get_galery_photo()" >
+				</div>
 
-			<div data-role="footer">
+				<div style="display:none"><input id="conv_result" onclick="" type="hidden">
+					<input id="princ_result" onclick="" type="hidden">
+				</div>
+				<div class="principio">
+					<img src="images/acuerdos/1.png" alt=""/>
+					<div>
+						<label>El principio elegido es:</label>  
+						<div><h2>Libertad de expresión</h2> </div>
+					</div>	
+				</div>
+
+
+
+				<div data-role="fieldcontain">
+					<label for="select-choice-custom2" class="select"></label>
+					<select name="barra" id="select-choice-custom2" data-native-menu="false">
+						<option value="">Barras de los 2 equipos</option>
+						<option value="0">ningún sol</option>
+						<option value="1">1 sol</option>
+						<option value="2">2 soles</option>
+						<option value="3">3 soles</option>
+					</select>
+				</div>
+				<div data-role="controlgroup" data-type="horizontal" class="botones_equipos" >
+					<a href="#" data-role="button"onclick="$('#otherteam').hide();$('#myteam').show()">Mi equipo</a>
+					<a href="#" data-role="button" onclick="$('#myteam').hide();$('#otherteam').show()">El otro</a>
+
+				</div>
+				<div  id="myteam" style="display:none;">
+					<input name="id_equipo" onclick="" type="hidden" value="dasd">
+					<div data-role="fieldcontain">
+						<label for="select-choice-custom1" class="select"></label>
+						<select name="cump_acuerdos" id="select-choice-custom1" data-native-menu="false">
+							<option value="">Cumplimiento acuerdos de convivencia </br> en relacion principio que los contiene</option>
+							<option value="0">ningún sol</option>
+							<option value="1">1 sol</option>
+							<option value="2">2 soles</option>
+							<option value="3">3 soles</option>
+						</select>
+					</div>	
+					<div data-role="fieldcontain">
+						<label for="select-choice-custom4" class="select"></label>
+						<select name="faltas" id="select-choice-custom4" data-native-menu="false">
+							<option value="">No de faltas</option>
+							<option value="3">0 faltas, 4 soles</option>
+							<option value="2">1 falta ,2 soles</option>
+							<option value="-2">3 a 4 faltas ,menos de 2 soles</option>
+							<option value="-3">0 faltas ,menos de 3 soles</option>
+						</select>
+					</div>
+					<div data-role="fieldcontain">
+						<label for="select-choice-custom5" class="select"></label>
+						<select name="meritos" id="select-choice-custom5" data-native-menu="false">
+							<option value="">No de méritos</option>
+							<option value="-1">Ningún jugador con mérito, menos 1 sol</option>
+							<option value="1">1 a 3 jugadores con mérito ,1 sol</option>
+							<option value="2">3 a 5 jugadores con mérito , 2 soles</option>
+							<option value="3">más de  5 jugadores con mérito, 3 soles</option>
+						</select>
+					</div>				
+				</div>
+				<div  id="otherteam" style="display:none;" 	>
+					<input name="id_equipo" onclick="" type="hidden">
+					<div data-role="fieldcontain">
+						<label for="select-choice-custom1" class="select"></label>
+						<select name="cump_acuerdos" id="select-choice-custom1" data-native-menu="false">
+							<option value="">Cumplimiento acuerdos de convivencia </br> en relacion principio que los contiene</option>
+							<option value="0">ningún sol</option>
+							<option value="1">1 sol</option>
+							<option value="2">2 soles</option>
+							<option value="3">3 soles</option>
+						</select>
+					</div>	
+					<div data-role="fieldcontain">
+						<label for="select-choice-custom4" class="select"></label>
+						<select name="faltas" id="select-choice-custom4" data-native-menu="false">
+							<option value="">No de faltas</option>
+							<option value="3">0 faltas, 4 soles</option>
+							<option value="2">1 falta ,2 soles</option>
+							<option value="-2">3 a 4 faltas ,menos de 2 soles</option>
+							<option value="-3">0 faltas ,menos de 3 soles</option>
+						</select>
+					</div>
+					<div data-role="fieldcontain">
+						<label for="select-choice-custom5" class="select"></label>
+						<select name="select-choice-1" id="select-choice-custom5" data-native-menu="false">
+							<option value="">No de méritos</option>
+							<option value="-1">Ningún jugador con mérito, menos 1 sol</option>
+							<option value="1">1 a 3 jugadores con mérito ,1 sol</option>
+							<option value="2">3 a 5 jugadores con mérito , 2 soles</option>
+							<option value="3">más de  5 jugadores con mérito, 3 soles</option>
+						</select>
+					</div>	
+				</div>
+
+				<div class="send_request"><input type="submit" class="send_results" value="Enviar Calificacion" onclick="send_results()"></div>
+				<div>
+
+
+				</div>
+
+				<div data-role="footer">
 					<img class="home_icon" src="images/home_icon.png">
 				</div>
-		</div>
-	</div>		
 
-</div>
-<div data-role="page" id="convocate">
-	<div class="aspect_ratio">
-		<div id="convocate_container">
-			<div data-role="navbar" class="navbar">
+			</div>
+		</div>		
+
+	</div>
+
+
+
+
+
+
+
+	<div data-role="page" id="create">
+		<div class="aspect_ratio">
+			<div  id="create_container">
+				<div data-role="navbar" class="navbar">
 					<ul>
 						<li><a href="index.html#play">JUGAR</a></li>
 						<li><a href="index.html#pre_conv">CONVOCAR</a></li>
 						<li><a href="index.html#results">RESULTADOS</a></li>
 					</ul>
-				</div>
+				</div><!-- /navbar -->
+
+				<form id="form_create">
+					<input class="input_txt_complete name_team" type="text"  name="name" value="" placeholder="Nombre del equipo"/>
 
 
-			<div class="your_team">
-				<ul class="own_teams">
-					Tus Equipos
-
-				</ul>
-			</div>
-			<div class="vs_team">
-				<div class="vs">V.S.</div>
-				<input class="id" type="hidden"  name="id_time" value=""/>
-				<form id="form_vs">
 					<div class="total_width">
 						<select name="departamento" class="departamento" onchange="sel_city(this)">
 							<option value="">Departamento</option>
@@ -295,288 +648,34 @@
 						</select>
 					</div>
 					<div class="total_width">
-						<select name="ciudad" class="ciudad" onchange="vs_team(this)" >
+						<select name="ciudad" class="ciudad" >
 							<option value="">Ciudad</option>
 						</select>
 					</div>
-				</form>
+					<input class="input_txt_complete" type="text"  name="zone_team" value="" placeholder="Barrio"/>
+					<textarea placeholder="Descripción" name="descripcion" id="" cols="30" rows="20"  ></textarea>
 
 
-			</div>
-			<div class="vs_team2">
-				<ul class="vs_teams3">
-					Equipos Contrarios
+					<input id="register_server"  type="submit" value="Crear">
 
-				</ul>
+				</form>	
 
-			</div>
-			<div class="send_request"><input type="submit" class="enviar_login" value="Seleccionar Equipos" onclick="zone(this)"></div>
-			<div data-role="footer">
+
+
+				<div data-role="footer">
 					<img class="home_icon" src="images/home_icon.png">
 				</div>
+			</div>
 
 
 		</div>
-	</div>		
-
-</div>
-
-<div data-role="page" id="convocate2">
-	<div class="aspect_ratio">
-		<div id="convocate2_container">
-			<div data-role="navbar" class="navbar">
-					<ul>
-						<li><a href="index.html#play">JUGAR</a></li>
-						<li><a href="index.html#pre_conv">CONVOCAR</a></li>
-						<li><a href="index.html#results">RESULTADOS</a></li>
-					</ul>
-				</div>
-
-			<div class="two_teams">
-				<div class="my_team"></div><div class="Vs_convocate2">V.S.</div><div class="the_other_team"></div>
-
-			</div>
-			<div class="half_width2">
-				<select name="principio" class="principios">
-					<option value="">Principios</option>
-					<option value="1">No Violencia</option>
-					<option value="2">Libertad de expresión</option>
-					<option value="3">No discriminación</option>
-					<option value="4">Cuidar el entorno</option>
-					<option value="5">Participación activa</option>
-					<option value="6">Cuidarse y cuidar al otro</option>
-					<option value="7">Igualdad</option>
-				</select>
-			</div>
-			<div id="match_site">
-				<div id="geoLocation" class="geolocation1"> </div>
-				<div class="total_width"><input id="latitud" class="input_txt_complete" type="hidden"  name="latitud" value="" placeholder="Ubicacion"/></div>
-				<div class="total_width"><input id="longitud"class="input_txt_complete" type="hidden"  name="longitud" value="" placeholder="Ubicacion"/></div>
-				<div class="half_width fecha">
-					<label for="date">Fecha:</label>
-					<input type="date" name="fecha" id="date" value=""  />
-				</div>
-				<div class="half_width hora">
-					<label for="name">Hora:</label>
-					<input type="time" name="hora" id="name" value=""  />
-				</div>
-			</div>
-			<div class="half_width">
-				<select name="tipo_juego" class="game_type">
-					<option value="">Juego</option>
-					<option value="1">Basquetball</option>
-					<option value="2">Ultimate</option>
-					<option value="3">Micro</option>
-					<option value="4">Futbol</option>
-				</select>
-			</div>
-			<div class="send_request"><input type="submit" class="enviar_login" value="Enviar Solicitud" onclick="request_game(this)"></div>
-			
-
-			<div data-role="footer">
-					<img class="home_icon" src="images/home_icon.png">
-				</div>
-
-		</div>
-	</div>		
-
-</div>
-
-
-<div data-role="page" id="results">
-	<div class="aspect_ratio">
-
-
-
-		<div id="results_container">
-							<div data-role="navbar" class="navbar">
-					<ul>
-						<li><a href="index.html#play">JUGAR</a></li>
-						<li><a href="index.html#pre_conv">CONVOCAR</a></li>
-						<li><a href="index.html#results">RESULTADOS</a></li>
-					</ul>
-				</div><!-- /navbar -->
-			<div style="display:none"><input id="conv_result" onclick="" type="hidden">
-			   						<input id="princ_result" onclick="" type="hidden">
-			 </div>
-			<div class="principio">
-				<img src="images/acuerdos/1.png" alt=""/>
-				<div>
-					<label>El principio elegido es:</label>  
-					<div><h2>Libertad de expresión</h2> </div>
-				</div>	
-			</div>
-
-
-
-			<div data-role="fieldcontain">
-				<label for="select-choice-custom2" class="select"></label>
-				<select name="barra" id="select-choice-custom2" data-native-menu="false">
-					<option value="">Barras de los 2 equipos</option>
-					<option value="0">ningún sol</option>
-					<option value="1">1 sol</option>
-					<option value="2">2 soles</option>
-					<option value="3">3 soles</option>
-				</select>
-			</div>
-			<div data-role="controlgroup" data-type="horizontal" class="botones_equipos" >
-				<a href="#" data-role="button"onclick="$('#otherteam').hide();$('#myteam').show()">Mi equipo</a>
-				<a href="#" data-role="button" onclick="$('#myteam').hide();$('#otherteam').show()">El otro</a>
-				
-			</div>
-			<div  id="myteam" style="display:none;">
-				<input name="id_equipo" onclick="" type="hidden" value="dasd">
-				<div data-role="fieldcontain">
-					<label for="select-choice-custom1" class="select"></label>
-					<select name="cump_acuerdos" id="select-choice-custom1" data-native-menu="false">
-						<option value="">Cumplimiento acuerdos de convivencia </br> en relacion principio que los contiene</option>
-						<option value="0">ningún sol</option>
-						<option value="1">1 sol</option>
-						<option value="2">2 soles</option>
-						<option value="3">3 soles</option>
-					</select>
-				</div>	
-				<div data-role="fieldcontain">
-					<label for="select-choice-custom4" class="select"></label>
-					<select name="faltas" id="select-choice-custom4" data-native-menu="false">
-						<option value="">No de faltas</option>
-						<option value="3">0 faltas, 4 soles</option>
-						<option value="2">1 falta ,2 soles</option>
-						<option value="-2">3 a 4 faltas ,menos de 2 soles</option>
-						<option value="-3">0 faltas ,menos de 3 soles</option>
-					</select>
-				</div>
-				<div data-role="fieldcontain">
-					<label for="select-choice-custom5" class="select"></label>
-					<select name="meritos" id="select-choice-custom5" data-native-menu="false">
-						<option value="">No de méritos</option>
-						<option value="-1">Ningún jugador con mérito, menos 1 sol</option>
-						<option value="1">1 a 3 jugadores con mérito ,1 sol</option>
-						<option value="2">3 a 5 jugadores con mérito , 2 soles</option>
-						<option value="3">más de  5 jugadores con mérito, 3 soles</option>
-					</select>
-				</div>				
-			</div>
-			<div  id="otherteam" style="display:none;" 	>
-				<input name="id_equipo" onclick="" type="hidden">
-				<div data-role="fieldcontain">
-					<label for="select-choice-custom1" class="select"></label>
-					<select name="cump_acuerdos" id="select-choice-custom1" data-native-menu="false">
-						<option value="">Cumplimiento acuerdos de convivencia </br> en relacion principio que los contiene</option>
-						<option value="0">ningún sol</option>
-						<option value="1">1 sol</option>
-						<option value="2">2 soles</option>
-						<option value="3">3 soles</option>
-					</select>
-				</div>	
-				<div data-role="fieldcontain">
-					<label for="select-choice-custom4" class="select"></label>
-					<select name="faltas" id="select-choice-custom4" data-native-menu="false">
-						<option value="">No de faltas</option>
-						<option value="3">0 faltas, 4 soles</option>
-						<option value="2">1 falta ,2 soles</option>
-						<option value="-2">3 a 4 faltas ,menos de 2 soles</option>
-						<option value="-3">0 faltas ,menos de 3 soles</option>
-					</select>
-				</div>
-				<div data-role="fieldcontain">
-					<label for="select-choice-custom5" class="select"></label>
-					<select name="select-choice-1" id="select-choice-custom5" data-native-menu="false">
-						<option value="">No de méritos</option>
-						<option value="-1">Ningún jugador con mérito, menos 1 sol</option>
-						<option value="1">1 a 3 jugadores con mérito ,1 sol</option>
-						<option value="2">3 a 5 jugadores con mérito , 2 soles</option>
-						<option value="3">más de  5 jugadores con mérito, 3 soles</option>
-					</select>
-				</div>	
-			</div>
-			<div class="send_request"><input type="submit" class="send_results" value="Enviar Calificacion" onclick="send_results()"></div>
-			
-			<div data-role="footer">
-					<img class="home_icon" src="images/home_icon.png">
-				</div>
-
-		</div>
-	</div>		
-
-</div>
-
-
-
-
-
-
-
-<div data-role="page" id="create">
-	<div class="aspect_ratio">
-		<div  id="create_container">
-			<div data-role="navbar" class="navbar">
-					<ul>
-						<li><a href="index.html#play">JUGAR</a></li>
-						<li><a href="index.html#pre_conv">CONVOCAR</a></li>
-						<li><a href="index.html#results">RESULTADOS</a></li>
-					</ul>
-				</div><!-- /navbar -->
-
-			<form id="form_create">
-				<input class="input_txt_complete name_team" type="text"  name="name" value="" placeholder="Nombre del equipo"/>
-
-
-				<div class="total_width">
-					<select name="departamento" class="departamento" onchange="sel_city(this)">
-						<option value="">Departamento</option>
-						<option value="1">Antioquia</option>
-						<option value="2">Atlántico</option>
-						<option value="3">Bolívar</option>
-						<option value="4">Boyacá</option>
-						<option value="5">Caldas</option>
-						<option value="6">Cauca</option>
-						<option value="7">Cesar</option>
-						<option value="8">Córdoba</option>
-						<option value="9">Cundinamarca</option>
-						<option value="10">Guajira</option>
-						<option value="11">Huila</option>
-						<option value="12">Magdalena</option>
-						<option value="13">Meta</option>
-						<option value="14">Nariño</option>
-						<option value="15">Norte de Santander</option>
-						<option value="16">Quindío</option>
-						<option value="17">Risaralda</option>
-						<option value="18">Santander</option>
-						<option value="19">Sucre</option>
-						<option value="20">Tolima</option>
-						<option value="21">Valle del Cauca</option>
-					</select>
-				</div>
-				<div class="total_width">
-					<select name="ciudad" class="ciudad" >
-						<option value="">Ciudad</option>
-					</select>
-				</div>
-				<input class="input_txt_complete" type="text"  name="zone_team" value="" placeholder="Barrio"/>
-				<textarea placeholder="Descripción" name="descripcion" id="" cols="30" rows="20"  ></textarea>
-
-
-				<input id="register_server"  type="submit" value="Crear">
-
-			</form>	
-
-
-
-			<div data-role="footer">
-					<img class="home_icon" src="images/home_icon.png">
-				</div>
-		</div>
-
-
 	</div>
-</div>
 
 
-<div data-role="page" id="my_conv">
-	<div class="aspect_ratio">
-		<div  id="convocate_container">
-			<div data-role="navbar" class="navbar">
+	<div data-role="page" id="my_conv">
+		<div class="aspect_ratio">
+			<div  id="convocate_container">
+				<div data-role="navbar" class="navbar">
 					<ul>
 						<li><a href="index.html#play">JUGAR</a></li>
 						<li><a href="index.html#pre_conv">CONVOCAR</a></li>
@@ -585,20 +684,20 @@
 				</div><!-- /navbar -->
 
 
-			<div id="mi_reto">
-				<div id="title_mi_reto" class="title_retos"></div>
+				<div id="mi_reto">
+					<div id="title_mi_reto" class="title_retos"></div>
 
 
 
-			</div>
-			<div id="me_retaron">
-				<div id="title_mi_reto2" class="title_retos"></div>
+				</div>
+				<div id="me_retaron">
+					<div id="title_mi_reto2" class="title_retos"></div>
 
-			</div>
+				</div>
 			</div>
 			<div data-role="footer">
-					<img class="home_icon" src="images/home_icon.png">
-				</div>
+				<img class="home_icon" src="images/home_icon.png">
+			</div>
 
 			
 		</div>
@@ -611,12 +710,12 @@
 	<div class="aspect_ratio">
 		<div  id="results_container">
 			<div data-role="navbar" class="navbar">
-					<ul>
-						<li><a href="index.html#play">JUGAR</a></li>
-						<li><a href="index.html#pre_conv">CONVOCAR</a></li>
-						<li><a href="index.html#results">RESULTADOS</a></li>
-					</ul>
-				</div><!-- /navbar -->
+				<ul>
+					<li><a href="index.html#play">JUGAR</a></li>
+					<li><a href="index.html#pre_conv">CONVOCAR</a></li>
+					<li><a href="index.html#results">RESULTADOS</a></li>
+				</ul>
+			</div><!-- /navbar -->
 
 			<div id="mi_reto">
 				<div id="title_mi_reto" class="title_retos"></div>
@@ -630,8 +729,8 @@
 			</div>
 
 			<div data-role="footer">
-					<img class="home_icon" src="images/home_icon.png">
-				</div>
+				<img class="home_icon" src="images/home_icon.png">
+			</div>
 
 			
 		</div>
@@ -643,18 +742,18 @@
 	<div class="aspect_ratio">
 		<div  id="pre_conv_container">
 			<div data-role="navbar" class="navbar">
-					<ul>
-						<li><a href="index.html#play">JUGAR</a></li>
-						<li><a href="index.html#pre_conv">CONVOCAR</a></li>
-						<li><a href="index.html#results">RESULTADOS</a></li>
-					</ul>
-				</div><!-- /navbar -->
+				<ul>
+					<li><a href="index.html#play">JUGAR</a></li>
+					<li><a href="index.html#pre_conv">CONVOCAR</a></li>
+					<li><a href="index.html#results">RESULTADOS</a></li>
+				</ul>
+			</div><!-- /navbar -->
 
 			<div class="tojoin" onclick="window.location.href = 'index.html#my_conv';"></div>
 			<div class="tocreate" onclick="window.location.href = 'index.html#convocate';"></div>
 			<div data-role="footer">
-					<img class="home_icon" src="images/home_icon.png">
-				</div>
+				<img class="home_icon" src="images/home_icon.png">
+			</div>
 		</div>
 
 	</div>
@@ -674,12 +773,12 @@
 	<div class="aspect_ratio">
 		<div  id="join_container">
 			<div data-role="navbar" class="navbar">
-					<ul>
-						<li><a href="index.html#play">JUGAR</a></li>
-						<li><a href="index.html#pre_conv">CONVOCAR</a></li>
-						<li><a href="index.html#results">RESULTADOS</a></li>
-					</ul>
-				</div><!-- /navbar -->
+				<ul>
+					<li><a href="index.html#play">JUGAR</a></li>
+					<li><a href="index.html#pre_conv">CONVOCAR</a></li>
+					<li><a href="index.html#results">RESULTADOS</a></li>
+				</ul>
+			</div><!-- /navbar -->
 
 			<form id="form_join">
 
@@ -760,8 +859,8 @@
 			</form>	
 
 			<div data-role="footer">
-					<img class="home_icon" src="images/home_icon.png">
-				</div>
+				<img class="home_icon" src="images/home_icon.png">
+			</div>
 		</div>
 
 

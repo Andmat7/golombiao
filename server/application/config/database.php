@@ -48,7 +48,8 @@ $db['default']['hostname'] = 'localhost';
 $db['default']['username'] =  'root'; 
 $db['default']['database'] = '';
 
-$db['default']['database'] = 'golombiao_db';//'b12_13667251_golombiao_db';
+//$db['default']['database'] = 'codfe_golombiao_db';//'codfe_golombiao_db';
+$db['default']['database'] = 'golombiao_db';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;

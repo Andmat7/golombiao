@@ -1,0 +1,41 @@
+@media screen and (max-height:600px)
+{
+
+	#login .register {
+width: 50%;
+border-radius: 8%;
+background-color: #00AEEF;
+float: left;
+margin-top: 7%;
+}
+
+#login .container>h1 {
+	color: white;
+margin-top: 16%;
+float: left;
+font-size: 1.4em;
+width: 47%;
+}
+
+
+.container {
+padding: 5%;
+height: 100%;
+padding-bottom: 0%;
+}
+
+
+#name_user {
+
+font-size: 1.1em;
+}
+
+.sections {
+margin-top: 9%;
+}
+
+
+
+
+	
+}

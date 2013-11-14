@@ -21,12 +21,281 @@
 }
 
 
+
+#login .help {
+float: left;
+color: white;
+text-shadow: 1px 1px #000000;
+
+}
+
+
+.error{
+	color: red;
+
+
+}
+
+
+.container{
+	padding: 13%;
+	padding-bottom: 0;
+
+
+
+
+}
+
+
+/*login page*/
+
+#login{
+	background-color: #679F25;
+	width: 100%;
+	height: 100%;
+	min-height: 100px;
+overflow: hidden;
+
+background-image: linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+background-image: -o-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+background-image: -moz-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+background-image: -webkit-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+background-image: -ms-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+}
+
+
+#login .container{
+background-color: #679F25;
+background-image: linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+background-image: -o-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+background-image: -moz-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+background-image: -webkit-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+background-image: -ms-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+}
+
+
+#login .header {
+margin-top: 10%;
+width: 100%;
+overflow: auto;
+margin: auto;
+}
+
+
+#login .header h1{
+color: white;
+float: left;
+}
+
+#login .header img{
+color: white;
+float: right;
+width: 21%;
+}
+#login .container>h1{
+	color: white;
+	clear: left;
+	margin-top: 17%;
+}
+
+#login #form_login {
+width: 100%;
+margin-top: 4%;
+}
+
+#login .register{
+	width: 50%;
+	border-radius: 8%;
+	background-color: #00AEEF;
+	
+}
+
+
+
+
+
+/*register page*/
+
+#register .register{
+width: 26%;
+border-radius: 8%;
+background-color: #679F25;
+
+}
+
+#register{
+
+background-color: #D6E1F2;
+
+
+}
+
+#form_register{
+	margin-top: 7%;
+
+
+}
+
+#register .container{
+background-color: #D6E1F2;
+}
+
+
+#register .small_input_left{
+
+	width: 45%;
+	float: left;
+
+}
+
+#register .small_input_right{
+
+	width: 45%;
+	float: right;
+
+}
+
+#register  .ui-controlgroup-controls{
+ width: 100%;
+
+}
+
+#register img{
+
+
+padding: 0%;
+width: 11%;
+margin-top: 2%;
+margin-bottom: 2%;
+}
+
+
+/*home page*/
+
+#home .container{
+background-color: #D6E1F2;
+padding: 5%;
+
+}
+
+
+.configButton{
+
+
+padding: 0%;
+width: 11%;
+margin-top: 2%;
+margin-bottom: 2%;
+}
+
+
+#photo_container {
+background-color: #679F25;
+float: left;
+width: 40%;
+}
+
+
+#information {
+color: white;
+float: left;
+width: 52%;
+margin-left: 5%;
+margin-top: 20%;
+background-image: url("../images/backgroundName.png");
+background-size: 100%  100%;
+background-repeat: no-repeat;
+padding: 1%;
+}
+
+
+#name_user{
+	float: left;
+clear: left;
+color: white;
+font-family: arial_bold;
+font-size: 1.4em;
+
+
+}
+
+.sections{
+	width: 100%;
+	float: left;
+	margin-top: 15%;
+}
+.toSection{
+	width: 49%;
+}
+.rightSquare{
+	float: right;
+
+}
+
+
+
+
+.tojoin {
+	width: 51%;
+	height: 21%;
+	position: relative;
+	top: 8%;
+	left: 33%;
+	
+}
+
+.tocreate {
+	width: 52%;
+	height: 19%;
+	position: relative;
+	top: 11%;
+	left: 33%;
+	
+}	
+
+
+
+
 .aspect_ratio{
 
 	height: 100%;
 	width: 100%;
-	overflow: hidden;
+	overflow: scroll;
 }
+
+/*
+.ui-footer {
+	width: 100%;
+	text-align: center;
+	background: none;
+	background-color: #679f25;
+	position: absolute;
+	bottom: 0px;
+	background-image: linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+background-image: -o-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+background-image: -moz-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+background-image: -webkit-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+background-image: -ms-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%); 
+
+}
+
+.ui-footer img {
+	width: 10%;
+}
+
+*/
+
+
+
+
+
+
+
+
+
+
+
+
 #before_register_container{
 	background-image: url("../images/before_register.png");
 	background-size: 100%  100%;
@@ -122,13 +391,7 @@
 
 
 
-.login_facebook{
-	width: 12%;
-	height: 8%;
-	position: relative;
-	top: 18%;
-	left: 65%;
-}
+
 
 .register_facebook{
 	width: 30%;
@@ -138,24 +401,11 @@
 	left: 57%;
 }
 
-.register{
-	width: 30%;
-	height: 19%;
-	position: relative;
-	top: 43%;
-	left: 35%;
-	
-}
 
 
 
-#form_login{
-	width: 50%;
-	position: relative;
-	top: 26%;
-	left: 25%;
 
-}
+
 #submit_form_login{
 
 	width: 50%;
@@ -164,14 +414,6 @@
 
 }
 
-#form_register{
-	width: 80%;
-	position: relative;
-	top: 20%;
-	left: 10%;
-
-
-}
 
 
 .half_width{
@@ -190,11 +432,7 @@
 	margin: 0 auto;
 	text-align: center;
 }
-#form_register .ui-field-contain .ui-controlgroup-controls{
 
-	width: 50%;
-
-}
 
 
 #camp_container{
@@ -205,39 +443,13 @@
 
 
 
-#photo_container {
-background-color: #679F25;
-float: left;
-left: 9%;
-position: relative;
-top: 5%;
-width: 38%;
-}
 
 #photo{
 	width: 90%;
 	margin: 5%;
 }
 
-#information {
-color: white;
-float: left;
-height: 9%;
-left: 16%;
-position: relative;
-text-align: center;
-top: 23%;
-width: 43%;
-}
 
-#name_user{
-	float: left;
-	clear: left;
-	color: white;
-	font-family: arial_bold;
-	font-size: 1.8em
-
-}
 #age_user{
 	margin-top: 2%;
 	float: left;
@@ -254,42 +466,6 @@ width: 43%;
 
 }
 
-
-.toplay {
-clear: left;
-float: left;
-left: 5%;
-position: relative;
-top: 9%;
-width: 42.5%;
-}
-
-
-.tomaps {
-width: 42.5%;
-position: relative;
-top: 12%;
-left: 5%;
-float: left;
-}
-
-.tojoin {
-	width: 51%;
-	height: 21%;
-	position: relative;
-	top: 8%;
-	left: 33%;
-	
-}
-
-.tocreate {
-	width: 52%;
-	height: 19%;
-	position: relative;
-	top: 11%;
-	left: 33%;
-	
-}
 
 .first_square {
 	width: 24%;
@@ -310,21 +486,7 @@ float: left;
 }
 
 
-.togalery {
-width: 43%;
-float: left;
-position: relative;
-top: 12%;
-left: 10%;
-}
 
-.to_golombiao {
-float: left;
-left: 10%;
-position: relative;
-top: 9%;
-width: 43%;
-}
 .join{
 
 	width: 58%;
@@ -372,19 +534,7 @@ width: 43%;
 .headers{
 	height: 10%;
 }
-.footers{
-	height: 10%;
-	background-image: url("../images/home_icon.png");
-	background-size: 16% 79%;
-	background-position-x: 50%;
-	background-position-y: 50%;
-	background-repeat: no-repeat;
-	width: 100%;
-	border: 1px solid white;
-	position:absolute;
-	bottom:0;
 
-}
 
 .header_div{
 
@@ -514,11 +664,6 @@ width: 43%;
 	text-align: center;
 }
 
-.ui-field-contain label.ui-select {
-
-	width: 10%;
-	margin: 0 2% 0 0;
-}
 .principio{
 	margin: 6% auto;
 	width: 80%;
@@ -637,54 +782,7 @@ width: 43%;
 	display: inline;
 }
 
-.ui-footer {
-	width: 100%;
-	text-align: center;
-	background: none;
-	background-color: #679f25;
-	position: absolute;
-	bottom: 0px;
-	background-image: linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
-background-image: -o-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
-background-image: -moz-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
-background-image: -webkit-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
-background-image: -ms-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%); 
 
-}
-
-.ui-footer img {
-	width: 10%;
-}
-.ui-navbar li .ui-btn{
-background: none;
-background-color: #679f25;
-border: 1px solid #D2D2D3;
-background-image: linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
-background-image: -o-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
-background-image: -moz-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
-background-image: -webkit-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
-background-image: -ms-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
-
-}
-#play .navbar{
-	position: absolute;
-	top: 0px;
-	width: 100%;
-}
- .navbar .ui-btn-text  {
-text-shadow: 1px 1px 0 #000;
-color: white;
-font-size: 1.9em !important;
-}
-
-.ui-btn-text{
-	font-family: aller_bold;
-	font-size: 1.2em;
-}
-.ui-navbar li .ui-btn .ui-btn-inner {
-padding-top: 1em;
-padding-bottom: 1em;
-}	
 
 
 .fecha {
@@ -706,9 +804,24 @@ padding-bottom: 1em;
 	margin: 20px auto;
 	border: 1px solid blue;
 }
+#colombia{
+
+	width: 498px;
+	height: 383px;
+	margin: 20px auto;
+	border: 1px solid blue;
+}
 .geolocation1{
 	width:438px;
 	height:199px;
 	margin:0 auto; 
 	border:1px solid blue;
 }
+
+#geolocation {
+	width: 438px;
+	height: 199px;
+	margin: 0 auto;
+	border: 1px solid #00F;
+}
+
