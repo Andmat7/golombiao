@@ -23,6 +23,7 @@
 
 
 #login .help {
+	margin-top: 10%;
 float: left;
 color: white;
 text-shadow: 1px 1px #000000;
@@ -40,6 +41,9 @@ text-shadow: 1px 1px #000000;
 .container{
 	padding: 13%;
 	padding-bottom: 0;
+	padding-top: 0;
+	overflow: scroll;
+
 
 
 
@@ -160,7 +164,7 @@ background-color: #D6E1F2;
 
 }
 
-#register img{
+.backButton{
 
 
 padding: 0%;
@@ -175,6 +179,8 @@ margin-bottom: 2%;
 #home .container{
 background-color: #D6E1F2;
 padding: 5%;
+padding-top: 0%;
+padding-bottom: 0%;
 
 }
 
@@ -193,6 +199,7 @@ margin-bottom: 2%;
 background-color: #679F25;
 float: left;
 width: 40%;
+margin-top: 9%;
 }
 
 
@@ -201,9 +208,9 @@ color: white;
 float: left;
 width: 52%;
 margin-left: 5%;
-margin-top: 20%;
+margin-top: 33%;
 background-image: url("../images/backgroundName.png");
-background-size: 100%  100%;
+background-size: 100% 100%;
 background-repeat: no-repeat;
 padding: 1%;
 }
@@ -224,8 +231,10 @@ font-size: 1.4em;
 	float: left;
 	margin-top: 15%;
 }
-.toSection{
-	width: 49%;
+
+.toSection {
+padding: 2%;
+width: 45%;
 }
 .rightSquare{
 	float: right;
@@ -253,7 +262,26 @@ font-size: 1.4em;
 	
 }	
 
+/*mapa page*/
 
+#mapa img{
+	width: 10%;
+}
+
+#mapa .indicator{
+	width: 50%;
+	float: left;
+	margin-top: 16%;
+
+}
+
+
+#colombia{
+width: 100%;
+height: 75%;
+	border: 1px solid blue;
+	margin-top: 7%;
+}
 
 
 .aspect_ratio{
@@ -804,13 +832,7 @@ background-image: -ms-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97
 	margin: 20px auto;
 	border: 1px solid blue;
 }
-#colombia{
 
-	width: 498px;
-	height: 383px;
-	margin: 20px auto;
-	border: 1px solid blue;
-}
 .geolocation1{
 	width:438px;
 	height:199px;

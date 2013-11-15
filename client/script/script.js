@@ -38,6 +38,28 @@ $(window).load(function() {
 		});
 });
 
+
+
+$( document ).on( "pageshow", function( event, ui) {
+  var windowHeight=$(window).height();
+  var containerHeight=$(event.target).find(".container").height();
+  var footerHeight=$(event.target).find('div[data-role="footer"]').height();
+  var headerHeight=$(event.target).find('div[data-role="header"]').height();
+  $(event.target).find(".container").height(windowHeight-footerHeight-headerHeight+'px');
+
+});
+
+
+
+
+
+
+
+
+
+
+
+
 $( document ).on("click", ".home_icon", function() {
 
   window.location.href = 'index.html#home';
