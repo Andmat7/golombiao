@@ -1004,6 +1004,12 @@ function onSuccess2(position) {
         }
 
         function uploadPhoto(imageURI) {
+          $.mobile.loading( 'show', {
+              text: 'subiendo imagen',
+              textVisible: true,
+              theme: 'z',
+              html: ""
+            });
           console.log("enter uploadPhoto");
             var options = new FileUploadOptions();
             options.fileKey="userfile";
@@ -1032,19 +1038,11 @@ function onSuccess2(position) {
             response = jQuery.parseJSON(response);
             console.log(response);
             alert(response.message_success);
+            $.mobile.loading( 'hide' );
         }
 
         function fail(error) {
             alert("Ha ocurrido un error: Code = " + error.code);
+            $.mobile.loading( 'hide' );
         }
 
-
-$(window).scroll(function () {
-    var height = $(window).height();
-    var scrollTop = $(window).scrollTop();
-
-    if (scrollTop == height)
-      { $(window).height($(window).height() +10);
-      alert("Hola");
-    }
-});
