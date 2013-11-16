@@ -18,6 +18,22 @@
 	</gap:plugin>
 	
 
+<icon gap:platform="ios" height="57" src="images/icons/golombiaoIcon.png" width="57" />
+<icon gap:platform="ios" height="72" src="images/icons/golombiaoIcon.png" width="72" />
+<icon gap:platform="ios" height="114" src="images/icons/golombiaoIcon.png" width="114" />
+<icon gap:platform="ios" height="144" src="images/icons/golombiaoIcon.png" width="144" />
+<icon gap:platform="winphone" gap:role="background" src="images/icons/golombiaoIcon.png" />
+<gap:splash gap:density="ldpi" gap:platform="android" src="images/splash/LDPI.png" />
+<gap:splash gap:density="mdpi" gap:platform="android" src="images/splash/medium.png" />
+<gap:splash gap:density="hdpi" gap:platform="android" src="images/splash/HDPI.png" />
+<gap:splash gap:density="xhdpi" gap:platform="android" src="images/splash/XHDPI.png" />
+<gap:splash gap:platform="ios" height="480" src="images/splash/small.png" width="320" />
+<gap:splash gap:platform="ios" height="960" src="images/splash/medium.png" width="640" />
+<gap:splash gap:platform="ios" height="1024" src="images/splash/large.png" width="768" />
+<gap:splash gap:platform="ios" height="1136" src="images/splash/large5.png" width="640" />
+<gap:splash gap:platform="ios" height="768" src="images/splash.png" width="1024" />
+
+
     <author href="https://sub.example.com" email="someone@email.com">
         Yourname
     </author>

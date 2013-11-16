@@ -40,14 +40,27 @@ $(window).load(function() {
 
 
 
-$( document ).on( "pageshow", function( event, ui) {
-  var windowHeight=$(window).height();
-  var containerHeight=$(event.target).find(".container").height();
-  var footerHeight=$(event.target).find('div[data-role="footer"]').height();
-  var headerHeight=$(event.target).find('div[data-role="header"]').height();
-  $(event.target).find(".container").height(windowHeight-footerHeight-headerHeight+'px');
+  $( document ).on( "pageshow", function( event, ui) {
+    var version=parseInt(window.device.version);
+    console.log(version);
 
-});
+    if (version<3) {
+      console.log("version<3");
+      $(event.target).find(".container").height($(document).height());
+
+    }else{
+
+      console.log("version>3");
+
+
+
+    var windowHeight=$(window).height();
+    var containerHeight=$(event.target).find(".container").height();
+    var footerHeight=$(event.target).find('div[data-role="footer"]').height();
+    var headerHeight=$(event.target).find('div[data-role="header"]').height();
+    $(event.target).find(".container").height(windowHeight-footerHeight-headerHeight+'px');
+    }
+  });
 
 
 
@@ -62,7 +75,8 @@ $( document ).on( "pageshow", function( event, ui) {
 
 $( document ).on("click", ".home_icon", function() {
 
-  window.location.href = 'index.html#home';
+  
+  changePage('index.html#home');
 });
 
 
@@ -87,14 +101,15 @@ $( document ).on("click", ".convocate_teams", function() {
     if (!(response.error)) {
       $.post(server+"teams/promedio_resultados", post_values, function(response2) {
 
-        window.location.href = 'index.html#results2';
+        
+        $.mobile.changePage( "index.html#results2");
       });
 
 
       
     }else{
       alert("Aun no has evaluado, por favor hazlo para ver los resultados");
-      window.location.href = 'index.html#results';
+      $.mobile.changePage( "index.html#results");
 
       
     }
@@ -125,7 +140,7 @@ function login(){
            $("#photo").attr("src",photoUrl);
            $("#location_user").html(response.location.name);
            console.log(response);
-           window.location.href = 'index.html#home';
+           changePage('index.html#home');
          }
 
        });
@@ -143,7 +158,7 @@ function login(){
            $("#photo").attr("src",photoUrl);
            $("#location_user").html(response.location.name);
            console.log(response);
-           window.location.href = 'index.html#home';
+           changePage('index.html#home');
          }
 
        });
@@ -188,7 +203,7 @@ function send_results(){
 
               if (!(response2.error)) {
                 alert("se ha enviado una solicitud al lider del otro equipo");
-                window.location.href = 'index.html#my_conv';
+                changePage('index.html#my_conv');
               }else{
                 alert(response2.message_error);
               }
@@ -235,7 +250,8 @@ function register_facebook(){
 
   },{scope: 'publish_actions,email,user_birthday,user_location'});
 
-	window.location.href = 'index.html#register';
+	
+  changePage('index.html#register');
 
 
 
@@ -269,7 +285,8 @@ function data_server_team(){
       }else
       {
           alert(response.message_error);
-            window.location.href = 'index.html#my_conv';
+            
+            changePage('index.html#my_conv');
 
 
 
@@ -301,7 +318,8 @@ function zone(teams){
   $(teams).parent().parent().parent().find(".vs_team2 .red").html();
   $("#convocate2 .my_team").html($(teams).parent().parent().parent().find(".your_team .red").html());
   $("#convocate2 .the_other_team").html($(teams).parent().parent().parent().find(".vs_team2 .red").html());
-  window.location.href = 'index.html#convocate2';
+  
+  changePage('index.html#convocate2');
 }
 
 function request_game(submit){
@@ -325,7 +343,8 @@ function request_game(submit){
 
     if (!(response.error)) {
       alert("se ha enviado una solicitud al lider del otro equipo");
-      window.location.href = 'index.html#my_conv';
+      
+      changePage('index.html#my_conv');
     }else{
       alert(response.message_error);
     }
@@ -460,7 +479,8 @@ $( document ).on( "pageshow", "#convocate", function() {
       }
     }else{
       alert("Debes ser el creador de un equipo para poder convocar a juego");
-      window.location.href = 'index.html#play';
+      
+      changePage('index.html#play');
     }
   });
 
@@ -487,7 +507,8 @@ $( document ).on( "pageshow", "#my_conv", function() {
       }
     }else{
       alert("En este momento no has convocado ningun Juego");
-      window.location.href = 'index.html#play';
+      
+      changePage('index.html#play');
     }
   });
 
@@ -564,7 +585,8 @@ $( document ).on( "pageshow", "#login", function() {
 
           $("#location_user").html(response.city);
                 //city=post_values.city;
-                window.location.href = 'index.html#home';
+                
+                changePage('index.html#home');
               }else{
                 alert(response.message_error);
               }
@@ -670,7 +692,7 @@ $( document ).on( "pageshow", "#register", function() {
         $("#age_user").html(post_values.birthday);
         $("#location_user").html(post_values.city);
         city=post_values.city;
-        window.location.href = 'index.html#home';
+        changePage('index.html#home');
       }else{
         alert(response.message_error);
       }
@@ -780,11 +802,12 @@ $( document ).on( "pageshow", "#create", function() {
           localStorage.setItem('name_team',response.name_team);
           
           alert("grupo creado");
-          window.location.href = 'index.html#convocate';
+          changePage('index.html#convocate');
           
         }else{
           alert(response.message_error);
-          window.location.href = 'index.html#play';
+          
+          changePage('index.html#play');
         }
       });
     }
@@ -904,7 +927,8 @@ $( "#form_create" ).validate({
         localStorage.setItem('name_team',response.name_team);
 
         alert("grupo creado");
-        window.location.href = 'index.html#convocate';
+        
+        changePage('index.html#convocate');
 
       }else{
         alert(response.message_error);
@@ -1046,3 +1070,20 @@ function onSuccess2(position) {
             $.mobile.loading( 'hide' );
         }
 
+
+
+function changePage(page){
+
+  if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){
+
+
+    $.mobile.changePage(page);
+
+  }else{
+
+  window.location.href = page;
+
+}
+
+
+}

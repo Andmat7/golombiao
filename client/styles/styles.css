@@ -78,7 +78,7 @@ background-image: -ms-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97
 }
 
 
-#login .header {
+#login .headerLogin {
 margin-top: 10%;
 width: 100%;
 overflow: auto;
@@ -86,12 +86,13 @@ margin: auto;
 }
 
 
-#login .header h1{
+#login .headerLogin h1{
 color: white;
 float: left;
+text-shadow: 1px 1px black;
 }
 
-#login .header img{
+#login .headerLogin img{
 color: white;
 float: right;
 width: 21%;
@@ -100,6 +101,7 @@ width: 21%;
 	color: white;
 	clear: left;
 	margin-top: 17%;
+	text-shadow: 1px 1px black;
 }
 
 #login #form_login {
@@ -230,6 +232,7 @@ font-size: 1.4em;
 	width: 100%;
 	float: left;
 	margin-top: 15%;
+	margin-bottom: 11%;
 }
 
 .toSection {
