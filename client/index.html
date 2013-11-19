@@ -17,6 +17,7 @@
 
 	<script type="text/javascript" src="script/sha256.js"></script>
 	<script type="text/javascript" src="script/script.js"></script>
+	
 	<link rel="stylesheet" type="text/css" href="styles/styles.css">
 	<link href="styles/device.css" type="text/css" media="screen" rel="stylesheet"/>
 
@@ -70,7 +71,7 @@
 				<input class="input_txt_complete" type="email"  name="email" value="" placeholder="Correo"/>
 				<div class="small_input_left">
 					<label>Edad:</label>
-					<input class="required" type="text"  name="age" value="" placeholder="Edad"/>
+					<input class="required" type="number"  name="age" value="" placeholder="Edad"/>
 				</div>
 				<div class="small_input_right">
 					<label>Genero:</label>
@@ -160,6 +161,7 @@
 		<div data-role="page" id="home">
 
 			<div class="container">
+				<div class="dataUser">
 				<div id="photo_container">
 					<img id="photo" src="http://graph.facebook.com/Golombiao/picture?width=300&height=400" onclick="camera()">
 				</div>
@@ -169,8 +171,9 @@
 					<span id="location_user">Bogota-Colombia</span>
 
 				</div>
+				</div>
 				<div class="sections">
-					<a href="index.hrml#play" data-transition="flow">
+					<a href="index.html#play" data-transition="flow">
 						<img class="toSection" src="images/play_button.png">
 					</a>
 					<a href="gol_pag.htm" data-transition="flow">
@@ -230,6 +233,430 @@
 
 </div>
 
+<div data-role="page" id="play">
+	<div data-role="header"> 
+
+		<div data-role="navbar" class="navbar">
+				<ul>
+					<li><a href="index.html#play" class="ui-btn-active ui-state-persist" data-transition="flip">JUGAR</a></li>
+					<li><a href="index.html#pre_conv"data-transition="flip">CONVOCAR</a></li>
+				</ul>
+			</div><!-- /navbar -->
+		</div>
+	<div class="container" align="center">
+
+		
+		<div class="buttons">
+
+		<div class="subButton">
+		
+		<h1>UNIRSE</h1>
+		<a href="index.html#join" data-transition="flow">
+		<img src="images/joinButton.png">
+		</a>
+		</div>
+		<div class="subButton">
+		<h1>CREAR</h1>
+		<a href="index.html#create" data-transition="flow">
+		<img src="images/createButton.png">
+		</a>
+		</div>
+		</div>
+		<img src="images/childs.png">
+
+	</div>
+	<div data-role="footer" align="center">
+			
+			<img class="backButton" src="images/homeButton.png">
+
+		</div>
+
+
+</div>
+
+
+
+
+
+<div data-role="page" id="pre_conv">
+	<div data-role="header"> 
+
+		<div data-role="navbar" class="navbar">
+				<ul>
+					<li><a href="index.html#play" data-transition="flip">JUGAR</a></li>
+					<li><a href="index.html#pre_conv"class="ui-btn-active ui-state-persist"  data-transition="flip">CONVOCAR</a></li>
+				</ul>
+			</div><!-- /navbar -->
+		</div>
+	<div class="container" align="center">
+
+		
+		<div class="buttons">
+
+		<div class="subButton">
+		
+		<h1>VER</h1>
+		<a href="index.html#my_conv" data-transition="flow">
+		<img src="images/joinButton.png">
+		</a>
+		</div>
+		<div class="subButton">
+		<h1>CREAR</h1>
+		<a href="index.html#convocate" data-transition="flow">
+		<img src="images/createButton.png">
+		</a>
+		</div>
+		</div>
+		<img src="images/childs.png">
+
+	</div>
+	<div data-role="footer" align="center">
+			
+			<img class="backButton" src="images/homeButton.png">
+
+		</div>
+
+
+</div>
+
+
+
+
+
+
+	<div data-role="page" id="create">
+		<div data-role="header"> 
+
+		<div data-role="navbar" class="navbar">
+				<ul>
+					<li><a href="index.html#play" class="ui-btn-active ui-state-persist" data-transition="flip">JUGAR</a></li>
+					<li><a href="index.html#pre_conv"  data-transition="flip">CONVOCAR</a></li>
+				</ul>
+			</div><!-- /navbar -->
+		</div>
+
+		<div class="container">
+				<label>Crear Equipo:</label>
+				<form id="form_create">
+
+
+
+					<label>Nombre del equipo:</label>
+					<input class="input_txt_complete name_team" type="text"  name="name" value="" placeholder="Nombre del equipo"/>
+
+					<label>Departamento:</label>
+					<div class="total_width">
+						<select name="departamento" class="departamento" onchange="sel_city(this)">
+							<option value="">Departamento</option>
+							<option value="1">Antioquia</option>
+							<option value="2">Atlántico</option>
+							<option value="3">Bolívar</option>
+							<option value="4">Boyacá</option>
+							<option value="5">Caldas</option>
+							<option value="6">Cauca</option>
+							<option value="7">Cesar</option>
+							<option value="8">Córdoba</option>
+							<option value="9">Cundinamarca</option>
+							<option value="10">Guajira</option>
+							<option value="11">Huila</option>
+							<option value="12">Magdalena</option>
+							<option value="13">Meta</option>
+							<option value="14">Nariño</option>
+							<option value="15">Norte de Santander</option>
+							<option value="16">Quindío</option>
+							<option value="17">Risaralda</option>
+							<option value="18">Santander</option>
+							<option value="19">Sucre</option>
+							<option value="20">Tolima</option>
+							<option value="21">Valle del Cauca</option>
+						</select>
+					</div>
+					<label>Ciudad:</label>
+					<div class="total_width">
+						<select name="ciudad" class="ciudad" >
+							<option value="">Ciudad</option>
+						</select>
+					</div>
+					<label>Barrio:</label>
+					<input class="input_txt_complete" type="text"  name="zone_team" value="" placeholder="Barrio"/>
+					<label>Descripcion:</label>
+					<textarea placeholder="Descripción" name="descripcion" id="" cols="30" rows="20"  ></textarea>
+
+
+					<input id="register_server"  type="submit" value="Crear">
+
+				</form>	
+		</div>
+		<div data-role="footer" align="center">
+			
+			<img class="backButton" src="images/homeButton.png">
+
+		</div>
+
+
+
+
+	</div>
+
+
+
+<div data-role="page" id="join">
+	<div data-role="header"> 
+
+		<div data-role="navbar" class="navbar">
+				<ul>
+					<li><a href="index.html#play" class="ui-btn-active ui-state-persist" data-transition="flip">JUGAR</a></li>
+					<li><a href="index.html#pre_conv"  data-transition="flip">CONVOCAR</a></li>
+				</ul>
+			</div><!-- /navbar -->
+		</div>
+
+	
+		<div  class="container">
+
+			<form id="form_join">
+
+				<div class="total_width">
+					<select name="departamento" class="departamento" onchange="sel_city(this)">
+						<option value="">Departamento</option>
+						<option value="1">Antioquia</option>
+						<option value="2">Atlántico</option>
+						<option value="3">Bolívar</option>
+						<option value="4">Boyacá</option>
+						<option value="5">Caldas</option>
+						<option value="6">Cauca</option>
+						<option value="7">Cesar</option>
+						<option value="8">Córdoba</option>
+						<option value="9">Cundinamarca</option>
+						<option value="10">Guajira</option>
+						<option value="11">Huila</option>
+						<option value="12">Magdalena</option>
+						<option value="13">Meta</option>
+						<option value="14">Nariño</option>
+						<option value="15">Norte de Santander</option>
+						<option value="16">Quindío</option>
+						<option value="17">Risaralda</option>
+						<option value="18">Santander</option>
+						<option value="19">Sucre</option>
+						<option value="20">Tolima</option>
+						<option value="21">Valle del Cauca</option>
+					</select>
+				</div>
+				<div class="total_width">
+					<select name="ciudad" class="ciudad" >
+						<option value="">Ciudad</option>
+					</select>
+				</div>
+				<div data-role="collapsible-set" class="teams_city">
+
+
+
+				</div>
+
+
+
+				<input id="register_server" onclick="data_server_team()" type="button"value="Registrar">
+
+			</form>	
+		</div>
+
+		<div data-role="footer" align="center">
+
+			
+			<img class="backButton" src="images/homeButton.png">
+
+		</div>
+
+
+
+
+
+</div>
+
+<div data-role="page" id="my_conv">
+				<div data-role="panel" id="mypanel" data-position="right" data-display="push" style="position:fixed">
+   		<div id="title_mi_reto3"></div>
+</div>
+	
+
+
+
+	<div data-role="header"> 
+	
+		<div data-role="navbar" class="navbar">
+				<ul>
+					<li><a href="index.html#play" data-transition="flip">JUGAR</a></li>
+					<li><a href="index.html#pre_conv" class="ui-btn-active ui-state-persist"  data-transition="flip">CONVOCAR</a></li>
+				</ul>
+			</div><!-- /navbar -->
+		</div>
+		
+			<div data-role="content" class="container">
+				<a href="#mypanel"><img class="convocationButton" src="images/configButtonGreen.png">
+				</a>
+				<div id="mi_reto">
+					<div id="title_mi_reto" class="title_retos"></div>
+				</div>
+				<div id="me_retaron">
+					<div id="title_mi_reto2" class="title_retos"></div>
+				</div>
+			</div>
+		<div data-role="footer"  align="center">
+			<img class="backButton" src="images/homeButton.png">
+
+			</div>
+	</div>
+
+
+
+
+	<div data-role="page" id="convocate">
+		<div data-role="header"> 
+	
+		<div data-role="navbar" class="navbar">
+				<ul>
+					<li><a href="index.html#play" data-transition="flip">JUGAR</a></li>
+					<li><a href="index.html#pre_conv" class="ui-btn-active ui-state-persist"  data-transition="flip">CONVOCAR</a></li>
+				</ul>
+			</div><!-- /navbar -->
+		</div>
+		
+			
+			<div data-role="content "class="container" align="center">
+				<div class="your_team">
+					<ul class="own_teams">
+						<label>Tus Equipos</label>
+
+					</ul>
+				</div>
+				<div class="vs_team">
+					<div class="vs">V.S.</div>
+					<input class="id" type="hidden"  name="id_time" value=""/>
+					<form id="form_vs">
+						
+							<select name="departamento" class="departamento" onchange="sel_city(this)">
+								<option value="">Departamento</option>
+								<option value="1">Antioquia</option>
+								<option value="2">Atlántico</option>
+								<option value="3">Bolívar</option>
+								<option value="4">Boyacá</option>
+								<option value="5">Caldas</option>
+								<option value="6">Cauca</option>
+								<option value="7">Cesar</option>
+								<option value="8">Córdoba</option>
+								<option value="9">Cundinamarca</option>
+								<option value="10">Guajira</option>
+								<option value="11">Huila</option>
+								<option value="12">Magdalena</option>
+								<option value="13">Meta</option>
+								<option value="14">Nariño</option>
+								<option value="15">Norte de Santander</option>
+								<option value="16">Quindío</option>
+								<option value="17">Risaralda</option>
+								<option value="18">Santander</option>
+								<option value="19">Sucre</option>
+								<option value="20">Tolima</option>
+								<option value="21">Valle del Cauca</option>
+							</select>
+						
+						
+							<select name="ciudad" class="ciudad" onchange="vs_team(this)" >
+								<option value="">Ciudad</option>
+							</select>
+						
+					</form>
+
+
+				</div>
+				<div class="vs_team2">
+					<ul class="vs_teams3">
+						<label>Equipos Contrarios</label>
+
+					</ul>
+
+				</div>
+				<input type="submit" class="enviar_login" value="Seleccionar Equipos" onclick="zone(this)">
+			</div>
+			<div data-role="footer"  align="center">
+			<img class="backButton" src="images/homeButton.png">
+
+			</div>
+
+	</div>
+
+
+
+	<div data-role="page" id="convocate2">
+
+			<div data-role="header"> 
+	
+		<div data-role="navbar" class="navbar">
+				<ul>
+					<li><a href="index.html#play" data-transition="flip">JUGAR</a></li>
+					<li><a href="index.html#pre_conv" class="ui-btn-active ui-state-persist"  data-transition="flip">CONVOCAR</a></li>
+				</ul>
+			</div><!-- /navbar -->
+		</div>
+
+		
+
+			<div data-role="content" class="container" align="center">
+
+
+				<div class="two_teams">
+					<div class="my_team"></div><div class="Vs_convocate2">V.S.</div><div class="the_other_team"></div>
+
+				</div>
+					<label>Principios</label>
+					<select name="principio" class="principios">
+						<option value="">Principios</option>
+						<option value="1">No Violencia</option>
+						<option value="2">Libertad de expresión</option>
+						<option value="3">No discriminación</option>
+						<option value="4">Cuidar el entorno</option>
+						<option value="5">Participación activa</option>
+						<option value="6">Cuidarse y cuidar al otro</option>
+						<option value="7">Igualdad</option>
+					</select>
+				
+				<div id="match_site">
+					<div id="geolocation" class="geolocation1"> </div>
+					<div class="total_width"><input id="latitud" class="input_txt_complete" type="hidden"  name="latitud" value="" placeholder="Ubicacion"/></div>
+					<div class="total_width"><input id="longitud"class="input_txt_complete" type="hidden"  name="longitud" value="" placeholder="Ubicacion"/></div>				
+				</div>
+				<div class="small_input_left">
+				<label for="date">Fecha:</label>
+						<input type="date" name="fecha" id="date" value=""  />
+						</div>
+					
+					<div class="small_input_right">
+						<label for="name">Hora:</label>
+						<input type="time" name="hora" id="name" value=""  />
+</div>
+
+				<label for="date">Tipo de Juego</label>
+					<select name="tipo_juego" class="game_type">
+						<option value="">Juego</option>
+						<option value="1">Basquetball</option>
+						<option value="2">Ultimate</option>
+						<option value="3">Micro</option>
+						<option value="4">Futbol</option>
+					</select>
+				
+				<div class="send_request"><input type="submit" class="enviar_login" value="Enviar Solicitud" onclick="request_game(this)"></div>
+
+
+
+			</div>
+			<div data-role="footer"  align="center">
+			<img class="backButton" src="images/homeButton.png">
+
+			</div>
+		
+
+	</div>
+
+
 
 
 
@@ -287,171 +714,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-	<div data-role="page" id="play">
-		<div class="aspect_ratio">
-			<div data-role="navbar" class="navbar">
-				<ul>
-					<li><a href="index.html#play"  data-transition="flip">JUGAR</a></li>
-					<li><a href="index.html#pre_conv"data-transition="flip">CONVOCAR</a></li>
-					<li><a href="index.html#results"data-transition="flip">RESULTADOS</a></li>
-				</ul>
-			</div><!-- /navbar -->
-			<div id="play_container">
-
-				<div class="tojoin" onclick="window.location.href = 'index.html#join';"></div>
-				<div class="tocreate" onclick="window.location.href = 'index.html#create';"></div>
-
-
-			</div>
-			<div data-role="footer">
-				<img class="home_icon" src="images/home_icon.png">
-			</div>
-		</div>		
-
-	</div>
-	<div data-role="page" id="convocate">
-		<div class="aspect_ratio">
-			<div data-role="navbar" class="navbar">
-				<ul>
-					<li><a href="index.html#play">JUGAR</a></li>
-					<li><a href="index.html#pre_conv">CONVOCAR</a></li>
-					<li><a href="index.html#results">RESULTADOS</a></li>
-				</ul>
-			</div>
-			<div id="convocate_container">
-				<div class="your_team">
-					<ul class="own_teams">
-						Tus Equipos
-
-					</ul>
-				</div>
-				<div class="vs_team">
-					<div class="vs">V.S.</div>
-					<input class="id" type="hidden"  name="id_time" value=""/>
-					<form id="form_vs">
-						<div class="total_width">
-							<select name="departamento" class="departamento" onchange="sel_city(this)">
-								<option value="">Departamento</option>
-								<option value="1">Antioquia</option>
-								<option value="2">Atlántico</option>
-								<option value="3">Bolívar</option>
-								<option value="4">Boyacá</option>
-								<option value="5">Caldas</option>
-								<option value="6">Cauca</option>
-								<option value="7">Cesar</option>
-								<option value="8">Córdoba</option>
-								<option value="9">Cundinamarca</option>
-								<option value="10">Guajira</option>
-								<option value="11">Huila</option>
-								<option value="12">Magdalena</option>
-								<option value="13">Meta</option>
-								<option value="14">Nariño</option>
-								<option value="15">Norte de Santander</option>
-								<option value="16">Quindío</option>
-								<option value="17">Risaralda</option>
-								<option value="18">Santander</option>
-								<option value="19">Sucre</option>
-								<option value="20">Tolima</option>
-								<option value="21">Valle del Cauca</option>
-							</select>
-						</div>
-						<div class="total_width">
-							<select name="ciudad" class="ciudad" onchange="vs_team(this)" >
-								<option value="">Ciudad</option>
-							</select>
-						</div>
-					</form>
-
-
-				</div>
-				<div class="vs_team2">
-					<ul class="vs_teams3">
-						Equipos Contrarios
-
-					</ul>
-
-				</div>
-				<div class="send_request"><input type="submit" class="enviar_login" value="Seleccionar Equipos" onclick="zone(this)"></div>
-			</div>
-			<div data-role="footer">
-				<img class="home_icon" src="images/home_icon.png">
-			</div>
-		</div>		
-
-	</div>
-
-
-
-	<div data-role="page" id="convocate2">
-		<div class="aspect_ratio">
-			<div id="convocate2_container">
-				<div data-role="navbar" class="navbar">
-					<ul>
-						<li><a href="index.html#play">JUGAR</a></li>
-						<li><a href="index.html#pre_conv">CONVOCAR</a></li>
-						<li><a href="index.html#results">RESULTADOS</a></li>
-					</ul>
-				</div>
-
-				<div class="two_teams">
-					<div class="my_team"></div><div class="Vs_convocate2">V.S.</div><div class="the_other_team"></div>
-
-				</div>
-				<div class="half_width2">
-					<select name="principio" class="principios">
-						<option value="">Principios</option>
-						<option value="1">No Violencia</option>
-						<option value="2">Libertad de expresión</option>
-						<option value="3">No discriminación</option>
-						<option value="4">Cuidar el entorno</option>
-						<option value="5">Participación activa</option>
-						<option value="6">Cuidarse y cuidar al otro</option>
-						<option value="7">Igualdad</option>
-					</select>
-				</div>
-				<div id="match_site">
-					<div id="geolocation" class="geolocation1"> </div>
-					<div class="total_width"><input id="latitud" class="input_txt_complete" type="hidden"  name="latitud" value="" placeholder="Ubicacion"/></div>
-					<div class="total_width"><input id="longitud"class="input_txt_complete" type="hidden"  name="longitud" value="" placeholder="Ubicacion"/></div>
-					<div class="half_width fecha">
-						<label for="date">Fecha:</label>
-						<input type="date" name="fecha" id="date" value=""  />
-					</div>
-					<div class="half_width hora">
-						<label for="name">Hora:</label>
-						<input type="time" name="hora" id="name" value=""  />
-					</div>
-				</div>
-				<div class="half_width">
-					<select name="tipo_juego" class="game_type">
-						<option value="">Juego</option>
-						<option value="1">Basquetball</option>
-						<option value="2">Ultimate</option>
-						<option value="3">Micro</option>
-						<option value="4">Futbol</option>
-					</select>
-				</div>
-				<div class="send_request"><input type="submit" class="enviar_login" value="Enviar Solicitud" onclick="request_game(this)"></div>
-
-
-				<div data-role="footer">
-					<img class="home_icon" src="images/home_icon.png">
-				</div>
-
-			</div>
-		</div>		
-
-	</div>
 
 	<div data-role="dialog" id="dialog">
 		<form action="http://codfe.co/golombiao/server/index.php/upload/do_upload" method="post"enctype="multipart/form-data" data-ajax=false	>
@@ -596,105 +858,7 @@
 
 
 
-
-
-	<div data-role="page" id="create">
-		<div class="aspect_ratio">
-			<div  id="create_container">
-				<div data-role="navbar" class="navbar">
-					<ul>
-						<li><a href="index.html#play">JUGAR</a></li>
-						<li><a href="index.html#pre_conv">CONVOCAR</a></li>
-						<li><a href="index.html#results">RESULTADOS</a></li>
-					</ul>
-				</div><!-- /navbar -->
-
-				<form id="form_create">
-					<input class="input_txt_complete name_team" type="text"  name="name" value="" placeholder="Nombre del equipo"/>
-
-
-					<div class="total_width">
-						<select name="departamento" class="departamento" onchange="sel_city(this)">
-							<option value="">Departamento</option>
-							<option value="1">Antioquia</option>
-							<option value="2">Atlántico</option>
-							<option value="3">Bolívar</option>
-							<option value="4">Boyacá</option>
-							<option value="5">Caldas</option>
-							<option value="6">Cauca</option>
-							<option value="7">Cesar</option>
-							<option value="8">Córdoba</option>
-							<option value="9">Cundinamarca</option>
-							<option value="10">Guajira</option>
-							<option value="11">Huila</option>
-							<option value="12">Magdalena</option>
-							<option value="13">Meta</option>
-							<option value="14">Nariño</option>
-							<option value="15">Norte de Santander</option>
-							<option value="16">Quindío</option>
-							<option value="17">Risaralda</option>
-							<option value="18">Santander</option>
-							<option value="19">Sucre</option>
-							<option value="20">Tolima</option>
-							<option value="21">Valle del Cauca</option>
-						</select>
-					</div>
-					<div class="total_width">
-						<select name="ciudad" class="ciudad" >
-							<option value="">Ciudad</option>
-						</select>
-					</div>
-					<input class="input_txt_complete" type="text"  name="zone_team" value="" placeholder="Barrio"/>
-					<textarea placeholder="Descripción" name="descripcion" id="" cols="30" rows="20"  ></textarea>
-
-
-					<input id="register_server"  type="submit" value="Crear">
-
-				</form>	
-
-
-
-				<div data-role="footer">
-					<img class="home_icon" src="images/home_icon.png">
-				</div>
-			</div>
-
-
-		</div>
-	</div>
-
-
-	<div data-role="page" id="my_conv">
-		<div class="aspect_ratio">
-			<div  id="convocate_container">
-				<div data-role="navbar" class="navbar">
-					<ul>
-						<li><a href="index.html#play">JUGAR</a></li>
-						<li><a href="index.html#pre_conv">CONVOCAR</a></li>
-						<li><a href="index.html#results">RESULTADOS</a></li>
-					</ul>
-				</div><!-- /navbar -->
-
-
-				<div id="mi_reto">
-					<div id="title_mi_reto" class="title_retos"></div>
-
-
-
-				</div>
-				<div id="me_retaron">
-					<div id="title_mi_reto2" class="title_retos"></div>
-
-				</div>
-			</div>
-			<div data-role="footer">
-				<img class="home_icon" src="images/home_icon.png">
-			</div>
-
-			
-		</div>
-
-	</div>
+	
 </div>
 
 
@@ -765,26 +929,6 @@
     </div>
 </div>
 
-<div data-role="page" id="pre_conv">
-	<div class="aspect_ratio">
-		<div  id="pre_conv_container">
-			<div data-role="navbar" class="navbar">
-				<ul>
-					<li><a href="index.html#play">JUGAR</a></li>
-					<li><a href="index.html#pre_conv">CONVOCAR</a></li>
-					<li><a href="index.html#results">RESULTADOS</a></li>
-				</ul>
-			</div><!-- /navbar -->
-
-			<div class="tojoin" onclick="window.location.href = 'index.html#my_conv';"></div>
-			<div class="tocreate" onclick="window.location.href = 'index.html#convocate';"></div>
-			<div data-role="footer">
-				<img class="home_icon" src="images/home_icon.png">
-			</div>
-		</div>
-
-	</div>
-</div>
 
 
 
@@ -795,104 +939,6 @@
 
 
 
-
-<div data-role="page" id="join">
-	<div class="aspect_ratio">
-		<div  id="join_container">
-			<div data-role="navbar" class="navbar">
-				<ul>
-					<li><a href="index.html#play">JUGAR</a></li>
-					<li><a href="index.html#pre_conv">CONVOCAR</a></li>
-					<li><a href="index.html#results">RESULTADOS</a></li>
-				</ul>
-			</div><!-- /navbar -->
-
-			<form id="form_join">
-
-				<div class="total_width">
-					<select name="departamento" class="departamento" onchange="sel_city(this)">
-						<option value="">Departamento</option>
-						<option value="1">Antioquia</option>
-						<option value="2">Atlántico</option>
-						<option value="3">Bolívar</option>
-						<option value="4">Boyacá</option>
-						<option value="5">Caldas</option>
-						<option value="6">Cauca</option>
-						<option value="7">Cesar</option>
-						<option value="8">Córdoba</option>
-						<option value="9">Cundinamarca</option>
-						<option value="10">Guajira</option>
-						<option value="11">Huila</option>
-						<option value="12">Magdalena</option>
-						<option value="13">Meta</option>
-						<option value="14">Nariño</option>
-						<option value="15">Norte de Santander</option>
-						<option value="16">Quindío</option>
-						<option value="17">Risaralda</option>
-						<option value="18">Santander</option>
-						<option value="19">Sucre</option>
-						<option value="20">Tolima</option>
-						<option value="21">Valle del Cauca</option>
-					</select>
-				</div>
-				<div class="total_width">
-					<select name="ciudad" class="ciudad" >
-						<option value="">Ciudad</option>
-					</select>
-				</div>
-				<div data-role="collapsible-set" class="teams_city">
-
-
-					<div data-role="collapsible" data-collapsed="true">
-						<div data-role="fieldcontain" class="join_checkbox" >
-							<fieldset data-role="controlgroup">
-								<input type="checkbox" name="checkbox-1" id="checkbox-1" class="custom" />
-								<label for="checkbox-1">unirse</label>
-							</fieldset>
-						</div>
-						<h3>Equipo 1 Database</h3>
-						<p>
-							<ul>
-								Jugadores
-								<li>jugador 1</li>
-								<li>jugador 2</li>
-							</ul>
-						</p>
-					</div>
-
-					<div data-role="collapsible">
-						<div data-role="fieldcontain" class="join_checkbox" >
-							<fieldset data-role="controlgroup">
-								<input type="checkbox" name="checkbox-1" id="checkbox-1" class="custom" />
-								<label for="checkbox-1">unirse</label>
-							</fieldset>
-						</div>
-						<h3>Equipo 2 Database</h3>
-						<p>
-							<ul>
-								Jugadores
-								<li>jugador 1</li>
-								<li>jugador 2</li>
-							</ul>
-						</p>
-					</div>
-
-				</div>
-
-
-
-				<input id="register_server" onclick="data_server_team()" type="button"value="Registrar">
-
-			</form>	
-
-			<div data-role="footer">
-				<img class="home_icon" src="images/home_icon.png">
-			</div>
-		</div>
-
-
-	</div>
-</div>
 
 
 

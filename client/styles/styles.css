@@ -39,9 +39,7 @@ text-shadow: 1px 1px #000000;
 
 
 .container{
-	padding: 13%;
-	padding-bottom: 0;
-	padding-top: 0;
+
 	overflow: scroll;
 
 
@@ -69,6 +67,9 @@ background-image: -ms-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97
 
 
 #login .container{
+		padding: 13%;
+	padding-bottom: 0;
+	padding-top: 0;
 background-color: #679F25;
 background-image: linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
 background-image: -o-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
@@ -102,6 +103,7 @@ width: 21%;
 	clear: left;
 	margin-top: 17%;
 	text-shadow: 1px 1px black;
+	
 }
 
 #login #form_login {
@@ -144,17 +146,20 @@ background-color: #D6E1F2;
 
 #register .container{
 background-color: #D6E1F2;
+	padding: 13%;
+	padding-bottom: 0;
+	padding-top: 0;
 }
 
 
-#register .small_input_left{
+#register .small_input_left,#convocate2 .small_input_left{
 
 	width: 45%;
 	float: left;
 
 }
 
-#register .small_input_right{
+#register .small_input_right,#convocate2 .small_input_right{
 
 	width: 45%;
 	float: right;
@@ -174,6 +179,18 @@ width: 11%;
 margin-top: 2%;
 margin-bottom: 2%;
 }
+
+
+.convocationButton{
+
+
+padding: 0%;
+width: 11%;
+margin-top: 2%;
+margin-bottom: 2%;
+float: right;
+}
+
 
 
 /*home page*/
@@ -197,24 +214,52 @@ margin-bottom: 2%;
 }
 
 
+.dataUser{
+	position: relative;
+	height: 43%;
+
+
+}
+
+
+
+
+
 #photo_container {
 background-color: #679F25;
 float: left;
 width: 40%;
 margin-top: 9%;
+padding: 3%;
+position: absolute;
+bottom: 0;
+left: 0;
+
+}
+
+#photo{
+	width: 100%;
 }
 
 
 #information {
 color: white;
 float: left;
-width: 52%;
-margin-left: 5%;
-margin-top: 33%;
+width: 47%;
 background-image: url("../images/backgroundName.png");
 background-size: 100% 100%;
 background-repeat: no-repeat;
 padding: 1%;
+position: absolute;
+bottom: 0;
+right: 0;
+}
+
+#information span{
+	float: left;
+	clear: left;
+
+
 }
 
 
@@ -231,8 +276,7 @@ font-size: 1.4em;
 .sections{
 	width: 100%;
 	float: left;
-	margin-top: 15%;
-	margin-bottom: 11%;
+	margin-top: 5%;
 }
 
 .toSection {
@@ -287,502 +331,238 @@ height: 75%;
 }
 
 
-.aspect_ratio{
 
-	height: 100%;
-	width: 100%;
-	overflow: scroll;
+
+#play .subButton h1 {
+font-family: aller_bold;
+color: #679F25;
+text-shadow: 1px 1px black;
+font-size: 2.4em;
+float: left;
+clear: left;
 }
 
-/*
-.ui-footer {
-	width: 100%;
-	text-align: center;
-	background: none;
-	background-color: #679f25;
-	position: absolute;
-	bottom: 0px;
-	background-image: linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
-background-image: -o-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
-background-image: -moz-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
-background-image: -webkit-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
-background-image: -ms-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%); 
+#play .subButton img{
+width: 30%;
+float: right;
+margin-left: 7%;
 
 }
 
-.ui-footer img {
+#play .container>img{
+
+	width: 100%;
+
+}
+
+
+
+#play .subButton{
+
+margin-top: 0%;
+padding: 12%;
+
+overflow: hidden;
+
+}
+
+
+.navbar .ui-btn-text{
+
+	font-size: 2em;
+
+
+}
+
+
+#pre_conv .subButton h1{
+
+	font-family: aller_bold;
+	color: #679F25;
+	text-shadow:1px 1px black;
+	font-size: 2.6em;
+	float: left;
+	clear: left;
+
+}
+
+
+#pre_conv .subButton img{
+width: 30%;
+float: right;
+margin-left: 7%;
+
+}
+
+
+#pre_conv .container>img{
+
+	width: 100%;
+
+}
+
+
+
+#pre_conv .subButton{
+
+margin-top: 0%;
+padding: 12%;
+
+overflow: hidden;
+
+}
+
+
+#create .container{
+
+	padding: 13%;
+
+
+}
+
+#create label{
+	clear: left;
+	font-family: aller_bold;
+	font-size: 1.5em;
+
+
+}
+#create .container>label {
+color: #679F25;
+text-shadow: 1px 1px black;
+margin-bottom: 10%;
+}
+
+#create .container form
+{
+margin-top: 5%;
+}
+
+
+#join .container, #my_conv .container,#convocate .container{
+	padding: 13%;
+	position: relative;
+
+}
+
+
+
+.title_my_conv{
+
+ font-size: 1.4em;
+ margin-bottom: 10%;
+}
+.reto_my_team{
+
+ font-size: 1.3em;
+ margin-top: 10%;
+
+}
+
+.check img{
 	width: 10%;
-}
-
-*/
-
-
-
-
-
-
-
-
-
-
-
-
-#before_register_container{
-	background-image: url("../images/before_register.png");
-	background-size: 100%  100%;
-	background-repeat: no-repeat;
-	height: 100%;
-	width: 100%;
-}
-#register_container{
-	background-image: url("../images/register.png");
-	background-size: 100%  100%;
-	background-repeat: no-repeat;
-	height: 100%;
-	width: 100%;
-	border: 1px solid white;
-}
-#galeria_container {
-	/*background-image: url("../images/register.png");
-	background-size: 100%  100%;
-	background-repeat: no-repeat;*/
-	height: 100%;
-	width: 100%;
-	border: 1px solid red;
-}
-
-#home_container{
-	background-image: url("../images/home.png");
-	background-size: 100%  100%;
-	background-repeat: no-repeat;
-	height: 100%;
-	width: 100%;
-}
-
-#play_container{
-	background-image: url("../images/play.png");
-	background-size: 100%  100%;
-	background-repeat: no-repeat;
-	height: 100%;
-	width: 100%;
-}
-#create_container{
-	background-image: url("../images/create.png");
-	background-size: 100%  100%;
-	background-repeat: no-repeat;
-	height: 100%;
-	width: 100%;
-	border: 1px solid white;
-}
-#pre_conv_container{
-	background-image: url("../images/pre_conv.png");
-	background-size: 100%  100%;
-	background-repeat: no-repeat;
-	height: 100%;
-	width: 100%;
-	border: 1px solid white;
-
-
-}
-
-#join_container{
-	background-image: url("../images/join.png");
-	background-size: 100%  100%;
-	background-repeat: no-repeat;
-	height: 100%;
-	width: 100%;
-	border: 1px solid white;
-}
-
-#convocate_container{
-	background-image: url("../images/convocate.png");
-	background-size: 100%  100%;
-	background-repeat: no-repeat;
-	height: 100%;
-	width: 100%;
-	border: 1px solid white;
-}
-#convocate2_container{
-	background-image: url("../images/convocate.png");
-	background-size: 100%  100%;
-	background-repeat: no-repeat;
-	height: 100%;
-	width: 100%;
-}
-
-
-#results_container{
-	background-image: url("../images/results.png");
-	background-size: 100%  100%;
-	background-repeat: no-repeat;
-	height: 100%;
-	width: 100%;
-	border: 1px solid white;
-}
-
-
-
-
-
-.register_facebook{
-	width: 30%;
-	height: 19%;
-	position: relative;
-	top: 29.0%;
-	left: 57%;
-}
-
-
-
-
-
-
-#submit_form_login{
-
-	width: 50%;
 	float: right;
 
 
 }
 
 
+#me_retaron  .title_my_conv{
 
-.half_width{
-
-	width: 45%;
-
-	margin: 0 auto;
-	text-align: center;
-}
-
-.total_width{
-
-	width: 80%;
-	margin-left: 10%;
-
-	margin: 0 auto;
-	text-align: center;
-}
-
-
-
-#camp_container{
-
-	height: 256px;
-
-}
-
-
-
-
-#photo{
-	width: 90%;
-	margin: 5%;
-}
-
-
-#age_user{
-	margin-top: 2%;
-	float: left;
-	clear: left;
-	font-family: arial;
-
-}
-
-#location_user{
-	margin-top: 2%;
-	float: left;
-	clear: left;
-	font-family: arial;
-
-}
-
-
-.first_square {
-	width: 24%;
-	height: 5%;
-	position: relative;
-	top: 1.5%;
-	left: 4%;
-	
-}
-
-.last_square {
-	width: 24%;
-	height: 5%;
-	position: relative;
-	top: -3.5%;
-	left: 72%;
-	
-}
-
-
-
-.join{
-
-	width: 58%;
-	height: 20%;
-	position: relative;
-	top: 19%;
-	left: 26%;
-}
-
-
-.create{
-	width: 58%;
-	height: 20%;
-	position: relative;
-	top: 22%;
-	left: 26%;
-}
-
-#form_create{
-
-	width: 80%;
-	position: relative;
-	top: 20%;
-	left: 10%;
+margin-top: 13%;
 
 
 }
 
-#form_join{
 
-	width: 80%;
-	position: relative;
-	top: 20%;
-	left: 10%;
+
+@media (min-width: 35em){
+	.ui-responsive-panel.ui-page-panel-open .ui-panel-content-fixed-toolbar-open.ui-panel-content-fixed-toolbar-display-push,
+	.ui-responsive-panel.ui-page-panel-open .ui-panel-content-fixed-toolbar-open.ui-panel-content-fixed-toolbar-display-reveal,
+	.ui-responsive-panel.ui-page-panel-open .ui-panel-content-wrap-open.ui-panel-content-wrap-display-push,
+	.ui-responsive-panel.ui-page-panel-open .ui-panel-content-wrap-open.ui-panel-content-wrap-display-reveal {
+		margin-right: 17em;
+	}
+	.ui-responsive-panel.ui-page-panel-open .ui-panel-content-fixed-toolbar-open.ui-panel-content-wrap-display-push.ui-panel-content-fixed-toolbar-position-right,
+	.ui-responsive-panel.ui-page-panel-open .ui-panel-content-fixed-toolbar-open.ui-panel-content-wrap-display-reveal.ui-panel-content-fixed-toolbar-position-right,
+	.ui-responsive-panel.ui-page-panel-open .ui-panel-content-wrap-open.ui-panel-content-wrap-display-push.ui-panel-content-wrap-position-right,
+	.ui-responsive-panel.ui-page-panel-open .ui-panel-content-wrap-open.ui-panel-content-wrap-display-reveal.ui-panel-content-wrap-position-right {
+		margin: 0 0 0 17em;
+	}
+	.ui-responsive-panel .ui-panel-dismiss-display-push {
+		display: none;
+	}
+}
+
+
+#title_my_conv .container a img{
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 10%;
 
 
 }
 
-.join_checkbox{
-	width: 37%;
-	float: right;
-}
-
-
-.headers{
-	height: 10%;
-}
-
-
-.header_div{
-
-	width: 33%;
-	height: 100%;
-	border: 1px solid white;
-	float: left;
-	text-align: center;
-
-}
-
-.age_position{
-
-	position: relative;
-	top: 10%;
-	float: left
-
-}
-
-.gender_position{
-
-	position: relative;
-	left: 25%;
-	
-}
-
-.your_team {
-	position: relative;
-	top: 4%;
-	left: 7%;
-	width: 80%;
-}
 .team{
 
-	margin-top: 7%;
+	margin-top: 10%;
 
-	background-color: #AFCF8B;
+}
+#convocate .container label{
+	font-size: 1.4em;
+
+
 }
 .name_team{
 
-}
-.other_team{
-	float: right;
-}
-.own_teams{
-	font-size: 1.7em;
+	margin-top: 10%;
+
+
 
 }
 
-#form_vs {
-	width: 80%;
-	position: relative;
-	left: 10%;
-	margin-top: 4%;
+.description{
+
+float: right;
+
 }
+
 
 .green{
 
-	background-color: #AFCF8B;
+
+
 
 }
 
 .red{
-	background-color: #F19C79;
+background-color: #A9F5A9;
 
-}
-.vs {
-	font-size: 2em;
-	position: relative;
-	margin-top: 12%;
-	text-align: center;
-}
-
-.vs_team2 {
-	position: relative;
-	left: 7%;
-	width: 80%;
-}
-
-.vs_teams3{
-	font-size: 1.7em;
-
-}
-
-.send_request {
-	margin-top: 10%;
-	margin-left: 20%;
-	width: 60%;
-}
-.two_teams {
-	width: 80%;
-	height: 12%;
-	position: relative;
-	top: 15%;
-	left: 10%;
-	
-}
-
-.my_team {
-	float: left;
-}
-.Vs_convocate2 {
-	float: left;
-	text-align: center;
-	clear: left;
-	margin-left: 43%;
-	font-size: 2em;
-}
-.the_other_team {
-	float: right;
-	clear: right;
-}
-
-.my_team .name_team,.the_other_team .name_team{
-	font-size: 2em;
 
 
 }
 
-.half_width2 {
-	width: 45%;
-	margin: 0 auto;
-	text-align: center;
-	margin-top: 30%;
-}
-.botones_equipos{
-	text-align: center;
+
+#geolocation{
+	height: 100%;
+
+
 }
 
-.principio{
-	margin: 6% auto;
-	width: 80%;
-}
-.principio img {
-	float: left;
-	width: 20%;
-	margin-top: 7%;
-}
-.principio p{
-	float:left;
-}
+#match_site{
+	height: 30%;
 
-.principio h2{
-	margin-left: 27%;
-	margin-top: 11%;
 }
 
 
 
-#mi_reto{}
-#title_mi_reto{
-	margin-top: 10%;
-	text-align: center;
-}
-#title_mi_reto2 {
-	margin-top: 6%;
-	text-align: center;
-}
-#title_retos{
-
-}
-
-.reto_my_team {
-	background-color: greenyellow;
-	font-size: 2.5em;
-	text-align: center;
-	border: 1px solid black;
-	width: 90%;
-	float: left;
-	height: 65%;
-
-}
-.check{
-
-
-}
-.date_conv {
-	float: right;
-	font-size: 1.4em;
-}
-
-.title_my_conv {
-	margin-bottom: 6%;
-	font-size: 3em;
-}
-
-.convocate_teams {
-	margin-bottom: 4%;
-	height: 82px;
-}
 
 
 
-.division_imagen {
-	margin-top: 10%;
-}
 
-.imagen {
-	width: 80%;
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	margin-left: auto;
-}
+/*
 
-.descripcion {
-	width: 75%;
-	border: 2px ridge #AFCF8B;
-	background-color: #99CC33;
-	margin: 0 auto;
-	padding: 2%;
-	font-family: Arial;
-	text-align: justify;
-	color: black;
-	font-weight: bold;
-	text-decoration: none;
-}
 
 .google_map {
 	width: 80%;
@@ -850,3 +630,23 @@ background-image: -ms-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97
 	border: 1px solid #00F;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+.aspect_ratio{
+
+	height: 100%;
+	width: 100%;
+	overflow: scroll;
+}
+*/

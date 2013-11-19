@@ -158,6 +158,21 @@ class Teams extends MY_Controller {
 		}
 	}
 
+
+
+	public function aceptRequest() {
+		$id_conv = $this->input->post('id_conv');
+		$id_user = $this->_USER['id'];
+		$result = $this->team->aceptRequest($id_user,$id_conv);
+		echo json_encode($result);
+	}
+	public function deleteRequest() {
+		$id_conv = $this->input->post('id_conv');
+		$id_user = $this->_USER['id'];
+		$result = $this->team->deleteRequest($id_user,$id_conv);
+		echo json_encode($result);
+	}
+
 }
 
 /* End of file controllername.php */

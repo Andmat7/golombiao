@@ -246,5 +246,25 @@ class team extends CI_Model {
 		}
 		return $result_list;
 	}
+
+	public function aceptRequest($id_user, $id_conv) {
+		$data = array(               
+			'acepta_convocatoria'=> 1,
+			);
+
+		$this->db->where('id', $id_conv);
+		$this->db->update('convocatoria', $data);
+		$json_reply["error"]=false;
+		return $json_reply;
+	}
+
+	public function deleteRequest($id_user, $id_conv) {
+
+		$this->db->delete('convocatoria', array('id' => $id_conv));
+		$json_reply["error"]=false;
+		return $json_reply;
+
+		}
+	
 	
 }

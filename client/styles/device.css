@@ -1,4 +1,4 @@
-@media screen and (max-height:600px)
+@media screen and (max-height:480px)
 {
 
 	#login .register {
@@ -18,6 +18,24 @@ width: 47%;
 }
 
 
+#login .register{
+	margin-top: 0%;
+	width: 33%;
+	border-radius: 8%;
+	background-color: #00AEEF;
+	
+}
+
+
+#login .container>h1{
+
+	margin-left: 10%;
+	margin-top: 8%
+}
+
+
+
+
 .container {
 
 padding: 5%;
@@ -35,6 +53,44 @@ font-size: 1.1em;
 
 .sections {
 margin-top: 9%;
+}
+
+
+
+
+#play .subButton {
+padding: inherit;
+padding-left: 5%;
+padding-right: 5%;
+padding-top: 1%;
+
+}
+
+#play .container>img {
+width: 95%;
+}
+
+
+#pre_conv .subButton {
+padding: inherit;
+padding-left: 5%;
+padding-right: 5%;
+padding-top: 1%;
+
+}
+
+#pre_conv .container>img {
+width: 95%;
+}
+
+
+
+#create .container,#join .container, #my_conv .container,#convocate .container{
+
+	padding: 5%;
+	position: relative;
+
+
 }
 
 

@@ -3,7 +3,7 @@ jQuery.validator.setDefaults({
   success: "valid"
 });
 
-var server="http://codfe.co/golombiao/server/index.php/";
+var server="http://192.168.0.101/golombiao/server/index.php/";
 var values={0:"none",1:"No violencia",2:"Libertad de expresión",3:"No discriminación",4:"Cuidar el entorno",5:"Participación activa",6:"Cuidarse y cuidar el otro",7:"Igualdad"};
 var user;
 
@@ -20,7 +20,6 @@ user= {
 $(window).load(function() {
 
   $(".aspect_ratio").height($(window).height());
-  $("#home .container").height($(window).height()*0.9);
   $(".backButton").click(function() {
   window.history.back();
 });
@@ -40,17 +39,17 @@ $(window).load(function() {
 
 
 
-  $( document ).on( "pageshow", function( event, ui) {
-    var version=parseInt(window.device.version);
-    console.log(version);
+   $( document ).on( "pageshow", function( event, ui) {
+  //   var version=parseInt(window.device.version);
+  //   console.log(version);
 
-    if (version<3) {
-      console.log("version<3");
-      $(event.target).find(".container").height($(document).height());
+  //   if (version<3) {
+  //     console.log("version<3");
+  //     $(event.target).find(".container").height($(document).height());
 
-    }else{
+  //   }else{
 
-      console.log("version>3");
+  //     console.log("version>3");
 
 
 
@@ -59,12 +58,50 @@ $(window).load(function() {
     var footerHeight=$(event.target).find('div[data-role="footer"]').height();
     var headerHeight=$(event.target).find('div[data-role="header"]').height();
     $(event.target).find(".container").height(windowHeight-footerHeight-headerHeight+'px');
-    }
+  // }
   });
 
 
 
+function aceptRequest(element,typeRequest){
 
+  
+  var direction;
+
+
+  var post_values={
+    session_id:localStorage.getItem('session_id'),
+    email:localStorage.getItem('email'),
+    id_conv:$(element).parent().attr("id"),
+  };
+  if (typeRequest==1) {
+     direction="teams/aceptRequest"
+  }else{
+
+     direction="teams/deleteRequest"
+
+  }
+  $.post(server+direction, post_values, function(response) {
+
+    response = jQuery.parseJSON(response);
+
+
+    if (!(response.error)&&typeRequest==1) {
+      alert("Has aceptado la convocatoria");
+      location.reload();
+      
+
+    }else if (!(response.error)&&typeRequest==2) {
+      alert("Se ha eliminado la convocatoria");
+      location.reload();
+
+
+    }else{
+      alert(response.message_error);
+    }
+
+  });
+}
 
 
 
@@ -372,10 +409,10 @@ function vs_team(vs_steam){
   $.post(server+"teams/get_fromcity", post_values, function(response) {
     response = jQuery.parseJSON(response);
     if (!(response.error)) {
-      $(".vs_teams3").html('Equipos Contrarios');
+      $(".vs_teams3").html('<label>Equipos Contrarios</label>');
       for (var i = 0; i <= response.length  ; i++) {
         var j=i+1;
-        $(".vs_teams3").append("<li class='team' onclick='select_own_team(this)'><div class='name_team'>"+response[i]['name']+"</div> <input class='id' type='hidden'  name='id_team' value='"+response[i]['id']+"'/><div class='other_team'>"+response[i]['description']+"</div></li>");
+        $(".vs_teams3").append("<li class='team' onclick='select_own_team(this)'><div class='name_team'>"+response[i]['name']+"</div> <input class='id' type='hidden'  name='id_team' value='"+response[i]['id']+"'/><div class='description'>"+response[i]['description']+"</div></li>");
       }
 
 
@@ -397,6 +434,13 @@ function vs_team(vs_steam){
 
 
 function sel_city(departamento) {
+$.mobile.loading( 'show', {
+              text: 'Cargando ciudades',
+              textVisible: true,
+              theme: 'z',
+              html: ""
+            });
+
 
  var post_values={
   session_id:localStorage.getItem('session_id'),
@@ -407,10 +451,13 @@ $(".ciudad").html('<option value="0">Ciudad</option>');
 $.post(server+"login/select_city", post_values , function(response) {
 
   response = jQuery.parseJSON(response);
+  $.mobile.loading( 'hide' );
   for (var i = 0; i <= response.length  ; i++) {
     var j=i+1;
     $(".ciudad").append("<option value="+response[i]["idCiudad"]+">"+response[i]["nombre"]+"</option>");
   }
+
+
 
 
 });
@@ -472,10 +519,10 @@ $( document ).on( "pageshow", "#convocate", function() {
 
     response = jQuery.parseJSON(response);
     if (!(response.error)) {
-      $(".own_teams").html('Tus Equipos');
+      $(".own_teams").html('<label>Tus Equipos</label>');
       for (var i = 0; i <= response.length  ; i++) {
         var j=i+1;
-        $(".own_teams").append("<li class='team' onclick='select_own_team(this)'><div class='name_team'>"+response[i]['name']+"</div> <input class='id' type='hidden'  name='id_team' value='"+response[i]['id']+"'/><div class='other_team'>"+response[i]['description']+"</div></li>");
+        $(".own_teams").append("<li class='team' onclick='select_own_team(this)'><div class='name_team'>"+response[i]['name']+"</div> <input class='id' type='hidden'  name='id_team' value='"+response[i]['id']+"'/><div class='description'>"+response[i]['description']+"</div></li>");
       }
     }else{
       alert("Debes ser el creador de un equipo para poder convocar a juego");
@@ -495,6 +542,7 @@ $( document ).on( "pageshow", "#my_conv", function() {
 
 
   $.post(server+"teams/conv_team", post_values, function(response) {
+    var check;
 
 
     response = jQuery.parseJSON(response);
@@ -502,9 +550,20 @@ $( document ).on( "pageshow", "#my_conv", function() {
       $("#title_mi_reto").html('<div class="title_my_conv">Mis convocatorias</div>');
       for (var i = 0; i <= response.length  ; i++) {
         var j=i+1;
-        $("#title_mi_reto").append('<div class=" convocate_teams" id_equipo1="'+response[i]["equipo_1"]+'" id_equipo2="'+response[i]["equipo_2"]+'" principio="'+response[i]["principio"]+'" id="'+response[i]["id"]+'"><div class="reto_my_team">'+response[i]["equipo_1_name"]+'  V.s. '+response[i]["equipo_2_name"]+'  </div><div class="check">'+response[i]["acepta_convocatoria"]+'</div><div class="date_conv">'+response[i]["hora"]+' '+response[i]["fecha"]+'</div></div>');
+        if (response[i]["acepta_convocatoria"]=="0") {
+           check='<img  src="images/uncheck.png">'
+        }else{
+
+           check='<img  src="images/check.png">'
+
+
+        }
+        $("#title_mi_reto").append('<div class=" convocate_teams" id_equipo1="'+response[i]["equipo_1"]+'" id_equipo2="'+response[i]["equipo_2"]+'" principio="'+response[i]["principio"]+'" id="'+response[i]["id"]+'"><div class="reto_my_team">'+response[i]["equipo_1_name"]+'  V.s. '+response[i]["equipo_2_name"]+'  </div><div class="check">'+check+'</div><div class="date_conv">'+response[i]["hora"]+' '+response[i]["fecha"]+'</div></div>');
 
       }
+
+
+
     }else{
       alert("En este momento no has convocado ningun Juego");
       
@@ -524,9 +583,50 @@ $( document ).on( "pageshow", "#my_conv", function() {
     response2 = jQuery.parseJSON(response2);
     if (!(response2.error)) {
       $("#title_mi_reto2").html('<div class="title_my_conv">Me convocaron</div>');
+      $("#title_mi_reto3").html(" ");
       for (var i = 0; i <= response2.length  ; i++) {
         var j=i+1;
-        $("#title_mi_reto2").append('<div class=" convocate_teams"  id_equipo1="'+response2[i]["equipo_1"]+'"  id_equipo2="'+response2[i]["equipo_2"]+'" principio="'+response2[i]["principio"]+'" id="'+response2[i]["id"]+'"><div class="reto_my_team">'+response2[i]["equipo_2"]+'  V.s. '+response2[i]["equipo_1_name"]+'</div><div class="check">'+response2[i]["acepta_convocatoria"]+'</div><div class="date_conv">'+response2[i]["hora"]+' '+response2[i]["fecha"]+'</div></div>');
+        if (response2[i]["acepta_convocatoria"]=="0") {
+           check='<img  src="images/uncheck.png">'
+           var content='<div class="pendingRequests"  id_equipo1="'+
+                        response2[i]["equipo_1"]+
+                        '"  id_equipo2="'+
+                        response2[i]["equipo_2"]+
+                        '" principio="'+
+                        response2[i]["principio"]+
+                        '" id="'+response2[i]["id"]+
+                        '"><div class="reto_my_team">'+
+                        response2[i]["equipo_2_name"]+
+                        '  V.s. '+
+                        response2[i]["equipo_1_name"]+
+                        '</div><div class="check">'
+                        +check+
+                        '</div><div class="date_conv">'
+                        +response2[i]["hora"]+
+                        ' '+
+                        response2[i]["fecha"]+
+                        '</div>'+
+                        '<input type="button" value="aceptar" onclick="aceptRequest(this,1)">'+
+                        '<input type="button" value="rechazar"onclick="aceptRequest(this,2)">'
+                        '</div>'+
+                        
+
+
+
+           $("#title_mi_reto3").append(content);
+
+
+        }else{
+
+           check='<img  onClick="alert("Hello World!")" src="images/check.png">'
+
+
+        }
+
+
+
+
+        $("#title_mi_reto2").append('<div class=" convocate_teams"  id_equipo1="'+response2[i]["equipo_1"]+'"  id_equipo2="'+response2[i]["equipo_2"]+'" principio="'+response2[i]["principio"]+'" id="'+response2[i]["id"]+'"><div class="reto_my_team">'+response2[i]["equipo_2_name"]+'  V.s. '+response2[i]["equipo_1_name"]+'</div><div class="check">'+check+'</div><div class="date_conv">'+response2[i]["hora"]+' '+response2[i]["fecha"]+'</div></div>');
 
       }
     }else{
@@ -567,6 +667,15 @@ $( document ).on( "pageshow", "#login", function() {
     },
 
     submitHandler: function( form ) {
+      $.mobile.loading( 'show', {
+              text: 'Verificando datos',
+              textVisible: true,
+              theme: 'z',
+              html: ""
+            });
+
+
+
       var post_values={};
       $(':input', "#form_login").each(function(index, input_element) {
        post_values[input_element.name] = $(input_element).val();
@@ -585,9 +694,10 @@ $( document ).on( "pageshow", "#login", function() {
 
           $("#location_user").html(response.city);
                 //city=post_values.city;
-                
+                $.mobile.loading( 'hide');
                 changePage('index.html#home');
               }else{
+                $.mobile.loading( 'hide');
                 alert(response.message_error);
               }
 
@@ -835,13 +945,14 @@ $( document ).on( "pageshow", "#join", function() {
           for (var i = response.length - 1; i >= 0; i--) {
             console.log(response[i]);
             var team_div='<div data-role="collapsible team_'+response[i].id+'" team_id="'+response[i].id+'">'+
+            '<h3>'+response[i].name+'</h3>'+
             '<div data-role="fieldcontain" class="join_checkbox" >'+
             '<fieldset data-role="controlgroup">'+
             '<input type="checkbox" name="join_to_team" id="checkbox" class="custom" value="'+response[i].id+'" team_name="'+response[i].name+'"/>'+
             '<label for="checkbox">unirse</label>'+
             '</fieldset>'+
             '</div>'+
-            '<h3>'+response[i].name+'</h3>'+
+            
             '<p>'+
             '<ul class="jugadores_'+response[i].id+'">'+
             'Jugadores'+

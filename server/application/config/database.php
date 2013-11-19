@@ -42,18 +42,22 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
+
 //$db['default']['username'] =  'codfe';
 //$db['default']['password'] = '*(39&x;n#TUO'; 
+//$db['default']['username'] =  'golombia_admin'; 
+//$db['default']['password'] = '!bSy5}%ys2e4';
 
 $db['default']['username'] =  'root'; 
 $db['default']['database'] = '';
 
-//$db['default']['database'] = 'codfe_golombiao_db';//'codfe_golombiao_db';
+//$db['default']['database'] = 'codfe_golombiao_db';
+//$db['default']['database'] = 'golombia_golombiao_db';
 $db['default']['database'] = 'golombiao_db';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
 $db['default']['pconnect'] = TRUE;
-$db['default']['db_debug'] = TRUE;
+$db['default']['db_debug'] = FALSE;
 $db['default']['cache_on'] = FALSE;
 $db['default']['cachedir'] = '';
 $db['default']['char_set'] = 'utf8';
