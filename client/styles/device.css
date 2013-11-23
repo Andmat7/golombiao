@@ -85,7 +85,7 @@ width: 95%;
 
 
 
-#create .container,#join .container, #my_conv .container,#convocate .container{
+#create .container,#join .container, #my_conv .container,#convocate .container,#results2 .container{
 
 	padding: 5%;
 	position: relative;

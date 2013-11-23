@@ -1,191 +1,48 @@
-<!DOCTYPE html>
-<!-- saved from url=(0025)http://www.golombiao.com/ -->
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta charset="UTF-8">
-<title>El Golombiao el Juego de la Paz</title>
-<meta name="viewport" content="width=device-width, user-scalable=no">
-<link rel="stylesheet" href="./content/style.css" type="text/css">
-<link href="./content/SpryAccordion.css" rel="stylesheet" type="text/css">
-<link href="./content/SpryTabbedPanels.css" rel="stylesheet" type="text/css">
-<script src="./content/SpryAccordion.js" type="text/javascript"></script><style type="text/css"></style>
-<script src="./content/SpryTabbedPanels.js" type="text/javascript"></script>
+<html>
+<head>
+    <title>SOAP JavaScript Client Test</title>
+    <script type="text/javascript">
+        function soap() {
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.open('POST', 'http://servicedatosabiertoscolombia.cloudapp.net/v1/Programa_Presidencia_Colombia_Joven/informaciongolombiao', true);
+
+            // build SOAP request
+            var sr =
+                '<?xml version="1.0" encoding="utf-8"?>' +
+                '<soapenv:Envelope ' + 
+                    'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
+                    'xmlns:api="http://127.0.0.1/Integrics/Enswitch/API" ' +
+                    'xmlns:xsd="http://www.w3.org/2001/XMLSchema" ' +
+                    'xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">' +
+                    '<soapenv:Body>' +
+                        '<api:some_api_call soapenv:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">' +
+                            '<username xsi:type="xsd:string">login_username</username>' +
+                            '<password xsi:type="xsd:string">password</password>' +
+                        '</api:some_api_call>' +
+                    '</soapenv:Body>' +
+                '</soapenv:Envelope>';
+
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4) {
+                    if (xmlhttp.status == 200) {
+
+                        alert('done use firebug to see response');
+                    }
+                }
+            }
+            // Send the POST request
+            xmlhttp.setRequestHeader('Content-Type', 'text/xml');
+            xmlhttp.send(sr);
+            // send request
+            // ...
+        }
+    </script>
 </head>
 <body>
-<div class="pagina-movil">
-<div class="titulo"><img src="./content/logo-golombiao.gif" alt="golombiao"></div>
-<div class="menu-inicial">
-
-
-<div id="Accordion1" class="Accordion" tabindex="0">
-  <div class="AccordionPanel AccordionPanelClosed">
-    <div class="AccordionPanelTab" id="uno"><span class="numeral">1.</span><span class="texto">¿Qué es el Golombiao?</span></div>
-    <div class="AccordionPanelContent" id="c-uno" style="height: 0px; display: none;"><p class="parrafo">Es una Estrategia Nacional del Programa Presidencial Colombia Joven que nace en el año 2003 y que utiliza el deporte, el juego y la recreación, para el fortalecimiento de entornos protectores para niñas, niños, adolescentes y jóvenes, que aseguren su desarrollo, mediante la promoción de la convivencia, la participación y la equidad de género.</p>
-<img class="grande" src="./content/golombiaoeljuegodelapaz.jpg" alt="golombiao"></div>
-  </div>
-  <div class="AccordionPanel AccordionPanelClosed">
-    <div class="AccordionPanelTab" id="dos"><span class="numeral">2.</span><span class="texto">¿Cuáles son los principios del Golombiao?</span></div>
-    <div class="AccordionPanelContent" id="c-dos" style="height: 0px; display: none;">
-    
-    <ul id="principios">
-    <li><img class="icono" src="./content/noViolencia.gif" alt="no violencia"><span>No violencia</span></li>
-    <li class="cNaranja"><img class="icono" src="./content/cuidarse.gif" alt="cuidarse y cuidar al otro"><span>Cuidarse y Cuidar al otro</span></li>
-    <li class="cVerde"><img class="icono" src="./content/entorno.gif" alt="no violencia"><span>Cuidar el entorno</span></li>
-    <li class="cVioleta"><img class="icono" src="./content/libertad.gif" alt="no violencia"><span>Libertad de expresión</span></li>
-    <li class="cAzul"><img class="icono" src="./content/nodiscriminacion.gif" alt="no violencia"><span>No Discriminación</span></li>
-    <li class="cVioleta"><img class="icono" src="./content/participacion.gif" alt="no violencia"><span>Participación Activa</span></li>
-    <li><img class="icono" src="./content/igualdad.gif" alt="no violencia"><span>Igualdad</span></li>
-    </ul>
-    
-    
-    
-    
-    </div>
-  </div>
-  
-  <div class="AccordionPanel AccordionPanelClosed">
-    <div class="AccordionPanelTab AccordionPanelTabHover" id="tres"><span class="numeral">3.</span><span class="texto">¿Cómo se juega? </span></div>
-    <div class="AccordionPanelContent" style="height: 0px; display: none;">
-    <p class="intro cAzul">Dentro de la “Cancha” se reúnen 2 equipos mixtos  en un espacio amplio, que puede ser un salón de clase, un parque o un espacio abierto. Lo importante es escoger un sitio para encontrarse y estar dispuesto a jugar por la convivencia.
-</p>
- 
-    <div id="TabbedPanels1" class="TabbedPanels">
-      <ul class="TabbedPanelsTabGroup">
-        <li class="TabbedPanelsTab azul TabbedPanelsTabSelected" tabindex="0">Dentro <br>Cancha</li>
-        <li class="TabbedPanelsTab azul" tabindex="0">Fuera de la <br>cancha</li>
-        <li class="TabbedPanelsTab azul" tabindex="0">Momentos <br>Golombiao</li>
-      </ul>
-      <div class="TabbedPanelsContentGroup">
-        <div class="TabbedPanelsContent azul TabbedPanelsContentVisible" style="display: block;">
-                           <ul id="como">
-                            <li> El primer gol de cada equipo y de cada tiempo lo debe hacer una mujer; a partir de éste, los demás goles deben ser intercalados: hombre-mujer-hombre.</li>
-                            <li>Todos los miembros de cada equipo deben jugar.</li>
-                            <li>No hay árbitro sino Asesor de Juego</li>
-                            <li>No hay ganadores, ni perdedores, siempre hay equipos destacados en convivencia. </li>
-                            <li>Al finalizar el encuentro se evalúa el cumplimiento de los acuerdos de convivencia.</li>
-                            <li>La calificación es un ejercicio colectivo basado en la autoevaluación</li>
-                       </ul>
-        
+    <form name="Demo" action="" method="post">
+        <div>
+            <input type="button" value="Soap" onclick="soap();" />
         </div>
-        <div class="TabbedPanelsContent azul" style="display: none;">
-        <p>Para jugar bien Golombiao hay que participar en talleres, cine-foros,  jornadas de formación  y encuentros, en temas de convivencia, participación y equidad de género. 
-Golombiao también promueve espacios para desarrollar las habilidades artísticas, culturales y comunicativas.</p> </div>
-        <div class="TabbedPanelsContent azul" style="display: none;"> <ol id="momentos">
-                            <li> Las y los Jugadores se reúnen en el centro del campo para definir los acuerdos de convivencia..</li>
-                            <li>Rueda el balón. Ellas y ellos juegan Golombiao y  cumplen los acuerdos de convivencia.</li>
-                           <li>Las y los Jugadores y el Asesor de Juego se reúnen en el centro de la cancha, para reflexionar y evaluar el encuentro y definir, colectivamente, el equipo destacado.</li>
-                       </ol>
-                       </div>
-      </div>
-    </div>
-    
-    </div>
-  </div>
-  <div class="AccordionPanel AccordionPanelClosed">
-    <div class="AccordionPanelTab" id="cuatro"><span class="numeral">4.</span><span class="texto">¿Qué se necesita para jugar?</span></div>
-    <div class="AccordionPanelContent" style="height: 0px; display: none;">
-    
-    <ul id="necesita">
-    <li class="cuatro sinfondo">2 equipos mixtos</li>
-    <li class="cuatro sinfondo">Un balón</li>
-    <li class="cuatro sinfondo">Amigos y amigas</li>
-    <li class="cuatro sinfondo">Un espacio libre</li>
-    <li class="cuatro sinfondo">Familias</li>
-    <li class="cuatro sinfondo">Barras</li>
-    </ul>
-    <img class="total" src="./content/equipo.jpg" alt="golombiao"> </div>
-  </div>
-  <div class="AccordionPanel AccordionPanelClosed">
-    <div class="AccordionPanelTab" id="cinco"><span class="numeral">5.</span><span class="texto">¿Quiénes pueden jugar?</span></div>
-    <div class="AccordionPanelContent" style="height: 0px; display: none;">
-    <p>No importa la edad, la etnia, el sexo, ni la religión. Todas y todos podemos jugar Golombiao.</p>
-    <p>Niñas, niños, adolescentes, jóvenes, padres y madres de familia, deportistas, adultos, abuelos y todos los que quieran aprender convivencia  y aportar a la paz en Colombia.</p>
-    <img class="total" src="./content/ninasyninos.jpg" alt="golombiao">
-    
-    
-    </div>
-  </div>
-  <div class="AccordionPanel AccordionPanelClosed">
-    <div class="AccordionPanelTab" id="seis"><span class="numeral">6.</span><span class="texto">¿Dónde Jugar?</span></div>
-    <div class="AccordionPanelContent" style="height: 0px; display: none;">
-    <h3>Territorios Golombiao</h3>
-    <img class="total" src="./content/mapaGolombiao.jpg" alt="territorio golombiao">
-    <ul class="lista">
-    <li class="uno sinfondo mitad">Bogotá D.C.</li>
-	<li class="uno sinfondo mitad">Antioquia</li>
- 	<li class="uno sinfondo mitad">Bolívar</li>
-    <li class="uno sinfondo mitad">Caldas</li>
-    <li class="uno sinfondo mitad">Cesar</li>
-    <li class="uno sinfondo mitad">Chocó</li>
-    <li class="uno sinfondo mitad">La Guajira</li>
-     <li class="uno sinfondo mitad">Córdoba</li>
-      <li class="uno sinfondo mitad">Cundinamarca</li>
-       <li class="uno sinfondo mitad">Nariño</li>
-        <li class="uno sinfondo mitad">Putumayo</li>
- 		<li class="uno sinfondo mitad">Quindio</li>
- 		<li class="uno sinfondo mitad">Risaralda</li>
-    </ul>
-    
-    
-    </div>
-  </div>
-  <div class="AccordionPanel AccordionPanelClosed">
-    <div class="AccordionPanelTab" id="siete"><span class="numeral">7.</span><span class="texto">¿Qué se logra?</span></div>
-    <div class="AccordionPanelContent" style="height: 0px; display: none;">
-    <p class="cVerde">Las niñas, niños, adolescentes y jóvenes que practican El Golombiao:</p>
-    <ul class="lista">
-    <li class="dos sinfondo">Se reconocen como sujetos de derechos y parte de una sociedad que los considera motores para la prosperidad.</li>
- <li class="dos sinfondo">Aprenden herramientas para la convivencia y el trámite pacífico de conflictos, participación, las relaciones con equidad de género, el respeto y diálogo.</li>
- <li class="dos sinfondo">Se convierten en actores clave de convivencia en el barrio, la familia y entre sus amigos.</li>
- <li class="dos sinfondo">Participan en los escenarios de incidencia y toma de decisiones sobre los asuntos que les involucran.</li>
- <li class="dos sinfondo">Fomentan el liderazgo y reconocimiento de las mujeres dentro de la comunidad.</li>
- <li class="dos sinfondo">Son capaces de aportar a  la resolución de conflictos, mediante la utilización del diálogo y la reflexión.</li>
- <li class="dos sinfondo">Recuperan espacios públicos y utilizan la calle del barrio como punto de encuentro.</li>
-    
-    
-    </ul>
-    
-    
-    </div>
-  </div>
-  <div class="AccordionPanel AccordionPanelClosed">
-    <div class="AccordionPanelTab" id="ocho"><span class="numeral">8.</span><span class="texto">¿Qué potencialidades tiene Golombiao?</span></div>
-    <div class="AccordionPanelContent" style="height: 0px; display: none;">
-    
-    <ul class="lista">
-   <li class="tres sinfondo">Es una herramienta para promover la transformación de realidades que afectan a los niños, niñas, adolescentes y jóvenes.</li>
-	<li class="tres sinfondo">Aporta a procesos de prevención de la vinculación de niñas, niños, adolescentes y jóvenes por grupos armados ilegales en el país.</li>
-	<li class="tres sinfondo">Sirve de herramienta para la recuperación psicosocial de comunidades afectadas por el desplazamiento. </li>
-	<li class="tres sinfondo">Promueve la participación de niñas, niños, adolescentes y jóvenes.</li> 
-	<li class="tres sinfondo">Facilita y motiva la participación en la formulación de políticas públicas de niñez, adolescencia y  juventud y la conformación de Consejos Municipales de Juventud.</li>
-	<li class="tres sinfondo">Facilita la prevención de la violencia juvenil y adolescente en los centros urbanos.</li>    
-    </ul>
-    
-    
-    </div>
-  </div>
-  <div class="AccordionPanel AccordionPanelClosed">
-    <div class="AccordionPanelTab" id="nueve"><span class="numeral">9.</span><span class="texto">Principales resultados del Golombiao</span></div>
-    <div class="AccordionPanelContent" style="height: 0px; display: none;">
-    <ul class="lista">
-    <li class="cuatro sinfondo">Más de 60.000 niñas, niños, adolescentes y jóvenes conocen, practican y promueven Golombiao.</li>
-<li class="cuatro sinfondo">Golombiao ha sido reconocido e incluido en los planes de desarrollo departamentales y municipales para la promoción de la convivencia y participación de la niñez y la juventud en diferentes entes territoriales.</li>
-<li class="cuatro sinfondo">Realización de 631 alianzas estratégicas con actores sociales a nivel departamental y municipal.</li>
-<li class="cuatro sinfondo">Golombiao se practica en comunidades afectadas por el conflicto armado como estrategia de recuperación psicosocial.</li>
-
-    </ul>
- <img class="total" src="./content/golombiaMujer.jpg">   
-    
-    </div>
-  </div>
-  
-  
-</div>
-</div>
-<script type="text/javascript">
-var Accordion1 = new Spry.Widget.Accordion("Accordion1",{useFixedPanelHeights:false, defaultPanel:-1});
-var TabbedPanels1 = new Spry.Widget.TabbedPanels("TabbedPanels1");
-var TabbedPanels2 = new Spry.Widget.TabbedPanels("TabbedPanels2");
-</script>
-
-
-</body></html>
+    </form>
+</body>
+<html>

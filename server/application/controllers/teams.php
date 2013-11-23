@@ -100,7 +100,11 @@ class Teams extends MY_Controller {
 			'barra' => $this->input->post('barra'),
 			'cump_acuerdos' => $this->input->post('cump_acuerdos'),
 			'faltas' => $this->input->post('faltas'),
-			'meritos' => $this->input->post('meritos')
+			'meritos' => $this->input->post('meritos'),
+			'no_players_presents' => $this->input->post('no_players_presents'),
+			'no_players' => $this->input->post('no_players'),
+			'autoevaluacion' => $this->input->post('autoevaluacion'),
+			'otherTeam' => $this->input->post('otherTeam')
 			);
 
 		$existen_resultados=$this->team->existen_resultados($datos['id_user'], $datos['id_conv']);
@@ -171,6 +175,20 @@ class Teams extends MY_Controller {
 		$id_user = $this->_USER['id'];
 		$result = $this->team->deleteRequest($id_user,$id_conv);
 		echo json_encode($result);
+	}
+
+
+
+	public function resultsRequests(){
+		$id_conv = $this->input->post('id_conv');
+		$id_equipo = $this->input->post('id_equipo');
+		$result = $this->team->resultsRequests($id_conv,$id_equipo);
+		echo json_encode($result);
+
+
+
+
+
 	}
 
 }

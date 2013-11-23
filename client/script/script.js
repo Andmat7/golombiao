@@ -3,7 +3,7 @@ jQuery.validator.setDefaults({
   success: "valid"
 });
 
-var server="http://192.168.0.101/golombiao/server/index.php/";
+var server="http://www.golombiao.com/golombiao/server/index.php/";
 var values={0:"none",1:"No violencia",2:"Libertad de expresión",3:"No discriminación",4:"Cuidar el entorno",5:"Participación activa",6:"Cuidarse y cuidar el otro",7:"Igualdad"};
 var user;
 
@@ -40,16 +40,16 @@ $(window).load(function() {
 
 
    $( document ).on( "pageshow", function( event, ui) {
-  //   var version=parseInt(window.device.version);
-  //   console.log(version);
+    // var version=parseInt(window.device.version);
+    // console.log(version);
 
-  //   if (version<3) {
-  //     console.log("version<3");
-  //     $(event.target).find(".container").height($(document).height());
+    // if (version<3) {
+    //   console.log("version<3");
+    //   $(event.target).find(".container").height($(document).height());
 
-  //   }else{
+    // }else{
 
-  //     console.log("version>3");
+    //   console.log("version>3");
 
 
 
@@ -58,7 +58,7 @@ $(window).load(function() {
     var footerHeight=$(event.target).find('div[data-role="footer"]').height();
     var headerHeight=$(event.target).find('div[data-role="header"]').height();
     $(event.target).find(".container").height(windowHeight-footerHeight-headerHeight+'px');
-  // }
+   //}
   });
 
 
@@ -122,7 +122,8 @@ $( document ).on("click", ".convocate_teams", function() {
   var post_values= {
     session_id:localStorage.getItem('session_id'),
     email:localStorage.getItem('email'),
-    id_conv:$(this).attr("id")
+    id_conv:$(this).attr("id"),
+    id_equipo:$(this).attr("id_equipo2")
   };
   $("#conv_result").val($(this).attr("id"));
  $("#results .principio img").attr("src","images/acuerdos/"+$(this).attr("principio")+".png");
@@ -136,7 +137,22 @@ $( document ).on("click", ".convocate_teams", function() {
 
     response = jQuery.parseJSON(response);
     if (!(response.error)) {
-      $.post(server+"teams/promedio_resultados", post_values, function(response2) {
+      $.post(server+"teams/resultsRequests", post_values, function(response2) {
+
+        response2 = jQuery.parseJSON(response2);
+
+        $.each(response2[0],function(element){fuckYourTable(element,response2); });  
+
+        function fuckYourTable(myClass,data){
+
+        $("#results2 ."+myClass+" td").each(function(key,value){
+         
+        $(value).append(data[key][myClass]+'<img src="images/sun.png">');
+
+       });
+        }
+
+
 
         
         $.mobile.changePage( "index.html#results2");
@@ -223,6 +239,8 @@ function send_results(){
    post_values[input_element.name] = $(input_element).val();
 
  });
+
+
   $.post(server+"teams/guardar_resultados", post_values, function(response) {
 
     response = jQuery.parseJSON(response);
@@ -746,7 +764,7 @@ $( document ).on( "pageshow", "#mapa", function() {
             var latlng= new google.maps.LatLng(response[i].latitud, response[i].longitud);
             console.log(response[i]);
             icon='http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
-            if(response[i].longitud==1){
+            if(response[i].played==1){
                 icon='http://maps.google.com/mapfiles/ms/icons/red-dot.png';
             }
             new google.maps.Marker({

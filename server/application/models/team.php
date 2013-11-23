@@ -265,6 +265,78 @@ class team extends CI_Model {
 		return $json_reply;
 
 		}
+		public function resultsRequests($id_conv,$id_equipo){
+
+			$this->db->where('id_conv', $id_conv);
+			$q = $this->db->get('resultados');
+				if ($q -> num_rows() < 2) {
+
+					$json_reply["error"]="true";
+					return($json_reply);
+
+
+
+				}else{
+					$result = $q->result_array();
+
+					foreach ($result as $key => $value) {
+
+							$this->db->where('id_team',$result[$key]["id_equipo"]);
+						
+							$q = $this->db->get('users_teams');
+
+							if ($q -> num_rows() < 5) {
+								$result[$key]["n_Subscribers"]=0;
+							}else if ($q -> num_rows() < 7 && $q -> num_rows() > 5 ) {
+								$result[$key]["n_Subscribers"]=2;
+								# code...
+							}else if ($q -> num_rows() > 8) {
+								$result[$key]["n_Subscribers"]=3;
+							}
+							
+					}
+
+
+
+
+
+
+
+
+					$result[0]["total"]=0;
+					$result[1]["total"]=0;
+					$temp=$result[0]["otherTeam"];
+					$result[0]["otherTeam"]=$result[1]["otherTeam"];
+					$result[1]["otherTeam"]=$temp;
+					
+
+
+					foreach ($result as $key => $value) {
+
+							foreach ($result[$key] as $key2 => $value) {
+
+							if ($key2=="id"||$key2=="id_conv"||$key2=="id_equipo"||$key2=="id_user"||$key2=="principio"||$key2=="total") {
+								
+							}else{
+								
+								$result[$key]["total"]=$result[$key]["total"]+ $result[$key][$key2];
+
+								
+								
+							}
+							}
+
+
+						
+					}
+				}
+
+				return $result;
+
+
+
+
+		}
 	
 	
 }
