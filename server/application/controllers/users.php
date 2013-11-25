@@ -12,14 +12,16 @@ class Users extends MY_Controller {
 		$gender= $this->input->post('gender');
 		$email= $this->input->post('email');
 		$city= $this->input->post('city');
+		$study= $this->input->post('study');		
+		$fb_id= $this->input->post('fb_id');		
 		$study= $this->input->post('study');
 		$school_level= $this->input->post('school_level');
 		$encrypted_password= $this->input->post('encrypted_password');
-		$output=$this->user->new_user($first_name,$last_name,$age,$gender,$email,$city,$study,$school_level,$encrypted_password);
-	
+		$output=$this->user->new_user($first_name,$last_name,$age,$gender,$email,$city,$study,$school_level,$encrypted_password,$fb_id);
 		echo $output;
 		
 	}
+	
 
 
 	public function idstudent($id)

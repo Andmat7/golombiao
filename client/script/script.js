@@ -6,7 +6,7 @@ jQuery.validator.setDefaults({
 var server="http://www.golombiao.com/golombiao/server/index.php/";
 var values={0:"none",1:"No violencia",2:"Libertad de expresión",3:"No discriminación",4:"Cuidar el entorno",5:"Participación activa",6:"Cuidarse y cuidar el otro",7:"Igualdad"};
 var user;
-
+var fb_user;
 
 user= {
   email:"ccast2@hotmail.com",
@@ -40,16 +40,7 @@ $(window).load(function() {
 
 
    $( document ).on( "pageshow", function( event, ui) {
-    // var version=parseInt(window.device.version);
-    // console.log(version);
-
-    // if (version<3) {
-    //   console.log("version<3");
-    //   $(event.target).find(".container").height($(document).height());
-
-    // }else{
-
-    //   console.log("version>3");
+    
 
 
 
@@ -76,7 +67,7 @@ function aceptRequest(element,typeRequest){
   };
   if (typeRequest==1) {
      direction="teams/aceptRequest"
-  }else{
+       }else{
 
      direction="teams/deleteRequest"
 
@@ -176,53 +167,96 @@ $( document ).on( "pageshow", "#results", function() {
 
 });
 
-function login(){
+function calculate_age(date_string)
+{
+    var birthday=date_string.split("/");
+    var birth_month=parseInt(birthday[0],10);
+    var birth_day=parseInt(birthday[1],10);
+    var birth_year=parseInt(birthday[2],10);
 
+    var today_date = new Date();
+    var today_year = today_date.getFullYear();
+    var today_month = today_date.getMonth();
+    var today_day = today_date.getDate();
+    var age = today_year - birth_year;
 
-	FB.getLoginStatus(function(response) {
-		if (response.status == 'connected') {
-			logued_in=true;
-			
-			FB.login(function(response) {
-        FB.api('/me', function(response) {
-          if (response) {
-           logued_in=true;
-           $("#name_user").html(response.name);
-           $("#age_user").html(response.birthday);
-           photoUrl="https://graph.facebook.com/"+response.username+"/picture?width=300&height=400";
-           $("#photo").attr("src",photoUrl);
-           $("#location_user").html(response.location.name);
-           console.log(response);
-           changePage('index.html#home');
-         }
-
-       });
-      },{scope: 'publish_actions,email,user_birthday,user_location'});
-			
-			
-		} else {
-			FB.login(function(response) {
-        FB.api('/me', function(response) {
-          if (response) {
-           logued_in=true;
-           $("#name_user").html(response.name);
-           $("#age_user").html(response.birthday);
-           photoUrl="https://graph.facebook.com/"+response.username+"/picture?width=150&height=150";
-           $("#photo").attr("src",photoUrl);
-           $("#location_user").html(response.location.name);
-           console.log(response);
-           changePage('index.html#home');
-         }
-
-       });
-      },{scope: 'publish_actions,email,user_birthday,user_location'});
-		}
-  });
-
-
-
+    if ( today_month < (birth_month - 1))
+    {
+        age--;
+    }
+    if (((birth_month - 1) == today_month) && (today_day < birth_day))
+    {
+        age--;
+    }
+    return age;
 }
 
+
+
+function login(){
+  FB.login(function(response) {
+
+    FB.api('/me', function(fb_user) {
+
+
+
+      if (fb_user.id) {
+        console.log('entro');
+        console.log(fb_user);
+
+        var post_values={
+          fb_id:fb_user.id,
+          email:fb_user.email,
+        };
+        $.mobile.loading( 'show', {
+          text: '',
+          textVisible: true,
+          theme: 'z',
+          html: ""
+        });
+
+        $.post(server+"login/verify_registerfb", post_values, function(response_v) {
+          console.log("hizo la peticion");
+          response_v = jQuery.parseJSON(response_v);
+          console.log(response_v);
+          $.mobile.loading( 'hide' );
+          if (response_v.success=="true") {
+            $("#name_user").html(fb_user.name);
+            $("#age_user").html(fb_user.birthday);
+            photoUrl="https://graph.facebook.com/"+fb_user.username+"/picture?width=300&height=400";
+            $("#photo").attr("src",photoUrl);
+            $("#location_user").html(fb_user.location.name);
+            console.log(fb_user);
+            changePage('index.html#home');
+
+          }else{
+            $("#register input[name='first_name']").val(fb_user.first_name+" "+fb_user.middle_name);
+            $("#register input[name='last_name']").val(fb_user.last_name);
+            $("#register input[name='age']").val(calculate_age(fb_user.birthday));
+            $("#register input[name='fb_id']").val(calculate_age(fb_user.id));
+            $("#register input[name='email']").val(fb_user.email);
+
+
+
+            if (fb_user.gender=="male"){
+              $( "select[name=gender]" ).val(1);
+            }else{
+              $( "select[name=gender]" ).val(2);
+            }
+            $( "input:text[name=email]" ).val(fb_user.email);
+            photoUrl="https://graph.facebook.com/"+fb_user.username+"/picture?width=300&height=400";
+            $("#photo").attr("src",photoUrl) ;
+            changePage('index.html#register');
+          }
+
+
+
+        });
+}
+
+});
+},{scope: 'publish_actions,email,user_birthday,user_location'});
+}
 
 function send_results(){
 

@@ -3,7 +3,7 @@
 class user extends CI_Model {
 
 
-	public function new_user($first_name,$last_name,$age,$gender,$email,$city,$study,$school_level,$encrypted_password,$departamento)
+	public function new_user($first_name,$last_name,$age,$gender,$email,$city,$study,$school_level,$encrypted_password,$departamento,$fb_id)
 	{	
 
 		$this->db->where('email', $email);
@@ -25,7 +25,9 @@ class user extends CI_Model {
 					'study'=>$study,
 					'school_level'=>$school_level,
 					'encrypted_password'=>$encrypted_password,
-					'departamento'=>$departamento					
+					'departamento'=>$departamento,
+					'fb_id'=>$fb_id
+					
 			);
 			$this->db->insert('users',$data);
 			$output=true;
@@ -34,6 +36,37 @@ class user extends CI_Model {
 
 
 		return $output;
+	}
+	public function verify_register($email,$fb_id)
+	{
+		$fb_id=intval ( $fb_id );
+		$this->db->where('email', $email);
+		$q = $this->db->get('users');
+		if($q -> num_rows() == 1)
+		{
+			$user=$q->result_array();
+			
+
+			if($user[0]['fb_id']!=$fb_id){
+				$data = array(               
+					'fb_id'=> $fb_id,
+				);
+				$this->db->where('email', $email);
+				$this->db->update('users', $data);
+
+			}
+			$output= array('success' => 'true');
+			return $output;
+			
+			
+		}else{
+			$output= array('success' => 'false');
+			return $output;
+			
+		}
+		
+
+		
 	}
 
 

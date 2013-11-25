@@ -40,8 +40,15 @@ class Login extends MY_Controller {
 		echo json_encode($json_reply);
 
 	}
-	public function login2()
+	public function verify_registerfb()
 	{
+		$fb_id=$this->input->post('fb_id');
+		$email=utf8_encode($this->input->post('email'));
+
+
+		$output=$this->user->verify_register($email,$fb_id);
+		echo json_encode($output);
+
 
 	}
 
