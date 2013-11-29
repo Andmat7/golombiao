@@ -2,10 +2,12 @@ jQuery.validator.setDefaults({
   debug: true,
   success: "valid"
 });
-
-var server="http://www.golombiao.com/golombiao/server/index.php/";
+var home="www.golombiao.com"
+var server="http://"+home+"/golombiao/server/index.php/";
+var imagePath="http://"+home+"/golombiao/server/uploads/";
 var values={0:"none",1:"No violencia",2:"Libertad de expresión",3:"No discriminación",4:"Cuidar el entorno",5:"Participación activa",6:"Cuidarse y cuidar el otro",7:"Igualdad"};
 var user;
+var galeryImages;
 var fb_user;
 
 user= {
@@ -19,12 +21,36 @@ user= {
 
 $(window).load(function() {
 
+
   $(".aspect_ratio").height($(window).height());
   $(".backButton").click(function() {
   window.history.back();
+
+});
+   $(".homeButton").click(function() {
+  $.mobile.changePage( "#home");  
 });
 
+
+   $( "#galeria .container" ).scroll(function(event) {
+  event.preventDefault();
+    var height=$("#galeria .container").scrollTop()+$("#galeria .container")[0].clientHeight;
+  if ($("#galeria .container")[0].scrollHeight==height) {
    
+    if (galeryImages[counter].name) {
+
+
+    $("#galeria .container").append("<img alt='' src='"+imagePath+galeryImages[counter].name+"'/>");
+    counter=counter+1;
+};
+
+  };
+
+  
+});
+
+
+
   
 
 
@@ -39,8 +65,71 @@ $(window).load(function() {
 
 
 
-   $( document ).on( "pageshow", function( event, ui) {
-    
+
+$( document ).on( "pageshow", "#galeria", function() {
+
+
+
+  var post_values={
+    session_id:localStorage.getItem('session_id'),
+    email:localStorage.getItem('email'),
+  };
+
+    $.post(server+"teams/getImagesNames", post_values, function(response) {
+
+      galeryImages = jQuery.parseJSON(response);
+      console.log(galeryImages.length);
+      $("#galeria .container").html("<img alt='' src='"+imagePath+galeryImages[0].name+"'/><img alt='' src='"+imagePath+galeryImages[1].name+"'/><img alt='' src='"+imagePath+galeryImages[2].name+"'/> ");
+
+      counter=3;
+
+
+      console.log("asdasd");
+
+
+    });
+
+
+
+  
+
+});
+
+
+
+
+
+
+
+
+
+
+
+function closeApp(){
+
+navigator.app.exitApp();
+
+
+}
+
+function reloadApp(){
+  $( "#internetPopup" ).popup("close");
+  location.reload();
+
+  
+}
+
+ $( document ).on( "pageshow", function( event, ui) {
+    // var version=parseInt(window.device.version);
+    // console.log(version);
+
+    // if (version<3) {
+    //   console.log("version<3");
+    //   $(event.target).find(".container").height($(document).height());
+
+    // }else{
+
+      console.log("version>3");
 
 
 
@@ -49,12 +138,14 @@ $(window).load(function() {
     var footerHeight=$(event.target).find('div[data-role="footer"]').height();
     var headerHeight=$(event.target).find('div[data-role="header"]').height();
     $(event.target).find(".container").height(windowHeight-footerHeight-headerHeight+'px');
-   //}
+  //  }
   });
 
 
 
+
 function aceptRequest(element,typeRequest){
+  loadingOpen("aceptando solicitud");
 
   
   var direction;
@@ -76,7 +167,7 @@ function aceptRequest(element,typeRequest){
 
     response = jQuery.parseJSON(response);
 
-
+    loadingClose();
     if (!(response.error)&&typeRequest==1) {
       alert("Has aceptado la convocatoria");
       location.reload();
@@ -109,12 +200,13 @@ $( document ).on("click", ".home_icon", function() {
 
 
 $( document ).on("click", ".convocate_teams", function() {
+
   console.log("Resultados");
   var post_values= {
     session_id:localStorage.getItem('session_id'),
     email:localStorage.getItem('email'),
     id_conv:$(this).attr("id"),
-    id_equipo:$(this).attr("id_equipo2")
+    id_equipo:$(this).attr("id_equipo")
   };
   $("#conv_result").val($(this).attr("id"));
  $("#results .principio img").attr("src","images/acuerdos/"+$(this).attr("principio")+".png");
@@ -146,14 +238,14 @@ $( document ).on("click", ".convocate_teams", function() {
 
 
         
-        $.mobile.changePage( "index.html#results2");
+        $.mobile.changePage( "#results2");
       });
 
 
       
     }else{
       alert("Aun no has evaluado, por favor hazlo para ver los resultados");
-      $.mobile.changePage( "index.html#results");
+      $.mobile.changePage( "#results");
 
       
     }
@@ -162,10 +254,6 @@ $( document ).on("click", ".convocate_teams", function() {
 });
 
 
-$( document ).on( "pageshow", "#results", function() {
-  
-
-});
 
 function calculate_age(date_string)
 {
@@ -260,7 +348,7 @@ function login(){
 
 function send_results(){
 
-
+loadingOpen("Enviando resultados");
 
   var post_values={
     session_id:localStorage.getItem('session_id'),
@@ -279,29 +367,16 @@ function send_results(){
 
     response = jQuery.parseJSON(response);
 
-
-    if (!(response.error)) {
-          $(':input', "#results #otherteam").each(function(index, input_element) {
-               post_values2[input_element.name] = $(input_element).val();
-
-             });
-          $.post(server+"teams/guardar_resultados", post_values2, function(response2) {
-
-              response2 = jQuery.parseJSON(response2);
-
-
-              if (!(response2.error)) {
+              if (!(response.error)) {
+                loadingClose();
                 alert("se ha enviado una solicitud al lider del otro equipo");
                 changePage('index.html#my_conv');
               }else{
+                loadingClose();
                 alert(response2.message_error);
               }
 
-            });
-    }else{
-      alert(response.message_error);
-    }
-
+   
   });
 
 
@@ -412,6 +487,7 @@ function zone(teams){
 }
 
 function request_game(submit){
+  loadingOpen("Solicitando encuentro");
 
 
   var post_values={
@@ -431,10 +507,12 @@ function request_game(submit){
 
 
     if (!(response.error)) {
-      alert("se ha enviado una solicitud al lider del otro equipo");
+      loadingClose();
+        alert("se ha enviado una solicitud al lider del otro equipo");
       
       changePage('index.html#my_conv');
     }else{
+      loadingClose();
       alert(response.message_error);
     }
 
@@ -481,17 +559,26 @@ function vs_team(vs_steam){
 
 
 }
+function loadingOpen(legend){
 
+  $.mobile.loading( 'show', {
+              text: legend,
+              textVisible: true,
+              theme: 'a',
+              html: ""
+            });
+}
+
+function loadingClose(){
+
+  $.mobile.loading( 'hide' );
+
+}
 
 
 
 function sel_city(departamento) {
-$.mobile.loading( 'show', {
-              text: 'Cargando ciudades',
-              textVisible: true,
-              theme: 'z',
-              html: ""
-            });
+loadingOpen("Cargando ciudades");
 
 
  var post_values={
@@ -503,7 +590,7 @@ $(".ciudad").html('<option value="0">Ciudad</option>');
 $.post(server+"login/select_city", post_values , function(response) {
 
   response = jQuery.parseJSON(response);
-  $.mobile.loading( 'hide' );
+  loadingClose();
   for (var i = 0; i <= response.length  ; i++) {
     var j=i+1;
     $(".ciudad").append("<option value="+response[i]["idCiudad"]+">"+response[i]["nombre"]+"</option>");
@@ -547,13 +634,35 @@ function onFail(message) {
 
 
 $( document ).on( "pageshow", "#home", function() {
-  var image = document.getElementById('photo');
-  if (localStorage.getItem("photo_"+localStorage.getItem("id_user"))) {
-    image.src = localStorage.getItem("photo_"+localStorage.getItem("id_user"));
-  }else{
+  var post_values= {
+    session_id:localStorage.getItem('session_id'),
+    email:localStorage.getItem('email')
+  };
 
-    image.src ="http://graph.facebook.com/Golombiao/picture?width=300&height=400";
-  }
+    $.post(server+"teams/getData", post_values, function(response) {
+       response = jQuery.parseJSON(response);
+
+        $("#points").html("<h3>"+response.points+"</h3><img src='images/sun.png'>");
+
+         var image = document.getElementById('photo');
+      if (localStorage.getItem("photo_"+localStorage.getItem("id_user"))) {
+        image.src = localStorage.getItem("photo_"+localStorage.getItem("id_user"));
+      }else if(response.fb_id != "0"){
+
+        image.src ="http://graph.facebook.com/"+response.fb_id+"/picture?width=300&height=400";
+
+      }
+      else
+      {
+
+        image.src ="http://graph.facebook.com/Golombiao/picture?width=300&height=400";
+      }
+
+
+    });
+
+
+
 
 
 });
@@ -797,7 +906,7 @@ $( document ).on( "pageshow", "#mapa", function() {
           if (response[i].longitud!==0) {
             var latlng= new google.maps.LatLng(response[i].latitud, response[i].longitud);
             console.log(response[i]);
-            icon='http://maps.google.com/mapfiles/ms/icons/blue-dot.png';
+            icon='http://maps.google.com/mapfiles/ms/icons/green-dot.png';
             if(response[i].played==1){
                 icon='http://maps.google.com/mapfiles/ms/icons/red-dot.png';
             }
@@ -825,6 +934,23 @@ $( document ).on( "pageshow", "#register", function() {
     last_name:{
       required: true
     },
+    gender:{
+      required: true
+    },
+
+    departamento:{
+      required: true
+    },
+    city:{
+      required: true
+    },
+    study:{
+      required: true
+    },
+    email:{
+      required: true
+    },
+
     age: {
       required: true,
       number: true
@@ -1179,10 +1305,13 @@ function onSuccess2(position) {
             // Retrieve image file location from specified source
             console.log("enter onDeviceReady");
             navigator.camera.getPicture(uploadPhoto,
-                                        function(message) { alert('get picture failed'); },
+                                        function(message) { alert('Se ha cancelado la subida'); },
                                         { quality: 50,
                                         destinationType: navigator.camera.DestinationType.FILE_URI,
-                                        sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY }
+                                        sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
+                                        targetWidth: 300,
+                                        targetHeight: 400,
+                                        correctOrientation: true }
                                         );
 
             console.log("end onDeviceReady");
@@ -1194,7 +1323,7 @@ function onSuccess2(position) {
           $.mobile.loading( 'show', {
               text: 'subiendo imagen',
               textVisible: true,
-              theme: 'z',
+              theme: 'a',
               html: ""
             });
           console.log("enter uploadPhoto");
@@ -1232,6 +1361,11 @@ function onSuccess2(position) {
             alert("Ha ocurrido un error: Code = " + error.code);
             $.mobile.loading( 'hide' );
         }
+
+
+
+
+
 
 
 

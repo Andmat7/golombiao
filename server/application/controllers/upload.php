@@ -27,14 +27,17 @@ class Upload extends CI_Controller {
 		{
 			$error = array('message_success' => $this->upload->display_errors());
 
+
 			$imprimir=json_encode($error);
 				echo $imprimir;
 		}
 		else
 		{
-			$data = array('upload_data' => $this->upload->data());
+			$data = $this->upload->data();
+			$nameImage=array('name' => $data["file_name"]);
 
-
+			$this->db->insert('images',$nameImage);
+			
 			$output= array(
 							'success' => 'true',
 							'message_success' => 'la foto se ha subido correctamente',

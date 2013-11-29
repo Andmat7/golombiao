@@ -42,6 +42,10 @@ class Teams extends MY_Controller {
 	}
 	public function get_fromcity()
 	{
+
+
+
+
 		$id_city= $this->input->post('id_city');
 		$output=$this->team->select_from_city($id_city,$this->_USER['id']);
 		echo json_encode($output);
@@ -110,7 +114,16 @@ class Teams extends MY_Controller {
 		$existen_resultados=$this->team->existen_resultados($datos['id_user'], $datos['id_conv']);
 
 		if(!$existen_resultados) {
-			$this->team->guardar_resultados($datos);
+			$updatePoints=$this->team->guardar_resultados($datos);
+			if ($updatePoints) {
+
+				$result = $this->team->resultsRequests($datos['id_conv']);
+				$this->team->savePoints($result);
+
+			}
+
+
+
 			$result['error']=false;
 		} else {
 			$result['error']=true;
@@ -181,15 +194,24 @@ class Teams extends MY_Controller {
 
 	public function resultsRequests(){
 		$id_conv = $this->input->post('id_conv');
-		$id_equipo = $this->input->post('id_equipo');
-		$result = $this->team->resultsRequests($id_conv,$id_equipo);
+		$result = $this->team->resultsRequests($id_conv);
+		echo json_encode($result);
+	}
+
+	public function getData(){
+		$id_user = $this->_USER['id'];
+		$result = $this->team->getData($id_user);
+		echo json_encode($result);
+	}
+
+
+	public function getImagesNames(){
+
+		$result = $this->team->getImagesNames();
 		echo json_encode($result);
 
-
-
-
-
 	}
+
 
 }
 

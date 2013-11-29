@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-11-2013 a las 20:13:26
+-- Tiempo de generación: 29-11-2013 a las 01:46:02
 -- Versión del servidor: 5.5.32
 -- Versión de PHP: 5.4.19
 
@@ -259,19 +259,20 @@ CREATE TABLE IF NOT EXISTS `convocatoria` (
   `acepta_convocatoria` tinyint(1) NOT NULL,
   `tipo_juego` int(11) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
 
 --
 -- Volcado de datos para la tabla `convocatoria`
 --
 
 INSERT INTO `convocatoria` (`id`, `equipo_1`, `equipo_2`, `fecha`, `hora`, `latitud`, `longitud`, `principio`, `acepta_convocatoria`, `tipo_juego`) VALUES
-(23, 30, 25, '2013-11-06', '10:42:00', 4.71240480962023, -74.1099071502686, 4, 0, 1),
-(25, 32, 28, '2014-11-14', '23:48:00', 4.71333506246179, -74.1055458784103, 1, 1, 1),
-(26, 28, 26, '2013-11-13', '00:02:00', 0, 0, 1, 0, 2),
-(27, 27, 31, '2014-11-10', '21:10:00', 5.21677612669732, -74.70703125, 1, 1, 1),
-(28, 28, 31, '2013-12-13', '10:25:00', 4.60215575303042, -74.0748989582062, 4, 1, 1),
-(29, 24, 26, '2013-11-22', '02:00:00', 4.745590741004131, -74.0581727027893, 5, 0, 2);
+(23, 30, 25, '2013-11-27', '10:42:00', 4.71240480962023, -74.1099071502686, 4, 0, 1),
+(25, 32, 28, '2013-11-14', '23:48:00', 4.71333506246179, -74.1055458784103, 1, 1, 1),
+(27, 27, 31, '2013-11-10', '21:10:00', 5.21677612669732, -74.70703125, 1, 1, 1),
+(28, 28, 31, '2013-11-26', '10:25:00', 4.60215575303042, -74.0748989582062, 4, 0, 1),
+(29, 24, 26, '2013-11-26', '02:00:00', 4.745590741004131, -74.0581727027893, 5, 0, 2),
+(30, 33, 24, '2013-11-24', '13:13:00', 4.600712028519357, -74.07297313213348, 1, 1, 0),
+(32, 24, 29, '2013-11-27', '03:01:00', 4.744823251415606, -74.05836582183838, 4, 0, 2);
 
 -- --------------------------------------------------------
 
@@ -283,7 +284,7 @@ CREATE TABLE IF NOT EXISTS `departamento` (
   `idDepartamento` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(80) DEFAULT NULL,
   PRIMARY KEY (`idDepartamento`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
 
 --
 -- Volcado de datos para la tabla `departamento`
@@ -310,8 +311,29 @@ INSERT INTO `departamento` (`idDepartamento`, `nombre`) VALUES
 (18, 'Santander'),
 (19, 'Sucre'),
 (20, 'Tolima'),
-(21, 'Valle del Cauca'),
-(0, 'Bogota D.C.');
+(21, 'Valle del Cauca');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `images`
+--
+
+CREATE TABLE IF NOT EXISTS `images` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(256) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Volcado de datos para la tabla `images`
+--
+
+INSERT INTO `images` (`id`, `name`) VALUES
+(3, '5292_3d_space_scene_hd_wallpapers_black_dark.jpg'),
+(4, '6316475_460s.jpg'),
+(5, '6974651_700b_v2.jpg'),
+(6, '5714563_460s.jpg');
 
 -- --------------------------------------------------------
 
@@ -334,23 +356,15 @@ CREATE TABLE IF NOT EXISTS `resultados` (
   `autoevaluacion` int(2) NOT NULL,
   `otherTeam` int(3) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=38 ;
 
 --
 -- Volcado de datos para la tabla `resultados`
 --
 
 INSERT INTO `resultados` (`id`, `id_user`, `id_conv`, `id_equipo`, `principio`, `barra`, `cump_acuerdos`, `faltas`, `meritos`, `no_players`, `no_players_presents`, `autoevaluacion`, `otherTeam`) VALUES
-(1, 55, 3, 21, 1, 1, 1, 1, 1, 0, 0, 0, 0),
-(2, 55, 11, 10, 0, 2, 2, -2, 2, 0, 0, 0, 0),
-(3, 55, 13, 23, 0, 2, 0, -2, 2, 0, 0, 0, 0),
-(4, 55, 18, 24, 0, 2, 2, -2, 2, 0, 0, 0, 0),
-(5, 61, 20, 29, 0, 2, 2, -2, -1, 0, 0, 0, 0),
-(6, 55, 20, 29, 0, 2, 1, 2, 2, 0, 0, 0, 0),
-(7, 123, 123, 123, 123, 123, 123, 123, 123, 0, 0, 0, 0),
-(8, 55, 17, 24, 0, 0, 3, 2, 1, 0, 0, 0, 0),
-(17, 55, 26, 28, 0, 0, 1, 0, 2, 3, 3, 2, 2),
-(18, 55, 26, 26, 2, 3, 4, 1, 2, 4, 6, 2, 1);
+(27, 22, 27, 31, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+(37, 55, 27, 27, 0, 0, 0, 0, 1, 3, 0, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -367,7 +381,7 @@ CREATE TABLE IF NOT EXISTS `teams` (
   `zone_team` varchar(255) NOT NULL,
   `description` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=33 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=34 ;
 
 --
 -- Volcado de datos para la tabla `teams`
@@ -382,7 +396,8 @@ INSERT INTO `teams` (`id`, `name`, `leader_id`, `departamento`, `ciudad`, `zone_
 (29, 'Equipo tunjeño ', 61, 4, 43, 'Bogotá', 'And'),
 (30, 'el equioito', 61, 4, 43, 'un barrio de tunja', 'Unequiptio de tunja'),
 (31, 'Equipó Prueba', 69, 9, 62, 'Bosa', 'Equipo de prueba'),
-(32, 'Tema to', 69, 9, 97, 'Olivos 2', 'Qawsedrftgyhujikolpñ');
+(32, 'Tema to', 74, 9, 97, 'Olivos 2', 'Qawsedrftgyhujikolpñ'),
+(33, 'ColombiaJoven1', 73, 9, 62, 'centro', 'Jugamos por la paz');
 
 -- --------------------------------------------------------
 
@@ -404,32 +419,40 @@ CREATE TABLE IF NOT EXISTS `users` (
   `city` varchar(255) NOT NULL,
   `study` varchar(255) NOT NULL,
   `school_level` varchar(255) NOT NULL,
+  `fb_id` bigint(100) NOT NULL,
+  `points` int(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=73 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=79 ;
 
 --
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `encrypted_password`, `session_id`, `first_name`, `last_name`, `age`, `gender`, `email`, `timesession`, `departamento`, `city`, `study`, `school_level`) VALUES
-(55, 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '5e6KxjBudbHhRFQM1sDAPpiIGtrvy8', 'Andres', 'Castellanos', 89, 1, 'ccast2@gmail.com', '2013-11-21 20:14:25', 1, '0', '1', '3'),
-(56, 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '', 'Andres', 'Castellanos', 23, 1, 'ccast2@gmail.com.co', '2013-10-21 00:31:13', 1, '0', '1', '3'),
-(57, '240697cd1dd9b36528b10c9d249f0405e8983c99bec1b0f35efda93788b764ff', '', 'asdasd', 'asdasd', 23, 1, 'codfe.com@gmail.com', '2013-10-21 00:37:56', 12, '0', '1', '3'),
-(58, '4708eb860ec2abf2e68966ccfa1a4cf802e93c5dc0ab12bf68e1f762763492cb', 'qfga7Pnmj6o1EzZSpFWkvLCROelTXV', 'Andres2', 'Castellanos2', 23, 1, 'profex@hotmail.com', '2013-10-21 07:53:39', 17, '0', '1', '3'),
-(59, 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '53X4ImKtqLiENyYGVWFBUjaRs2rbng', 'usuario', 'apellido1', 23, 1, 'ccast4@gmail.com', '2013-10-21 21:12:45', 9, '0', '1', '3'),
-(60, '6c592d4d8c36b05907237121ad966ba5952e17695a4bba56edebbfff29ceb81f', 'XdQgz71WCRDh9LGpqfnKVOkvwZTJxl', 'adriana', 'rincon', 36, 2, 'juanseadri@gmail.com', '2013-10-21 21:13:41', 9, '0', '2', '3'),
-(61, 'f6f12d007349ae2711b1f58ac7f21cb3ba7d14894bc0d0ea62eef31d6f7942d5', 'QUjaJ5olyv4Ck9MNIihzEeb0xOHsTS', 'Andres', 'Corredor', 26, 1, 'andrescorredor20@hotmail.com', '2013-11-16 14:03:38', 9, '0', '2', '3'),
-(62, '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '', 'qwerty', 'asdfg', 127, 1, 'qwerty@mail.com', '2013-10-30 21:19:46', 6, '0', '1', '3'),
-(63, '38083c7ee9121e17401883566a148aa5c2e2d55dc53bc4a94a026517dbff3c6b', '', 'Qqqqqqqqqqqq', 'Wwwwwwwwww', 127, 1, 'asdfg@mail.com', '2013-10-30 22:16:50', 1, '0', '1', '3'),
-(64, '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '', 'Don', 'Nadie', 23, 1, 'dnadie@correo.com', '2013-10-31 18:35:04', 1, '0', '1', '3'),
-(65, 'bdb179339ec1c1ee89b8dc1fc5dc493fd8cddb74fbcaf3b2aee19f13a2ccc42e', '', 'John', 'Doe', 23, 1, 'jdoe@correo.com', '2013-10-31 18:38:51', 5, '0', '1', '3'),
-(66, '6b615adb1300c1161bcb58c11141164e9b762987607e7cccdcd0178f3bb13d0b', '', 'Juan', 'Galvis', 27, 0, 'jfelipebarrera@gmail.com', '2013-10-31 22:12:51', 9, '0', '1', '3'),
-(67, '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', '', 'Jane', 'Doe', 27, 2, 'jdoe@maila.com', '2013-11-01 20:40:07', 14, '0', '2', '3'),
-(68, '4cc8f4d609b717356701c57a03e737e5ac8fe885da8c7163d3de47e01849c635', '', 'Wilmer', 'Amézquita', 23, 1, 'wamezquita@ospinternational.com', '2013-11-05 21:17:24', 9, '0', '1', '3'),
-(69, 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'UQg0bPutm7opIOcMfzYeLlRdG5SnXD', ' Manuel', 'Amézquita', 22, 1, 'manuel@mail.com', '2013-11-13 23:46:03', 1, '0', '1', '3'),
-(70, 'f7a8e7caccf5797ecd323e8158d51d9025b765ab4d9a76ffef905c479c02bde6', '', 'Andres', 'Castellanos', 23, 1, 'ccast2@gm3ail.com', '2013-11-14 02:34:31', 15, '0', '1', '3'),
-(71, 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '', 'Andres', 'Castellanos', 23, 1, 'c@c.com', '2013-11-14 03:20:12', 1, '0', '1', '3'),
-(72, '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', '', 'charlie', 'wafless', 23, 1, 'acas82337@gmail.com', '2013-11-15 17:09:05', 9, '0', '1', '3');
+INSERT INTO `users` (`id`, `encrypted_password`, `session_id`, `first_name`, `last_name`, `age`, `gender`, `email`, `timesession`, `departamento`, `city`, `study`, `school_level`, `fb_id`, `points`) VALUES
+(55, 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'B0gwERajW824IyfX9v6tmSPQxYNzDb', 'Andres', 'Castellanos', 89, 1, 'ccast2@gmail.com', '2013-11-29 05:29:27', 1, '0', '1', '3', 582416988, 6),
+(56, 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '', 'Andres', 'Castellanos', 23, 1, 'ccast2@gmail.com.co', '2013-11-26 20:37:24', 1, '0', '1', '3', 0, 6),
+(57, '240697cd1dd9b36528b10c9d249f0405e8983c99bec1b0f35efda93788b764ff', '', 'asdasd', 'asdasd', 23, 1, 'codfe.com@gmail.com', '2013-10-21 00:37:56', 12, '0', '1', '3', 0, 0),
+(58, '4708eb860ec2abf2e68966ccfa1a4cf802e93c5dc0ab12bf68e1f762763492cb', 'qfga7Pnmj6o1EzZSpFWkvLCROelTXV', 'Andres2', 'Castellanos2', 23, 1, 'profex@hotmail.com', '2013-10-21 07:53:39', 17, '0', '1', '3', 0, 0),
+(59, 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '53X4ImKtqLiENyYGVWFBUjaRs2rbng', 'usuario', 'apellido1', 23, 1, 'ccast4@gmail.com', '2013-10-21 21:12:45', 9, '0', '1', '3', 0, 0),
+(60, '6c592d4d8c36b05907237121ad966ba5952e17695a4bba56edebbfff29ceb81f', 'XdQgz71WCRDh9LGpqfnKVOkvwZTJxl', 'adriana', 'rincon', 36, 2, 'juanseadri@gmail.com', '2013-11-26 20:37:24', 9, '0', '2', '3', 0, 2),
+(61, 'f6f12d007349ae2711b1f58ac7f21cb3ba7d14894bc0d0ea62eef31d6f7942d5', 'rops4zqHAk8bU5eThXEdINM3FvQJtu', 'Andres', 'Corredor', 26, 1, 'andrescorredor20@hotmail.com', '2013-11-26 20:37:24', 9, '0', '2', '3', 582416988, 2),
+(62, '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '', 'qwerty', 'asdfg', 127, 1, 'qwerty@mail.com', '2013-11-26 20:37:24', 6, '0', '1', '3', 0, 2),
+(63, '38083c7ee9121e17401883566a148aa5c2e2d55dc53bc4a94a026517dbff3c6b', '', 'Qqqqqqqqqqqq', 'Wwwwwwwwww', 127, 1, 'asdfg@mail.com', '2013-10-30 22:16:50', 1, '0', '1', '3', 0, 0),
+(64, '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '', 'Don', 'Nadie', 23, 1, 'dnadie@correo.com', '2013-10-31 18:35:04', 1, '0', '1', '3', 0, 0),
+(65, 'bdb179339ec1c1ee89b8dc1fc5dc493fd8cddb74fbcaf3b2aee19f13a2ccc42e', '', 'John', 'Doe', 23, 1, 'jdoe@correo.com', '2013-10-31 18:38:51', 5, '0', '1', '3', 0, 0),
+(66, '6b615adb1300c1161bcb58c11141164e9b762987607e7cccdcd0178f3bb13d0b', '', 'Juan', 'Galvis', 27, 0, 'jfelipebarrera@gmail.com', '2013-10-31 22:12:51', 9, '0', '1', '3', 0, 0),
+(67, '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', '', 'Jane', 'Doe', 27, 2, 'jdoe@maila.com', '2013-11-01 20:40:07', 14, '0', '2', '3', 0, 0),
+(68, '4cc8f4d609b717356701c57a03e737e5ac8fe885da8c7163d3de47e01849c635', '', 'Wilmer', 'Amézquita', 23, 1, 'wamezquita@ospinternational.com', '2013-11-05 21:17:24', 9, '0', '1', '3', 0, 0),
+(69, 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', 'UQg0bPutm7opIOcMfzYeLlRdG5SnXD', ' Manuel', 'Amézquita', 22, 1, 'manuel@mail.com', '2013-11-13 23:46:03', 1, '0', '1', '3', 0, 0),
+(70, 'f7a8e7caccf5797ecd323e8158d51d9025b765ab4d9a76ffef905c479c02bde6', '', 'Andres', 'Castellanos', 23, 1, 'ccast2@gm3ail.com', '2013-11-14 02:34:31', 15, '0', '1', '3', 0, 0),
+(71, 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3', '', 'Andres', 'Castellanos', 23, 1, 'c@c.com', '2013-11-14 03:20:12', 1, '0', '1', '3', 0, 0),
+(72, '5994471abb01112afcc18159f6cc74b4f511b99806da59b3caf5a9c173cacfc5', '', 'charlie', 'wafless', 23, 1, 'acas82337@gmail.com', '2013-11-15 17:09:05', 9, '0', '1', '3', 0, 0),
+(73, 'dcf40ce9bd907e20cb039d011a974a44eac555a20807e629407bb0f0429cdc07', 'dmANP5bSzQiG9r7sy1vHo4RULfKJ60', 'juan', 'galvis', 27, 1, 'jfelipebarrera@gmail.com', '2013-11-25 22:47:02', 9, '0', '1', '3', 0, 0),
+(74, '23f6fd7b942f36573982b1e109acbf18b01d8898a0f84d10cbb94281e616440f', '', 'paul andres', 'gomez m', 25, 2, 'admibweb.presidencia@gmail.com', '2013-11-21 15:06:20', 9, '0', '2', '3', 0, 0),
+(75, '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', '', 'Andres', 'Castellanos', 23, 1, 'c@2.com', '2013-11-26 18:51:47', 9, '0', '2', '3', 0, 0),
+(76, '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', '', 'Andres', 'Castellanos', 23, 1, 'c@22.com', '2013-11-26 18:52:35', 15, '0', '2', '3', 0, 0),
+(77, '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', '', 'Andres', 'Castellanos', 23, 1, 'c@222.com', '2013-11-26 18:53:34', 0, '0', '2', '3', 0, 0),
+(78, '6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b', '', 'Andres', 'Castellanos', 23, 1, 'ccast@gmcail.com', '2013-11-26 18:54:09', 8, '58', '2', '3', 0, 0);
 
 -- --------------------------------------------------------
 
@@ -442,29 +465,18 @@ CREATE TABLE IF NOT EXISTS `users_teams` (
   `id_user` int(14) NOT NULL,
   `id_team` int(14) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=39 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=64 ;
 
 --
 -- Volcado de datos para la tabla `users_teams`
 --
 
 INSERT INTO `users_teams` (`id`, `id_user`, `id_team`) VALUES
-(16, 58, 26),
-(17, 55, 28),
-(24, 59, 28),
-(25, 60, 28),
-(26, 55, 28),
-(27, 55, 28),
-(28, 55, 28),
-(30, 55, 26),
-(31, 61, 29),
-(32, 61, 27),
-(33, 61, 30),
-(34, 69, 31),
-(35, 69, 27),
-(36, 69, 26),
-(37, 69, 25),
-(38, 69, 32);
+(44, 55, 27),
+(60, 60, 31),
+(61, 61, 31),
+(62, 56, 27),
+(63, 62, 31);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

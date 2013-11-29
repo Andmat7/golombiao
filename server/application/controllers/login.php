@@ -64,7 +64,12 @@ class Login extends MY_Controller {
 		$study= $this->input->post('study');
 		$school_level= $this->input->post('school_level');
 		$encrypted_password= $this->input->post('encrypted_password');
-		$output=$this->user->new_user($first_name,$last_name,$age,$gender,$email,$city,$study,$school_level,$encrypted_password,$departamento);
+		$fb_id= $this->input->post('fb_id');
+		if ($fb_id==null||$fb_id==" ") {
+			$fb_id=0;
+						
+				}	
+		$output=$this->user->new_user($first_name,$last_name,$age,$gender,$email,$city,$study,$school_level,$encrypted_password,$departamento,$fb_id);
 		if($output){
 			$json_reply["error"]=false;
 

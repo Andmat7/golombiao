@@ -17,36 +17,22 @@
 
 	<script type="text/javascript" src="script/sha256.js"></script>
 	<script type="text/javascript" src="script/script.js"></script>
+	<script type="text/javascript" src="script/golombiao.js"></script>
+	<script src="script/overthrow.js"></script>
 	
 	<link rel="stylesheet" type="text/css" href="styles/styles.css">
+	<link rel="stylesheet" href="styles/style.css" type="text/css" />
 	<link href="styles/device.css" type="text/css" media="screen" rel="stylesheet"/>
 
-	<script language="javascript">
-    
-    function init() {
-       // put more code here in case you are concerned about browsers that do not provide XMLHttpRequest object directly
-       
-    }
-    function getdetails() {
-    	var xmlhttp;
-    	xmlhttp = new XMLHttpRequest();
-        var url = "http://servicedatosabiertoscolombia.cloudapp.net/v1/Programa_Presidencia_Colombia_Joven/informaciongolombiao?$format=json";
-        xmlhttp.open('GET',url,true);
-        xmlhttp.send(null);
-        xmlhttp.onreadystatechange = function() {
 
-               if (xmlhttp.readyState == 4) {
-                  if ( xmlhttp.status == 200) {
-                    response = jQuery.parseJSON(xmlhttp.responseText);
-                       var det = eval( "(" +  xmlhttp.responseText + ")");
-                       alert(xmlhttp.responseText);
-                 }
-                 else
-                       alert("Error ->" + xmlhttp.responseText);
-              }
-        };
-    }
-  </script>
+
+	<link href="SpryAssets/SpryAccordion.css" rel="stylesheet" type="text/css">
+	<link href="SpryAssets/SpryTabbedPanels.css" rel="stylesheet" type="text/css">
+	<script src="SpryAssets/SpryAccordion.js" type="text/javascript"></script>
+	<script src="SpryAssets/SpryTabbedPanels.js" type="text/javascript"></script>
+
+
+
 
 </head> 
 <body> 
@@ -59,35 +45,42 @@
 
 
 
+
+
+
 	<div data-role="page" id="login">
-		
-		<input type="button" value="Get Details" onclick="getdetails()"/>
-		<div class="container" align="center">
-				<a href="index.html#popupBasic" data-rel="popup" class="help">ayuda?	</a>
-				<div data-role="popup" id="popupBasic">
-					<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-					<p>Si no tienes una cuenta puedes loguearte haciendo click en el icono de facebook o crear una desde ceros en el boton registrarse<p>
+		<div class=" overthrow container" align="center">
+			<a href="#popupBasic" data-rel="popup" class="help">ayuda?	</a>
+			<div data-role="popup" id="popupBasic">
+				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+				<p>Si no tienes una cuenta puedes loguearte haciendo click en el icono de facebook o crear una desde ceros en el boton registrarse<p>
+				</div>
+
+				<div data-role="popup" id="internetPopup">
+					<input type="button" onclick="closeApp()" value="Cerrar Applicacion">
+					<input type="button" onclick="reloadApp()" value="Recargar Applicacion">
 				</div>
 
 				<div class="headerLogin"><h1>Ingresa</h1>
-					<img onclick="login()" class="login_facebook" src="images/faceButton.png">
+					
 				</div>
 				<form id="form_login" >
 					<input id="input_email" type="email" name="email" placeholder="email" ><br>
 					<input id="input_pass" type="password" name="encrypted_password" placeholder="password" >
 					<input type="submit" class="enviar_login" value="Ingresar">
+					<img onclick="login()" class="login_facebook" src="images/faceButton.png">
 				</form>
 				<h1>No tienes cuenta?</h1>
-				<a href="index.html#register" data-transition="flip">
+				<a href="#register" data-transition="flip">
 					<img class="register" src="images/registerButton.png">
 				</a>
 
+			</div>
+
 		</div>
 
-	</div>
-
 		<div data-role="page" id="register" >
-			<div class="container" align="center">
+			<div class=" overthrow container" align="center">
 				<img onclick="register()" class="register" src="images/registerButton.png">
 				<form id="form_register">
 					<label>Nombres:</label>
@@ -139,7 +132,7 @@
 					</select>
 					<div class="small_input_left">
 						<label>Ciudad:</label>
-						<select name="ciudad" class="ciudad" >
+						<select name="city" class="ciudad" >
 							<option value=""></option>
 						</select>
 					</div>
@@ -186,15 +179,38 @@
 			</div>
 
 		</div>
+		<div data-role="dialog" id="homePanel" data-position="right" data-display="push" style="position:fixed">
+			<a href="#home" data-rel="close">Close panel</a>
+			<div>
+
+				<div class="fb-like" data-href="https://www.facebook.com/Golombiao" data-layout="box_count" data-action="like" data-show-faces="true" data-share="true"></div>
+
+			</div>
+
+
+			<a class="closeSession" href="#closeSession" data-rel="popup">
+				Cerrar Sesion
+			</a>
+
+			<div data-role="popup" id="closeSession">
+				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close
+				</a>
+				Deseas cerrar sesion?<br>
+				<a href="#login" data-transition="flow">Si
+				</a>
+			</div>
+		</div>
 
 
 		<div data-role="page" id="home">
+			
 
-			<div class="container">
+			<div data-role="content" class=" overthrow container">
 				<div class="dataUser">
 					<div id="photo_container">
 						<img id="photo" src="http://graph.facebook.com/Golombiao/picture?width=300&height=400" onclick="camera()">
 					</div>
+					<div id="points"></div>
 					<div id="information">	
 						<span id="name_user">u </span>	
 						<span id="age_user">23 años</span> 
@@ -203,16 +219,16 @@
 					</div>
 				</div>
 				<div class="sections">
-					<a href="index.html#play" data-transition="flow">
+					<a href="#play" data-transition="flow">
 						<img class="toSection" src="images/play_button.png">
 					</a>
-					<a href="gol_pag.htm" data-transition="flow">
+					<a href="#golombiao" data-transition="flow">
 						<img class="toSection rightSquare" src="images/golombiao_button.png" >
 					</a>
-					<a href="index.html#mapa" data-transition="flow">
+					<a href="#mapa" data-transition="flow">
 						<img class="toSection" src="images/place_button.png">
 					</a>
-					<a href="index.html#galeria" data-transition="flow">
+					<a href="#galeria" data-transition="flow">
 						<img class="toSection rightSquare" src="images/galery_button.png">
 					</a>
 				</div>
@@ -221,18 +237,12 @@
 			
 			<div data-role="footer"  align="center">
 				<div> <!-- new bit -->
-					<a href="index.html#closeSession" data-rel="popup">
+					<a href="#homePanel" data-rel="dialog">
 						<img class="configButton" src="images/configButton.png">
 					</a>
 				</div> <!-- new bit -->
 			</div>
-			<div data-role="popup" id="closeSession">
-				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close
-				</a>
-				Deseas cerrar sesion?<br>
-				<a href="index.html#login" data-transition="flow">Si
-				</a>
-			</div>
+			
 
 
 
@@ -240,16 +250,16 @@
 
 		<div data-role="page" id="mapa">
 			<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-			<div class="container" align="center">
+			<div class=" overthrow container" align="center">
 				
 				<div id="colombia" > </div>
 				<div class="indicator">
-					<img src="images/noPlayedIcon.png">
+					<img src="images/playedIcon.png">
 					<label>No jugado</label>
 
 				</div>
 				<div class="indicator">
-					<img src="images/playedIcon.png">
+					<img src="images/noPlayedIcon.png">
 					<label>Jugado</label>
 
 				</div>
@@ -268,26 +278,33 @@
 
 				<div data-role="navbar" class="navbar">
 					<ul>
-						<li><a href="index.html#play" class="ui-btn-active ui-state-persist" data-transition="flip">JUGAR</a></li>
-						<li><a href="index.html#pre_conv"data-transition="flip">CONVOCAR</a></li>
+						<li><a href="#play" class="ui-btn-active ui-state-persist" data-transition="flip">JUGAR</a></li>
+						<li><a href="#pre_conv"data-transition="flip">CONVOCAR</a></li>
 					</ul>
 				</div><!-- /navbar -->
 			</div>
-			<div class="container" align="center">
+			<div class=" overthrow container" align="center">
 
 
 				<div class="buttons">
 
 					<div class="subButton">
 
-						<h1>UNIRSE</h1>
-						<a href="index.html#join" data-transition="flow">
+
+						<div class="convocateDescription">
+							<h1>UNIRSE</h1>
+							<h4>Aqui puedes unirte a un equipo ya creado</h4>
+						</div>
+						<a href="#join" data-transition="flow">
 							<img src="images/joinButton.png">
 						</a>
 					</div>
 					<div class="subButton">
-						<h1>CREAR</h1>
-						<a href="index.html#create" data-transition="flow">
+						<div class="convocateDescription">
+							<h1>CREAR</h1>
+							<h4>Aqui crear una nuevo equipo</h4>
+						</div>
+						<a href="#create" data-transition="flow">
 							<img src="images/createButton.png">
 						</a>
 					</div>
@@ -313,26 +330,31 @@
 
 				<div data-role="navbar" class="navbar">
 					<ul>
-						<li><a href="index.html#play" data-transition="flip">JUGAR</a></li>
-						<li><a href="index.html#pre_conv"class="ui-btn-active ui-state-persist"  data-transition="flip">CONVOCAR</a></li>
+						<li><a href="#play" data-transition="flip">JUGAR</a></li>
+						<li><a href="#pre_conv"class="ui-btn-active ui-state-persist"  data-transition="flip">CONVOCAR</a></li>
 					</ul>
 				</div><!-- /navbar -->
 			</div>
-			<div class="container" align="center">
+			<div class=" overthrow container" align="center">
 
 
 				<div class="buttons">
 
 					<div class="subButton">
-
-						<h1>VER</h1>
-						<a href="index.html#my_conv" data-transition="flow">
+						<div class="convocateDescription">
+							<h1>VER</h1>
+							<h4>Aqui puedes ver todas las convocatorias a las cual tus equipos pertenecen</h4>
+						</div>
+						<a href="#my_conv" data-transition="flow">
 							<img src="images/joinButton.png">
 						</a>
 					</div>
 					<div class="subButton">
-						<h1>CREAR</h1>
-						<a href="index.html#convocate" data-transition="flow">
+						<div class="convocateDescription">
+							<h1>CREAR</h1>
+							<h4>Aqui crear una nueva convocatoria</h4>
+						</div>
+						<a href="#convocate" data-transition="flow">
 							<img src="images/createButton.png">
 						</a>
 					</div>
@@ -342,7 +364,7 @@
 			</div>
 			<div data-role="footer" align="center">
 
-				<img class="backButton" src="images/homeButton.png">
+				<img class="homeButton" src="images/homeButton.png">
 
 			</div>
 
@@ -359,13 +381,13 @@
 
 				<div data-role="navbar" class="navbar">
 					<ul>
-						<li><a href="index.html#play" class="ui-btn-active ui-state-persist" data-transition="flip">JUGAR</a></li>
-						<li><a href="index.html#pre_conv"  data-transition="flip">CONVOCAR</a></li>
+						<li><a href="#play" class="ui-btn-active ui-state-persist" data-transition="flip">JUGAR</a></li>
+						<li><a href="#pre_conv"  data-transition="flip">CONVOCAR</a></li>
 					</ul>
 				</div><!-- /navbar -->
 			</div>
 
-			<div class="container">
+			<div class=" overthrow container">
 				<label>Crear Equipo:</label>
 				<form id="form_create">
 
@@ -420,7 +442,7 @@
 			</div>
 			<div data-role="footer" align="center">
 
-				<img class="backButton" src="images/homeButton.png">
+				<img class="homeButton" src="images/homeButton.png">
 
 			</div>
 
@@ -436,14 +458,14 @@
 
 				<div data-role="navbar" class="navbar">
 					<ul>
-						<li><a href="index.html#play" class="ui-btn-active ui-state-persist" data-transition="flip">JUGAR</a></li>
-						<li><a href="index.html#pre_conv"  data-transition="flip">CONVOCAR</a></li>
+						<li><a href="#play" class="ui-btn-active ui-state-persist" data-transition="flip">JUGAR</a></li>
+						<li><a href="#pre_conv"  data-transition="flip">CONVOCAR</a></li>
 					</ul>
 				</div><!-- /navbar -->
 			</div>
 
 
-			<div  class="container">
+			<div  class=" overthrow container">
 
 				<form id="form_join">
 
@@ -495,7 +517,7 @@
 			<div data-role="footer" align="center">
 
 
-				<img class="backButton" src="images/homeButton.png">
+				<img class="homeButton" src="images/homeButton.png">
 
 			</div>
 
@@ -517,13 +539,13 @@
 
 				<div data-role="navbar" class="navbar">
 					<ul>
-						<li><a href="index.html#play" data-transition="flip">JUGAR</a></li>
-						<li><a href="index.html#pre_conv" class="ui-btn-active ui-state-persist"  data-transition="flip">CONVOCAR</a></li>
+						<li><a href="#play" data-transition="flip">JUGAR</a></li>
+						<li><a href="#pre_conv" class="ui-btn-active ui-state-persist"  data-transition="flip">CONVOCAR</a></li>
 					</ul>
 				</div><!-- /navbar -->
 			</div>
 
-			<div data-role="content" class="container">
+			<div data-role="content" class=" overthrow container">
 				<a href="#mypanel"><img class="convocationButton" src="images/configButtonGreen.png">
 				</a>
 				<div id="mi_reto">
@@ -534,7 +556,7 @@
 				</div>
 			</div>
 			<div data-role="footer"  align="center">
-				<img class="backButton" src="images/homeButton.png">
+				<img class="homeButton" src="images/homeButton.png">
 
 			</div>
 		</div>
@@ -547,14 +569,14 @@
 
 				<div data-role="navbar" class="navbar">
 					<ul>
-						<li><a href="index.html#play" data-transition="flip">JUGAR</a></li>
-						<li><a href="index.html#pre_conv" class="ui-btn-active ui-state-persist"  data-transition="flip">CONVOCAR</a></li>
+						<li><a href="#play" data-transition="flip">JUGAR</a></li>
+						<li><a href="#pre_conv" class="ui-btn-active ui-state-persist"  data-transition="flip">CONVOCAR</a></li>
 					</ul>
 				</div><!-- /navbar -->
 			</div>
 
 			
-			<div data-role="content "class="container" align="center">
+			<div data-role="content "class=" overthrow container" align="center">
 				<div class="your_team">
 					<ul class="own_teams">
 						<label>Tus Equipos</label>
@@ -611,7 +633,7 @@
 				<input type="submit" class="enviar_login" value="Seleccionar Equipos" onclick="zone(this)">
 			</div>
 			<div data-role="footer"  align="center">
-				<img class="backButton" src="images/homeButton.png">
+				<img class="homeButton" src="images/homeButton.png">
 
 			</div>
 
@@ -625,15 +647,15 @@
 
 				<div data-role="navbar" class="navbar">
 					<ul>
-						<li><a href="index.html#play" data-transition="flip">JUGAR</a></li>
-						<li><a href="index.html#pre_conv" class="ui-btn-active ui-state-persist"  data-transition="flip">CONVOCAR</a></li>
+						<li><a href="#play" data-transition="flip">JUGAR</a></li>
+						<li><a href="#pre_conv" class="ui-btn-active ui-state-persist"  data-transition="flip">CONVOCAR</a></li>
 					</ul>
 				</div><!-- /navbar -->
 			</div>
 
 
 
-			<div data-role="content" class="container" align="center">
+			<div data-role="content" class=" overthrow container" align="center">
 
 
 				<div class="two_teams">
@@ -682,7 +704,7 @@
 
 			</div>
 			<div data-role="footer"  align="center">
-				<img class="backButton" src="images/homeButton.png">
+				<img class="homeButton" src="images/homeButton.png">
 
 			</div>
 
@@ -697,13 +719,13 @@
 
 				<div data-role="navbar" class="navbar">
 					<ul>
-						<li><a href="index.html#play" data-transition="flip">JUGAR</a></li>
-						<li><a href="index.html#pre_conv" class="ui-btn-active ui-state-persist"  data-transition="flip">CONVOCAR</a></li>
+						<li><a href="#play" data-transition="flip">JUGAR</a></li>
+						<li><a href="#pre_conv" class="ui-btn-active ui-state-persist"  data-transition="flip">CONVOCAR</a></li>
 					</ul>
 				</div><!-- /navbar -->
 			</div>
 
-			<div data-role="content" class="container" align="center">
+			<div data-role="content" class=" overthrow container" align="center">
 
 				
 				<input  type="button" name="my_photo" value="Subir foto" onclick="get_galery_photo()" >
@@ -822,7 +844,7 @@
 			</div>
 
 			<div data-role="footer"  align="center">
-				<img class="backButton" src="images/homeButton.png">
+				<img class="homeButton" src="images/homeButton.png">
 
 			</div>
 			
@@ -834,12 +856,12 @@
 
 				<div data-role="navbar" class="navbar">
 					<ul>
-						<li><a href="index.html#play" data-transition="flip">JUGAR</a></li>
-						<li><a href="index.html#pre_conv" class="ui-btn-active ui-state-persist"  data-transition="flip">CONVOCAR</a></li>
+						<li><a href="#play" data-transition="flip">JUGAR</a></li>
+						<li><a href="#pre_conv" class="ui-btn-active ui-state-persist"  data-transition="flip">CONVOCAR</a></li>
 					</ul>
 				</div><!-- /navbar -->
 			</div>
-			<div class="container" align="center">
+			<div class=" overthrow container" align="center">
 				<h2>Resultados</h2>
 				<h3>El Equipo destacado fue: <span id="equipodestacado">Equipo1</span></h3>
 
@@ -909,7 +931,7 @@
 				</table>
 			</div>
 			<div data-role="footer"  align="center">
-				<img class="backButton" src="images/homeButton.png">
+				<img class="homeButton" src="images/homeButton.png">
 
 			</div>
 		</div>
@@ -932,39 +954,14 @@
 
 
 		<div data-role="page" id="galeria" data-transition="flip">
-			<div class="aspect_ratio">
-				<div id="galeria_container" >
+			<div class=" overthrow container" >
 
-					<div  style="overflow: scroll;width:100%;height:100%">
-						<div class="division_imagen">
-							<img alt="" src="http://codfe.co/golombiao/server/uploads/image" class="imagen" />
-							<div class="descripcion">Lorem ipsum dolor sit amet. Dolores accusam sit sanctus. Justo at dolore sit stet aliquyam. Sed ad justo qui. Takimata duo dolor molestie ad dignissim clita praesent. Minim adipiscing eirmod. No elitr diam lorem. Takimata eos ipsum feugiat kasd assum eros ipsum. Dolores lorem eos est enim sadipscing. Ea consetetur vel duo nulla nonumy. Et euismod rebum nisl et dolor. Kasd laoreet et vulputate aliquyam clita</div>
-						</div>
+				
+			</div>
 
-						<div class="division_imagen">
-							<img alt="" src="http://codfe.co/golombiao/server/uploads/image1" class="imagen" />
-							<div class="descripcion">Lorem ipsum dolor sit amet. Dolores accusam sit sanctus. Justo at dolore sit stet aliquyam. Sed ad justo qui. Takimata duo dolor molestie ad dignissima</div>
-						</div>
+						<div data-role="footer"  align="center">
+				<img class="homeButton" src="images/homeButton.png">
 
-						<div class="division_imagen">
-							<img alt="" src="http://codfe.co/golombiao/server/uploads/image2" class="imagen" />
-							<div class="descripcion">Lorem ipsum dolor sit amet. Dolores accusam sit sanctus. Justo at dolore sit stet aliquyam. Sed ad justo qui. Takimata duo dolor molestie ad dignissim clita praesent. Minim adipiscing eirmod. No elitr diam lorem. Takimata eos ipsum feugiat kasd assum eros ipsum. Dolores lorem</div>
-						</div>
-
-						<div class="division_imagen">
-							<img alt="" src="http://codfe.co/golombiao/server/uploads/image3" class="imagen" />
-							<div class="descripcion">Lorem ipsum dolor sit amet. Dolores accusam sit sanctus. Justo at dolore sit stet aliquyam. Sed ad justo qui. Takimata duo dolor molestie ad dignissim clita praesent. Minim adipiscing eirmod. No elitr diam lorem. Takimata eos ipsum feugiat kasd assum eros ipsum. Dolores lorem</div>
-						</div>
-
-						<div class="division_imagen">
-							<img alt="" src="http://codfe.co/golombiao/server/uploads/image4" class="imagen" />
-							<div class="descripcion">Lorem ipsum dolor sit amet. Dolores accusam sit sanctus. Justo at dolore sit stet aliquyam. Sed ad justo qui. Takimata duo dolor molestie ad dignissim clita praesent. Minim adipiscing eirmod. No elitr diam lorem. Takimata eos ipsum feugiat kasd assum eros ipsum. Dolores lorem</div>
-						</div>
-					</div>
-					<div data-role="footer">
-						<img class="home_icon" src="images/home_icon.png">
-					</div>
-				</div>
 			</div>
 		</div>
 
@@ -985,6 +982,206 @@
 			</form>
 		</div>
 
+		<div data-role="page" id="golombiao">
+
+			<div data-role="content" class=" overthrow container">
+
+
+				<div class="pagina-movil">
+					<div class="titulo"><img src="images/logo-golombiao.gif" alt="golombiao"></div>
+					<div class="menu-inicial">
+
+
+						<div id="Accordion1" class="Accordion" tabindex="0">
+							<div class="AccordionPanel">
+								<div class="AccordionPanelTab" id="uno"><span class="numeral">1.</span><span class="texto">Golombiao</span></div>
+								<div class="AccordionPanelContent" id="c-uno"><p class="parrafo"></p></div>
+							</div>
+							<div class="AccordionPanel values">
+								<div class="AccordionPanelTab" id="dos"><span  class="numeral">2.</span><span class="texto">¿Cuáles son los principios del Golombiao?</span></div>
+								<div class="AccordionPanelContent" id="c-dos">								
+										
+									
+
+
+									<div id="TabbedPanels2" class="TabbedPanels">
+										<ul class="TabbedPanelsTabGroup" >
+											
+											<li class="TabbedPanelsTab cBlack" tabindex="0"></li>
+											<li class="TabbedPanelsTab cBlack uno" tabindex="0"></li>
+											<li class="TabbedPanelsTab cBlack" tabindex="0"></li>
+											<li class="TabbedPanelsTab cBlack" tabindex="0"></li>
+											<li class="TabbedPanelsTab cBlack" tabindex="0"></li>
+											<li class="TabbedPanelsTab cBlack" tabindex="0"></li>
+											<li class="TabbedPanelsTab cBlack" tabindex="0"></li>
+											
+										</ul>
+										<div class="TabbedPanelsContentGroup">
+											
+											
+											<div class="TabbedPanelsContent cBlack white">
+												<img class="icono" src="images/noViolencia.gif" alt="no violencia"><span>No violencia</span>
+												<p class="cBlack">1</p>
+											 </div>
+											 <div class="TabbedPanelsContent cNaranja white">
+												<img class="icono" src="images/cuidarse.gif" alt="cuidarse y cuidar al otro"><span>Cuidarse y Cuidar al otro</span>
+												<p class="cBlack">2</p>
+											 </div>
+											 <div class="TabbedPanelsContent cVerde white">
+											 	<img class="icono" src="images/entorno.gif" alt="no violencia"><span>Cuidar el entorno</span>
+												<p class="cBlack">3</p>
+											 </div>
+											 <div class="TabbedPanelsContent cVioleta white">
+											 	<img class="icono" src="images/libertad.gif" alt="no violencia"><span>Libertad de expresión</span>
+												<p class="cBlack">4</p>
+											 </div>
+											 <div class="TabbedPanelsContent cAzul white">
+											 	<img class="icono" src="images/nodiscriminacion.gif" alt="no violencia"><span>No Discriminación</span>
+												<p class="cBlack">5</p>
+											 </div>
+											 <div class="TabbedPanelsContent cVioleta white">
+											 	<img class="icono" src="images/participacion.gif" alt="no violencia"><span>Participación Activa</span>
+												<p class="cBlack">6</p>
+											 </div>
+											 <div class="TabbedPanelsContent cBlack white">
+											 	<img class="icono" src="images/igualdad.gif" alt="no violencia"><span>Igualdad</span>
+												<p class="cBlack">7</p>
+											 </div>
+											
+											</div>
+										</div>
+
+
+
+								</div>
+
+
+
+
+
+							</div>
+
+							<div class="AccordionPanel rules">
+								<div class="AccordionPanelTab " id="tres"><span  class="numeral">3.</span><span class="texto">Reglas</span></div>
+								<div class="AccordionPanelContent">
+
+									<div id="TabbedPanels1" class="TabbedPanels">
+										<ul class="TabbedPanelsTabGroup">
+											<li class="TabbedPanelsTab azul" tabindex="0"></li>
+											<li class="TabbedPanelsTab azul" tabindex="0"></li>
+											<li class="TabbedPanelsTab azul" tabindex="0"></li>
+											<li class="TabbedPanelsTab azul centerSelect" tabindex="0"></li>
+											<li class="TabbedPanelsTab azul centerSelect2" tabindex="0"></li>
+											<li class="TabbedPanelsTab azul" tabindex="0"></li>
+										</ul>
+										<div class="TabbedPanelsContentGroup">
+											
+											<div class="TabbedPanelsContent azul">
+												<p>1</p>
+											 </div>
+											 <div class="TabbedPanelsContent azul">
+												<p>2</p>
+											 </div>
+											 <div class="TabbedPanelsContent azul">
+												<p>3</p>
+											 </div>
+											 <div class="TabbedPanelsContent azul">
+												<p>4</p>
+											 </div>
+											 <div class="TabbedPanelsContent azul">
+												<p>5</p>
+											 </div>
+											 <div class="TabbedPanelsContent azul">
+												<p>6</p>
+											 </div>
+											
+											</div>
+										</div>
+
+									</div>
+								</div>
+								<div class="AccordionPanel involved">
+									<div class="AccordionPanelTab" id="cuatro"><span  class="numeral">4.</span><span class="texto">¿Qué se necesita para jugar?</span></div>
+									<div class="AccordionPanelContent">
+
+									<div id="TabbedPanels3" class="TabbedPanels">
+										<ul class="TabbedPanelsTabGroup">
+											<li class="TabbedPanelsTab cFucsia" tabindex="0"></li>
+											<li class="TabbedPanelsTab cFucsia" tabindex="0"></li>
+											<li class="TabbedPanelsTab cFucsia" tabindex="0"></li>
+										</ul>
+										<div class="TabbedPanelsContentGroup">
+											
+											<div class="TabbedPanelsContent cFucsia cuatro">
+												<p>1</p>
+											 </div>
+											 <div class="TabbedPanelsContent cFucsia cuatro ">
+												<p>2</p>
+											 </div>
+											 <div class="TabbedPanelsContent cFucsia cuatro">
+												<p>3</p>
+											 </div>
+											 
+											
+											</div>
+										</div>
+
+
+
+										 </div>
+									</div>
+
+
+
+
+
+
+
+
+									<div class="AccordionPanel moments">
+										<div class="AccordionPanelTab" id="cinco"><span  class="numeral">5.</span><span class="texto">momentos</span></div>
+										<div class="AccordionPanelContent">
+
+
+											<div id="TabbedPanels4" class="TabbedPanels">
+										<ul class="TabbedPanelsTabGroup">
+											<li class="TabbedPanelsTab cVioleta" tabindex="0"></li>
+											<li class="TabbedPanelsTab cVioleta" tabindex="0"></li>
+											<li class="TabbedPanelsTab cVioleta" tabindex="0"></li>
+										</ul>
+										<div class="TabbedPanelsContentGroup">
+											
+											<div class="TabbedPanelsContent cVioleta cinco">
+												<p>1</p>
+											 </div>
+											 <div class="TabbedPanelsContent cVioleta cinco ">
+												<p>2</p>
+											 </div>
+											 <div class="TabbedPanelsContent cVioleta cinco">
+												<p>3</p>
+											 </div>
+											 
+											
+											</div>
+										</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+
+
+
+					<div data-role="footer"  align="center">
+						<img class="homeButton" src="images/homeButton.png">
+
+					</div>
+
+
+				</div>
 
 
 
@@ -1006,5 +1203,5 @@
 
 
 
-</body>
-</html>
+			</body>
+			</html>

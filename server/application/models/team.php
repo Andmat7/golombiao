@@ -141,12 +141,13 @@ class team extends CI_Model {
 
 
 	public function guardar_convocatoria($datos) {
-		$today=strtotime("now -5 hours ");
-		$convocate_date=strtotime($datos['hora'])+strtotime($datos['fecha'])-2*$today;
-		$one_hour=$today-strtotime("now -5 hours ");
+		date_default_timezone_set("America/Bogota");
+		$today=strtotime(date("Y-m-d H:i:s"));
+		$hour=strtotime(date("Y-m-d H:i:s")."+1 hour");
+		$convocateDate=strtotime($datos['fecha']." ".$datos['hora']);
 
 
-		if ($convocate_date<0)
+		if ($convocateDate<$today)
 		{
 			$json_reply["error"]=true;
 			$json_reply["message_error"]="Fecha incorrecta, por favor ingrese una fecha posterior";
@@ -156,15 +157,12 @@ class team extends CI_Model {
 
 
 
-		if ($convocate_date<3600) {
+		if ($convocateDate<$hour) {
 			$json_reply["error"]=true;
 			$json_reply["message_error"]="se debe dar un plazo minimo de una hora para aceptar jugar la convocatoria";
 
 			return $json_reply;
-		}
-		
-
-		
+		}		
 
 		$query = $this->db
 		->select('id')
@@ -191,6 +189,17 @@ class team extends CI_Model {
 
 	public function guardar_resultados($datos) {
 		$this->db->insert('resultados', $datos);
+		$this->db->where('id_conv', $datos['id_conv']);
+		$q = $this->db->get('resultados');
+		if ($q -> num_rows() == 2) {
+
+			return true;
+		}
+		else{
+			return false;
+
+
+		}
 	}
 
 
@@ -232,12 +241,13 @@ class team extends CI_Model {
 		$this->db->where_not_in('id',null);
 		$q = $this->db->get('convocatoria');
 		$result_list = $q->result_array();
+		date_default_timezone_set("America/Bogota");
 
 		foreach ($result_list as $key => $value) {
-			$today=strtotime("now -5 hours ");
-			$convocate_date=strtotime($result_list[$key]['hora'])+strtotime($result_list[$key]['fecha'])-2*$today;
+			$today=strtotime(date("Y-m-d H:i:s"));
+			$convocateDate=strtotime($result_list[$key]['fecha']." ".$result_list[$key]['hora']);
 
-			if ($convocate_date<0) {
+			if ($convocateDate<$today) {
 				$result_list[$key]['played']=0;
 
 			}else{
@@ -265,7 +275,7 @@ class team extends CI_Model {
 		return $json_reply;
 
 		}
-		public function resultsRequests($id_conv,$id_equipo){
+		public function resultsRequests($id_conv){
 
 			$this->db->where('id_conv', $id_conv);
 			$q = $this->db->get('resultados');
@@ -273,8 +283,6 @@ class team extends CI_Model {
 
 					$json_reply["error"]="true";
 					return($json_reply);
-
-
 
 				}else{
 					$result = $q->result_array();
@@ -295,22 +303,11 @@ class team extends CI_Model {
 							}
 							
 					}
-
-
-
-
-
-
-
-
 					$result[0]["total"]=0;
 					$result[1]["total"]=0;
 					$temp=$result[0]["otherTeam"];
 					$result[0]["otherTeam"]=$result[1]["otherTeam"];
 					$result[1]["otherTeam"]=$temp;
-					
-
-
 					foreach ($result as $key => $value) {
 
 							foreach ($result[$key] as $key2 => $value) {
@@ -320,23 +317,69 @@ class team extends CI_Model {
 							}else{
 								
 								$result[$key]["total"]=$result[$key]["total"]+ $result[$key][$key2];
-
-								
-								
+								}
 							}
-							}
-
-
-						
+				
 					}
 				}
 
 				return $result;
+		}
+
+
+		public function savePoints($results) {
+
+			foreach ($results as $key => $value) {
+				
+				$this->db->where('id_team', $results[$key]['id_equipo']);
+				$q = $this->db->get('users_teams');
+				$users=$q->result_array();
+
+				foreach ($users as $keyTwo => $value) {
+					$this->db->where('id',$users[$keyTwo]['id_user'] );
+					$q = $this->db->get('users');
+					$user=$q->result_array();
+					$user=$user[0];
+					$points=$user['points']+$results[$key]['total'];
+					$data = array(               
+						'points'=> $points,
+					);
+					$this->db->where('id',$users[$keyTwo]['id_user'] );
+					$this->db->update('users', $data);
+
+				}
+
+			}
+
+
+		}
+
+		public function  getData($id_user){
+			$this->db->where('id',$id_user);
+			$q = $this->db->get('users');
+			$user=$q->result_array();
+			$user=$user[0];
+			return $user;
+
+
+		}
+
+		public function getImagesNames(){
+			
+			$this->db->order_by("id", "desc"); 
+			$q = $this->db->get('images');
+			$files=$q->result_array();
+		
+
+		return($files);
+
 
 
 
 
 		}
-	
+
+
+
 	
 }

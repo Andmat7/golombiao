@@ -8,16 +8,24 @@ class Users extends MY_Controller {
 
 		$first_name= $this->input->post('first_name');
 		$last_name= $this->input->post('last_name');
+		print_r("expression");
+		exit();
 		$age= $this->input->post('age');
 		$gender= $this->input->post('gender');
 		$email= $this->input->post('email');
 		$city= $this->input->post('city');
+		$departamento= $this->input->post('departamento');
 		$study= $this->input->post('study');		
-		$fb_id= $this->input->post('fb_id');		
+		$fb_id= $this->input->post('fb_id');
+		if ($fb_id==null||$fb_id==" ") {
+			$fb_id=0;
+						
+				}		
 		$study= $this->input->post('study');
 		$school_level= $this->input->post('school_level');
 		$encrypted_password= $this->input->post('encrypted_password');
-		$output=$this->user->new_user($first_name,$last_name,$age,$gender,$email,$city,$study,$school_level,$encrypted_password,$fb_id);
+		$output=$this->user->new_user($first_name,$last_name,$age,$gender,$email,$city,$study,$school_level,$encrypted_password,$departamento,$fb_id);
+
 		echo $output;
 		
 	}
