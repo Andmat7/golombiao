@@ -3,6 +3,115 @@
 class team extends CI_Model {
 
 
+	public function myTeams($id){
+
+		$this->db->where('id_user', $id);
+		$q = $this->db->get('users_teams');
+
+		if ($q -> num_rows() == 0) {
+
+			$json_reply["error"]=true;
+			$json_reply["message_error"]="aun no estas suscrito a ningun equipo";
+
+
+
+		}else{
+
+
+		$json_reply=$q->result_array();
+
+		foreach ($json_reply as $key => $value) {
+			$json_reply[$key]["name_team"]=0;
+			$this->db->where('id', $json_reply[$key]["id_team"]);
+			$q = $this->db->get('teams');
+			$team=$q->result_array();
+				$json_reply[$key]["name_team"]=$team[0]["name"];
+		}
+
+
+			
+		}
+
+
+		return  $json_reply;
+
+
+
+	}
+
+
+	public function deleteTeam($id_team,$id_user){
+
+		$this->db->delete('teams', array('id' => $id_team)); 
+			$json_reply["error"]=false;
+
+		return  $json_reply;
+
+
+	}
+
+
+		public function get_players($id_team,$id_user){
+			$this->db->where('id_team', $id_team);
+			$q = $this->db->get('users_teams');
+			if ($q -> num_rows() == 3) {
+
+			$json_reply["error"]=true;
+			$json_reply["error_code"]=1;
+			$json_reply["message_error"]="No existen jugadores para ste equipo";
+
+
+
+
+			}else{
+				$json_reply=$q->result_array();
+				foreach ($json_reply as $key => $value) {
+					$json_reply[$key]["id_user"];
+
+					$json_reply[$key]["name_user"]=0;
+					$this->db->where('id', $json_reply[$key]["id_user"]);
+					$q = $this->db->get('users');
+					$user=$q->result_array();
+						$json_reply[$key]['name_user']=$user[0]['first_name']." ".$user[0]['last_name'];
+				}
+
+			
+			}
+			
+
+		return  $json_reply;
+
+
+	}
+
+
+
+public function userData($id_user){
+
+		$this->db->where('id', $id_user);
+		$q = $this->db->get('users');
+		$json_reply=$q->result_array();
+		return  $json_reply[0];
+
+
+
+
+}
+
+
+
+
+
+		public function deleteSubscription($id_team,$id_user){
+
+
+		$this->db->delete('users_teams', array('id' => $id_team,'id_user' => $id_user)); 
+			$json_reply["error"]=false;
+
+		return  $json_reply;
+
+
+	}
 
 
 
@@ -58,7 +167,7 @@ class team extends CI_Model {
 		else{
 			$json_reply["error"]=true;
 			$json_reply["error_code"]=2;
-			$json_reply["message_error"]="ud ya se encuentra suscrito al equipo: ";
+			$json_reply["message_error"]="usted ya se encuentra suscrito al equipo: ";
 			}
 			return ($json_reply); 
 	}
@@ -309,10 +418,18 @@ class team extends CI_Model {
 					$result[0]["otherTeam"]=$result[1]["otherTeam"];
 					$result[1]["otherTeam"]=$temp;
 					foreach ($result as $key => $value) {
+							$result[$key]["name_team"]=0;
+							$this->db->where('id', $result[$key]["id_equipo"]);
+							$q = $this->db->get('teams');
+							$team=$q->result_array();
+								$result[$key]["name_team"]=$team[0]["name"];
+
+
+
 
 							foreach ($result[$key] as $key2 => $value) {
 
-							if ($key2=="id"||$key2=="id_conv"||$key2=="id_equipo"||$key2=="id_user"||$key2=="principio"||$key2=="total") {
+							if ($key2=="id"||$key2=="name_team"||$key2=="id_conv"||$key2=="id_equipo"||$key2=="id_user"||$key2=="principio"||$key2=="total") {
 								
 							}else{
 								

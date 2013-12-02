@@ -55,8 +55,13 @@ class user extends CI_Model {
 				$this->db->update('users', $data);
 
 			}
-			$output= array('success' => 'true');
-			return $output;
+			
+			$this->db->where('email', $email);
+			$q = $this->db->get('users');
+			$user=$q->result_array();
+			$user[0]['success']='true';
+			
+			return $user[0];
 			
 			
 		}else{

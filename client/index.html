@@ -157,15 +157,16 @@
 							<label for="radio-choice-3">Universitario</label>
 						</fieldset>
 					</div>
-					<label>Password:</label>
-					<input type="password"  name="encrypted_password" value="" placeholder="password" id="encrypted_password"/>
-					<label>Repita el password:</label>
-					<input  type="password"  name="re_password" value="" placeholder="repita el password"/>
+					<label>Contraseña:</label>
+					<input type="password"  name="encrypted_password" value="" placeholder="Contraseña" id="encrypted_password"/>
+					<label>Repita la contraseña:</label>
+					<input  type="password"  name="re_password" value="" placeholder="repita la Contraseña"/>
 					<input type="hidden" id="fb_user" name="fb_user" value=""/>
 					<input type="hidden" id="fb_id" name="fb_id" value=""/>
 
+					<div class="sendButton">
 					<input id="register_server" onclick="" type="submit" value="Registrar">
-
+					</div>
 				</form>
 
 
@@ -435,9 +436,9 @@
 					<label>Descripcion:</label>
 					<textarea placeholder="Descripción" name="descripcion" id="" cols="30" rows="20"  ></textarea>
 
-
+					<div class="sendButton">
 					<input id="register_server"  type="submit" value="Crear">
-
+					</div>
 				</form>	
 			</div>
 			<div data-role="footer" align="center">
@@ -454,6 +455,14 @@
 
 
 		<div data-role="page" id="join">
+			<div data-role="popup" id="myTeamsPanel">
+				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+				<ul class="modifyMyTeams" ></ul>
+			</div>
+			<div data-role="popup" id="userData">
+				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+				<ul class="myData" ></ul>
+			</div>
 			<div data-role="header"> 
 
 				<div data-role="navbar" class="navbar">
@@ -465,11 +474,22 @@
 			</div>
 
 
-			<div  class=" overthrow container">
+			<div  class=" overthrow container" align="center">
+
+
+				<div>
+
+					<ul class="miJoinTeams" ></ul>
+
+				</div>
+
+
+
 
 				<form id="form_join">
 
 					<div class="total_width">
+						Departamento:
 						<select name="departamento" class="departamento" onchange="sel_city(this)">
 							<option value="">Departamento</option>
 							<option value="1">Antioquia</option>
@@ -497,6 +517,7 @@
 						</select>
 					</div>
 					<div class="total_width">
+						Ciudad:
 						<select name="ciudad" class="ciudad" >
 							<option value="">Ciudad</option>
 						</select>
@@ -508,8 +529,9 @@
 					</div>
 
 
-
-					<input id="register_server" onclick="data_server_team()" type="button"value="Registrar">
+					<div class="sendButton">
+					<input id="register_server" onclick="data_server_team()" type="button" value="Unirse">
+					</div>
 
 				</form>	
 			</div>
@@ -528,7 +550,11 @@
 		</div>
 
 		<div data-role="page" id="my_conv">
-			<div data-role="panel" id="mypanel" data-position="right" data-display="push" style="position:fixed">
+<!-- 			<div data-role="panel" id="mypanel" data-position="right" data-display="push" style="position:fixed">
+				<div id="title_mi_reto3"></div>
+			</div> -->
+			<div data-role="popup" id="myPanel">
+				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 				<div id="title_mi_reto3"></div>
 			</div>
 
@@ -546,8 +572,6 @@
 			</div>
 
 			<div data-role="content" class=" overthrow container">
-				<a href="#mypanel"><img class="convocationButton" src="images/configButtonGreen.png">
-				</a>
 				<div id="mi_reto">
 					<div id="title_mi_reto" class="title_retos"></div>
 				</div>
@@ -562,9 +586,22 @@
 		</div>
 
 
+		<div data-role="dialog" id="teamsPanel" data-position="right" data-display="push" style="position:fixed">
+								<a href="#convocate" data-rel="close">Close panel</a>
+								<ul class="modifyTeams" ></ul>
+							</div>
+
+
 
 
 		<div data-role="page" id="convocate">
+					
+			<div data-role="popup" id="teamsPanel">
+				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+				<ul class="modifyTeams" ></ul>
+			</div>
+
+
 			<div data-role="header"> 
 
 				<div data-role="navbar" class="navbar">
@@ -579,7 +616,9 @@
 			<div data-role="content "class=" overthrow container" align="center">
 				<div class="your_team">
 					<ul class="own_teams">
-						<label>Tus Equipos</label>
+						<a href="#teamsPanel" data-rel="popup">
+							<label>Tus Equipos</label>
+						</a>
 
 					</ul>
 				</div>
@@ -587,7 +626,7 @@
 					<div class="vs">V.S.</div>
 					<input class="id" type="hidden"  name="id_time" value=""/>
 					<form id="form_vs">
-						
+						Departamento:
 						<select name="departamento" class="departamento" onchange="sel_city(this)">
 							<option value="">Departamento</option>
 							<option value="1">Antioquia</option>
@@ -614,7 +653,7 @@
 							<option value="21">Valle del Cauca</option>
 						</select>
 						
-						
+						Ciudad:
 						<select name="ciudad" class="ciudad" onchange="vs_team(this)" >
 							<option value="">Ciudad</option>
 						</select>
@@ -630,7 +669,9 @@
 					</ul>
 
 				</div>
-				<input type="submit" class="enviar_login" value="Seleccionar Equipos" onclick="zone(this)">
+				<div class="sendButton">
+				<input type="submit" class="enviar_login" value="Seleccionar" onclick="zone(this)">
+				</div>
 			</div>
 			<div data-role="footer"  align="center">
 				<img class="homeButton" src="images/homeButton.png">
@@ -698,7 +739,7 @@
 					<option value="4">Futbol</option>
 				</select>
 				
-				<div class="send_request"><input type="submit" class="enviar_login" value="Enviar Solicitud" onclick="request_game(this)"></div>
+				<div class="send_request sendButton"><input type="submit" class="enviar_login" value="Enviar Solicitud" onclick="request_game(this)"></div>
 
 
 
@@ -729,6 +770,7 @@
 
 				
 				<input  type="button" name="my_photo" value="Subir foto" onclick="get_galery_photo()" >
+
 				
 
 				<div style="display:none"><input id="conv_result" onclick="" type="hidden">
@@ -830,11 +872,13 @@
 							<option value="1">1 sol</option>
 							<option value="0">ningun sol</option>
 						</select>
-					</div>				
+					</div>		
+					Asesor de Juego:
+					<input type="text" name="asesor" placeholder="asesor de Juego">		
 				</div>
 
 
-				<div class="send_request"><input type="submit" class="send_results" value="Enviar Calificacion" onclick="send_results()"></div>
+				<div class="send_request sendButton"><input type="submit" class="send_results" value="Enviar Calificacion" onclick="send_results()"></div>
 				<div>
 
 
@@ -870,8 +914,8 @@
 					<thead>
 						<tr>
 							<th data-priority="1"></th>
-							<th data-priority="persist"><span id="name_team1">Equipo 1</span></th>
-							<th data-priority="2"><span id="name_team1">Equipo 2</span> </th>
+							<th data-priority="persist"><span class="name_team1">Equipo 1</span></th>
+							<th data-priority="2"><span class="name_team2">Equipo 2</span> </th>
 
 						</tr>
 					</thead>

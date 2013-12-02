@@ -47,6 +47,8 @@ class Login extends MY_Controller {
 
 
 		$output=$this->user->verify_register($email,$fb_id);
+		$output["session_id"]=$this->user->generar_session_id($output['id']);
+		$output["user_id"]=$output['id'];
 		echo json_encode($output);
 
 

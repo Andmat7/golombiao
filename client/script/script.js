@@ -25,17 +25,30 @@ $(window).load(function() {
   $(".aspect_ratio").height($(window).height());
   $(".backButton").click(function() {
   window.history.back();
+  // if ($("input").attr("type")=="button"||$("input").attr("type")=="submit") {
+
+  // }else{
+  // $("input").val(" ");
+  // }
 
 });
    $(".homeButton").click(function() {
+  // if ($("input").attr("type")=="button"||$("input").attr("type")=="submit") {
+
+  // }else{
+  // $("input").val(" ");
+  // }
   $.mobile.changePage( "#home");  
 });
+
+
 
 
    $( "#galeria .container" ).scroll(function(event) {
   event.preventDefault();
     var height=$("#galeria .container").scrollTop()+$("#galeria .container")[0].clientHeight;
-  if ($("#galeria .container")[0].scrollHeight==height) {
+    var maxHeight=$("#galeria .container")[0].scrollHeight-15;
+  if (maxHeight<height||maxHeight==height) {
    
     if (galeryImages[counter].name) {
 
@@ -120,25 +133,12 @@ function reloadApp(){
 }
 
  $( document ).on( "pageshow", function( event, ui) {
-    // var version=parseInt(window.device.version);
-    // console.log(version);
-
-    // if (version<3) {
-    //   console.log("version<3");
-    //   $(event.target).find(".container").height($(document).height());
-
-    // }else{
-
-      console.log("version>3");
-
-
 
     var windowHeight=$(window).height();
     var containerHeight=$(event.target).find(".container").height();
     var footerHeight=$(event.target).find('div[data-role="footer"]').height();
     var headerHeight=$(event.target).find('div[data-role="header"]').height();
     $(event.target).find(".container").height(windowHeight-footerHeight-headerHeight+'px');
-  //  }
   });
 
 
@@ -185,8 +185,51 @@ function aceptRequest(element,typeRequest){
   });
 }
 
+$( document ).on("click", "#me_retaron img", function() {
+
+$( "#myPanel" ).popup( "open" );
+
+  alert("dasd");
 
 
+
+});
+
+
+
+$( document ).on("click", ".userData", function() {
+
+   var post_values= {
+    session_id:localStorage.getItem('session_id'),
+    email:localStorage.getItem('email'),
+    id_user:$(this).attr("myid"),
+  };
+
+
+  $.post(server+"teams/userData", post_values, function(response) {
+    response = jQuery.parseJSON(response);
+
+    if (response.gender==1) {  response.gender="Hombre";  }else{ response.gender="Mujer";}
+
+    $(".myData").html("<div class='data'>"+response.first_name+" "+response.last_name+"</div>"+
+                      "<div class='data'>"+response.age+" Años</div>"+
+                      "<div class='data'>"+response.gender+"</div>"+
+                      "<div class='data'>"+response.points+" puntos</div>");
+
+
+    console.log("asdasd");
+
+
+    $( "#userData" ).popup( "open" );
+  });
+
+  console.log("asdasd");
+
+
+
+
+
+});
 
 
 
@@ -199,20 +242,20 @@ $( document ).on("click", ".home_icon", function() {
 });
 
 
-$( document ).on("click", ".convocate_teams", function() {
+$( document ).on("click", ".reto_my_team", function() {
 
   console.log("Resultados");
   var post_values= {
     session_id:localStorage.getItem('session_id'),
     email:localStorage.getItem('email'),
-    id_conv:$(this).attr("id"),
-    id_equipo:$(this).attr("id_equipo")
+    id_conv:$(this).parent().attr("id"),
+    id_equipo:$(this).parent().attr("id_equipo")
   };
-  $("#conv_result").val($(this).attr("id"));
- $("#results .principio img").attr("src","images/acuerdos/"+$(this).attr("principio")+".png");
- $("#results .principio h2").html(values[$(this).attr("principio")]);
- $("#results #myteam input[name='id_equipo']").val($(this).attr("id_equipo1"));
- $("#results #otherteam input[name='id_equipo']").val($(this).attr("id_equipo2"));
+  $("#conv_result").val($(this).parent().attr("id"));
+ $("#results .principio img").attr("src","images/acuerdos/"+$(this).parent().attr("principio")+".png");
+ $("#results .principio h2").html(values[$(this).parent().attr("principio")]);
+ $("#results #myteam input[name='id_equipo']").val($(this).parent().attr("id_equipo1"));
+ $("#results #otherteam input[name='id_equipo']").val($(this).parent().attr("id_equipo2"));
 
 
   $.post(server+"teams/existen_resultados", post_values, function(response) {
@@ -223,8 +266,35 @@ $( document ).on("click", ".convocate_teams", function() {
       $.post(server+"teams/resultsRequests", post_values, function(response2) {
 
         response2 = jQuery.parseJSON(response2);
+        if (!(response2.error)) {
 
-        $.each(response2[0],function(element){fuckYourTable(element,response2); });  
+          $(".name_team1").html(response2[0].name_team);
+          $(".name_team2").html(response2[1].name_team);
+
+          if (response2[0].total==response2[1].total) {
+            
+            $("#equipodestacado").parent().html("Equipos destacados: <span id='equipodestacado'>"+response2[0].name_team+" y "+response2[1].name_team+"</span>"
+              );
+
+
+          }else if (response2[0].total>response2[1].total) {
+          $("#equipodestacado").html(response2[0].name_team);
+
+          }else{
+
+              $("#equipodestacado").html(response2[1].name_team);
+
+          }
+
+
+        $.each(response2[0],function(element){
+
+
+          fuckYourTable(element,response2); 
+
+
+
+        });  
 
         function fuckYourTable(myClass,data){
 
@@ -239,8 +309,17 @@ $( document ).on("click", ".convocate_teams", function() {
 
         
         $.mobile.changePage( "#results2");
-      });
+      }else{
 
+        alert("Debes esperar a que el otro equipo evalue para ver los resultados");
+
+      }
+
+
+
+
+      });
+      
 
       
     }else{
@@ -299,13 +378,17 @@ function login(){
         $.mobile.loading( 'show', {
           text: '',
           textVisible: true,
-          theme: 'z',
+          theme: 'a',
           html: ""
         });
 
         $.post(server+"login/verify_registerfb", post_values, function(response_v) {
           console.log("hizo la peticion");
           response_v = jQuery.parseJSON(response_v);
+          console.log(response_v);
+          localStorage.setItem('session_id',response_v.session_id);
+          localStorage.setItem('email',response_v.email);
+          localStorage.setItem('id_user',response_v.user_id);
           console.log(response_v);
           $.mobile.loading( 'hide' );
           if (response_v.success=="true") {
@@ -369,7 +452,7 @@ loadingOpen("Enviando resultados");
 
               if (!(response.error)) {
                 loadingClose();
-                alert("se ha enviado una solicitud al lider del otro equipo");
+                alert("se ha enviado tus resultados");
                 changePage('index.html#my_conv');
               }else{
                 loadingClose();
@@ -424,6 +507,7 @@ function register_facebook(){
 
 
 function data_server_team(){
+  loadingOpen("Procesando solicitud");
 
   $('#join').find("input:checked").each(function(e) {
 
@@ -441,6 +525,9 @@ function data_server_team(){
         localStorage.setItem('name_team',response.name_team);
 
         alert("Te has unido al grupo  "+team_name);
+        location.reload();
+        
+
       }else{
         if (response.error_code==2) {
 
@@ -449,6 +536,7 @@ function data_server_team(){
       }else
       {
           alert(response.message_error);
+          
             
             changePage('index.html#my_conv');
 
@@ -458,6 +546,7 @@ function data_server_team(){
       }
 
     });
+    loadingClose();
   });
 
 
@@ -680,10 +769,28 @@ $( document ).on( "pageshow", "#convocate", function() {
 
     response = jQuery.parseJSON(response);
     if (!(response.error)) {
-      $(".own_teams").html('<label>Tus Equipos</label>');
+      $(".modifyTeams").html(" ");
+      
+      $(".own_teams").html('<a href="#teamsPanel" data-rel="popup"><label>Tus Equipos</label></a>');
       for (var i = 0; i <= response.length  ; i++) {
         var j=i+1;
-        $(".own_teams").append("<li class='team' onclick='select_own_team(this)'><div class='name_team'>"+response[i]['name']+"</div> <input class='id' type='hidden'  name='id_team' value='"+response[i]['id']+"'/><div class='description'>"+response[i]['description']+"</div></li>");
+        $(".own_teams").append("<li class='team' onclick='select_own_team(this)'><div class='name_team'>"+
+                                response[i]['name']+
+                                "</div> <input class='id' type='hidden'  name='id_team' value='"+
+                                response[i]['id']+
+                                "'/><div class='description'>"+
+                                response[i]['description']+
+                                "</div></li>");
+        $(".modifyTeams").append("<li class='team' ><div class='name_team'>"+
+                                response[i]['name']+
+                                "</div> <input class='id' type='hidden'  name='id_team' value='"+
+                                response[i]['id']+
+                                "'/><div class='description'>"+
+                                response[i]['description']+
+                                "</div><div style='width:50%'><input  theId='"+
+                                response[i]['id']+
+                                "'type='button' value='elimiar' onclick='deleteTeam(this)'></div></li>");
+
       }
     }else{
       alert("Debes ser el creador de un equipo para poder convocar a juego");
@@ -693,6 +800,98 @@ $( document ).on( "pageshow", "#convocate", function() {
   });
 
 });
+
+
+
+
+function deleteTeam(team){
+
+  if(confirm('Esta seguro que desea salirse del equipo?')) 
+    {} else{ return(false);}
+
+
+
+  console.log("delete");
+
+   var post_values= {
+    session_id:localStorage.getItem('session_id'),
+    email:localStorage.getItem('email'),
+    id_team:$(team).attr("theId"),
+  };
+
+   $.post(server+"teams/deleteTeam", post_values, function(response) {
+
+    response = jQuery.parseJSON(response);
+    if (!(response.error)) {
+
+      alert("Se ha eliminado el equipo existosamente");
+       changePage('index.html#convocate');
+
+
+      }else{
+
+
+        alert("ha habido un error procesando tu solicitud");
+
+
+      }
+
+
+     console.log("delete");
+
+
+   });
+
+
+}
+
+
+
+function deleteSubscription(team){
+
+  if(confirm('Esta seguro que desea borrar el equipo?')) 
+    {} else{ return(false);}
+
+
+
+  console.log("delete");
+
+   var post_values= {
+    session_id:localStorage.getItem('session_id'),
+    email:localStorage.getItem('email'),
+    id_team:$(team).attr("theId"),
+  };
+
+   $.post(server+"teams/deleteSubscription", post_values, function(response) {
+
+    response = jQuery.parseJSON(response);
+    if (!(response.error)) {
+
+      alert("Se ha eliminado la subscripcion existosamente");
+       changePage('index.html#join');
+
+
+      }else{
+
+
+        alert("ha habido un error procesando tu solicitud");
+
+
+      }
+
+
+     console.log("delete");
+
+
+   });
+
+
+}
+
+
+
+
+
 
 $( document ).on( "pageshow", "#my_conv", function() {
   var post_values= {
@@ -980,7 +1179,7 @@ $( document ).on( "pageshow", "#register", function() {
         $("#age_user").html(post_values.birthday);
         $("#location_user").html(post_values.city);
         city=post_values.city;
-        changePage('index.html#home');
+        changePage('index.html#login');
       }else{
         alert(response.message_error);
       }
@@ -1061,7 +1260,7 @@ $( document ).on( "pageshow", "#convocate2", function() {
 $( document ).on( "pageshow", "#create", function() {
   $( "#form_create" ).validate({
     rules:{
-      name_team:{
+      name:{
         required:true,
       },
       departamento:{
@@ -1069,7 +1268,11 @@ $( document ).on( "pageshow", "#create", function() {
       },
       city:{
         required:true
-      }
+      },
+      zone_team:{
+        required:true
+      },
+
     },
 
     submitHandler: function( form ) {
@@ -1089,7 +1292,7 @@ $( document ).on( "pageshow", "#create", function() {
           localStorage.setItem('team_id',response.team_id);
           localStorage.setItem('name_team',response.name_team);
           
-          alert("grupo creado");
+          alert("El equipo se creó exitosamente");
           changePage('index.html#convocate');
           
         }else{
@@ -1103,9 +1306,56 @@ $( document ).on( "pageshow", "#create", function() {
   });
 });
 $( document ).on( "pageshow", "#join", function() {
+  
+
+        var post_values= {
+      session_id:localStorage.getItem('session_id'),
+      email:localStorage.getItem('email'),
+    };
+
+    $.post(server+"teams/myTeams", post_values, function(response) {
+
+
+
+          response = jQuery.parseJSON(response);
+    if (!(response.error)) {
+      $(".modifyMyTeams").html(" ");
+      
+      $(".miJoinTeams").html('<a href="#myTeamsPanel" data-rel="popup"><label>Tus Equipos</label></a>');
+      for (var i = 0; i <= response.length  ; i++) {
+        var j=i+1;
+        $(".miJoinTeams").append("<li class='team' onclick='select_own_team(this)'><div class='name_team'>"+
+                                response[i]['name_team']+
+                                "</div> <input class='id' type='hidden'  name='id_team' value='"+
+                                response[i]['id']+
+                                "'/></li>");
+        $(".modifyMyTeams").append("<li class='team' ><div class='name_team'>"+
+                                response[i]['name_team']+
+                                "</div> <input class='id' type='hidden'  name='id_team' value='"+
+                                response[i]['id']+
+                                "'/><div style='width:50%'><input  theId='"+
+                                response[i]['id']+
+                                "'type='button' value='elimiar subscripcion' onclick='deleteSubscription(this)'></div></li>");
+
+      }
+    }else{
+
+      alert("No estas suscrito a ningun equipo");
+    }
+
+
+
+    });
+
+
+
+
 
  $("#join .ciudad").on( "change",
   function  (e) {
+    loadingOpen("Cargando equipos");
+
+
     var post_values= {
       session_id:localStorage.getItem('session_id'),
       email:localStorage.getItem('email'),
@@ -1132,47 +1382,40 @@ $( document ).on( "pageshow", "#join", function() {
             '</div>'+
             
             '<p>'+
-            '<ul class="jugadores_'+response[i].id+'">'+
-            'Jugadores'+
-            '<li></li>'+
-            '</ul>'+
+            '<div class="jugadores_'+response[i].id+'">'+
+              '<ul class="colapse" data-role="collapsible">'+
+                '<h3>Jugadores</h3>'+
+              '</ul>'+
+            '</div>'+
+            '</div>'+
             '</p>'+
             '</div>';
             $("#join .teams_city").append(team_div);
 
           }
-          $('#join').find('div[data-role=collapsible]').collapsible();
+          $('#join').find('ul[data-role=collapsible]').collapsible();
           
           $('#join').find("input[type='checkbox']").checkboxradio();
-          $('#join').find('div[data-role=collapsible]').bind('expand', function () {
+          $('#join').find('.colapse').bind('expand', function () {
+            $('#join').find('ul[data-role=collapsible]').collapsible();
 
-            var post_values= {
-              session_id:localStorage.getItem('session_id'),
-              email:localStorage.getItem('email'),
-              team_id:$(this).attr('team_id'),
-
-
-            };
-            $.post(server+"teams/get_players", post_values, function(response) {
-              response = jQuery.parseJSON(response);
-              $("#join .jugadores_"+post_values.team_id).html();
-              if (!(response.error)) {
-                for (var i = response.length - 1; i >= 0; i--) {
-                  var jugador='<li>'+response[i].name+'</li>';
-                  $("#join .jugadores_"+post_values.team_id).append(team_div);
-                }
+            var myClass=$(this).parent().attr("class");
+            var id=myClass.split("_");
+             var post_values= {
+                session_id:localStorage.getItem('session_id'),
+                email:localStorage.getItem('email'),
+                team_id:id[1],
+              };
+              $.post(server+"teams/get_players", post_values, function(response) {
 
 
-                alert("Te has unido al grupo  "+team_name);
-              }else{
-                alert(response.message_error);
-              }
-
-            });
+                response = jQuery.parseJSON(response);
+                $("."+myClass+" .colapse").html("<h3>Jugadores</h3>");
+                 for (var i = 0; i <= response.length  ; i++) {
+                  $("."+myClass+" .colapse").append("<li class='userData'myId='"+response[i]['id_user']+"'>"+response[i]['name_user']+"</li>");                                      
+                    }
+              });
           });
-          
-          
-
         }
 
 
@@ -1182,6 +1425,7 @@ $( document ).on( "pageshow", "#join", function() {
         alert(response.message_error);
       }
     });
+  loadingClose();
 }
 );
 

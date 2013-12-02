@@ -9,6 +9,51 @@ class Teams extends MY_Controller {
 		$this->load->model('team','',TRUE);
 	}
 
+
+	public function myTeams(){
+		$json_reply=$this->team->myTeams($this->_USER['id']);
+		echo json_encode($json_reply);
+
+
+
+
+	}
+
+
+	public function deleteTeam(){
+
+
+			$id= $this->input->post('id_team');
+			$json_reply=$this->team->deleteTeam($id,$this->_USER['id']);
+			echo json_encode($json_reply);
+
+	}
+
+		public function deleteSubscription(){
+
+
+			$id= $this->input->post('id_team');
+			$json_reply=$this->team->deleteSubscription($id,$this->_USER['id']);
+			echo json_encode($json_reply);
+
+	}
+
+
+		public function get_players(){
+
+		
+			$id= $this->input->post('team_id');
+			$json_reply=$this->team->get_players($id,$this->_USER['id']);
+			echo json_encode($json_reply);
+
+
+
+
+	}
+
+
+
+
 	public function new_team()
 	{
 		$name= $this->input->post('name');
@@ -40,6 +85,23 @@ class Teams extends MY_Controller {
 		echo json_encode($json_reply);
 		//echo $output;
 	}
+
+
+ public function userData(){
+ 	$id_user= $this->input->post('id_user');
+ 	$output=$this->team->userData($id_user);
+		echo json_encode($output);
+
+ }
+
+
+
+
+
+
+
+
+
 	public function get_fromcity()
 	{
 
@@ -99,6 +161,7 @@ class Teams extends MY_Controller {
 	public function guardar_resultados()	{		
 		$datos = array('id_user' => $this->_USER['id'],
 			'id_conv' => $this->input->post('id_conv'),
+			'asesor' => $this->input->post('asesor'),
 			'id_equipo' => $this->input->post('id_equipo'),
 			'principio' => $this->input->post('principio'),
 			'barra' => $this->input->post('barra'),

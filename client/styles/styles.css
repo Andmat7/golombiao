@@ -22,6 +22,9 @@
 
 
 
+
+
+
 #login .help {
 	margin-top: 10%;
 float: left;
@@ -252,8 +255,24 @@ margin-bottom: 2%;
 
 }
 
+.data{
+	float: left;
+	clear: left;
+	background-color: white;
 
 
+}
+.sendButton{
+	width:50%;
+
+}
+
+#results2 h2{
+
+	color: black;
+
+
+}
 
 
 #photo_container {
