@@ -782,3 +782,12 @@ width: 70%;
 	overflow: scroll;
 }
 */
+
+.TabbedPanelsTabGroup {
+text-align: center;
+
+}
+ .TabbedPanelsTab {
+ 	float: none;
+ 	display: inline-block;
+ }

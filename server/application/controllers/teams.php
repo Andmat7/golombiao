@@ -154,6 +154,31 @@ class Teams extends MY_Controller {
 			'tipo_juego' => $this->input->post('tipo_juego'),
 			);
 		$result=$this->team->guardar_convocatoria($datos);
+
+
+		$equipo_1=$this->team->get_team($this->input->post('equipo_1'));
+		$equipo_2=$this->team->get_team($this->input->post('equipo_2'));
+		$leader=$this->team->getData($equipo_2['leader_id']);
+		$full_name=$leader['first_name']." ". $leader['last_name'];
+		
+		$mensaje = " hola ".$full_name.", Rebisa tu aplicación de golombiao ya que el equipo, ".$equipo_2['name']."te ha convocado,  el dia ".$this->input->post('fecha').', a las'.$this->input->post('hora') ;
+
+		$email_from = $leader['email'];
+		ini_set(sendmail_from,'info@golombiao.com');
+		//$full_name = 'un usuario x';
+		$from_mail = $full_name.'<'.$email_from.'>';
+		$headers .= 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n"; 
+		$headers .= 'From: ' . $from_mail . "\r\n";
+		$cabeceras = 'From: golombiao@golombiao.com' . "\r\n" .
+		    'X-Mailer: PHP/' . phpversion();
+		// Send
+		if(mail('andrescorredor20@gmail.com', 'Te han enviado una convocatoria de golombiao', $mensaje,$cabeceras) ){
+		    
+		}else{
+
+		}
+	
 		echo json_encode($result);
 	}
 

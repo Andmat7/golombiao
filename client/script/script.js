@@ -189,7 +189,7 @@ $( document ).on("click", "#me_retaron img", function() {
 
 $( "#myPanel" ).popup( "open" );
 
-  alert("dasd");
+  
 
 
 

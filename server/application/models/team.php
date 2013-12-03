@@ -495,6 +495,14 @@ public function userData($id_user){
 
 
 		}
+		public function get_team($id_team)
+		{
+			$this->db->where('id',$id_team);
+			$q = $this->db->get('teams');
+			$user=$q->result_array();
+			$user=$user[0];
+			return $user;
+		}
 
 
 

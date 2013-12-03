@@ -44,8 +44,6 @@ class Login extends MY_Controller {
 	{
 		$fb_id=$this->input->post('fb_id');
 		$email=utf8_encode($this->input->post('email'));
-
-
 		$output=$this->user->verify_register($email,$fb_id);
 		$output["session_id"]=$this->user->generar_session_id($output['id']);
 		$output["user_id"]=$output['id'];

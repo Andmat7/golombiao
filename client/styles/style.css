@@ -291,3 +291,11 @@ ol#momentos{
 		text-align:center;
 		list-style:none;
 		}
+.TabbedPanelsTabGroup {
+text-align: center;
+
+}
+ .TabbedPanelsTab {
+ 	float: none!important;
+ 	display: inline-block;
+ }	
