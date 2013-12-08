@@ -2,7 +2,7 @@ jQuery.validator.setDefaults({
   debug: true,
   success: "valid"
 });
-var home="www.golombiao.com"
+var home="www.golombiao.com";
 var server="http://"+home+"/golombiao/server/index.php/";
 var imagePath="http://"+home+"/golombiao/server/uploads/";
 var values={0:"none",1:"No violencia",2:"Libertad de expresión",3:"No discriminación",4:"Cuidar el entorno",5:"Participación activa",6:"Cuidarse y cuidar el otro",7:"Igualdad"};
@@ -38,7 +38,7 @@ $(window).load(function() {
   // }else{
   // $("input").val(" ");
   // }
-  $.mobile.changePage( "#home");  
+  $.mobile.changePage( "#home");
 });
 
 
@@ -361,6 +361,9 @@ function calculate_age(date_string)
 
 
 function login(){
+  
+  FB.logout();
+
   FB.login(function(response) {
 
     FB.api('/me', function(fb_user) {
@@ -384,27 +387,38 @@ function login(){
 
         $.post(server+"login/verify_registerfb", post_values, function(response_v) {
           console.log("hizo la peticion");
-          response_v = jQuery.parseJSON(response_v);
-          console.log(response_v);
-          localStorage.setItem('session_id',response_v.session_id);
-          localStorage.setItem('email',response_v.email);
-          localStorage.setItem('id_user',response_v.user_id);
-          console.log(response_v);
           $.mobile.loading( 'hide' );
+          response_v = jQuery.parseJSON(response_v);
+          console.log("respuesta del post");
+          console.log(response_v);
+     
+          
           if (response_v.success=="true") {
+            console.log("ya registrado");
             $("#name_user").html(fb_user.name);
             $("#age_user").html(fb_user.birthday);
             photoUrl="https://graph.facebook.com/"+fb_user.username+"/picture?width=300&height=400";
             $("#photo").attr("src",photoUrl);
             $("#location_user").html(fb_user.location.name);
+            localStorage.setItem('session_id',response_v.session_id);
+            localStorage.setItem('email',response_v.email);
+            localStorage.setItem('id_user',response_v.user_id);
             console.log(fb_user);
+
             changePage('index.html#home');
 
           }else{
-            $("#register input[name='first_name']").val(fb_user.first_name+" "+fb_user.middle_name);
+            console.log("no registrado");
+            
+            var middle_name="";
+            if(fb_user.middle_name!==undefined){
+              middle_name=fb_user.middle_name;
+
+            }
+            $("#register input[name='first_name']").val(fb_user.first_name+" "+middle_name);
             $("#register input[name='last_name']").val(fb_user.last_name);
             $("#register input[name='age']").val(calculate_age(fb_user.birthday));
-            $("#register input[name='fb_id']").val(calculate_age(fb_user.id));
+            $("#register input[name='fb_id']").val(fb_user.id);
             $("#register input[name='email']").val(fb_user.email);
 
 
@@ -422,7 +436,9 @@ function login(){
 
 
 
-        });
+        }).fail(function() {
+          alert( "error" );
+          });
 }
 
 });
@@ -1207,7 +1223,7 @@ function placeMarker(location) {
     geolocation.setCenter(pos);
     $("#latitud").val(marker.getPosition().lat());
     $("#longitud").val(marker.getPosition().lng());
-    alert("añadida ubicación en: lat"+pos.lat()+"long"+pos.lng);
+    //alert("añadida ubicación en: lat"+pos.lat()+"long"+pos.lng);
 }
 function load_map_loc (position) {
 console.log("cargo");

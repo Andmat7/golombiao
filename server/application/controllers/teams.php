@@ -154,6 +154,13 @@ class Teams extends MY_Controller {
 			'tipo_juego' => $this->input->post('tipo_juego'),
 			);
 		$result=$this->team->guardar_convocatoria($datos);
+		
+		$tipodepartido=array(
+			'1'=>"Basquetball",
+			'2'=>"Ultimate",
+			'3'=>"Micro",
+			'4'=>"Futbol",
+			);
 
 
 		$equipo_1=$this->team->get_team($this->input->post('equipo_1'));
@@ -161,22 +168,23 @@ class Teams extends MY_Controller {
 		$leader=$this->team->getData($equipo_2['leader_id']);
 		$full_name=$leader['first_name']." ". $leader['last_name'];
 		
-		$mensaje = " hola ".$full_name.", Rebisa tu aplicación de golombiao ya que el equipo, ".$equipo_2['name']."te ha convocado,  el dia ".$this->input->post('fecha').', a las'.$this->input->post('hora') ;
+		$mensaje = " hola ".$full_name.", Revisa tu aplicación de golombiao ya que el equipo, ".$equipo_2['name']." te ha convocado,  el dia ".$this->input->post('fecha').', a las'.$this->input->post('hora') .' para un partido de '.$tipodepartido[$this->input->post('tipo_juego')];
 
 		$email_from = $leader['email'];
-		ini_set(sendmail_from,'info@golombiao.com');
+		//ini_set(sendmail_from,'info@golombiao.com');
 		//$full_name = 'un usuario x';
-		$from_mail = $full_name.'<'.$email_from.'>';
-		$headers .= 'MIME-Version: 1.0' . "\r\n";
+		
+		$headers = 'MIME-Version: 1.0' . "\r\n";
 		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n"; 
-		$headers .= 'From: ' . $from_mail . "\r\n";
-		$cabeceras = 'From: golombiao@golombiao.com' . "\r\n" .
+
+		$headers = 'From: golombiao@golombiao.com' . "\r\n" .
 		    'X-Mailer: PHP/' . phpversion();
 		// Send
-		if(mail('andrescorredor20@gmail.com', 'Te han enviado una convocatoria de golombiao', $mensaje,$cabeceras) ){
+		if(mail('andrescorredor20@gmail.com', 'Te han enviado una convocatoria de Golombiao', $mensaje,$headers) ){
+			$return['email_enviado']=true;
 		    
 		}else{
-
+			$return['email_enviado']=false;
 		}
 	
 		echo json_encode($result);
