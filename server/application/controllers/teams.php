@@ -168,7 +168,7 @@ class Teams extends MY_Controller {
 		$leader=$this->team->getData($equipo_2['leader_id']);
 		$full_name=$leader['first_name']." ". $leader['last_name'];
 		
-		$mensaje = " hola ".$full_name.", Revisa tu aplicación de golombiao ya que el equipo, ".$equipo_2['name']." te ha convocado,  el dia ".$this->input->post('fecha').', a las'.$this->input->post('hora') .' para un partido de '.$tipodepartido[$this->input->post('tipo_juego')];
+		$mensaje = " Hola ".$full_name.", Revisa tu aplicación de golombiao ya que el equipo, ".$equipo_1['name']." ha convocatdo a tu equipo ".$equipo_2['name'].",  el dia ".$this->input->post('fecha').', a las '.$this->input->post('hora') .' para un partido de '.$tipodepartido[$this->input->post('tipo_juego')];
 
 		$email_from = $leader['email'];
 		//ini_set(sendmail_from,'info@golombiao.com');
@@ -180,7 +180,7 @@ class Teams extends MY_Controller {
 		$headers = 'From: golombiao@golombiao.com' . "\r\n" .
 		    'X-Mailer: PHP/' . phpversion();
 		// Send
-		if(mail('andrescorredor20@gmail.com', 'Te han enviado una convocatoria de Golombiao', $mensaje,$headers) ){
+		if(mail($leader['email'], 'Te han enviado una convocatoria de Golombiao', $mensaje,$headers) ){
 			$return['email_enviado']=true;
 		    
 		}else{
