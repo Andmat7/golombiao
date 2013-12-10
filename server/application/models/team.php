@@ -42,7 +42,11 @@ class team extends CI_Model {
 
 	public function deleteTeam($id_team,$id_user){
 
-		$this->db->delete('teams', array('id' => $id_team)); 
+		
+		$this->db->delete('convocatoria', array('equipo_1' => $id_team)); 
+		$this->db->delete('convocatoria', array('equipo_2' => $id_team));
+		$this->db->delete('users_teams', array('id_team' => $id_team));  
+		$this->db->delete('teams', array('id' => $id_team));
 			$json_reply["error"]=false;
 
 		return  $json_reply;
@@ -244,7 +248,8 @@ public function userData($id_user){
 		if(sizeof($result_list) != 0 ){
 			return($result_list);
 		} else {
-			return($json_reply["error"]=true);
+			$json_reply["error"]=true;
+			return($json_reply);
 		}
 	}
 

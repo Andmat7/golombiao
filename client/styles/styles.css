@@ -41,11 +41,6 @@ text-shadow: 1px 1px #000000;
 }
 
 
-.container{
-
-
-
-}
 
 
 .overthrow-enabled .overthrow {
@@ -106,7 +101,6 @@ width: 21%;
 #login .container>h1{
 	color: white;
 	clear: left;
-	margin-top: 17%;
 	text-shadow: 1px 1px black;
 	
 }
@@ -247,6 +241,10 @@ margin-top: 2%;
 margin-bottom: 2%;
 }
 
+.own_teams img, .miJoinTeams img {
+width: 12%;
+margin-left: 7%;
+}
 
 .dataUser{
 	position: relative;
@@ -264,7 +262,8 @@ margin-bottom: 2%;
 }
 .sendButton{
 	width:50%;
-
+	margin-top: 10%;
+	float: right;
 }
 
 #results2 h2{
@@ -403,13 +402,15 @@ height: 75%;
 
 #points {
 float: right;
-margin-top: 20%;
+margin-top: 27%;
 width: 35%;
+margin-right: 10%;
 }
 
 #points h3 {
 width: 16%;
 float: left;
+margin-left: 25%;
 }
 
 #points img {
@@ -422,7 +423,7 @@ float: left;
 font-family: aller_bold;
 color: #679F25;
 text-shadow: 1px 1px black;
-font-size: 2.4em;
+font-size: 1.5em;
 float: left;
 clear: left;
 }
@@ -448,6 +449,8 @@ margin-top: 0%;
 padding: 12%;
 
 overflow: hidden;
+padding-bottom: 0%;
+padding-top: 3%;
 
 }
 
@@ -459,7 +462,12 @@ width: 82%;
 
 }
 
+#golombiao .ui-footer,#galeria .ui-footer{
+	position: absolute;
+	bottom: 0px;
+	width: 100%;
 
+}
 
 
 .navbar .ui-btn-text{
@@ -470,15 +478,15 @@ width: 82%;
 }
 
 
-#pre_conv .subButton h1{
-
-	font-family: aller_bold;
-	color: #679F25;
-	text-shadow:1px 1px black;
-	font-size: 2.6em;
-	float: left;
-	clear: left;
-
+#pre_conv .subButton h1 {
+font-family: aller_bold;
+color: #679F25;
+text-shadow: 1px 1px black;
+font-size: 1.5em;
+float: left;
+clear: left;
+text-align: left;
+margin-bottom: 0px;
 }
 
 
@@ -492,13 +500,11 @@ width: 82%;
 }
 
 
-
-#pre_conv .subButton img{
+#pre_conv .subButton img {
 width: 30%;
 float: right;
-margin-top: 27%;
+margin-top: 35%;
 }
-
 
 #pre_conv .container>img{
 
@@ -514,6 +520,8 @@ margin-top: 0%;
 padding: 12%;
 
 overflow: hidden;
+padding-bottom: 0%;
+padding-top: 1%;
 
 }
 
@@ -521,6 +529,9 @@ overflow: hidden;
 #create .container{
 
 	padding: 13%;
+
+	padding-bottom: 0;
+	padding-top: 0;
 
 
 }
@@ -544,9 +555,12 @@ margin-top: 5%;
 }
 
 
-#join .container, #my_conv .container,#convocate .container,#results2 .container{
+#join .container, #my_conv .container,#convocate .container,#results2 .container,#convocate2 .container{
 	padding: 13%;
 	position: relative;
+
+	padding-bottom: 0;
+	padding-top: 0;
 
 }
 

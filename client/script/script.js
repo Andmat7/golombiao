@@ -24,20 +24,25 @@ $(window).load(function() {
 
   $(".aspect_ratio").height($(window).height());
   $(".backButton").click(function() {
-  window.history.back();
-  // if ($("input").attr("type")=="button"||$("input").attr("type")=="submit") {
+    
 
-  // }else{
-  // $("input").val(" ");
-  // }
+  window.history.back();
+   $("form input").each(function(key,value){
+      if ($(value).attr("type")=="button" || $(value).attr("type")=="submit") {};
+         
+        $(value).val(null);
+
+       });
 
 });
    $(".homeButton").click(function() {
-  // if ($("input").attr("type")=="button"||$("input").attr("type")=="submit") {
+ $("form input").each(function(key,value){
+      if ($(value).attr("type")=="button" || $(value).attr("type")=="submit") {};
+         
+        $(value).val(null);
 
-  // }else{
-  // $("input").val(" ");
-  // }
+       });
+
   $.mobile.changePage( "#home");
 });
 
@@ -170,12 +175,14 @@ function aceptRequest(element,typeRequest){
     loadingClose();
     if (!(response.error)&&typeRequest==1) {
       alert("Has aceptado la convocatoria");
-      location.reload();
+      $.mobile.changePage( "#my_conv");
+      
       
 
     }else if (!(response.error)&&typeRequest==2) {
       alert("Se ha eliminado la convocatoria");
-      location.reload();
+      $.mobile.changePage( "#my_conv");
+      
 
 
     }else{
@@ -634,6 +641,7 @@ function request_game(submit){
 
 
 function vs_team(vs_steam){
+  loadingOpen("Cargando");
 
   console.log("asdasd");
   var post_values={
@@ -645,14 +653,15 @@ function vs_team(vs_steam){
     response = jQuery.parseJSON(response);
     if (!(response.error)) {
       $(".vs_teams3").html('<label>Equipos Contrarios</label>');
-      for (var i = 0; i <= response.length  ; i++) {
+      for (var i = 0; i < response.length  ; i++) {
         var j=i+1;
         $(".vs_teams3").append("<li class='team' onclick='select_own_team(this)'><div class='name_team'>"+response[i]['name']+"</div> <input class='id' type='hidden'  name='id_team' value='"+response[i]['id']+"'/><div class='description'>"+response[i]['description']+"</div></li>");
       }
 
-
+      loadingClose();
     }else{
       alert(response.message_error);
+      loadingClose();
     }
 
 
@@ -727,7 +736,7 @@ function camera(){
 }
 
 function onFail(message) {
-  alert('Failed because: ' + message);
+  console.log('Accion Cancelada');
 }
 
 
@@ -746,13 +755,15 @@ $( document ).on( "pageshow", "#home", function() {
 
     $.post(server+"teams/getData", post_values, function(response) {
        response = jQuery.parseJSON(response);
+        if (response.points==null ) 
+          {response.points=0;};
 
-        $("#points").html("<h3>"+response.points+"</h3><img src='images/sun.png'>");
+        $("#points").html("<h2>Soles de golombiao</h2><h3>"+response.points+"</h3><img src='images/sun.png'>");
 
          var image = document.getElementById('photo');
       if (localStorage.getItem("photo_"+localStorage.getItem("id_user"))) {
         image.src = localStorage.getItem("photo_"+localStorage.getItem("id_user"));
-      }else if(response.fb_id != "0"){
+      }else if(response.fb_id != "0" && response.fb_id != null){
 
         image.src ="http://graph.facebook.com/"+response.fb_id+"/picture?width=300&height=400";
 
@@ -787,7 +798,7 @@ $( document ).on( "pageshow", "#convocate", function() {
     if (!(response.error)) {
       $(".modifyTeams").html(" ");
       
-      $(".own_teams").html('<a href="#teamsPanel" data-rel="popup"><label>Tus Equipos</label></a>');
+      $(".own_teams").html('<label>Tus Equipos</label><a href="#teamsPanel" data-rel="popup"><img  src="images/configButtonGreen.png"></a>');
       for (var i = 0; i <= response.length  ; i++) {
         var j=i+1;
         $(".own_teams").append("<li class='team' onclick='select_own_team(this)'><div class='name_team'>"+
@@ -822,8 +833,10 @@ $( document ).on( "pageshow", "#convocate", function() {
 
 function deleteTeam(team){
 
-  if(confirm('Esta seguro que desea salirse del equipo?')) 
+  if(confirm('Al eliminar el equipo, se eliminara todas las convocatorias referentes a este equipo;Esta seguro que desea borrar el equipo?')) 
     {} else{ return(false);}
+
+    loadingOpen("Procesando");
 
 
 
@@ -840,14 +853,18 @@ function deleteTeam(team){
     response = jQuery.parseJSON(response);
     if (!(response.error)) {
 
-      alert("Se ha eliminado el equipo existosamente");
+      alert("Se ha eliminado el equipo exitosamente");
        changePage('index.html#convocate');
+       loadingClose();
+       $.mobile.refresh();
 
 
       }else{
 
 
         alert("ha habido un error procesando tu solicitud");
+        loadingClose();
+        $.mobile.refresh();
 
 
       }
@@ -865,7 +882,7 @@ function deleteTeam(team){
 
 function deleteSubscription(team){
 
-  if(confirm('Esta seguro que desea borrar el equipo?')) 
+  if(confirm('Esta seguro que desea salirse del equipo?')) 
     {} else{ return(false);}
 
 
@@ -915,6 +932,7 @@ $( document ).on( "pageshow", "#my_conv", function() {
     email:localStorage.getItem('email'),
     tipo_consulta:0
   };
+  var emptyPage=false;
 
 
   $.post(server+"teams/conv_team", post_values, function(response) {
@@ -942,8 +960,7 @@ $( document ).on( "pageshow", "#my_conv", function() {
 
     }else{
       alert("En este momento no has convocado ningun Juego");
-      
-      changePage('index.html#play');
+      emptyPage=true;
     }
   });
 
@@ -1006,7 +1023,10 @@ $( document ).on( "pageshow", "#my_conv", function() {
 
       }
     }else{
-      alert("En este momento ten han convocado a ningun Juego");
+      alert("En este momento no te han convocado a ningun Juego");
+      if (emptyPage){changePage("index.html#pre_conv");
+    location.reload();}
+
     }
   });
 
@@ -1046,7 +1066,7 @@ $( document ).on( "pageshow", "#login", function() {
       $.mobile.loading( 'show', {
               text: 'Verificando datos',
               textVisible: true,
-              theme: 'z',
+              theme: 'a',
               html: ""
             });
 
@@ -1177,6 +1197,8 @@ $( document ).on( "pageshow", "#register", function() {
   },
   submitHandler: function( form ) {
 
+    loadingOpen("Registrando");
+
     var post_values= {};
     $(':input', "#form_register").each(function(index, input_element) {
       post_values.NewField = input_element.name;
@@ -1195,9 +1217,13 @@ $( document ).on( "pageshow", "#register", function() {
         $("#age_user").html(post_values.birthday);
         $("#location_user").html(post_values.city);
         city=post_values.city;
+        
+        loadingClose();
         changePage('index.html#login');
+        alert("Usuario creado exitosamente");
       }else{
         alert(response.message_error);
+        loadingClose();
       }
 
     });
@@ -1337,7 +1363,7 @@ $( document ).on( "pageshow", "#join", function() {
     if (!(response.error)) {
       $(".modifyMyTeams").html(" ");
       
-      $(".miJoinTeams").html('<a href="#myTeamsPanel" data-rel="popup"><label>Tus Equipos</label></a>');
+      $(".miJoinTeams").html('<label>Tus Equipos</label><a href="#myTeamsPanel" data-rel="popup"><img  src="images/configButtonGreen.png"></a>');
       for (var i = 0; i <= response.length  ; i++) {
         var j=i+1;
         $(".miJoinTeams").append("<li class='team' onclick='select_own_team(this)'><div class='name_team'>"+

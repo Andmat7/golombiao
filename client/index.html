@@ -212,7 +212,7 @@
 					<div id="photo_container">
 						<img id="photo" src="http://graph.facebook.com/Golombiao/picture?width=300&height=400" onclick="camera()">
 					</div>
-					<div id="points"></div>
+					<div id="points" align="center"></div>
 					<div id="information">	
 						<span id="name_user">u </span>	
 						<span id="age_user">23 años</span> 
@@ -274,7 +274,7 @@
 			</div>
 			<div data-role="footer" align="center">
 
-				<img class="backButton" src="images/homeButton.png">
+				<img class="homeButton" src="images/homeButton.png">
 
 			</div>
 
@@ -299,7 +299,7 @@
 
 
 						<div class="convocateDescription">
-							<h1>UNIRSE</h1>
+							<h1>UNIRSE A UN EQUIPO</h1>
 							<h4>Aqui puedes unirte a un equipo ya creado</h4>
 						</div>
 						<a href="#join" data-transition="flow">
@@ -308,7 +308,7 @@
 					</div>
 					<div class="subButton">
 						<div class="convocateDescription">
-							<h1>CREAR</h1>
+							<h1>CREAR UN EQUIPO</h1>
 							<h4>Aqui crear una nuevo equipo</h4>
 						</div>
 						<a href="#create" data-transition="flow">
@@ -316,12 +316,11 @@
 						</a>
 					</div>
 				</div>
-				<img src="images/childs.png">
 
 			</div>
 			<div data-role="footer" align="center">
 
-				<img class="backButton" src="images/homeButton.png">
+				<img class="homeButton" src="images/homeButton.png">
 
 			</div>
 
@@ -349,7 +348,7 @@
 
 					<div class="subButton">
 						<div class="convocateDescription">
-							<h1>VER</h1>
+							<h1>VER MIS CONVOCATORIAS</h1>
 							<h4>Aqui puedes ver todas las convocatorias a las cual tus equipos pertenecen</h4>
 						</div>
 						<a href="#my_conv" data-transition="flow">
@@ -358,7 +357,7 @@
 					</div>
 					<div class="subButton">
 						<div class="convocateDescription">
-							<h1>CREAR</h1>
+							<h1>CREAR UNA CONVOCATORIA</h1>
 							<h4>Aqui crear una nueva convocatoria</h4>
 						</div>
 						<a href="#convocate" data-transition="flow">
@@ -366,7 +365,6 @@
 						</a>
 					</div>
 				</div>
-				<img src="images/childs.png">
 
 			</div>
 			<div data-role="footer" align="center">
@@ -726,6 +724,16 @@
 					<div class="total_width"><input id="latitud" class="input_txt_complete" type="hidden"  name="latitud" value="" placeholder="Ubicacion"/></div>
 					<div class="total_width"><input id="longitud"class="input_txt_complete" type="hidden"  name="longitud" value="" placeholder="Ubicacion"/></div>				
 				</div>
+				<div>
+				<label for="date">Tipo de Juego</label>
+				<select name="tipo_juego" class="game_type">
+					<option value="">Juego</option>
+					<option value="1">Basquetball</option>
+					<option value="2">Ultimate</option>
+					<option value="3">Micro</option>
+					<option value="4">Futbol</option>
+				</select>
+				</div>
 				<div class="small_input_left">
 					<label for="date">Fecha:</label>
 					<input type="date" name="fecha" id="date" value=""  />
@@ -736,14 +744,6 @@
 					<input type="time" name="hora" id="name" value=""  />
 				</div>
 
-				<label for="date">Tipo de Juego</label>
-				<select name="tipo_juego" class="game_type">
-					<option value="">Juego</option>
-					<option value="1">Basquetball</option>
-					<option value="2">Ultimate</option>
-					<option value="3">Micro</option>
-					<option value="4">Futbol</option>
-				</select>
 				
 				<div class="send_request sendButton"><input type="submit" class="enviar_login" value="Enviar Solicitud" onclick="request_game(this)"></div>
 
@@ -1034,11 +1034,16 @@
 
 		<div data-role="page" id="golombiao">
 
+			<div data-role="header" style="height:0px"> 
+			</div>
+
+
+
 			<div data-role="content" class=" overthrow container">
 
 
 				<div class="pagina-movil">
-					<div class="titulo"><img src="images/logo-golombiao.gif" alt="golombiao"></div>
+					<div class="titulo" align="center"><img src="images/golombiaoIcon.png" alt="golombiao"></div>
 					<div class="menu-inicial">
 
 
