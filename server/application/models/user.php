@@ -87,6 +87,17 @@ class user extends CI_Model {
 		if($q -> num_rows() == 1)
 		{
 			$user=$q->result_array();
+
+			
+			$this->db->where('idCiudad', $user[0]["city"]);
+			$q = $this->db->get('ciudades');
+			$ciudad=$q->result_array();
+
+			$user[0]["city"]=$ciudad[0]["nombre"];
+
+
+
+
 			return $user[0];
 		}
 		else

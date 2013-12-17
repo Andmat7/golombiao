@@ -31,6 +31,7 @@ class Login extends MY_Controller {
 				$json_reply["last_name"]=$user['last_name'];
 				$json_reply["email"]=$user['email'];
 				$json_reply["age"]=$user['age'];
+				$json_reply["city"]=$user['city'];
 				//$json_reply["subscription_expires"]=$user['subscription_expires'];
 				$json_reply['error']=false;
 			}else{

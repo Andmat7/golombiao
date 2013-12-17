@@ -66,9 +66,10 @@
 				</div>
 				<form id="form_login" >
 					<input id="input_email" type="email" name="email" placeholder="email" ><br>
-					<input id="input_pass" type="password" name="encrypted_password" placeholder="password" >
+					<input id="input_pass" type="password" name="encrypted_password" placeholder="Contraseña" >
 					<input type="submit" class="enviar_login" value="Ingresar">
-					<img onclick="login()" class="login_facebook" src="images/faceButton.png">
+
+					<img  onclick="login()" class="login_facebook" src="images/faceLogin.png"> 
 				</form>
 				<h1>No tienes cuenta?</h1>
 				<a href="#register" data-transition="flip">
@@ -94,7 +95,7 @@
 						<input class="required" type="number"  name="age" value="" placeholder="Edad"/>
 					</div>
 					<div class="small_input_right">
-						<label>Genero:</label>
+						<label>Sexo:</label>
 						<select  name="gender">
 							<option  value="" ></option>
 							<option  value="1">Hombre</option>
@@ -105,30 +106,41 @@
 
 					</div>
 					<label>Departamento:</label>
-					<select name="departamento" class="departamento" onchange="sel_city(this)">
+					<select name="departamento" class="prueba departamento" onchange="sel_city(this)">
 						<option value=""></option>
-						<option value="1">Antioquia</option>
-						<option value="2">Atlántico</option>
-						<option value="3">Bolívar</option>
-						<option value="0">Bogotá D.C.</option>
-						<option value="4">Boyacá</option>
-						<option value="5">Caldas</option>
-						<option value="6">Cauca</option>
-						<option value="7">Cesar</option>
-						<option value="8">Córdoba</option>
-						<option value="9">Cundinamarca</option>
-						<option value="10">Guajira</option>
-						<option value="11">Huila</option>
-						<option value="12">Magdalena</option>
-						<option value="13">Meta</option>
-						<option value="14">Nariño</option>
-						<option value="15">Norte de Santander</option>
-						<option value="16">Quindío</option>
-						<option value="17">Risaralda</option>
-						<option value="18">Santander</option>
-						<option value="19">Sucre</option>
-						<option value="20">Tolima</option>
-						<option value="21">Valle del Cauca</option>
+						<option value="1">ANTIOQUIA</option>
+						<option value="2">ATLANTICO</option>
+						<option value="3">BOGOTA</option>
+						<option value="4">BOLIVAR</option>
+						<option value="5">BOYACA</option>
+						<option value="6">CALDAS</option>
+						<option value="7">CAQUETA</option>
+						<option value="8">CAUCA</option>
+						<option value="9">CESAR</option>
+						<option value="10">CORDOBA</option>
+						<option value="11">CUNDINAMARCA</option>
+						<option value="12">CHOCO</option>
+						<option value="13">HUILA</option>
+						<option value="14">LA GUAJIRA</option>
+						<option value="15">MAGDALENA</option>
+						<option value="16">META</option>
+						<option value="17">NARIÑO</option>
+						<option value="18">N. DE SANTANDER</option>
+						<option value="19">QUINDIO</option>
+						<option value="20">RISARALDA</option>
+						<option value="21">SANTANDER</option>
+						<option value="22">SUCRE</option>
+						<option value="23">TOLIMA</option>
+						<option value="24">VALLE DEL CAUCA</option>
+						<option value="25">ARAUCA</option>
+						<option value="26">CASANARE</option>
+						<option value="27">PUTUMAYO</option>
+						<option value="28">SAN ANDRES</option>
+						<option value="29">AMAZONAS</option>
+						<option value="30">GUAINIA</option>
+						<option value="31">GUAVIARE</option>
+						<option value="32">VAUPES</option>
+						<option value="33">VICHADA</option> 	
 					</select>
 					<div class="small_input_left">
 						<label>Ciudad:</label>
@@ -165,7 +177,7 @@
 					<input type="hidden" id="fb_id" name="fb_id" value=""/>
 
 					<div class="sendButton">
-					<input id="register_server" onclick="" type="submit" value="Registrar">
+						<input id="register_server" onclick="" type="submit" value="Registrar">
 					</div>
 				</form>
 
@@ -181,16 +193,18 @@
 
 		</div>
 
-		<div data-role="dialog" id="homePanel" data-position="right" data-display="push" style="position:fixed">
+		<div data-role="dialog" id="homePanel2" data-position="right" data-display="push" style="position:fixed">
 			<a href="#home" data-rel="close">Close panel</a>
+			<a href="#" onclick="window.open('https://www.facebook.com/Golombiao', '_system');"><img src="images/faceGol.png" width="50%"></a>		
+
 			<div>
 
-				<div class="fb-like" data-href="https://www.facebook.com/Golombiao" data-layout="box_count" data-action="like" data-show-faces="true" data-share="true"></div>
+				<div class="fb-like" data-href="https://developers.facebook.com/docs/plugins/" data-width="100" data-layout="box_count" data-action="like "data-show-faces="true" data-share="true"></div>
 
 			</div>
 
 
-			<a class="closeSession" href="#closeSession" data-rel="popup">
+			<a class="closeSession" href="#closeSession" data-rel="popup" data-position-to="window">
 				Cerrar Sesion
 			</a>
 
@@ -198,13 +212,46 @@
 				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close
 				</a>
 				Deseas cerrar sesion?<br>
-				<a href="#login" data-transition="flow">Si
+				<a href="#login" data-transition="flow" onclick="deleteData()">Si
 				</a>
 			</div>
+
+
+			
 		</div>
 
 
 		<div data-role="page" id="home">
+
+			<div data-role="popup" id="homePanel" class="ui-content">
+				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+				<p>Siguenos en Golombiao:  </p>
+
+				<div class="faceGolombiao"> 
+					<a href="#" onclick="window.open('https://www.facebook.com/Golombiao', '_system');"><img src="images/faceGol.png" ></a>		
+				</div>
+				<div>
+				<div class="entityLogo"> 
+					<a href="#" onclick="window.open('https://www.Golombiao.com', '_system');"><img src="images/golombiaoIcon.png" ></a>		
+				</div>
+				<div class="minTic"> 
+					<a href="#" onclick="window.open('https://http://www.mintic.gov.co/', '_system');"><img src="images/minTic.png" ></a>		
+				</div>
+				</div>
+				<div>
+					<p> <b>Desarrolladores:</b>
+						<br>Carlos Andres Castellanos
+						<br>Andres Fabian Corredor
+						<br><a href="#" onclick="window.open('https://http://www.codfe.co/', '_system');">www.codfe.co</a>
+
+					</p>
+					<p>Esta aplicación puede consumir recursos de su plán de datos</p>
+				</div>
+
+
+
+				<input type="Button" value="Cerrar Sesion" onclick="closeSession()";>
+			</div>
 			
 
 			<div data-role="content" class=" overthrow container">
@@ -214,9 +261,9 @@
 					</div>
 					<div id="points" align="center"></div>
 					<div id="information">	
-						<span id="name_user">u </span>	
-						<span id="age_user">23 años</span> 
-						<span id="location_user">Bogota-Colombia</span>
+						<span id="name_user">Nombre</span>	
+						<span id="age_user">Edad</span> 
+						<span id="location_user">Ciudad</span>
 
 					</div>
 				</div>
@@ -239,12 +286,12 @@
 			
 			<div data-role="footer"  align="center">
 				<div data-demo-html="true">	
-				
 
-		
-			</div>
+
+
+				</div>
 				<div> <!-- new bit -->
-					<a href="#homePanel" data-rel="dialog">
+					<a href="#homePanel" data-rel="popup" data-position-to="window">
 						<img class="configButton" src="images/configButton.png">
 					</a>
 				</div> <!-- new bit -->
@@ -405,28 +452,39 @@
 					<div class="total_width">
 						<select name="departamento" class="departamento" onchange="sel_city(this)">
 							<option value="">Departamento</option>
-							<option value="1">Antioquia</option>
-							<option value="2">Atlántico</option>
-							<option value="3">Bolívar</option>
-							<option value="0">Bogotá D.C.</option>
-							<option value="4">Boyacá</option>
-							<option value="5">Caldas</option>
-							<option value="6">Cauca</option>
-							<option value="7">Cesar</option>
-							<option value="8">Córdoba</option>
-							<option value="9">Cundinamarca</option>
-							<option value="10">Guajira</option>
-							<option value="11">Huila</option>
-							<option value="12">Magdalena</option>
-							<option value="13">Meta</option>
-							<option value="14">Nariño</option>
-							<option value="15">Norte de Santander</option>
-							<option value="16">Quindío</option>
-							<option value="17">Risaralda</option>
-							<option value="18">Santander</option>
-							<option value="19">Sucre</option>
-							<option value="20">Tolima</option>
-							<option value="21">Valle del Cauca</option>
+							<option value="1">ANTIOQUIA</option>
+							<option value="2">ATLANTICO</option>
+							<option value="3">BOGOTA</option>
+							<option value="4">BOLIVAR</option>
+							<option value="5">BOYACA</option>
+							<option value="6">CALDAS</option>
+							<option value="7">CAQUETA</option>
+							<option value="8">CAUCA</option>
+							<option value="9">CESAR</option>
+							<option value="10">CORDOBA</option>
+							<option value="11">CUNDINAMARCA</option>
+							<option value="12">CHOCO</option>
+							<option value="13">HUILA</option>
+							<option value="14">LA GUAJIRA</option>
+							<option value="15">MAGDALENA</option>
+							<option value="16">META</option>
+							<option value="17">NARIÑO</option>
+							<option value="18">N. DE SANTANDER</option>
+							<option value="19">QUINDIO</option>
+							<option value="20">RISARALDA</option>
+							<option value="21">SANTANDER</option>
+							<option value="22">SUCRE</option>
+							<option value="23">TOLIMA</option>
+							<option value="24">VALLE DEL CAUCA</option>
+							<option value="25">ARAUCA</option>
+							<option value="26">CASANARE</option>
+							<option value="27">PUTUMAYO</option>
+							<option value="28">SAN ANDRES</option>
+							<option value="29">AMAZONAS</option>
+							<option value="30">GUAINIA</option>
+							<option value="31">GUAVIARE</option>
+							<option value="32">VAUPES</option>
+							<option value="33">VICHADA</option>
 						</select>
 					</div>
 					<label>Ciudad:</label>
@@ -441,7 +499,7 @@
 					<textarea placeholder="Descripción" name="descripcion" id="" cols="30" rows="20"  ></textarea>
 
 					<div class="sendButton">
-					<input id="register_server"  type="submit" value="Crear">
+						<input id="register_server"  type="submit" value="Crear">
 					</div>
 				</form>	
 			</div>
@@ -459,13 +517,27 @@
 
 
 		<div data-role="page" id="join">
+			<div data-role="popup" id="deleteSubscription" data-theme="d" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+				<h3>Purchase Album?</h3>
+				<p></p>
+				<a onclick="deleteTeam(this)" href="#" data-role="button" data-rel="back" data-theme="b" data-icon="delete" data-inline="true" data-mini="true">Eliminar Suscripción</a>
+				<a href="index.html" data-role="button" data-rel="back" data-inline="true" data-mini="true">Cancelar</a>
+			</div>
 			<div data-role="popup" id="myTeamsPanel">
 				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 				<ul class="modifyMyTeams" ></ul>
 			</div>
-			<div data-role="popup" id="userData">
+			<div data-role="popup" id="userData2" data-theme="d" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
 				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-				<ul class="myData" ></ul>
+				<div class="myData2" >
+					<div class="nameJ">Andres</div>
+					<div class="ageJ">23 Años</div>
+					<div class="genderJ">Mascudivno</div>
+					<div class="pointsJ">23 Puntos</div>
+
+				</div>
+
 			</div>
 			<div data-role="header"> 
 
@@ -496,28 +568,39 @@
 						Departamento:
 						<select name="departamento" class="departamento" onchange="sel_city(this)">
 							<option value="">Departamento</option>
-							<option value="1">Antioquia</option>
-							<option value="2">Atlántico</option>
-							<option value="3">Bolívar</option>
-							<option value="0">Bogotá D.C.</option>
-							<option value="4">Boyacá</option>
-							<option value="5">Caldas</option>
-							<option value="6">Cauca</option>
-							<option value="7">Cesar</option>
-							<option value="8">Córdoba</option>
-							<option value="9">Cundinamarca</option>
-							<option value="10">Guajira</option>
-							<option value="11">Huila</option>
-							<option value="12">Magdalena</option>
-							<option value="13">Meta</option>
-							<option value="14">Nariño</option>
-							<option value="15">Norte de Santander</option>
-							<option value="16">Quindío</option>
-							<option value="17">Risaralda</option>
-							<option value="18">Santander</option>
-							<option value="19">Sucre</option>
-							<option value="20">Tolima</option>
-							<option value="21">Valle del Cauca</option>
+							<option value="1">ANTIOQUIA</option>
+							<option value="2">ATLANTICO</option>
+							<option value="3">BOGOTA</option>
+							<option value="4">BOLIVAR</option>
+							<option value="5">BOYACA</option>
+							<option value="6">CALDAS</option>
+							<option value="7">CAQUETA</option>
+							<option value="8">CAUCA</option>
+							<option value="9">CESAR</option>
+							<option value="10">CORDOBA</option>
+							<option value="11">CUNDINAMARCA</option>
+							<option value="12">CHOCO</option>
+							<option value="13">HUILA</option>
+							<option value="14">LA GUAJIRA</option>
+							<option value="15">MAGDALENA</option>
+							<option value="16">META</option>
+							<option value="17">NARIÑO</option>
+							<option value="18">N. DE SANTANDER</option>
+							<option value="19">QUINDIO</option>
+							<option value="20">RISARALDA</option>
+							<option value="21">SANTANDER</option>
+							<option value="22">SUCRE</option>
+							<option value="23">TOLIMA</option>
+							<option value="24">VALLE DEL CAUCA</option>
+							<option value="25">ARAUCA</option>
+							<option value="26">CASANARE</option>
+							<option value="27">PUTUMAYO</option>
+							<option value="28">SAN ANDRES</option>
+							<option value="29">AMAZONAS</option>
+							<option value="30">GUAINIA</option>
+							<option value="31">GUAVIARE</option>
+							<option value="32">VAUPES</option>
+							<option value="33">VICHADA</option>
 						</select>
 					</div>
 					<div class="total_width">
@@ -534,7 +617,7 @@
 
 
 					<div class="sendButton">
-					<input id="register_server" onclick="data_server_team()" type="button" value="Unirse">
+						<input id="register_server" onclick="data_server_team()" type="button" value="Unirse">
 					</div>
 
 				</form>	
@@ -591,15 +674,28 @@
 
 
 		<div data-role="dialog" id="teamsPanel" data-position="right" data-display="push" style="position:fixed">
-								<a href="#convocate" data-rel="close">Close panel</a>
-								<ul class="modifyTeams" ></ul>
-							</div>
+			<a href="#convocate" data-rel="close">Close panel</a>
+			<ul class="modifyTeams" ></ul>
+		</div>
 
 
 
 
 		<div data-role="page" id="convocate">
-					
+
+			<div data-role="popup" id="deleteTeam" data-theme="d" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+				<h3>Purchase Album?</h3>
+				<p>Your download will begin immediately on your mobile device when you purchase.</p>
+				<a onclick="deleteTeam(this)" href="#" data-role="button" data-rel="back" data-theme="b" data-icon="delete" data-inline="true" data-mini="true">Eliminar</a>
+				<a href="index.html" data-role="button" data-rel="back" data-inline="true" data-mini="true">Cancelar</a>
+			</div>
+			<div data-role="popup" id="infoTeam" data-theme="d" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+				<h3>Purchase Album?</h3>
+				<p>Your download will begin immediately on your mobile device when you purchase.</p>
+			</div>
+
 			<div data-role="popup" id="teamsPanel">
 				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
 				<ul class="modifyTeams" ></ul>
@@ -618,43 +714,49 @@
 
 			
 			<div data-role="content "class=" overthrow container" align="center">
-				<div class="your_team">
-					<ul class="own_teams">
-						<a href="#teamsPanel" data-rel="popup">
-							<label>Tus Equipos</label>
-						</a>
+				<div class="your_team">			
 
-					</ul>
 				</div>
 				<div class="vs_team">
-					<div class="vs">V.S.</div>
+					<b class="vs">V.S.</b>
 					<input class="id" type="hidden"  name="id_time" value=""/>
 					<form id="form_vs">
 						Departamento:
 						<select name="departamento" class="departamento" onchange="sel_city(this)">
 							<option value="">Departamento</option>
-							<option value="1">Antioquia</option>
-							<option value="2">Atlántico</option>
-							<option value="3">Bolívar</option>
-							<option value="0">Bogotá D.C.</option>
-							<option value="4">Boyacá</option>
-							<option value="5">Caldas</option>
-							<option value="6">Cauca</option>
-							<option value="7">Cesar</option>
-							<option value="8">Córdoba</option>
-							<option value="9">Cundinamarca</option>
-							<option value="10">Guajira</option>
-							<option value="11">Huila</option>
-							<option value="12">Magdalena</option>
-							<option value="13">Meta</option>
-							<option value="14">Nariño</option>
-							<option value="15">Norte de Santander</option>
-							<option value="16">Quindío</option>
-							<option value="17">Risaralda</option>
-							<option value="18">Santander</option>
-							<option value="19">Sucre</option>
-							<option value="20">Tolima</option>
-							<option value="21">Valle del Cauca</option>
+							<option value="1">ANTIOQUIA</option>
+							<option value="2">ATLANTICO</option>
+							<option value="3">BOGOTA</option>
+							<option value="4">BOLIVAR</option>
+							<option value="5">BOYACA</option>
+							<option value="6">CALDAS</option>
+							<option value="7">CAQUETA</option>
+							<option value="8">CAUCA</option>
+							<option value="9">CESAR</option>
+							<option value="10">CORDOBA</option>
+							<option value="11">CUNDINAMARCA</option>
+							<option value="12">CHOCO</option>
+							<option value="13">HUILA</option>
+							<option value="14">LA GUAJIRA</option>
+							<option value="15">MAGDALENA</option>
+							<option value="16">META</option>
+							<option value="17">NARIÑO</option>
+							<option value="18">N. DE SANTANDER</option>
+							<option value="19">QUINDIO</option>
+							<option value="20">RISARALDA</option>
+							<option value="21">SANTANDER</option>
+							<option value="22">SUCRE</option>
+							<option value="23">TOLIMA</option>
+							<option value="24">VALLE DEL CAUCA</option>
+							<option value="25">ARAUCA</option>
+							<option value="26">CASANARE</option>
+							<option value="27">PUTUMAYO</option>
+							<option value="28">SAN ANDRES</option>
+							<option value="29">AMAZONAS</option>
+							<option value="30">GUAINIA</option>
+							<option value="31">GUAVIARE</option>
+							<option value="32">VAUPES</option>
+							<option value="33">VICHADA</option>
 						</select>
 						
 						Ciudad:
@@ -667,14 +769,10 @@
 
 				</div>
 				<div class="vs_team2">
-					<ul class="vs_teams3">
-						<label>Equipos Contrarios</label>
-
-					</ul>
 
 				</div>
 				<div class="sendButton">
-				<input type="submit" class="enviar_login" value="Seleccionar" onclick="zone(this)">
+					<input type="submit" class="enviar_login" value="Seleccionar" onclick="zone(this)">
 				</div>
 			</div>
 			<div data-role="footer"  align="center">
@@ -702,51 +800,53 @@
 
 			<div data-role="content" class=" overthrow container" align="center">
 
+				<form id="form_convocate">
 
-				<div class="two_teams">
-					<div class="my_team"></div><div class="Vs_convocate2">V.S.</div><div class="the_other_team"></div>
 
-				</div>
-				<label>Principios</label>
-				<select name="principio" class="principios" >
-					<option value="">Principios</option>
-					<option value="1">No Violencia</option>
-					<option value="2">Libertad de expresión</option>
-					<option value="3">No discriminación</option>
-					<option value="4">Cuidar el entorno</option>
-					<option value="5">Participación activa</option>
-					<option value="6">Cuidarse y cuidar al otro</option>
-					<option value="7">Igualdad</option>
-				</select>
-				
-				<div id="match_site">
-					<div id="geolocation" class="geolocation1"> </div>
-					<div class="total_width"><input id="latitud" class="input_txt_complete" type="hidden"  name="latitud" value="" placeholder="Ubicacion"/></div>
-					<div class="total_width"><input id="longitud"class="input_txt_complete" type="hidden"  name="longitud" value="" placeholder="Ubicacion"/></div>				
-				</div>
-				<div>
-				<label for="date">Tipo de Juego</label>
-				<select name="tipo_juego" class="game_type">
-					<option value="">Juego</option>
-					<option value="1">Basquetball</option>
-					<option value="2">Ultimate</option>
-					<option value="3">Micro</option>
-					<option value="4">Futbol</option>
-				</select>
-				</div>
-				<div class="small_input_left">
-					<label for="date">Fecha:</label>
-					<input type="date" name="fecha" id="date" value=""  />
-				</div>
+					<div class="two_teams">
 
-				<div class="small_input_right">
-					<label for="name">Hora:</label>
-					<input type="time" name="hora" id="name" value=""  />
-				</div>
 
-				
-				<div class="send_request sendButton"><input type="submit" class="enviar_login" value="Enviar Solicitud" onclick="request_game(this)"></div>
+					</div>
+					<label>Principios</label>
+					<select name="principio" class="principios" >
+						<option value="">Principios</option>
+						<option value="1">No Violencia</option>
+						<option value="2">Libertad de expresión</option>
+						<option value="3">No discriminación</option>
+						<option value="4">Cuidar el entorno</option>
+						<option value="5">Participación activa</option>
+						<option value="6">Cuidarse y cuidar al otro</option>
+						<option value="7">Igualdad</option>
+					</select>
 
+					<div id="match_site">
+						<div id="geolocation" class="geolocation1"> </div>
+						<div class="total_width"><input id="latitud" class="input_txt_complete" type="hidden"  name="latitud" value="" placeholder="Ubicacion"/></div>
+						<div class="total_width"><input id="longitud"class="input_txt_complete" type="hidden"  name="longitud" value="" placeholder="Ubicacion"/></div>				
+					</div>
+					<div>
+						<label for="date">Tipo de Juego</label>
+						<select name="tipo_juego" class="game_type">
+							<option value="">Juego</option>
+							<option value="1">Basquetball</option>
+							<option value="2">Ultimate</option>
+							<option value="3">Micro</option>
+							<option value="4">Futbol</option>
+						</select>
+					</div>
+					<div class="small_input_left">
+						<label for="date">Fecha:</label>
+						<input type="date" name="fecha" id="date" value=""  />
+					</div>
+
+					<div class="small_input_right">
+						<label for="name">Hora:</label>
+						<input type="time" name="hora" id="name" value=""  />
+					</div>
+
+
+					<div class="send_request sendButton"><input type="submit" class="enviar_login" value="Enviar Solicitud" onclick="request_game(this)"></div>
+				</form>
 
 
 			</div>
@@ -823,46 +923,46 @@
 						</select>
 					</div>	
 					<div data-role="fieldcontain">
-						<label for="select-choice-custom4" class="select">Numero <del></del> fallas</label>
+						<label for="select-choice-custom4" class="select">Número <del></del> fallas</label>
 						<select name="faltas" id="select-choice-custom4" data-native-menu="false">
-							<option value="">Numero de fallas</option>
+							<option value="">Número de fallas</option>
 							<option value="4">0 faltas, 4 soles</option>
 							<option value="1">1 falta ,2 soles</option>
 							<option value="0">2 faltas 0 soles</option>
-							<option value="-2">3 o 4 faltas , -3 soles</option>
+							<option value="-2">3 o 4 faltas , -2 soles</option>
 							<option value="-3">Mas de 4 faltas , -3 soles</option>
 						</select>
 					</div>
 					<div data-role="fieldcontain">
-						<label for="select-choice-custom5" class="select">Numero de méritos</label>
+						<label for="select-choice-custom5" class="select">Número de méritos</label>
 						<select name="meritos" id="select-choice-custom5" data-native-menu="false">
-							<option value="">Numero de méritos</option>
+							<option value="">Número de méritos</option>
 							<option value="3">más de  5 jugadores con mérito, 3 soles</option>
 							<option value="2">3 a 5 jugadores con mérito , 2 soles</option>
 							<option value="1">1 a 3 jugadores con mérito ,1 sol</option>
-							<option value="-1">Ningún jugador con mérito, menos 1 sol</option>
+							<option value="-1">Ningún jugador con mérito, -	 1 sol</option>
 						</select>
 					</div>
 					<div data-role="fieldcontain">
-						<label for="select-choice-custom8" class="select">No de jugadores presentes en la evaluacion</label>
+						<label for="select-choice-custom8" class="select">No de jugadores presentes en la evaluación</label>
 						<select name="no_players_presents" id="select-choice-custom8" data-native-menu="false">
-							<option value="">No de jugadores presentes</option>
+							<option value="">Número de jugadores presentes</option>
 							<option value="3">5 jugadores o mas,3 soles</option>
-							<option value="0">Menos de 5 jugadores con merito 0 soles</option>
+							<option value="0">Menos de 5 jugadores 0 soles</option>
 						</select>
 					</div>	
 					<div data-role="fieldcontain">
 						<label for="select-choice-custom9" class="select">No de jugadores asistentes</label>
 						<select name="no_players" id="select-choice-custom9" data-native-menu="false">
-							<option value="">No de jugadores asistentes</option>
+							<option value="">Número de jugadores asistentes</option>
 							<option value="3">5 jugadores o mas,3 soles</option>
 							<option value="0">Menos de 5 jugadores con merito 0 soles</option>
 						</select>
 					</div>	
 					<div data-role="fieldcontain">
-						<label for="select-choice-custom6" class="select">Autoevaluacion</label>
+						<label for="select-choice-custom6" class="select">Autoevaluación</label>
 						<select name="autoevaluacion" id="select-choice-custom6" data-native-menu="false">
-							<option value="">Autoevaluacion</option>
+							<option value="">Autoevaluación</option>
 							<option value="3">3 soles</option>
 							<option value="2">2 soles</option>
 							<option value="1">1 sol</option>
@@ -870,9 +970,9 @@
 						</select>
 					</div>	
 					<div data-role="fieldcontain">
-						<label for="select-choice-custom7" class="select">Evaluacion Equipo contrario</label>
+						<label for="select-choice-custom7" class="select">Evaluación Equipo contrario</label>
 						<select name="otherTeam" id="select-choice-custom7" data-native-menu="false">
-							<option value="">Evaluacion Equipo contrario</option>
+							<option value="">Evaluación Equipo contrario</option>
 							<option value="3">3 soles</option>
 							<option value="2">2 soles</option>
 							<option value="1">1 sol</option>
@@ -962,7 +1062,7 @@
 							<td></td>
 						</tr>
 						<tr class="otherTeam">
-							<th><b class="ui-table-cell-label"></b>Evaluacion del otro equipo</th>
+							<th><b class="ui-table-cell-label"></b>Evaluación del otro equipo</th>
 							<td></td>
 							<td></td>          
 						</tr>
@@ -1009,7 +1109,7 @@
 				
 			</div>
 
-						<div data-role="footer"  align="center">
+			<div data-role="footer"  align="center">
 				<img class="homeButton" src="images/homeButton.png">
 
 			</div>
@@ -1055,7 +1155,7 @@
 							<div class="AccordionPanel values">
 								<div class="AccordionPanelTab" id="dos"><span  class="numeral">2.</span><span class="texto">¿Cuáles son los principios del Golombiao?</span></div>
 								<div class="AccordionPanelContent" id="c-dos">								
-										
+
 									
 
 
@@ -1077,34 +1177,34 @@
 											<div class="TabbedPanelsContent cBlack white">
 												<img class="icono" src="images/noViolencia.gif" alt="no violencia"><span>No violencia</span>
 												<p class="cBlack">1</p>
-											 </div>
-											 <div class="TabbedPanelsContent cNaranja white">
+											</div>
+											<div class="TabbedPanelsContent cNaranja white">
 												<img class="icono" src="images/cuidarse.gif" alt="cuidarse y cuidar al otro"><span>Cuidarse y Cuidar al otro</span>
 												<p class="cBlack">2</p>
-											 </div>
-											 <div class="TabbedPanelsContent cVerde white">
-											 	<img class="icono" src="images/entorno.gif" alt="no violencia"><span>Cuidar el entorno</span>
-												<p class="cBlack">3</p>
-											 </div>
-											 <div class="TabbedPanelsContent cVioleta white">
-											 	<img class="icono" src="images/libertad.gif" alt="no violencia"><span>Libertad de expresión</span>
-												<p class="cBlack">4</p>
-											 </div>
-											 <div class="TabbedPanelsContent cAzul white">
-											 	<img class="icono" src="images/nodiscriminacion.gif" alt="no violencia"><span>No Discriminación</span>
-												<p class="cBlack">5</p>
-											 </div>
-											 <div class="TabbedPanelsContent cVioleta white">
-											 	<img class="icono" src="images/participacion.gif" alt="no violencia"><span>Participación Activa</span>
-												<p class="cBlack">6</p>
-											 </div>
-											 <div class="TabbedPanelsContent cBlack white">
-											 	<img class="icono" src="images/igualdad.gif" alt="no violencia"><span>Igualdad</span>
-												<p class="cBlack">7</p>
-											 </div>
-											
 											</div>
+											<div class="TabbedPanelsContent cVerde white">
+												<img class="icono" src="images/entorno.gif" alt="no violencia"><span>Cuidar el entorno</span>
+												<p class="cBlack">3</p>
+											</div>
+											<div class="TabbedPanelsContent cVioleta white">
+												<img class="icono" src="images/libertad.gif" alt="no violencia"><span>Libertad de expresión</span>
+												<p class="cBlack">4</p>
+											</div>
+											<div class="TabbedPanelsContent cAzul white">
+												<img class="icono" src="images/nodiscriminacion.gif" alt="no violencia"><span>No Discriminación</span>
+												<p class="cBlack">5</p>
+											</div>
+											<div class="TabbedPanelsContent cVioleta white">
+												<img class="icono" src="images/participacion.gif" alt="no violencia"><span>Participación Activa</span>
+												<p class="cBlack">6</p>
+											</div>
+											<div class="TabbedPanelsContent cBlack white">
+												<img class="icono" src="images/igualdad.gif" alt="no violencia"><span>Igualdad</span>
+												<p class="cBlack">7</p>
+											</div>
+											
 										</div>
+									</div>
 
 
 
@@ -1133,31 +1233,31 @@
 											
 											<div class="TabbedPanelsContent azul">
 												<p>1</p>
-											 </div>
-											 <div class="TabbedPanelsContent azul">
-												<p>2</p>
-											 </div>
-											 <div class="TabbedPanelsContent azul">
-												<p>3</p>
-											 </div>
-											 <div class="TabbedPanelsContent azul">
-												<p>4</p>
-											 </div>
-											 <div class="TabbedPanelsContent azul">
-												<p>5</p>
-											 </div>
-											 <div class="TabbedPanelsContent azul">
-												<p>6</p>
-											 </div>
-											
 											</div>
+											<div class="TabbedPanelsContent azul">
+												<p>2</p>
+											</div>
+											<div class="TabbedPanelsContent azul">
+												<p>3</p>
+											</div>
+											<div class="TabbedPanelsContent azul">
+												<p>4</p>
+											</div>
+											<div class="TabbedPanelsContent azul">
+												<p>5</p>
+											</div>
+											<div class="TabbedPanelsContent azul">
+												<p>6</p>
+											</div>
+											
 										</div>
-
 									</div>
+
 								</div>
-								<div class="AccordionPanel involved">
-									<div class="AccordionPanelTab" id="cuatro"><span  class="numeral">4.</span><span class="texto">¿Qué se necesita para jugar?</span></div>
-									<div class="AccordionPanelContent">
+							</div>
+							<div class="AccordionPanel involved">
+								<div class="AccordionPanelTab" id="cuatro"><span  class="numeral">4.</span><span class="texto">¿Qué se necesita para jugar?</span></div>
+								<div class="AccordionPanelContent">
 
 									<div id="TabbedPanels3" class="TabbedPanels">
 										<ul class="TabbedPanelsTabGroup">
@@ -1169,36 +1269,36 @@
 											
 											<div class="TabbedPanelsContent cFucsia cuatro">
 												<p>1</p>
-											 </div>
-											 <div class="TabbedPanelsContent cFucsia cuatro ">
-												<p>2</p>
-											 </div>
-											 <div class="TabbedPanelsContent cFucsia cuatro">
-												<p>3</p>
-											 </div>
-											 
-											
 											</div>
+											<div class="TabbedPanelsContent cFucsia cuatro ">
+												<p>2</p>
+											</div>
+											<div class="TabbedPanelsContent cFucsia cuatro">
+												<p>3</p>
+											</div>
+
+											
 										</div>
-
-
-
-										 </div>
 									</div>
 
 
 
+								</div>
+							</div>
 
 
 
 
 
-									<div class="AccordionPanel moments">
-										<div class="AccordionPanelTab" id="cinco"><span  class="numeral">5.</span><span class="texto">momentos</span></div>
-										<div class="AccordionPanelContent">
 
 
-											<div id="TabbedPanels4" class="TabbedPanels">
+
+							<div class="AccordionPanel moments">
+								<div class="AccordionPanelTab" id="cinco"><span  class="numeral">5.</span><span class="texto">momentos</span></div>
+								<div class="AccordionPanelContent">
+
+
+									<div id="TabbedPanels4" class="TabbedPanels">
 										<ul class="TabbedPanelsTabGroup">
 											<li class="TabbedPanelsTab cVioleta" tabindex="0"></li>
 											<li class="TabbedPanelsTab cVioleta" tabindex="0"></li>
@@ -1208,37 +1308,35 @@
 											
 											<div class="TabbedPanelsContent cVioleta cinco">
 												<p>1</p>
-											 </div>
-											 <div class="TabbedPanelsContent cVioleta cinco ">
-												<p>2</p>
-											 </div>
-											 <div class="TabbedPanelsContent cVioleta cinco">
-												<p>3</p>
-											 </div>
-											 
-											
 											</div>
-										</div>
+											<div class="TabbedPanelsContent cVioleta cinco ">
+												<p>2</p>
+											</div>
+											<div class="TabbedPanelsContent cVioleta cinco">
+												<p>3</p>
+											</div>
+
+											
 										</div>
 									</div>
 								</div>
 							</div>
 						</div>
-
-
 					</div>
-
-
-
-					<div data-role="footer"  align="center">
-						<img class="homeButton" src="images/homeButton.png">
-
-					</div>
-
-
 				</div>
 
 
+			</div>
+
+
+
+			<div data-role="footer"  align="center">
+				<img class="homeButton" src="images/homeButton.png">
+
+			</div>
+
+
+		</div>
 
 
 
@@ -1258,5 +1356,7 @@
 
 
 
-			</body>
-			</html>
+
+
+	</body>
+	</html>

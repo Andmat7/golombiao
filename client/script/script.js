@@ -27,23 +27,21 @@ $(window).load(function() {
     
 
   window.history.back();
-   $("form input").each(function(key,value){
-      if ($(value).attr("type")=="button" || $(value).attr("type")=="submit") {};
-         
-        $(value).val(null);
+  cleanforms();
 
-       });
+
+
 
 });
    $(".homeButton").click(function() {
- $("form input").each(function(key,value){
-      if ($(value).attr("type")=="button" || $(value).attr("type")=="submit") {};
-         
-        $(value).val(null);
 
-       });
+$.mobile.changePage( "#home");
+cleanforms();
 
-  $.mobile.changePage( "#home");
+
+
+
+
 });
 
 
@@ -83,6 +81,30 @@ $(window).load(function() {
 
 
 
+function cleanforms(){
+   $("form input").each(function(key,value){
+      if ($(value).attr("type")=="button" || $(value).attr("type")=="submit") {}else{
+         
+        $(value).val(null);
+        }
+
+       });
+
+  
+$(".ciudad").html(" ");
+
+  $("select").each(function(index,element) {
+var myselect = $(element);
+myselect[0].selectedIndex = 0;
+myselect.selectmenu("refresh");
+
+     });
+
+
+
+}
+
+
 
 $( document ).on( "pageshow", "#galeria", function() {
 
@@ -114,11 +136,57 @@ $( document ).on( "pageshow", "#galeria", function() {
 });
 
 
+function verifyData(){
+
+
+  var post_values= {
+    session_id:localStorage.getItem('session_id'),
+    email:localStorage.getItem('email')
+  };
+
+    $.post(server+"teams/getData", post_values, function(response) {
+       response = jQuery.parseJSON(response);
+        if (response.message_error=="Usuario no logueado" ) 
+          {
+
+            alert("Usuario deslogueado, por favor accede con tu correo y contraseña");
+            changePage('index.html#login');
+
+          };
+
+    
+
+
+    });
 
 
 
 
+}
 
+
+function deleteData(){
+
+              localStorage.setItem('session_id',"0");
+            localStorage.setItem('email',"0");
+            localStorage.setItem('id_user',"0");
+            cleanforms();
+
+}
+
+function closeSession(){
+
+    if(confirm('Desea cerrar sesion?')) 
+    {} else{ return(false);}
+
+            localStorage.setItem('session_id',"0");
+            localStorage.setItem('email',"0");
+            localStorage.setItem('id_user',"0");
+            changePage('index.html#login');
+
+
+
+}
 
 
 
@@ -138,7 +206,10 @@ function reloadApp(){
 }
 
  $( document ).on( "pageshow", function( event, ui) {
-
+  if ($(event.target).attr("id")=="login"||$(event.target).attr("id")=="register") {}
+    else{
+      verifyData();
+    }
     var windowHeight=$(window).height();
     var containerHeight=$(event.target).find(".container").height();
     var footerHeight=$(event.target).find('div[data-role="footer"]').height();
@@ -205,6 +276,7 @@ $( "#myPanel" ).popup( "open" );
 
 
 $( document ).on("click", ".userData", function() {
+  loadingOpen("Cargando Datos");
 
    var post_values= {
     session_id:localStorage.getItem('session_id'),
@@ -218,16 +290,18 @@ $( document ).on("click", ".userData", function() {
 
     if (response.gender==1) {  response.gender="Hombre";  }else{ response.gender="Mujer";}
 
-    $(".myData").html("<div class='data'>"+response.first_name+" "+response.last_name+"</div>"+
-                      "<div class='data'>"+response.age+" Años</div>"+
-                      "<div class='data'>"+response.gender+"</div>"+
-                      "<div class='data'>"+response.points+" puntos</div>");
+    $(".myData2 .nameJ").html(response.first_name+" "+response.last_name);
+    $(".myData2 .ageJ").html(response.age+" Años");
+    $(".myData2 .genderJ").html(response.gender);
+    $(".myData2 .pointsJ").html(response.points+" puntos");
+    $( "#userData2" ).popup();
 
 
     console.log("asdasd");
 
 
-    $( "#userData" ).popup( "open" );
+    $( "#userData2" ).popup( "open" );
+    loadingClose();
   });
 
   console.log("asdasd");
@@ -307,7 +381,7 @@ $( document ).on("click", ".reto_my_team", function() {
 
         $("#results2 ."+myClass+" td").each(function(key,value){
          
-        $(value).append(data[key][myClass]+'<img src="images/sun.png">');
+        $(value).html(data[key][myClass]+'<img src="images/sun.png">');
 
        });
         }
@@ -588,14 +662,45 @@ function select_own_team(team){
 
 
 function zone(teams){
+event.preventDefault();
+$("#convocate .container .your_team .ui-btn-active").size();
 
-  console.log("asdasd");
-  $(teams).parent().parent().parent().find(".your_team .red").html();
-  $(teams).parent().parent().parent().find(".vs_team2 .red").html();
-  $("#convocate2 .my_team").html($(teams).parent().parent().parent().find(".your_team .red").html());
-  $("#convocate2 .the_other_team").html($(teams).parent().parent().parent().find(".vs_team2 .red").html());
+
+  if ($("#convocate .your_team .ui-btn-active").size()==0) {
+    alert("Debes seleccionar uno de tus equipos antes de continuar");
+    return  false;
+  }else if ($("#convocate .vs_team2 .ui-btn-active").size()==0) {
+    alert("Debes seleccionar un equipo contrincante antes de continuar");
+    return  false;
+  }else{
+    if(confirm('Esta seguro que desea seleccionar estos dos equipos?')) 
+    {} else{ return(false);}
+
+  }
+  var myTeam=$("#convocate .your_team .ui-btn-active a:nth-child(2)");
+  var vsTeam=$("#convocate .vs_team2 .ui-btn-active a:nth-child(2)");
+  $(".two_teams").html(" ");
+  $(".two_teams").html('<div style="display:none">aqui</div>'+
+                        '<ul theId="'+
+                        $(myTeam).attr("theId")+
+                        '" data-role="listview" data-inset="true"  data-theme="c">'+
+                        '<li data-icon="false"><a href="#">'+
+                        $(myTeam).attr("theName")+
+                        '</a></li>'+
+                          '</ul>'+
+                        '<b>V.S.</b>'+
+                        '<ul theId="'+
+                        $(vsTeam).attr("theId")+
+                        '" data-role="listview" data-inset="true" data-theme="c">'+
+                            '<li data-icon="false"><a href="#">'+
+                            $(vsTeam).attr("theName")+
+                            '</a></li>'+
+                         '</ul>');
+changePage('index.html#convocate2');
+
+
+   
   
-  changePage('index.html#convocate2');
 }
 
 function request_game(submit){
@@ -605,8 +710,8 @@ function request_game(submit){
   var post_values={
     session_id:localStorage.getItem('session_id'),
     email:localStorage.getItem('email'),
-    equipo_1:$("#convocate2 .my_team input").val(),
-    equipo_2:$("#convocate2 .the_other_team input").val()
+    equipo_1:$($("#convocate2 .container ul")[0]).attr("theId"),
+    equipo_2:$($("#convocate2 .container ul")[1]).attr("theId"),
 
   };
   $(':input', "#convocate2").each(function(index, input_element) {
@@ -650,19 +755,37 @@ function vs_team(vs_steam){
     id_city:vs_steam.value
   };
   $.post(server+"teams/get_fromcity", post_values, function(response) {
+    event.preventDefault();
     response = jQuery.parseJSON(response);
-    if (!(response.error)) {
-      $(".vs_teams3").html('<label>Equipos Contrarios</label>');
+
+
+     if (!(response.error)) {
+      
+      $(".vs_team2").html(" ");
+      $(".vs_team2").append('<label>Equipos Contrarios</label><ul id="lista2" data-role="listview" <data-inset="true" ></ul>');
       for (var i = 0; i < response.length  ; i++) {
         var j=i+1;
-        $(".vs_teams3").append("<li class='team' onclick='select_own_team(this)'><div class='name_team'>"+response[i]['name']+"</div> <input class='id' type='hidden'  name='id_team' value='"+response[i]['id']+"'/><div class='description'>"+response[i]['description']+"</div></li>");
+        $(".vs_team2 #lista2").append('<li><a onclick="selectTeam(this)" href="#">'+
+                                        response[i].name+
+                                        '</a>'+
+                                        '<a onclick="carryDataInfo(this)" theName="'+response[i].name+'" theId="'+response[i].id+'" theDescription="'+response[i].description+'" href="#infoTeam" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>'+
+                                    '</li>');
       }
-
-      loadingClose();
+      $('#lista2').listview();
     }else{
       alert(response.message_error);
-      loadingClose();
+      
     }
+    loadingClose();
+
+
+
+
+
+
+
+
+
 
 
 
@@ -705,7 +828,7 @@ $.post(server+"login/select_city", post_values , function(response) {
 
   response = jQuery.parseJSON(response);
   loadingClose();
-  for (var i = 0; i <= response.length  ; i++) {
+  for (var i = 0; i < response.length  ; i++) {
     var j=i+1;
     $(".ciudad").append("<option value="+response[i]["idCiudad"]+">"+response[i]["nombre"]+"</option>");
   }
@@ -748,6 +871,12 @@ function onFail(message) {
 
 
 $( document ).on( "pageshow", "#home", function() {
+
+  var heightPhoto=$("#photo_container").height();
+  $(".dataUser").css("min-height",heightPhoto+20);
+
+
+
   var post_values= {
     session_id:localStorage.getItem('session_id'),
     email:localStorage.getItem('email')
@@ -789,36 +918,28 @@ $( document ).on( "pageshow", "#convocate", function() {
     session_id:localStorage.getItem('session_id'),
     email:localStorage.getItem('email')
   };
+  event.preventDefault();
 
 
   $.post(server+"teams/verify_team", post_values, function(response) {
+    event.preventDefault();
 
 
     response = jQuery.parseJSON(response);
     if (!(response.error)) {
-      $(".modifyTeams").html(" ");
+      $(".your_team").html(" ");
       
-      $(".own_teams").html('<label>Tus Equipos</label><a href="#teamsPanel" data-rel="popup"><img  src="images/configButtonGreen.png"></a>');
-      for (var i = 0; i <= response.length  ; i++) {
+      
+      $(".your_team").append('<label>Tus Equipos</label><ul id="lista" data-role="listview" data-split-icon="gear"  data-inset="true" ></ul>');
+      for (var i = 0; i < response.length  ; i++) {
         var j=i+1;
-        $(".own_teams").append("<li class='team' onclick='select_own_team(this)'><div class='name_team'>"+
-                                response[i]['name']+
-                                "</div> <input class='id' type='hidden'  name='id_team' value='"+
-                                response[i]['id']+
-                                "'/><div class='description'>"+
-                                response[i]['description']+
-                                "</div></li>");
-        $(".modifyTeams").append("<li class='team' ><div class='name_team'>"+
-                                response[i]['name']+
-                                "</div> <input class='id' type='hidden'  name='id_team' value='"+
-                                response[i]['id']+
-                                "'/><div class='description'>"+
-                                response[i]['description']+
-                                "</div><div style='width:50%'><input  theId='"+
-                                response[i]['id']+
-                                "'type='button' value='elimiar' onclick='deleteTeam(this)'></div></li>");
-
+        $(".your_team #lista").append('<li><a onclick="selectTeam(this)" href="#">'+
+                                        response[i].name+
+                                        '</a>'+
+                                        '<a onclick="carryData(this)" theName="'+response[i].name+'" theId="'+response[i].id+'" theDescription="'+response[i].description+'" href="#deleteTeam" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>'+
+                                    '</li>');
       }
+      $('#lista').listview();
     }else{
       alert("Debes ser el creador de un equipo para poder convocar a juego");
       
@@ -828,7 +949,45 @@ $( document ).on( "pageshow", "#convocate", function() {
 
 });
 
+function selectTeam(element){
+  
+  $(element).parents('ul').find('li').each(function(key,value){
+    $(value).removeClass("ui-btn-active");
+        
+        console.log("asdasqwe");
 
+       });
+  $(element).parents('li').addClass("ui-btn-active");
+
+
+console.log("werwer");
+
+
+
+}
+
+
+function carryData(element){ 
+
+  $("#deleteTeam h3").html($(element).attr("theName"));
+  $("#deleteTeam p").html($(element).attr("theDescription"));
+  $("#deleteTeam a").attr("theId",$(element).attr("theId"));
+
+
+ }
+function carryDataInfo(element){ 
+
+  $("#infoTeam h3").html($(element).attr("theName"));
+  $("#infoTeam p").html($(element).attr("theDescription"));
+  $("#infoTeam a").attr("theId",$(element).attr("theId"));
+
+ }
+ function carryDataSubscription(element){ 
+
+  $("#deleteSubscription h3").html($(element).attr("theName"));
+  $("#deleteSubscription a").attr("theId",$(element).attr("theId"));
+
+ }
 
 
 function deleteTeam(team){
@@ -942,7 +1101,7 @@ $( document ).on( "pageshow", "#my_conv", function() {
     response = jQuery.parseJSON(response);
     if (!(response.error)) {
       $("#title_mi_reto").html('<div class="title_my_conv">Mis convocatorias</div>');
-      for (var i = 0; i <= response.length  ; i++) {
+      for (var i = 0; i < response.length  ; i++) {
         var j=i+1;
         if (response[i]["acepta_convocatoria"]=="0") {
            check='<img  src="images/uncheck.png">'
@@ -952,9 +1111,27 @@ $( document ).on( "pageshow", "#my_conv", function() {
 
 
         }
-        $("#title_mi_reto").append('<div class=" convocate_teams" id_equipo1="'+response[i]["equipo_1"]+'" id_equipo2="'+response[i]["equipo_2"]+'" principio="'+response[i]["principio"]+'" id="'+response[i]["id"]+'"><div class="reto_my_team">'+response[i]["equipo_1_name"]+'  V.s. '+response[i]["equipo_2_name"]+'  </div><div class="check">'+check+'</div><div class="date_conv">'+response[i]["hora"]+' '+response[i]["fecha"]+'</div></div>');
+        $("#title_mi_reto").append('<div href="#"  class=" convocate_teams" id_equipo1="'+
+          response[i]["equipo_1"]+
+          '" id_equipo2="'+
+          response[i]["equipo_2"]+
+          '" principio="'+
+          response[i]["principio"]+
+          '" id="'+response[i]["id"]+
+          '"><a data-role="button" class="reto_my_team">'+
+          response[i]["equipo_1_name"]+
+          '  V.s. '+
+          response[i]["equipo_2_name"]+
+          '  </a><div class="check">'+
+          check+
+          '</div><div class="date_conv">'+
+          response[i]["hora"]+
+          ' '+
+          response[i]["fecha"]+
+          '</div></div>');
 
       }
+      $('#title_mi_reto a').button();
 
 
 
@@ -982,17 +1159,17 @@ $( document ).on( "pageshow", "#my_conv", function() {
         if (response2[i]["acepta_convocatoria"]=="0") {
            check='<img  src="images/uncheck.png">'
            var content='<div class="pendingRequests"  id_equipo1="'+
-                        response2[i]["equipo_1"]+
-                        '"  id_equipo2="'+
                         response2[i]["equipo_2"]+
+                        '"  id_equipo2="'+
+                        response2[i]["equipo_1"]+
                         '" principio="'+
                         response2[i]["principio"]+
                         '" id="'+response2[i]["id"]+
-                        '"><div class="reto_my_team">'+
+                        '"><a class="reto_my_team">'+
                         response2[i]["equipo_2_name"]+
                         '  V.s. '+
                         response2[i]["equipo_1_name"]+
-                        '</div><div class="check">'
+                        '</a><div class="check">'
                         +check+
                         '</div><div class="date_conv">'
                         +response2[i]["hora"]+
@@ -1007,6 +1184,7 @@ $( document ).on( "pageshow", "#my_conv", function() {
 
 
            $("#title_mi_reto3").append(content);
+           $('#title_mi_reto3 a').button();
 
 
         }else{
@@ -1019,9 +1197,10 @@ $( document ).on( "pageshow", "#my_conv", function() {
 
 
 
-        $("#title_mi_reto2").append('<div class=" convocate_teams"  id_equipo1="'+response2[i]["equipo_1"]+'"  id_equipo2="'+response2[i]["equipo_2"]+'" principio="'+response2[i]["principio"]+'" id="'+response2[i]["id"]+'"><div class="reto_my_team">'+response2[i]["equipo_2_name"]+'  V.s. '+response2[i]["equipo_1_name"]+'</div><div class="check">'+check+'</div><div class="date_conv">'+response2[i]["hora"]+' '+response2[i]["fecha"]+'</div></div>');
-
+        $("#title_mi_reto2").append('<div class=" convocate_teams"  id_equipo1="'+response2[i]["equipo_2"]+'"  id_equipo2="'+response2[i]["equipo_1"]+'" principio="'+response2[i]["principio"]+'" id="'+response2[i]["id"]+'"><a data-role="button" class="reto_my_team">'+response2[i]["equipo_2_name"]+'  V.s. '+response2[i]["equipo_1_name"]+'</a><div class="check">'+check+'</div><div class="date_conv">'+response2[i]["hora"]+' '+response2[i]["fecha"]+'</div></div>');
+        $('#title_mi_reto2 a').button();
       }
+
     }else{
       alert("En este momento no te han convocado a ningun Juego");
       if (emptyPage){changePage("index.html#pre_conv");
@@ -1085,7 +1264,9 @@ $( document ).on( "pageshow", "#login", function() {
           localStorage.setItem('session_id',response.session_id);
           localStorage.setItem('email',response.email);
           localStorage.setItem('id_user',response.user_id);
-          $("#name_user").html(response.first_name +' '+ response.last_name);
+          var first_name=response.first_name.split(" ");
+          var last_name=response.last_name.split(" ");
+          $("#name_user").html(first_name[0] +' '+ last_name[0]);
           $("#age_user").html(response.age);
 
           $("#location_user").html(response.city);
@@ -1221,6 +1402,7 @@ $( document ).on( "pageshow", "#register", function() {
         loadingClose();
         changePage('index.html#login');
         alert("Usuario creado exitosamente");
+        cleanforms(); 
       }else{
         alert(response.message_error);
         loadingClose();
@@ -1308,7 +1490,10 @@ $( document ).on( "pageshow", "#create", function() {
       departamento:{
         required:true
       },
-      city:{
+      ciudad:{
+        required:true
+      },
+      descripcion:{
         required:true
       },
       zone_team:{
@@ -1335,7 +1520,7 @@ $( document ).on( "pageshow", "#create", function() {
           localStorage.setItem('name_team',response.name_team);
           
           alert("El equipo se creó exitosamente");
-          changePage('index.html#convocate');
+          changePage('#convocate');
           
         }else{
           alert(response.message_error);
@@ -1360,26 +1545,21 @@ $( document ).on( "pageshow", "#join", function() {
 
 
           response = jQuery.parseJSON(response);
-    if (!(response.error)) {
-      $(".modifyMyTeams").html(" ");
-      
-      $(".miJoinTeams").html('<label>Tus Equipos</label><a href="#myTeamsPanel" data-rel="popup"><img  src="images/configButtonGreen.png"></a>');
-      for (var i = 0; i <= response.length  ; i++) {
-        var j=i+1;
-        $(".miJoinTeams").append("<li class='team' onclick='select_own_team(this)'><div class='name_team'>"+
-                                response[i]['name_team']+
-                                "</div> <input class='id' type='hidden'  name='id_team' value='"+
-                                response[i]['id']+
-                                "'/></li>");
-        $(".modifyMyTeams").append("<li class='team' ><div class='name_team'>"+
-                                response[i]['name_team']+
-                                "</div> <input class='id' type='hidden'  name='id_team' value='"+
-                                response[i]['id']+
-                                "'/><div style='width:50%'><input  theId='"+
-                                response[i]['id']+
-                                "'type='button' value='elimiar subscripcion' onclick='deleteSubscription(this)'></div></li>");
 
+          if (!(response.error)) {
+      $(".miJoinTeams").html(" ");
+      
+      
+      $(".miJoinTeams").append('<label>Tus Equipos</label><ul id="listaJoin" data-role="listview" data-split-icon="gear"  data-inset="true" ></ul>');
+      for (var i = 0; i < response.length  ; i++) {
+        var j=i+1;
+        $(".miJoinTeams #listaJoin").append('<li><a onclick="selectTeam(this)" href="#">'+
+                                        response[i]['name_team']+
+                                        '</a>'+
+                                        '<a onclick="carryDataSubscription(this)" theName="'+response[i]['name_team']+'" theId="'+response[i]['id']+'" theDescription="'+response[i]['description']+'" href="#deleteSubscription" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>'+
+                                    '</li>');
       }
+      $('#listaJoin').listview();
     }else{
 
       alert("No estas suscrito a ningun equipo");
@@ -1419,30 +1599,42 @@ $( document ).on( "pageshow", "#join", function() {
             '<div data-role="fieldcontain" class="join_checkbox" >'+
             '<fieldset data-role="controlgroup">'+
             '<input type="checkbox" name="join_to_team" id="checkbox" class="custom" value="'+response[i].id+'" team_name="'+response[i].name+'"/>'+
-            '<label for="checkbox">unirse</label>'+
+            '<label for="checkbox">Unirse</label>'+
             '</fieldset>'+
             '</div>'+
             
             '<p>'+
-            '<div class="jugadores_'+response[i].id+'">'+
-              '<ul class="colapse" data-role="collapsible">'+
+            '<div class="colapse jugadores_'+response[i].id+'"  data-role="collapsible" data-theme="b" data-content-theme="d" data-inset="false">'+
                 '<h3>Jugadores</h3>'+
-              '</ul>'+
-            '</div>'+
-            '</div>'+
-            '</p>'+
+                '<ul data-role="listview">'+
+                    
+
+                '</ul>'+
             '</div>';
+
+
+            // '<div class="jugadores_'+response[i].id+'">'+
+            //   '<ul class="colapse" data-role="collapsible">'+
+            //     '<h3>Jugadores</h3>'+
+            //   '</ul>'+
+            // '</div>'+
+            // '</div>'+
+            // '</p>'+
+            // '</div>';
             $("#join .teams_city").append(team_div);
 
           }
-          $('#join').find('ul[data-role=collapsible]').collapsible();
+          $('#join').find('div[data-role=collapsible]').collapsible();
+          
+         
           
           $('#join').find("input[type='checkbox']").checkboxradio();
-          $('#join').find('.colapse').bind('expand', function () {
-            $('#join').find('ul[data-role=collapsible]').collapsible();
+          $('#join').find(".colapse").one('expand', function () {
+            loadingOpen("Cargando Jugadores");
 
-            var myClass=$(this).parent().attr("class");
-            var id=myClass.split("_");
+            var myClass=$(this).attr("class");
+            myClass=myClass.split(" ");
+            var id=myClass[1].split("_");
              var post_values= {
                 session_id:localStorage.getItem('session_id'),
                 email:localStorage.getItem('email'),
@@ -1450,13 +1642,14 @@ $( document ).on( "pageshow", "#join", function() {
               };
               $.post(server+"teams/get_players", post_values, function(response) {
 
-
                 response = jQuery.parseJSON(response);
-                $("."+myClass+" .colapse").html("<h3>Jugadores</h3>");
-                 for (var i = 0; i <= response.length  ; i++) {
-                  $("."+myClass+" .colapse").append("<li class='userData'myId='"+response[i]['id_user']+"'>"+response[i]['name_user']+"</li>");                                      
+                
+                 for (var i = 0; i <response.length  ; i++) {
+                  $("."+myClass[1]).find("ul[data-role=listview]").append("<li class='userData'myId='"+response[i]['id_user']+"'>"+response[i]['name_user']+"</li>");                                      
                     }
+                    $('#join').find("."+myClass[1]).find("ul[data-role=listview]").listview();
               });
+              loadingClose();
           });
         }
 
@@ -1466,6 +1659,7 @@ $( document ).on( "pageshow", "#join", function() {
       }else{
         alert(response.message_error);
       }
+
     });
   loadingClose();
 }
@@ -1501,7 +1695,7 @@ $( "#form_create" ).validate({
         localStorage.setItem('team_id',response.team_id);
         localStorage.setItem('name_team',response.name_team);
 
-        alert("grupo creado");
+        alert("El equipo se creo exitosamente");
         
         changePage('index.html#convocate');
 
