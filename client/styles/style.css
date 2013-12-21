@@ -69,41 +69,41 @@ ul li, ul{
 	height:2em;
 	}
 #uno, .uno{
-	background-image:url(images/naranja.gif);
+	
 	background-color:#f90;
 	
 	}
 #dos, .dos{
-	background-image:url(images/verde.gif);
+	
 	background-color:#9c1;
 	
 	}
 #tres, .tres{
-	background-image:url(images/azul.gif);
+	
 	background-color:#4be;
 	}
 #cuatro, .cuatro{
-	background-image:url(images/fucsia.gif);
+	
 	background-color:#e17;
 	}
 #cinco, .cinco{
-	background-image:url(images/violeta.gif);
+	
 	background-color:#727;
 	}
 #seis{
-	background-image:url(images/naranja.gif);
+	
 	background-color:#f90;
 	}
 #siete{
-	background-image:url(images/verde.gif);
+	
 	background-color:#9c1;
 	}
 #ocho{
-	background-image:url(images/azul.gif);
+	
 	background-color:#4be;
 	}
 #nueve{
-	background-image:url(images/fucsia.gif);
+	
 	background-color:#e17;
 	}
 	.white{

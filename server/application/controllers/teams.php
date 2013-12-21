@@ -153,6 +153,7 @@ class Teams extends MY_Controller {
 			'principio' => $this->input->post('principio'),
 			'tipo_juego' => $this->input->post('tipo_juego'),
 			);
+
 		$result=$this->team->guardar_convocatoria($datos);
 		
 		$tipodepartido=array(
@@ -209,7 +210,8 @@ class Teams extends MY_Controller {
 
 		$existen_resultados=$this->team->existen_resultados($datos['id_user'], $datos['id_conv']);
 
-		if(!$existen_resultados) {
+
+		if(!$existen_resultados["error"]) {
 			$updatePoints=$this->team->guardar_resultados($datos);
 			if ($updatePoints) {
 
@@ -231,8 +233,8 @@ class Teams extends MY_Controller {
 		$id_conv = $this->input->post('id_conv');
 		$id_user = $this->_USER['id'];
 		$existen_resultados = $this->team->existen_resultados($id_user, $id_conv);
-		$result['error'] = !$existen_resultados;
-		echo json_encode($result);
+		$existen_resultados['error'] = !$existen_resultados['error'];
+		echo json_encode($existen_resultados);
 	}
 
 	public function promedio_resultados() {

@@ -290,6 +290,7 @@ public function userData($id_user){
 		$result_list = $query->result_array();
 
 		if(sizeof($result_list) == 0 ) {
+
 			$this->db->insert('convocatoria', $datos); 
 			$json_reply["error"]=false;
 			
@@ -319,6 +320,26 @@ public function userData($id_user){
 
 
 	public function existen_resultados($id_user, $id_conv) {
+
+		$this->db->where('id', $id_conv);
+		$q = $this->db->get('convocatoria');
+		$result_list = $q->result_array();
+		$result_list=$result_list[0];
+		date_default_timezone_set("America/Bogota");
+		$today=strtotime(date("Y-m-d H:i:s"));
+		$convocateDate=strtotime($result_list['fecha']." ".$result_list['hora']);
+
+
+		if ($convocateDate>$today) {
+			$json_reply["error"]=false;
+			$json_reply["message_error"]="Debes esperar a que pase la fecha de la convocatoria para poder evaluar";
+			return ($json_reply);
+			}
+
+
+
+
+
 		$query = $this->db
 		->select('id')
 		->from('resultados')
@@ -329,9 +350,12 @@ public function userData($id_user){
 		$result_list = $query->result_array();
 
 		if(sizeof($result_list) == 0 ) {
-			return (false);
+			$json_reply["error"]=false;
+			$json_reply["message_error"]="Aun no has evaluado, por favor hazlo para ver los resultados";
+			return ($json_reply);
 		} else {
-			return (true);
+			$json_reply["error"]=true;
+			return ($json_reply);
 		}
 	}
 
@@ -396,6 +420,7 @@ public function userData($id_user){
 				if ($q -> num_rows() < 2) {
 
 					$json_reply["error"]="true";
+					$json_reply["message_error"]="Debes esperar a que el otro equipo evalue para ver los resultados";
 					return($json_reply);
 
 				}else{
