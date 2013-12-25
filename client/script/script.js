@@ -515,8 +515,7 @@ function login(){
           console.log("hizo la peticion");
           $.mobile.loading( 'hide' );
           response_v = jQuery.parseJSON(response_v);
-          console.log("respuesta del post");
-          console.log(response_v);
+          
 
           
           if (response_v.success=="true") {
@@ -1400,7 +1399,7 @@ function load_map (position) {
   map  = new google.maps.Map(document.getElementById('geoLocation2'), {
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     center: myLocation,
-    zoom: 18
+    zoom: 4
   });
   
 }
@@ -1555,14 +1554,18 @@ function placeMarker(location) {
 
   }
   function load_map (err) {
-    console.log("no cargo");
+    
     console.warn('ERROR(' + err.code + '): ' + err.message);
+
+    if(err.code==1){
+      customAlert("por favor habilita tu geolocalización");
+    }
     var myLocation = new google.maps.LatLng(4.127285,-73.696289);
 
     geolocation  = new google.maps.Map(document.getElementById('geolocation'), {
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       center: myLocation,
-      zoom: 18
+      zoom:4
     });
     google.maps.event.addListener(geolocation,'click',function  (event) {
 
