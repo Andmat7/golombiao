@@ -95,6 +95,10 @@ class Login extends MY_Controller {
 
 			echo json_encode($output);
 	}
+	public function recover_password($key)
+	{
+		$this->load->view('recover_password',$data);
+	}
 	
 
 	

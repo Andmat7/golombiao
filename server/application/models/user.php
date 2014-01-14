@@ -92,8 +92,10 @@ class user extends CI_Model {
 			$this->db->where('idCiudad', $user[0]["city"]);
 			$q = $this->db->get('ciudades');
 			$ciudad=$q->result_array();
-
-			$user[0]["city"]=$ciudad[0]["nombre"];
+			if(isset($ciudad[0]["nombre"])){
+				$user[0]["city"]=$ciudad[0]["nombre"];	
+			}
+			
 
 
 

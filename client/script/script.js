@@ -77,7 +77,7 @@ $(window).load(function() {
       if (galeryImages[counter].name) {
 
 
-        $("#galeria .container").append("<img alt='' src='"+imagePath+galeryImages[counter].name+"'/>");
+        $("#galeria .container").append("<img alt='' src='"+imagePath+galeryImages[counter].name+"'/> <div class='ui-content'>"+galeryImages[counter].description+"</div>");
         counter=counter+1;
       };
 
@@ -134,7 +134,7 @@ $( document ).on( "pageshow", "#galeria", function() {
 
     galeryImages = jQuery.parseJSON(response);
     console.log(galeryImages.length);
-    $("#galeria .container").html("<img alt='' src='"+imagePath+galeryImages[0].name+"'/><img alt='' src='"+imagePath+galeryImages[1].name+"'/><img alt='' src='"+imagePath+galeryImages[2].name+"'/> ");
+    $("#galeria .container").html("<img alt='' src='"+imagePath+galeryImages[0].name+"'/><p>"+galeryImages[2].description+"'<p/>");
 
     counter=3;
 
@@ -952,6 +952,7 @@ function camera(){
   var image = document.getElementById('photo');
   localStorage.setItem("photo_"+localStorage.getItem("id_user"),imageURI);
   image.src = localStorage.getItem("photo_"+localStorage.getItem("id_user"));
+  console.log("funciono");
 }
 
 function onFail(message) {
@@ -1966,6 +1967,7 @@ function setup2() {
           }
 
           function uploadPhoto(imageURI) {
+            console.log(imageURI);
             $.mobile.loading( 'show', {
               text: 'subiendo imagen',
               textVisible: true,
@@ -1975,6 +1977,7 @@ function setup2() {
             console.log("enter uploadPhoto");
             var options = new FileUploadOptions();
             options.fileKey="userfile";
+            options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
             options.mimeType="image/jpg";
             console.log("defined image");
 
@@ -1999,7 +2002,9 @@ function setup2() {
             response=r.response;
             response = jQuery.parseJSON(response);
             console.log(response);
-            customAlert(response.message_success);
+            //customAlert(response.message_success);
+            localStorage.setItem('id_image',response.id_image);
+            $.mobile.changePage('#description_image', 'pop', true, true);
             $.mobile.loading( 'hide' );
           }
 
@@ -2009,6 +2014,24 @@ function setup2() {
           }
 
 
+          function add_description () {
+
+            var description=$('#description_text').val();
+
+            var post_values={
+              session_id:localStorage.getItem('session_id'),
+              email:localStorage.getItem('email'),
+              description: description,
+              image_id:localStorage.getItem('id_image')
+            };
+            console.log(post_values);
+            
+            $.post(server+"upload/add_description", post_values , function(response) {
+              response = jQuery.parseJSON(response);
+              console.log(response);
+              });
+            $('#description_image').dialog('close');
+          }
 
 
 
