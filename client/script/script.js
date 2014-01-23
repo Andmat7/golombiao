@@ -103,6 +103,8 @@ function cleanforms(){
 
     $(value).val(null);
   }
+  $("#identf2").hide();
+  
 
 });
 
@@ -393,14 +395,14 @@ $( document ).on("click", ".reto_my_team", function() {
   var post_values= {
     session_id:localStorage.getItem('session_id'),
     email:localStorage.getItem('email'),
-    id_conv:$(this).parent().attr("id"),
-    id_equipo:$(this).parent().attr("id_equipo")
+    id_conv:$(this).parents(".convocate_teams").attr("id"),
+    id_equipo:$(this).parents(".convocate_teams").attr("id_equipo")
   };
-  $("#conv_result").val($(this).parent().attr("id"));
-  $("#results .principio img").attr("src","images/acuerdos/"+$(this).parent().attr("principio")+".png");
-  $("#results .principio h2").html(values[$(this).parent().attr("principio")]);
-  $("#results #myteam input[name='id_equipo']").val($(this).parent().attr("id_equipo1"));
-  $("#results #otherteam input[name='id_equipo']").val($(this).parent().attr("id_equipo2"));
+  $("#conv_result").val($(this).parents(".convocate_teams").attr("id"));
+  $("#results .principio img").attr("src","images/acuerdos/"+$(this).parents(".convocate_teams").attr("principio")+".png");
+  $("#results .principio h2").html(values[$(this).parents(".convocate_teams").attr("principio")]);
+  $("#results #myteam input[name='id_equipo']").val($(this).parents(".convocate_teams").attr("id_equipo1"));
+  $("#results #otherteam input[name='id_equipo']").val($(this).parents(".convocate_teams").attr("id_equipo2"));
 
 
   $.post(server+"teams/existen_resultados", post_values, function(response) {
@@ -633,13 +635,17 @@ function login(){
             },
 
             submitHandler: function( form ) {
+              
                 loadingOpen("Enviando resultados");
 
                   var post_values={
                     session_id:localStorage.getItem('session_id'),
                     email:localStorage.getItem('email'),
                     id_conv:$("#conv_result").val(),
-                    barra:$("#results #select-choice-custom2").val()
+                    barra:$("#results #select-choice-custom2").val(),
+
+
+
 
                   };
                   $(':input', "#results #myteam").each(function(index, input_element) {
@@ -673,7 +679,6 @@ function login(){
 
     //customAlert("convoca2");
   });
-
 
 
 
@@ -1011,7 +1016,7 @@ $( document ).on( "pageshow", "#home", function() {
     {response.points=0;};
 
   $("#points").html("<h3>"+response.points+"</h3><img src='images/sun.png'>");
-  $("#name_user").html(response.first_name+response.last_name);
+  $("#name_user").html(response.first_name+" "+response.last_name);
   $("#age_user").html(response.age);
   
 
@@ -1734,7 +1739,9 @@ function placeMarker(location) {
     });
 });
 $( document ).on( "pageshow", "#join", function() {
-
+  $(".miJoinTeams").html(" ");
+  $(".teams_city").html(" ");
+  
 
   var post_values= {
     session_id:localStorage.getItem('session_id'),
@@ -1748,7 +1755,7 @@ $( document ).on( "pageshow", "#join", function() {
     response = jQuery.parseJSON(response);
 
     if (!(response.error)) {
-      $(".miJoinTeams").html(" ");
+      
       
       
       $(".miJoinTeams").append('<label>Tus Equipos</label><ul id="listaJoin" data-role="listview" data-split-icon="gear"  data-inset="true" ></ul>');

@@ -50,6 +50,12 @@ class Teams extends MY_Controller {
 
 
 	}
+	public function validate_team()
+	{
+		$id= $this->input->post('team_id');
+		$json_reply=$this->team->validate_players($id);
+		echo json_encode($json_reply);
+	}
 
 
 
@@ -207,7 +213,8 @@ class Teams extends MY_Controller {
 			'autoevaluacion' => $this->input->post('autoevaluacion'),
 			'otherTeam' => $this->input->post('otherTeam')
 			);
-
+		print_r($datos);
+		exit();
 		$existen_resultados=$this->team->existen_resultados($datos['id_user'], $datos['id_conv']);
 
 

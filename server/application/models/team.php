@@ -87,6 +87,51 @@ class team extends CI_Model {
 
 
 	}
+	public function validate_players($id_team)
+	{
+		$this->db->where('id_team', $id_team);
+		$q = $this->db->get('users_teams');
+		if ($q -> num_rows() >1) {
+
+				$json_reply=$q->result_array();
+				$numero_mujeres=0;
+				$numero_hombres=0;
+				foreach ($json_reply as $key => $value) {
+					if($json_reply[$key]["gender"]=='1'||$json_reply[$key]["gender"]=='1'){
+						$numero_hombres=$numero_hombres+1;
+					}else{
+						$numero_mujeres=$numero_mujeres+1;
+
+					}
+				}
+				if ($numero_mujeres<2) {
+					$json_reply["error"]=true;
+			
+					$json_reply["message_error"]="No hay sufientes mujeres para que puedas convocar";
+					# code...
+				}else{
+					if ($numero_hombres<2) {
+						
+						$json_reply["error"]=true;
+						$json_reply["message_error"]="No hay sufientes mujeres para que puedas convocar";
+					}else{
+
+					}
+
+				}
+			
+
+
+
+
+		}else{
+			$json_reply["error"]=true;
+			
+			$json_reply["message_error"]="No hay sufientes jugadores para que puedas convocar";
+
+
+		}
+	}
 
 
 
