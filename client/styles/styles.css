@@ -52,17 +52,29 @@ text-shadow: 1px 1px #000000;
 /*login page*/
 
 #login{
-	background-color: #679F25;
+	background-color: white;
 	width: 100%;
 	height: 100%;
 	min-height: 100px;
 overflow: hidden;
 
-background-image: linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+/*background-image: linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
 background-image: -o-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
 background-image: -moz-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
 background-image: -webkit-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
-background-image: -ms-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);
+background-image: -ms-linear-gradient(bottom, rgb(102,159,37) 8%, rgb(145,184,97) 50%, rgb(102,159,37) 82%);*/
+}
+
+#login [data-role="content"]>img{
+
+	width: 85%;
+
+}
+
+.loginButtons{
+
+	margin-top: 21%;
+
 }
 
 
@@ -117,11 +129,7 @@ margin-top: 4%;
 	
 }
 
-#login .ui-input-text{
 
-	margin: 0;
-
-}
 /*
 #login .ui-submit{
 	width: 50%;
@@ -137,11 +145,22 @@ margin-top: 9%;
 }
 
 
-#form_login div:last-child{
-	width: 48%;
-	float: right;
+#form_login img{
+
+	width: 41%;
+clear: left;
+
 } 
 
+.loginIcons h3{
+
+	clear: left;
+	float: left;
+
+
+
+
+}
 
 .login_facebook {
 width: 46%;
@@ -394,6 +413,11 @@ padding-top: 4%;
 padding-bottom: 4%;
 }
 
+#galeria p{
+
+	text-align: justify;
+
+}
 
 #mapa .indicator{
 	width: 50%;
@@ -416,6 +440,7 @@ float: right;
 
 width: 35%;
 margin-right: 10%;
+margin-top: 11%;
 }
 
 #points h3 {
@@ -888,3 +913,13 @@ text-align: center;
  	float: none;
  	display: inline-block;
  }
+
+
+
+
+
+.activeButton {
+background-color: #679F25 !important;
+color: white !important;
+text-shadow: 1px 1px black !important;
+}

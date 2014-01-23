@@ -42,7 +42,7 @@ $(window).load(function() {
         }
     }
 
-  }, 500);
+  }, 5000);
 
   $(".backButton").click(function() {
 
@@ -69,6 +69,7 @@ $(window).load(function() {
 
 
   $( "#galeria .container" ).scroll(function(event) {
+    console.log("scroll");
     event.preventDefault();
     var height=$("#galeria .container").scrollTop()+$("#galeria .container")[0].clientHeight;
     var maxHeight=$("#galeria .container")[0].scrollHeight-15;
@@ -77,7 +78,7 @@ $(window).load(function() {
       if (galeryImages[counter].name) {
 
 
-        $("#galeria .container").append("<img alt='' src='"+imagePath+galeryImages[counter].name+"'/> <div class='ui-content'>"+galeryImages[counter].description+"</div>");
+        $("#galeria .container").append("<img alt='' src='"+imagePath+galeryImages[counter].name+"'/> <p class='ui-body ui-body-a'>"+galeryImages[counter].description+"<p/>");
         counter=counter+1;
       };
 
@@ -134,7 +135,28 @@ $( document ).on( "pageshow", "#galeria", function() {
 
     galeryImages = jQuery.parseJSON(response);
     console.log(galeryImages.length);
-    $("#galeria .container").html("<img alt='' src='"+imagePath+galeryImages[0].name+"'/><p>"+galeryImages[2].description+"'<p/>");
+    $("#galeria .container").html(
+                "<h3>Galeriá de fotos de Golombiao</h3>"+
+                "<p>Encuentra aquí las evidencias fotográficas de los encuentros de Golombiao en toda Colombia.</p>"+
+                "<img alt='' src='"+
+                imagePath+
+                galeryImages[0].name+
+                "'/><p class='ui-body ui-body-a'>"+
+                galeryImages[0].description+
+                "</p>"+
+                "<img alt='' src='"+
+                imagePath+
+                galeryImages[1].name+
+                "'/><p class='ui-body ui-body-a'>"+
+                galeryImages[1].description+
+                "</p>"+
+                "<img alt='' src='"+
+                imagePath+
+                galeryImages[2].name+
+                "'/><p class='ui-body ui-body-a'>"+
+                galeryImages[2].description+
+                "</p>"
+                );
 
     counter=3;
 
@@ -191,8 +213,13 @@ function deleteData(){
 
 function closeSession(){
 
-  if(confirm('Desea cerrar sesion?')) 
+
+if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){}else{
+    if(confirm('Desea cerrar sesion?')) 
     {} else{ return(false);}
+}
+
+
 
   localStorage.setItem('session_id',"0");
   localStorage.setItem('email',"0");
@@ -230,7 +257,7 @@ $( document ).on( "pageshow", function( event, ui) {
 
 
 
-  if ($(event.target).attr("id")=="login"||$(event.target).attr("id")=="register") {}
+  if ($(event.target).attr("id")=="login"||$(event.target).attr("id")=="register"||$(event.target).attr("id")=="olvidarcontrasena") {}
     else{
       verifyData();
     }
@@ -627,7 +654,7 @@ function login(){
 
                     if (!(response.error)) {
                       loadingClose();
-                      customAlert("se ha enviado tus resultados");
+                      customAlert("Se ha enviado tu calificación.");
                       changePage('index.html#my_conv');
                     }else{
                       loadingClose();
@@ -795,19 +822,15 @@ function zone(teams){
   $("#convocate .container .your_team .ui-btn-active").size();
 
 
-  if ($("#convocate .your_team .ui-btn-active").size()==0) {
+  if ($("#convocate .your_team .activeButton").size()==0) {
     customAlert("Debes seleccionar uno de tus equipos antes de continuar");
     return  false;
-  }else if ($("#convocate .vs_team2 .ui-btn-active").size()==0) {
+  }else if ($("#convocate .vs_team2 .activeButton").size()==0) {
     customAlert("Debes seleccionar un equipo contrincante antes de continuar");
     return  false;
-  }else{
-    if(confirm('Esta seguro que desea seleccionar estos dos equipos?')) 
-      {} else{ return(false);}
-
   }
-  var myTeam=$("#convocate .your_team .ui-btn-active a:nth-child(2)");
-  var vsTeam=$("#convocate .vs_team2 .ui-btn-active a:nth-child(2)");
+  var myTeam=$("#convocate .your_team .activeButton").parent().find("a:nth-child(2)")
+  var vsTeam=$("#convocate .vs_team2 .activeButton").parent().find("a:nth-child(2)")
   $(".two_teams").html(" ");
   $(".two_teams").html('<div style="display:none">aqui</div>'+
     '<ul theId="'+
@@ -987,7 +1010,10 @@ $( document ).on( "pageshow", "#home", function() {
    if (response.points==null ) 
     {response.points=0;};
 
-  $("#points").html("<h2>Soles de golombiao</h2><h3>"+response.points+"</h3><img src='images/sun.png'>");
+  $("#points").html("<h3>"+response.points+"</h3><img src='images/sun.png'>");
+  $("#name_user").html(response.first_name+response.last_name);
+  $("#age_user").html(response.age);
+  
 
   var image = document.getElementById('photo');
   if (localStorage.getItem("photo_"+localStorage.getItem("id_user"))) {
@@ -1051,13 +1077,13 @@ $( document ).on( "pageshow", "#convocate", function() {
 
 function selectTeam(element){
 
-  $(element).parents('ul').find('li').each(function(key,value){
-    $(value).removeClass("ui-btn-active");
+  $(element).parents('ul').find('li').find('a').each(function(key,value){
+    $(value).removeClass("activeButton");
 
     console.log("asdasqwe");
 
   });
-  $(element).parents('li').addClass("ui-btn-active");
+  $(element).parents('li').find('a:first-child').addClass("activeButton");
 
 
   console.log("werwer");
@@ -1091,9 +1117,13 @@ function carryDataSubscription(element){
 
 
 function deleteTeam(team){
+if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){}else{
 
-  if(confirm('Al eliminar el equipo, se eliminara todas las convocatorias referentes a este equipo;Esta seguro que desea borrar el equipo?')) 
+    if(confirm('Al eliminar el equipo, se eliminara todas las convocatorias referentes a este equipo;Esta seguro que desea borrar el equipo?')) 
   {} else{ return(false);}
+ }
+
+
 
   loadingOpen("Procesando");
 
@@ -1141,10 +1171,12 @@ function deleteTeam(team){
 
 function deleteSubscription(team){
 
+if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){}else{
+
   if(confirm('Esta seguro que desea salirse del equipo?')) 
     {} else{ return(false);}
 
-
+}
 
   console.log("delete");
 
@@ -1651,15 +1683,17 @@ function placeMarker(location) {
   $( document ).on( "pageshow", "#create", function() {
     $( "#form_create" ).validate({
       rules:{
+        ciudad:{
+          required:true
+        },
         name:{
           required:true,
         },
         departamento:{
           required:true
         },
-        ciudad:{
-          required:true
-        },
+
+
         descripcion:{
           required:true
         },
@@ -1953,11 +1987,11 @@ function setup2() {
             console.log("enter onDeviceReady");
             navigator.camera.getPicture(uploadPhoto,
               function(message) { customAlert('Se ha cancelado la subida'); },
-              { quality: 50,
+              { quality: 100,
                 destinationType: navigator.camera.DestinationType.FILE_URI,
                 sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
-                targetWidth: 300,
-                targetHeight: 400,
+                targetWidth: 1200,
+                targetHeight: 1600,
                 correctOrientation: true }
                 );
 
@@ -1977,7 +2011,9 @@ function setup2() {
             console.log("enter uploadPhoto");
             var options = new FileUploadOptions();
             options.fileKey="userfile";
+            if(navigator.userAgent.match(/OS/i)){
             options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
+            }
             options.mimeType="image/jpg";
             console.log("defined image");
 
@@ -2061,6 +2097,7 @@ function setup2() {
 
 
             if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){
+               navigator.notification.vibrate(1000);
                             function alertDismissed() {
                                 // hacer algo
                             }
@@ -2078,4 +2115,60 @@ function setup2() {
 
 
           }
+        }
+
+
+
+  function customConfirm(message,tmp,team)
+          {  
+
+
+            if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){
+
+
+                                navigator.notification.confirm(
+                                    message,  // message
+                                    onConfirm,              // callback to invoke with index of button pressed
+                                    'Confirmar Accion',            // title
+                                    'Aceptar,Cancelar'          // buttonLabels restar 1 exit 2
+                                );
+                                function onConfirm(button) {
+                                  if (button==1) {
+                                      switch (tmp)
+                                      {
+                                        case 1:
+                                        closeSession();
+                                          break
+                                        case 2:
+                                        deleteTeam(team);
+                                        break
+                                        case 3:
+                                        deleteSubscription(team);
+                                        break
+                                        }
+
+                                  }
+                                    
+                                }
+
+            }else{
+
+               switch (tmp)
+                                      {
+                                        case 1:
+                                        closeSession();
+                                          break
+                                        case 2:
+                                        deleteTeam(team);
+                                        break
+                                        case 3:
+                                        deleteSubscription(team);
+                                        break
+                                        }
+
+
+
+
+          }
+
         }
