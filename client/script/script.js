@@ -387,22 +387,20 @@ $( document ).on("click", ".home_icon", function() {
 
   changePage('index.html#home');
 });
-
-
 $( document ).on("click", ".reto_my_team", function() {
 
   console.log("Resultados");
   var post_values= {
     session_id:localStorage.getItem('session_id'),
     email:localStorage.getItem('email'),
-    id_conv:$(this).parent().attr("id"),
-    id_equipo:$(this).parent().attr("id_equipo")
+    id_conv:$(this).parent().parent().attr("id"),
+    id_equipo:$(this).parent().parent().attr("id_equipo")
   };
-  $("#conv_result").val($(this).parent().attr("id"));
-  $("#results .principio img").attr("src","images/acuerdos/"+$(this).parent().attr("principio")+".png");
-  $("#results .principio h2").html(values[$(this).parent().attr("principio")]);
-  $("#results #myteam input[name='id_equipo']").val($(this).parent().attr("id_equipo1"));
-  $("#results #otherteam input[name='id_equipo']").val($(this).parent().attr("id_equipo2"));
+  $("#conv_result").val($(this).parent().parent().attr("id"));
+  $("#results .principio img").attr("src","images/acuerdos/"+$(this).parent().parent().attr("principio")+".png");
+  $("#results .principio h2").html(values[$(this).parent().parent()..attr("principio")]);
+  $("#results #myteam input[name='id_equipo']").val($(this).parent().parent()..attr("id_equipo1"));
+  $("#results #otherteam input[name='id_equipo']").val($(this).parent().parent()..attr("id_equipo2"));
 
 
   $.post(server+"teams/existen_resultados", post_values, function(response) {
@@ -486,6 +484,8 @@ $( document ).on("click", ".reto_my_team", function() {
 });
 
 });
+
+
 
 
 
