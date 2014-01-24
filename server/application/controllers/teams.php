@@ -52,7 +52,7 @@ class Teams extends MY_Controller {
 	}
 	public function validate_team()
 	{
-		$id= $this->input->post('team_id');
+		$id= $this->input->post('id_team');
 		$json_reply=$this->team->validate_players($id);
 		echo json_encode($json_reply);
 	}
@@ -175,7 +175,7 @@ class Teams extends MY_Controller {
 		$leader=$this->team->getData($equipo_2['leader_id']);
 		$full_name=$leader['first_name']." ". $leader['last_name'];
 		
-		$mensaje = " Hola ".$full_name.", Revisa tu aplicación de golombiao ya que el equipo, ".$equipo_1['name']." ha convocatdo a tu equipo ".$equipo_2['name'].",  el dia ".$this->input->post('fecha').', a las '.$this->input->post('hora') .' para un partido de '.$tipodepartido[$this->input->post('tipo_juego')];
+		$mensaje = " Hola ".$full_name.", Revisa tu aplicación de golombiao ya que el equipo, ".$equipo_1['name']." ha convocado a tu equipo ".$equipo_2['name'].",  el día ".$this->input->post('fecha').', a las '.$this->input->post('hora') .' para un partido de '.$tipodepartido[$this->input->post('tipo_juego')].'.';
 
 		$email_from = $leader['email'];
 		//ini_set(sendmail_from,'info@golombiao.com');
@@ -213,8 +213,6 @@ class Teams extends MY_Controller {
 			'autoevaluacion' => $this->input->post('autoevaluacion'),
 			'otherTeam' => $this->input->post('otherTeam')
 			);
-		print_r($datos);
-		exit();
 		$existen_resultados=$this->team->existen_resultados($datos['id_user'], $datos['id_conv']);
 
 

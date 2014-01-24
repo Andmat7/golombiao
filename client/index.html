@@ -131,7 +131,6 @@
 			<div data-role="popup" id="popupRegister" >
 
 				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"></a>
-				
 				<h1 align="center">Registro</h1>
 				<form>
 					<label>Correo Institucional:</label>
@@ -191,14 +190,29 @@
 		</div>
 
 		<div data-role="page" id="olvidarcontrasena" >
+			<div data-role="popup" id="popupCode" data-theme="d" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+				<label>Codigo:</label>
+				<input type="text" placeholder="Codigo" id="codigo_ver">
+				<label>Nueva contraseña:</label>
+				<input type="password" placeholder="Nueva Contraseña" id="password_recuperar">
+				<label>Repita la Nueva contraseña:</label>
+				<input type="password" placeholder="Digite de Nuevo Contraseña" id="ver_password_recuperar">
+				<button type="submit" onclick="enviar_contrasenas()">Enviar</button>
+			</div>
+
 			<div data-role="content">
 				<div class="ui-body ui-body-a ui-corner-all">
 				<p>Por favor proporciona dirección de correo que usaste al registrarte</p>
 				 <p>
 				Te enviaremos un correo que te permitirá reinicializar tu contraseña.</p>
 							<label>Correo Electronico:</label>				
-							<input type="email" name="contraseña" placeholder="Correo Electronico"/>
-							<button type="submit" class="ui-btn-inline ui-btn ui-corner-all ui-shadow ui-btn-b   ui-icon-check">enviar</button>
+							<input type="email" name="email" placeholder="Correo Electronico" id="email_recuperar"/>
+							<button type="submit" class="ui-btn-inline ui-btn ui-corner-all ui-shadow ui-btn-b   ui-icon-check"   onclick="enviar_email_pass()">enviar</button>
+				</div>
+				<div class="ui-body ui-body-a ui-corner-all">
+				<p>ó ingresa tú codigo para actualizar tu contraseña</p>
+					<button type="submit" class="ui-btn-inline ui-btn ui-corner-all ui-shadow ui-btn-b   ui-icon-check"   onclick="$('#popupCode').popup('open');">ingresa acá tu código</button>
 				</div>
 			</div>
 

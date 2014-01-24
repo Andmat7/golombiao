@@ -97,24 +97,29 @@ class team extends CI_Model {
 				$numero_mujeres=0;
 				$numero_hombres=0;
 				foreach ($json_reply as $key => $value) {
-					if($json_reply[$key]["gender"]=='1'||$json_reply[$key]["gender"]=='1'){
+					$this->db->where('id', $json_reply[$key]["id_user"]);
+					$q = $this->db->get('users');
+					$user=$q->result_array();
+
+					if($user[0]["gender"]=='1'||$user[0]["gender"]=='1'){
 						$numero_hombres=$numero_hombres+1;
 					}else{
 						$numero_mujeres=$numero_mujeres+1;
 
 					}
 				}
-				if ($numero_mujeres<2) {
+				if ($numero_hombres<2) {
 					$json_reply["error"]=true;
 			
-					$json_reply["message_error"]="No hay sufientes mujeres para que puedas convocar";
+					$json_reply["message_error"]="Tu equipo debe tener dos hombres o mas  para que puedas convocar";
 					# code...
 				}else{
-					if ($numero_hombres<2) {
-						
+					if ($numero_mujeres<2) {
 						$json_reply["error"]=true;
-						$json_reply["message_error"]="No hay sufientes mujeres para que puedas convocar";
+						$json_reply["message_error"]=" Tu equipo debe tener dos mujeres o mas para que puedas convocar";
 					}else{
+						$json_reply["error"]=false;
+						$json_reply["sucess_menssage"]="ok";
 
 					}
 
@@ -126,11 +131,12 @@ class team extends CI_Model {
 
 		}else{
 			$json_reply["error"]=true;
-			
-			$json_reply["message_error"]="No hay sufientes jugadores para que puedas convocar";
+            $json_reply["message_error"]=" Tu equipo debe tener más  jugadores para que puedas convocar"; 			
+			//$json_reply["message_error"]=" TU equipo debe tener más  jugadores para que puedas convocar".$q -> num_rows();
 
 
 		}
+		return $json_reply;
 	}
 
 

@@ -16,19 +16,19 @@ class user extends CI_Model {
 		else
 		{
 			$data = array(
-					'first_name'=>$first_name,
-					'last_name'=>$last_name,
-					'age'=>$age,
-					'gender'=>$gender,
-					'email'=>$email,
-					'city'=>$city,
-					'study'=>$study,
-					'school_level'=>$school_level,
-					'encrypted_password'=>$encrypted_password,
-					'departamento'=>$departamento,
-					'fb_id'=>$fb_id
-					
-			);
+				'first_name'=>$first_name,
+				'last_name'=>$last_name,
+				'age'=>$age,
+				'gender'=>$gender,
+				'email'=>$email,
+				'city'=>$city,
+				'study'=>$study,
+				'school_level'=>$school_level,
+				'encrypted_password'=>$encrypted_password,
+				'departamento'=>$departamento,
+				'fb_id'=>$fb_id
+
+				);
 			$this->db->insert('users',$data);
 			$output=true;
 		}
@@ -107,10 +107,10 @@ class user extends CI_Model {
 			return false;
 		}
 	}
-		public function get($id)
+	public function get($id)
 	{
 		$this->db->get_where('users', array('id' => $id));
-				$q = $this->db->get('users');
+		$q = $this->db->get('users');
 		if($q -> num_rows() == 1)
 		{
 			$user=$q->result_array();
@@ -146,7 +146,7 @@ class user extends CI_Model {
 		$this->db->where('email', $email);
 		$this->db->where('session_id', $session_id);
 		$q = $this->db->get('users');
-	
+
 
 		//echo ($this->db->last_query());
 		if($q -> num_rows() == 1)
@@ -185,64 +185,64 @@ class user extends CI_Model {
 
 	public function subscribe($id_subject,$id_user)
 	{			
-				$this->db->where('id', $id_subject);
-				$q = $this->db->get('subjects');
-				if ($q -> num_rows()==1) {	$subj=1;
-				}else{
-						$subj=0;
-				}
+		$this->db->where('id', $id_subject);
+		$q = $this->db->get('subjects');
+		if ($q -> num_rows()==1) {	$subj=1;
+		}else{
+			$subj=0;
+		}
 
 
 
-				$this->db->where('id_subject', $id_subject);
-				$this->db->where('id_student', $id_user);
+		$this->db->where('id_subject', $id_subject);
+		$this->db->where('id_student', $id_user);
 
-				$q = $this->db->get('student_subject');
-				
-				
+		$q = $this->db->get('student_subject');
 
 
-				if ($q -> num_rows()==0 && $subj==1) {
-					$data = array(
-					'id_student'=>$id_user,
-					'id_subject'=>$id_subject,
-					);
 
-					$this->db->insert('student_subject',$data);
-					$output= array('success' => 'true','message_success'=>'Se ha suscrito a la materia:');
-				} 
-				else if($q -> num_rows()!=0)
-				{
 
-					$output= array('success' => 'false','message_error'=>'Usuario ya suscrito');
-				}
-				else
-				{
-					$output= array('success' => 'false','message_error'=>'Materia inexistente','id_error'=>'1');
+		if ($q -> num_rows()==0 && $subj==1) {
+			$data = array(
+				'id_student'=>$id_user,
+				'id_subject'=>$id_subject,
+				);
 
-				}
-				return $output;
+			$this->db->insert('student_subject',$data);
+			$output= array('success' => 'true','message_success'=>'Se ha suscrito a la materia:');
+		} 
+		else if($q -> num_rows()!=0)
+		{
+
+			$output= array('success' => 'false','message_error'=>'Usuario ya suscrito');
+		}
+		else
+		{
+			$output= array('success' => 'false','message_error'=>'Materia inexistente','id_error'=>'1');
+
+		}
+		return $output;
 
 	}
 
 
 	public function unsubscribe($id_subject,$id_user){
 
-				$data=array('id_subject' => $id_subject,'id_student'=>$id_user);
+		$data=array('id_subject' => $id_subject,'id_student'=>$id_user);
 
-				$this->db->where('id_subject', $id_subject);
-				$this->db->where('id_student', $id_user);
-				$q = $this->db->get('student_subject');
-				if ($q->num_rows()>0) {
-						$this->db->delete('student_subject', $data); 
-						$output= array('success' => 'true', 'message_success'=>'Ha eliminado la  suscripción  a la materia');
-				}else
-				{
-					$output= array('success' => 'false', 'message_error	'=>'Ya no se encuentra suscrito a la materia');
+		$this->db->where('id_subject', $id_subject);
+		$this->db->where('id_student', $id_user);
+		$q = $this->db->get('student_subject');
+		if ($q->num_rows()>0) {
+			$this->db->delete('student_subject', $data); 
+			$output= array('success' => 'true', 'message_success'=>'Ha eliminado la  suscripción  a la materia');
+		}else
+		{
+			$output= array('success' => 'false', 'message_error	'=>'Ya no se encuentra suscrito a la materia');
 
-				}
-				
-				return $output;
+		}
+
+		return $output;
 
 
 	}
@@ -289,35 +289,35 @@ class user extends CI_Model {
 	{
 
 		
-				if ($encrypted_password== $confirmed_password) {
+		if ($encrypted_password== $confirmed_password) {
 
-					$data = array(
-						'username'=>$username,
-						'encrypted_password'=>$encrypted_password,
-						'name'=>$name,
-						'phone'=>$phone,
-						'institution'=>$institution,
+			$data = array(
+				'username'=>$username,
+				'encrypted_password'=>$encrypted_password,
+				'name'=>$name,
+				'phone'=>$phone,
+				'institution'=>$institution,
 
-						);
+				);
 
-					foreach ($data as $key => $value) {
-						if ($value=='' or $value==null) {
-							unset($data[$key]);
-						}
-					}
-
-					if (!empty($data)) {
-						$this->db->where('id', $user_id);
-						$this->db->update('users', $data);
-					}
-					$output= array('success'=>'true','message_success'=>'Usuario editado correctamente');
-
+			foreach ($data as $key => $value) {
+				if ($value=='' or $value==null) {
+					unset($data[$key]);
 				}
-				else
-				{
-					$output= array('success'=>'false','message_error'=>'Las contraseñas no coinciden');
-				}
-				return $output;
+			}
+
+			if (!empty($data)) {
+				$this->db->where('id', $user_id);
+				$this->db->update('users', $data);
+			}
+			$output= array('success'=>'true','message_success'=>'Usuario editado correctamente');
+
+		}
+		else
+		{
+			$output= array('success'=>'false','message_error'=>'Las contraseñas no coinciden');
+		}
+		return $output;
 
 
 
@@ -325,18 +325,70 @@ class user extends CI_Model {
 
 	public function sel_city($id)
 	{
-				$this->db->where('idDepartamento', $id);
-				$q = $this->db->get('ciudades');
-				$cities=$q->result_array();
-				
-					$output= $cities;
-				
-				return $output;
+		$this->db->where('idDepartamento', $id);
+		$q = $this->db->get('ciudades');
+		$cities=$q->result_array();
+
+		$output= $cities;
+
+		return $output;
 
 
 
 	}
+	public function verify_email($email)
+	{
+		$this->db->where('email', $email);
+		$q = $this->db->get('users');
 
+		if($q->num_rows() == 1)
+		{
+			$user=$q->result_array();
+			return $user[0];
+		}else{
+			return false;
+
+		}
+	}
+	public function verify_code($code)
+	{
+		$this->db->where('code', $code);
+		$query = $this->db->get('cambiar_password');
+		if($query->num_rows() == 1)
+		{
+			$rows=$query->result_array();
+			return $rows[0];
+		}else{
+			return false;
+
+		}
+	}
+	public function get_email_string($id_user)
+	{
+		$this->db->where('id_user',$id_user);
+		$q = $this->db->get('cambiar_password');
+		if($q -> num_rows() == 1)
+		{
+			$string=$q->result_array();
+			$data=array("time"=>time());
+			$this->db->where('id_user', $id_user);
+			$this->db->update('cambiar_password', $data); 
+
+
+			return $string[0]['code'];
+		}else{
+			$code=$this->generateRandomString(5);
+			$data = array(
+				'id_user' => $id_user,
+				'code'=> $code
+
+			);
+
+			$this->db->insert('cambiar_password', $data); 
+			return $code;
+		}
+
+	}
 
 
 

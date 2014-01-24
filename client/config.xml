@@ -53,7 +53,6 @@
 	<feature name="http://api.phonegap.com/1.0/notification"/>
 	
 	<access origin="*" />
-	<access origin="www.golombiao.com" />
 	<preference name="orientation" value="portrait" />
  
 </widget>

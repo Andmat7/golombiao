@@ -395,14 +395,14 @@ $( document ).on("click", ".reto_my_team", function() {
   var post_values= {
     session_id:localStorage.getItem('session_id'),
     email:localStorage.getItem('email'),
-    id_conv:$(this).parents(".convocate_teams").attr("id"),
-    id_equipo:$(this).parents(".convocate_teams").attr("id_equipo")
+    id_conv:$(this).parent().attr("id"),
+    id_equipo:$(this).parent().attr("id_equipo")
   };
-  $("#conv_result").val($(this).parents(".convocate_teams").attr("id"));
-  $("#results .principio img").attr("src","images/acuerdos/"+$(this).parents(".convocate_teams").attr("principio")+".png");
-  $("#results .principio h2").html(values[$(this).parents(".convocate_teams").attr("principio")]);
-  $("#results #myteam input[name='id_equipo']").val($(this).parents(".convocate_teams").attr("id_equipo1"));
-  $("#results #otherteam input[name='id_equipo']").val($(this).parents(".convocate_teams").attr("id_equipo2"));
+  $("#conv_result").val($(this).parent().attr("id"));
+  $("#results .principio img").attr("src","images/acuerdos/"+$(this).parent().attr("principio")+".png");
+  $("#results .principio h2").html(values[$(this).parent().attr("principio")]);
+  $("#results #myteam input[name='id_equipo']").val($(this).parent().attr("id_equipo1"));
+  $("#results #otherteam input[name='id_equipo']").val($(this).parent().attr("id_equipo2"));
 
 
   $.post(server+"teams/existen_resultados", post_values, function(response) {
@@ -635,17 +635,13 @@ function login(){
             },
 
             submitHandler: function( form ) {
-              
                 loadingOpen("Enviando resultados");
 
                   var post_values={
                     session_id:localStorage.getItem('session_id'),
                     email:localStorage.getItem('email'),
                     id_conv:$("#conv_result").val(),
-                    barra:$("#results #select-choice-custom2").val(),
-
-
-
+                    barra:$("#results #select-choice-custom2").val()
 
                   };
                   $(':input', "#results #myteam").each(function(index, input_element) {
@@ -820,45 +816,126 @@ function select_own_team(team){
 
 
 }
+function IsEmail(email) {
+  var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  return regex.test(email);
+}
+
+function enviar_email_pass () {
+  if(IsEmail($("#email_recuperar").val())){
+    loadingOpen();
+  post_values={
+    email:$("#email_recuperar").val()
+  };
+  $.post(server+"login/recovery_pass", post_values, function(response) {
+    
+    event.preventDefault();
+    response = jQuery.parseJSON(response);
+    if (!(response.error)) {
+
+        customAlert("Te hemos enviado un email por favor ingresa el código acá");
+        $("#popupCode").popup("open");
+
+    }else{
+      customAlert(response.message_error);
+      
+    }
+    loadingClose();
+  });
+
+  }else{
+    customAlert("email inválido");
+  }
+  
+}
 
 
+function enviar_contrasenas (argument) {
+  loadingOpen();
+  post_values={
+    password:$("#password_recuperar").val(),
+    ver_password:$("#ver_password_recuperar").val(),
+    code:$("#codigo_ver").val()
+  };
+    $.post(server+"login/recuperar_contra", post_values, function(response) {
+    
+    event.preventDefault();
+    response = jQuery.parseJSON(response);
+    if (!(response.error)) {
+
+        customAlert("Hemos actualizado correctamente tu contraseña");
+        $("#popupCode").popup("close");
+        changePage('index.html#convocate2');
+
+
+    }else{
+      customAlert(response.message_error);
+      
+    }
+    loadingClose();
+  });
+  
+}
 function zone(teams){
   event.preventDefault();
   $("#convocate .container .your_team .ui-btn-active").size();
 
 
-  if ($("#convocate .your_team .activeButton").size()==0) {
+  if ($("#convocate .your_team .activeButton").size()===0) {
     customAlert("Debes seleccionar uno de tus equipos antes de continuar");
     return  false;
-  }else if ($("#convocate .vs_team2 .activeButton").size()==0) {
+  }else if ($("#convocate .vs_team2 .activeButton").size()===0) {
     customAlert("Debes seleccionar un equipo contrincante antes de continuar");
     return  false;
+  }else {
+        var post_values= {
+            session_id:localStorage.getItem('session_id'),
+            email:localStorage.getItem('email'),
+            id_team:$("#convocate .your_team .activeButton").parent().find("a:nth-child(2)").attr("theId")
+          };
+          $.post(server+"teams/validate_team", post_values, function(response) {
+              
+              response = jQuery.parseJSON(response);
+
+
+              if ((response.error)) {
+                customAlert(response.message_error);
+                return(false);
+
+                
+              }else{
+                console.log("funciono");
+                
+                  var myTeam=$("#convocate .your_team .activeButton").parent().find("a:nth-child(2)");
+                  var vsTeam=$("#convocate .vs_team2 .activeButton").parent().find("a:nth-child(2)");
+                  $(".two_teams").html(" ");
+                  $(".two_teams").html('<div style="display:none">aqui</div>'+
+                    '<ul theId="'+
+                    $(myTeam).attr("theId")+
+                    '" data-role="listview" data-inset="true"  data-theme="c">'+
+                    '<li data-icon="false"><a href="#">'+
+                    $(myTeam).attr("theName")+
+                    '</a></li>'+
+                    '</ul>'+
+                    '<b>V.S.</b>'+
+                    '<ul theId="'+
+                    $(vsTeam).attr("theId")+
+                    '" data-role="listview" data-inset="true" data-theme="c">'+
+                    '<li data-icon="false"><a href="#">'+
+                    $(vsTeam).attr("theName")+
+                    '</a></li>'+
+                    '</ul>');
+                  changePage('index.html#convocate2');
+
+              }
+              
+        });
+
   }
-  var myTeam=$("#convocate .your_team .activeButton").parent().find("a:nth-child(2)")
-  var vsTeam=$("#convocate .vs_team2 .activeButton").parent().find("a:nth-child(2)")
-  $(".two_teams").html(" ");
-  $(".two_teams").html('<div style="display:none">aqui</div>'+
-    '<ul theId="'+
-    $(myTeam).attr("theId")+
-    '" data-role="listview" data-inset="true"  data-theme="c">'+
-    '<li data-icon="false"><a href="#">'+
-    $(myTeam).attr("theName")+
-    '</a></li>'+
-    '</ul>'+
-    '<b>V.S.</b>'+
-    '<ul theId="'+
-    $(vsTeam).attr("theId")+
-    '" data-role="listview" data-inset="true" data-theme="c">'+
-    '<li data-icon="false"><a href="#">'+
-    $(vsTeam).attr("theName")+
-    '</a></li>'+
-    '</ul>');
-  changePage('index.html#convocate2');
 
 
 
   
-}
 
 
 
@@ -1755,7 +1832,7 @@ $( document ).on( "pageshow", "#join", function() {
     response = jQuery.parseJSON(response);
 
     if (!(response.error)) {
-      
+      $(".miJoinTeams").html(" ");
       
       
       $(".miJoinTeams").append('<label>Tus Equipos</label><ul id="listaJoin" data-role="listview" data-split-icon="gear"  data-inset="true" ></ul>');

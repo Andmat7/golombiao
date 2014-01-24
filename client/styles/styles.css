@@ -98,7 +98,10 @@ overflow: auto;
 margin: auto;
 }
 
+.ui-popup-screen.in {
+opacity: 0.9;
 
+}
 #login .headerLogin h1{
 color: white;
 float: left;
@@ -156,15 +159,11 @@ clear: left;
 
 	clear: left;
 	float: left;
-
-
-
-
 }
 
 .login_facebook {
-width: 46%;
-margin-top: 12%;
+	width: 46%;
+	margin-top: 12%;
 }
 
 
@@ -172,9 +171,9 @@ margin-top: 12%;
 /*register page*/
 
 #register .register{
-width: 26%;
-border-radius: 8%;
-background-color: #679F25;
+	width: 26%;
+	border-radius: 8%;
+	background-color: #679F25;
 
 }
 
@@ -621,6 +620,7 @@ margin-top: 5%;
 
  font-size: 1.3em;
  margin-top: 10%;
+ color: black !important;
 
 }
 

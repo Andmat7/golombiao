@@ -52,20 +52,15 @@ class Upload extends CI_Controller {
 		}
 		else
 		{
-
 			$data = $this->upload->data();
-			//$nameImage=array('name' => $data["file_name"]);
-			$this->db->set('name', $data["file_name"]); 
-			$this->db->insert('images'); 
-			//$this->db->insert('images',$nameImage);
+			$nameImage=array('name' => $data["file_name"]);
+
+			$this->db->insert('images',$nameImage);
 			
 			$output= array(
 							'success' => 'true',
 							'message_success' => 'la foto se ha subido correctamente',
-							'id_image' => $this->db->insert_id(),
-							'last-query' => $this->db->last_query(),
-
-							'error'=> $this->db->_error_message(),
+							'id_image' => $this->db->insert_id()
 							);
 
 			$imprimir=json_encode($output);

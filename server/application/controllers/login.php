@@ -99,7 +99,119 @@ class Login extends MY_Controller {
 	{
 		$this->load->view('recover_password',$data);
 	}
-	
+	public function recovery_pass()
+	{
+		$email= $this->input->post('email');
+		
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+		$output = array('error' => false);
+		if ($this->form_validation->run() == FALSE)
+		{
+			$output['error']=true;
+			$output['message_error']='error';
+			
+		}
+		else
+		{
+			$user=$this->user->verify_email($email);
+			if ($user) {
+				$string=$this->user->get_email_string($user['id']);
+				// $this->load->library('email');
+
+				// $this->email->from('infogolombiao@.com', 'Golombiao');
+				// $this->email->to($email); 
+				
+
+				// $this->email->subject('Cambio contraseña de tu aplicación de golombio');
+				// $this->email->message('hemos recibido una notificación para un cambio de contraseña por favor introduce este codigo en tu aplicación: '.$string);	
+
+				// $this->email->send();
+				// $output['email_debug']=$this->email->print_debugger();
+
+
+
+				
+		
+				$mensaje = 'hemos recibido una notificación para un cambio de contraseña por favor introduce este codigo en tu aplicación: '.$string;
+
+				$email_from = $email;
+				
+				$headers = 'MIME-Version: 1.0' . "\r\n";
+				$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n"; 
+
+				$headers = 'From: golombiao@golombiao.com' . "\r\n" .
+				    'X-Mailer: PHP/' . phpversion();
+				// Send
+				if(mail($email, 'Código de recuperación de contraseña Golombiao', $mensaje,$headers) ){
+					$return['email_enviado']=true;
+				    
+				}else{
+					$return['email_enviado']=false;
+				}
+
+
+
+
+
+
+			}else{
+				$output['error']=true;
+				$output['message_error']='Email no encontrado';
+
+			}
+			
+		}
+		echo json_encode($output);
+		
+
+	}
+	public function recuperar_contra()
+	{
+		$code= $this->input->post('code');
+		$password= $this->input->post('password');
+		$ver_password= $this->input->post('ver_password');
+		
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('code', 'codigo ', 'required');
+		$this->form_validation->set_rules('password', 'password', 'required|min_length[3]');
+		$this->form_validation->set_rules('ver_password', 'password', 'required|min_length[3]');
+		if ($this->form_validation->run() == FALSE)
+		{
+				$output['error']=true;
+				$output['message_error']='error:'.validation_errors();
+			
+
+
+		}else{
+			$row=$this->user->verify_code($code);
+			if ($row) {
+				$this->db->delete('cambiar_password', array('id_user' => $row['id_user'])); 
+				$this->db->where('id_user', $password);
+				$data=array("encrypted_password"=>hash( 'sha256', $password));
+				$this->db->where('id', $row['id_user']);
+				$this->db->update('users', $data);
+				
+				
+				$output['error']=FALSE;
+				$output['success_message']='email actualizado correctamente';	
+
+				
+			
+		
+			
+			}else{
+				$output['error']=true;
+				$output['message_error']='el codigo no existe';
+			}
+
+		}
+		echo json_encode($output);
+		
+
+	}
+ 
+	//
 
 	
 
