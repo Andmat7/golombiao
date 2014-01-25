@@ -392,14 +392,14 @@ $( document ).on("click", ".reto_my_team", function() {
   var post_values= {
     session_id:localStorage.getItem('session_id'),
     email:localStorage.getItem('email'),
-    id_conv:$(this).parent().parent().attr("id"),
-    id_equipo:$(this).parent().parent().attr("id_equipo")
+    id_conv:$(this).parent().attr("id"),
+    id_equipo:$(this).parent().attr("id_equipo")
   };
-  $("#conv_result").val($(this).parent().parent().attr("id"));
-  $("#results .principio img").attr("src","images/acuerdos/"+$(this).parent().parent().attr("principio")+".png");
-  $("#results .principio h2").html(values[$(this).parent().parent().attr("principio")]);
-  $("#results #myteam input[name='id_equipo']").val($(this).parent().parent().attr("id_equipo1"));
-  $("#results #otherteam input[name='id_equipo']").val($(this).parent().parent().attr("id_equipo2"));
+  $("#conv_result").val($(this).parent().attr("id"));
+  $("#results .principio img").attr("src","images/acuerdos/"+$(this).parent().attr("principio")+".png");
+  $("#results .principio h2").html(values[$(this).parent().attr("principio")]);
+  $("#results #myteam input[name='id_equipo']").val($(this).parent().attr("id_equipo1"));
+  $("#results #otherteam input[name='id_equipo']").val($(this).parent().attr("id_equipo2"));
 
 
   $.post(server+"teams/existen_resultados", post_values, function(response) {
@@ -1302,60 +1302,72 @@ if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){}e
 
 
 
-$( document ).on( "pageshow", "#my_conv", function() {
+$( document ).on( "pageshow", "#my_conv", function(event) {
+  loadingOpen("Consultando convocatorias");
+  event.preventDefault();
+  $("#myRequest").html("");
+  $("#request").html("");
   var post_values= {
     session_id:localStorage.getItem('session_id'),
     email:localStorage.getItem('email'),
     tipo_consulta:0
   };
   var emptyPage=false;
-
-
+  var check;
   $.post(server+"teams/conv_team", post_values, function(response) {
-    var check;
+    
 
 
     response = jQuery.parseJSON(response);
     if (!(response.error)) {
-      $("#title_mi_reto").html('<div class="title_my_conv">Mis convocatorias</div>');
+      $("#title_mi_reto").html('<div class="title_my_conv">Mis convocatorias</div><ul id="myRequest" data-role="listview" data-inset="true" data-split-icon="plus"></ul>');
       for (var i = 0; i < response.length  ; i++) {
         var j=i+1;
         if (response[i]["acepta_convocatoria"]=="0") {
-         check='<img  src="images/uncheck.png">'
+         check='uncheck.png'
        }else{
 
-         check='<img  src="images/check.png">'
+         check='check.png'
 
 
        }
-       $("#title_mi_reto").append('<div href="#"  class=" convocate_teams" id_equipo1="'+
-        response[i]["equipo_1"]+
-        '" id_equipo2="'+
-        response[i]["equipo_2"]+
-        '" principio="'+
-        response[i]["principio"]+
-        '" id="'+response[i]["id"]+
-        '"><a data-role="button" class="reto_my_team">'+
-        response[i]["equipo_1_name"]+
-        '  V.s. '+
-        response[i]["equipo_2_name"]+
-        '  </a><div class="check">'+
-        check+
-        '</div><div class="date_conv">'+
-        response[i]["hora"]+
-        ' '+
-        response[i]["fecha"]+
-        '</div></div>');
+
+
+ 
+       $("#myRequest").append('<li  id_equipo1="'+
+                                  response[i]["equipo_1"]+
+                                  '" id_equipo2="'+
+                                  response[i]["equipo_2"]+
+                                  '" principio="'+
+                                  response[i]["principio"]+
+                                  '" id="'+response[i]["id"]+
+                                  '" date="'+response[i]["hora"]+' '+response[i]["fecha"]+
+                                  '" principio="'+response[i]["principio"]+
+                                  '" acepta_convocatoria="'+response[i]["acepta_convocatoria"]+
+                                  '">'+
+                                  '<a href="#" class="reto_my_team"><img src="images/'+
+                                  check+
+                                  '" alt="" class="ui-li-icon ui-corner-none"><h3>'+
+                                  response[i]["equipo_1_name"]+
+                                  '  V.s. '+
+                                  response[i]["equipo_2_name"]+
+                                  '</h3></a>'+
+                                  '<a href="#infoConv" onclick="carryDataConv(this)" data-rel="popup" data-position-to="window" data-transition="pop" '+
+
+                                  '>'+
+                                  '</a></li>');
 
      }
-     $('#title_mi_reto a').button();
+
+     
 
 
-
+     
    }else{
     customAlert("En este momento no has convocado ningun Juego");
     emptyPage=true;
   }
+  $("#my_conv [data-role='listview']").listview();
 });
 
 post_values= {
@@ -1364,59 +1376,52 @@ post_values= {
   tipo_consulta:1
 };
 
-$.post(server+"teams/conv_team", post_values, function(response2) {
+$.post(server+"teams/conv_team", post_values, function(response) {
 
 
-  response2 = jQuery.parseJSON(response2);
-  if (!(response2.error)) {
-    $("#title_mi_reto2").html('<div class="title_my_conv">Me convocaron</div>');
-    $("#title_mi_reto3").html(" ");
-    for (var i = 0; i <= response2.length  ; i++) {
+  response = jQuery.parseJSON(response);
+  if (!(response.error)) {
+    $("#title_mi_reto2").html('<div class="title_my_conv">Me convocaron</div><ul id="request" data-role="listview" data-inset="true" data-split-icon="plus"></ul>');
+    
+    for (var i = 0; i < response.length  ; i++) {
       var j=i+1;
-      if (response2[i]["acepta_convocatoria"]=="0") {
-       check='<img  src="images/uncheck.png">'
-       var content='<div class="pendingRequests"  id_equipo1="'+
-       response2[i]["equipo_2"]+
-       '"  id_equipo2="'+
-       response2[i]["equipo_1"]+
-       '" principio="'+
-       response2[i]["principio"]+
-       '" id="'+response2[i]["id"]+
-       '"><a class="reto_my_team">'+
-       response2[i]["equipo_2_name"]+
-       '  V.s. '+
-       response2[i]["equipo_1_name"]+
-       '</a><div class="check">'
-       +check+
-       '</div><div class="date_conv">'
-       +response2[i]["hora"]+
-       ' '+
-       response2[i]["fecha"]+
-       '</div>'+
-       '<input type="button" value="aceptar" onclick="aceptRequest(this,1)">'+
-       '<input type="button" value="rechazar"onclick="aceptRequest(this,2)">'
-       '</div>'+
+              if (response[i]["acepta_convocatoria"]=="0") {
+         check='uncheck.png'
+       }else{
+
+         check='check.png'
 
 
+       }
 
+             $("#request").append('<li  id_equipo1="'+
+                                  response[i]["equipo_2"]+
+                                  '" id_equipo2="'+
+                                  response[i]["equipo_1"]+
+                                  '" principio="'+
+                                  response[i]["principio"]+
+                                  '" id="'+response[i]["id"]+
+                                  '" date="'+response[i]["hora"]+' '+response[i]["fecha"]+
+                                  '" principio="'+response[i]["principio"]+
+                                  '" acepta_convocatoria="'+response[i]["acepta_convocatoria"]+
+                                  '">'+
+                                  '<a href="#" class="reto_my_team"><img src="images/'+
+                                  check+
+                                  '" alt="" class="ui-li-icon ui-corner-none"><h3>'+
+                                  response[i]["equipo_1_name"]+
+                                  '  V.s. '+
+                                  response[i]["equipo_2_name"]+
+                                  '</h3></a>'+
+                                  '<a href="#infoConv" onclick="carryDataConv(this)" data-rel="popup" data-position-to="window" data-transition="pop" '+
 
-       $("#title_mi_reto3").append(content);
-       $('#title_mi_reto3 a').button();
-
-
-     }else{
-
-       check='<img  onClick="customAlert("Hello World!")" src="images/check.png">'
-
+                                  '>'+
+                                  '</a></li>');
 
      }
+     
 
 
-
-
-     $("#title_mi_reto2").append('<div class=" convocate_teams"  id_equipo1="'+response2[i]["equipo_2"]+'"  id_equipo2="'+response2[i]["equipo_1"]+'" principio="'+response2[i]["principio"]+'" id="'+response2[i]["id"]+'"><a data-role="button" class="reto_my_team">'+response2[i]["equipo_2_name"]+'  V.s. '+response2[i]["equipo_1_name"]+'</a><div class="check">'+check+'</div><div class="date_conv">'+response2[i]["hora"]+' '+response2[i]["fecha"]+'</div></div>');
-     $('#title_mi_reto2 a').button();
-   }
+   
 
  }else{
   customAlert("En este momento no te han convocado a ningun Juego");
@@ -1424,22 +1429,43 @@ $.post(server+"teams/conv_team", post_values, function(response2) {
   location.reload();}
 
 }
+$("#my_conv [data-role='listview']").listview();
 });
 
 
-
-
-
+loadingClose();
 
 });
 
 
+function carryDataConv(element){
+  var elmt=element;
+  if ($(elmt).parent().attr('acepta_convocatoria')=="1")
+  {
+    var accept="Convocatoria aceptada";
+    $(".acceptConv").hide();
+  }else{
+
+    var accept="Convocatoria no aceptada";
+        if ($(elmt).parent().parent().attr('id')=="request") 
+    {
+      $(".acceptConv").show();
 
 
+    }else{
+
+      $(".acceptConv").hide();
+
+    }
+  }
 
 
+$("#infoConv h3").html($(element).parent().find("h3").html());
+$("#infoConv h4").html("fecha: "+$(element).parent().attr('date'));
+$("#infoConv p").html(accept);
+$("#infoConv .acceptConv").attr("id",$(element).parent().attr('id'));
 
-
+}
 
 
 //login

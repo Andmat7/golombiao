@@ -289,6 +289,14 @@ margin-left: 7%;
 
 
 }
+
+
+#my_conv .ui-listview>li h3{
+
+	font-size: 0.9em;
+
+
+}
 .sendButton{
 	width:50%;
 	margin-top: 10%;
@@ -616,13 +624,7 @@ margin-top: 5%;
  font-size: 1.4em;
  margin-bottom: 10%;
 }
-.reto_my_team{
 
- font-size: 1.3em;
- margin-top: 10%;
- color: black !important;
-
-}
 
 .check img{
 	width: 10%;
