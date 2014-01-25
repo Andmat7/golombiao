@@ -80,9 +80,8 @@ $(window).load(function() {
 
         $("#galeria .container").append("<img alt='' src='"+imagePath+galeryImages[counter].name+"'/> <p class='ui-body ui-body-a'>"+galeryImages[counter].description+"<p/>");
         counter=counter+1;
-      };
-
-    };
+      }
+    }
 
 
   });
@@ -185,13 +184,13 @@ function verifyData(){
 
   $.post(server+"teams/getData", post_values, function(response) {
    response = jQuery.parseJSON(response);
-   if (response.message_error=="Usuario no logueado" ) 
+   if (response.message_error=="Usuario no logueado" )
    {
 
     customAlert("Usuario deslogueado, por favor accede con tu correo y contraseña");
     changePage('index.html#login');
 
-  };
+  }
 
 
 
@@ -217,7 +216,7 @@ function closeSession(){
 
 
 if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){}else{
-    if(confirm('Desea cerrar sesion?')) 
+    if(confirm('Desea cerrar sesion?'))
     {} else{ return(false);}
 }
 
@@ -299,10 +298,10 @@ function aceptRequest(element,typeRequest){
     id_conv:$(element).parent().attr("id"),
   };
   if (typeRequest==1) {
-   direction="teams/aceptRequest"
+   direction="teams/aceptRequest";
  }else{
 
-   direction="teams/deleteRequest"
+   direction="teams/deleteRequest";
 
  }
  $.post(server+direction, post_values, function(response) {
@@ -398,9 +397,9 @@ $( document ).on("click", ".reto_my_team", function() {
   };
   $("#conv_result").val($(this).parent().parent().attr("id"));
   $("#results .principio img").attr("src","images/acuerdos/"+$(this).parent().parent().attr("principio")+".png");
-  $("#results .principio h2").html(values[$(this).parent().parent()..attr("principio")]);
-  $("#results #myteam input[name='id_equipo']").val($(this).parent().parent()..attr("id_equipo1"));
-  $("#results #otherteam input[name='id_equipo']").val($(this).parent().parent()..attr("id_equipo2"));
+  $("#results .principio h2").html(values[$(this).parent().parent().attr("principio")]);
+  $("#results #myteam input[name='id_equipo']").val($(this).parent().parent().attr("id_equipo1"));
+  $("#results #otherteam input[name='id_equipo']").val($(this).parent().parent().attr("id_equipo2"));
 
 
   $.post(server+"teams/existen_resultados", post_values, function(response) {
@@ -435,11 +434,11 @@ $( document ).on("click", ".reto_my_team", function() {
           $.each(response2[0],function(element){
 
 
-            fuckYourTable(element,response2); 
+            fuckYourTable(element,response2);
 
 
 
-          });  
+          });
 
           function fuckYourTable(myClass,data){
 
@@ -865,7 +864,7 @@ function enviar_contrasenas (argument) {
 
         customAlert("Hemos actualizado correctamente tu contraseña");
         $("#popupCode").popup("close");
-        changePage('index.html#convocate2');
+        changePage('index.html#');
 
 
     }else{
@@ -936,7 +935,7 @@ function zone(teams){
 
 
   
-
+}
 
 
 
@@ -1120,8 +1119,7 @@ $( document ).on( "pageshow", "#home", function() {
 
 });
 
-
-$( document ).on( "pageshow", "#convocate", function() {
+function show_teams () {
   var post_values= {
     session_id:localStorage.getItem('session_id'),
     email:localStorage.getItem('email')
@@ -1154,6 +1152,10 @@ $( document ).on( "pageshow", "#convocate", function() {
       changePage('index.html#play');
     }
   });
+}
+
+$( document ).on( "pageshow", "#convocate", function() {
+  show_teams ();
 
 });
 
@@ -1226,8 +1228,9 @@ if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){}e
 
       customAlert("Se ha eliminado el equipo exitosamente");
       changePage('index.html#convocate');
+      show_teams ();
       loadingClose();
-      $.mobile.refresh();
+      
 
 
     }else{
@@ -1718,7 +1721,10 @@ function placeMarker(location) {
             },
 
             submitHandler: function( form ) {
-               loadingOpen("Solicitando encuentro");
+              var longi=$('#latitud').val();
+              var lati=$('#longitud').val();
+              if (longi!==""&&lati!=="") {
+                loadingOpen("Solicitando encuentro");
 
 
                       var post_values={
@@ -1748,6 +1754,11 @@ function placeMarker(location) {
                         }
 
                       });
+
+              }else{
+                customAlert("Selecciona en el mapa la ubicación del partido");
+              }
+               
             }
 
           });
@@ -1930,7 +1941,7 @@ $( document ).on( "pageshow", "#join", function() {
               response = jQuery.parseJSON(response);
 
               for (var i = 0; i <response.length  ; i++) {
-                $("."+myClass[1]).find("ul[data-role=listview]").append("<li class='userData'myId='"+response[i]['id_user']+"'>"+response[i]['name_user']+"</li>");                                      
+                $("."+myClass[1]).find("ul[data-role=listview]").append("<li class='userData'myId='"+response[i]['id_user']+"'>"+response[i]['name_user']+"</li>"); 
               }
               $('#join').find("."+myClass[1]).find("ul[data-role=listview]").listview();
             });

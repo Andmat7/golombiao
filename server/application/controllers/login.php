@@ -117,22 +117,6 @@ class Login extends MY_Controller {
 			$user=$this->user->verify_email($email);
 			if ($user) {
 				$string=$this->user->get_email_string($user['id']);
-				// $this->load->library('email');
-
-				// $this->email->from('infogolombiao@.com', 'Golombiao');
-				// $this->email->to($email); 
-				
-
-				// $this->email->subject('Cambio contraseña de tu aplicación de golombio');
-				// $this->email->message('hemos recibido una notificación para un cambio de contraseña por favor introduce este codigo en tu aplicación: '.$string);	
-
-				// $this->email->send();
-				// $output['email_debug']=$this->email->print_debugger();
-
-
-
-				
-		
 				$mensaje = 'hemos recibido una notificación para un cambio de contraseña por favor introduce este codigo en tu aplicación: '.$string;
 
 				$email_from = $email;
@@ -187,14 +171,15 @@ class Login extends MY_Controller {
 			$row=$this->user->verify_code($code);
 			if ($row) {
 				$this->db->delete('cambiar_password', array('id_user' => $row['id_user'])); 
-				$this->db->where('id_user', $password);
+				
 				$data=array("encrypted_password"=>hash( 'sha256', $password));
 				$this->db->where('id', $row['id_user']);
 				$this->db->update('users', $data);
 				
 				
 				$output['error']=FALSE;
-				$output['success_message']='email actualizado correctamente';	
+				$output['success_message']='password actualizado correctamente';
+				$output['last']=$this->db->last_query();	
 
 				
 			

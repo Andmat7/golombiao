@@ -175,7 +175,10 @@ class Teams extends MY_Controller {
 		$leader=$this->team->getData($equipo_2['leader_id']);
 		$full_name=$leader['first_name']." ". $leader['last_name'];
 		
-		$mensaje = " Hola ".$full_name.", Revisa tu aplicación de golombiao ya que el equipo, ".$equipo_1['name']." ha convocado a tu equipo ".$equipo_2['name'].",  el día ".$this->input->post('fecha').', a las '.$this->input->post('hora') .' para un partido de '.$tipodepartido[$this->input->post('tipo_juego')].'.';
+		$mensaje = " Hola ".$full_name.", Revisa tu aplicación de golombiao ya que el equipo, ".$equipo_1['name']." ha convocado a tu equipo ".$equipo_2['name'].",  el día ".$this->input->post('fecha').', a las '.$this->input->post('hora') .' para un partido de Golombiao en un juego de '.$tipodepartido[$this->input->post('tipo_juego')].'.
+
+		Recuerda tomar fotografías para que puede subirlas a la página de Golombiao y compartirlas.
+		';
 
 		$email_from = $leader['email'];
 		//ini_set(sendmail_from,'info@golombiao.com');

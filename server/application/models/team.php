@@ -18,15 +18,15 @@ class team extends CI_Model {
 		}else{
 
 
-		$json_reply=$q->result_array();
+			$json_reply=$q->result_array();
 
-		foreach ($json_reply as $key => $value) {
-			$json_reply[$key]["name_team"]=0;
-			$this->db->where('id', $json_reply[$key]["id_team"]);
-			$q = $this->db->get('teams');
-			$team=$q->result_array();
+			foreach ($json_reply as $key => $value) {
+				$json_reply[$key]["name_team"]=0;
+				$this->db->where('id', $json_reply[$key]["id_team"]);
+				$q = $this->db->get('teams');
+				$team=$q->result_array();
 				$json_reply[$key]["name_team"]=$team[0]["name"];
-		}
+			}
 
 
 			
@@ -47,7 +47,7 @@ class team extends CI_Model {
 		$this->db->delete('convocatoria', array('equipo_2' => $id_team));
 		$this->db->delete('users_teams', array('id_team' => $id_team));  
 		$this->db->delete('teams', array('id' => $id_team));
-			$json_reply["error"]=false;
+		$json_reply["error"]=false;
 
 		return  $json_reply;
 
@@ -55,10 +55,10 @@ class team extends CI_Model {
 	}
 
 
-		public function get_players($id_team,$id_user){
-			$this->db->where('id_team', $id_team);
-			$q = $this->db->get('users_teams');
-			if ($q -> num_rows() == 3) {
+	public function get_players($id_team,$id_user){
+		$this->db->where('id_team', $id_team);
+		$q = $this->db->get('users_teams');
+		if ($q -> num_rows() == 3) {
 
 			$json_reply["error"]=true;
 			$json_reply["error_code"]=1;
@@ -67,21 +67,21 @@ class team extends CI_Model {
 
 
 
-			}else{
-				$json_reply=$q->result_array();
-				foreach ($json_reply as $key => $value) {
-					$json_reply[$key]["id_user"];
+		}else{
+			$json_reply=$q->result_array();
+			foreach ($json_reply as $key => $value) {
+				$json_reply[$key]["id_user"];
 
-					$json_reply[$key]["name_user"]=0;
-					$this->db->where('id', $json_reply[$key]["id_user"]);
-					$q = $this->db->get('users');
-					$user=$q->result_array();
-						$json_reply[$key]['name_user']=$user[0]['first_name']." ".$user[0]['last_name'];
-				}
-
-			
+				$json_reply[$key]["name_user"]=0;
+				$this->db->where('id', $json_reply[$key]["id_user"]);
+				$q = $this->db->get('users');
+				$user=$q->result_array();
+				$json_reply[$key]['name_user']=$user[0]['first_name']." ".$user[0]['last_name'];
 			}
+
 			
+		}
+
 
 		return  $json_reply;
 
@@ -93,37 +93,37 @@ class team extends CI_Model {
 		$q = $this->db->get('users_teams');
 		if ($q -> num_rows() >1) {
 
-				$json_reply=$q->result_array();
-				$numero_mujeres=0;
-				$numero_hombres=0;
-				foreach ($json_reply as $key => $value) {
-					$this->db->where('id', $json_reply[$key]["id_user"]);
-					$q = $this->db->get('users');
-					$user=$q->result_array();
+			$json_reply=$q->result_array();
+			$numero_mujeres=0;
+			$numero_hombres=0;
+			foreach ($json_reply as $key => $value) {
+				$this->db->where('id', $json_reply[$key]["id_user"]);
+				$q = $this->db->get('users');
+				$user=$q->result_array();
 
-					if($user[0]["gender"]=='1'||$user[0]["gender"]=='1'){
-						$numero_hombres=$numero_hombres+1;
-					}else{
-						$numero_mujeres=$numero_mujeres+1;
-
-					}
-				}
-				if ($numero_hombres<2) {
-					$json_reply["error"]=true;
-			
-					$json_reply["message_error"]="Tu equipo debe tener dos hombres o mas  para que puedas convocar";
-					# code...
+				if($user[0]["gender"]=='1'||$user[0]["gender"]=='1'){
+					$numero_hombres=$numero_hombres+1;
 				}else{
-					if ($numero_mujeres<2) {
-						$json_reply["error"]=true;
-						$json_reply["message_error"]=" Tu equipo debe tener dos mujeres o mas para que puedas convocar";
-					}else{
-						$json_reply["error"]=false;
-						$json_reply["sucess_menssage"]="ok";
-
-					}
+					$numero_mujeres=$numero_mujeres+1;
 
 				}
+			}
+			if ($numero_hombres<2) {
+				$json_reply["error"]=true;
+
+				$json_reply["message_error"]="Tu equipo debe tener dos hombres o mas  para que puedas convocar";
+					# code...
+			}else{
+				if ($numero_mujeres<2) {
+					$json_reply["error"]=true;
+					$json_reply["message_error"]=" Tu equipo debe tener dos mujeres o mas para que puedas convocar";
+				}else{
+					$json_reply["error"]=false;
+					$json_reply["sucess_menssage"]="ok";
+
+				}
+
+			}
 			
 
 
@@ -131,7 +131,7 @@ class team extends CI_Model {
 
 		}else{
 			$json_reply["error"]=true;
-            $json_reply["message_error"]=" Tu equipo debe tener más  jugadores para que puedas convocar"; 			
+			$json_reply["message_error"]=" Tu equipo debe tener más  jugadores para que puedas convocar"; 			
 			//$json_reply["message_error"]=" TU equipo debe tener más  jugadores para que puedas convocar".$q -> num_rows();
 
 
@@ -141,7 +141,7 @@ class team extends CI_Model {
 
 
 
-public function userData($id_user){
+	public function userData($id_user){
 
 		$this->db->where('id', $id_user);
 		$q = $this->db->get('users');
@@ -151,17 +151,17 @@ public function userData($id_user){
 
 
 
-}
+	}
 
 
 
 
 
-		public function deleteSubscription($id_team,$id_user){
+	public function deleteSubscription($id_team,$id_user){
 
 
 		$this->db->delete('users_teams', array('id' => $id_team,'id_user' => $id_user)); 
-			$json_reply["error"]=false;
+		$json_reply["error"]=false;
 
 		return  $json_reply;
 
@@ -175,15 +175,15 @@ public function userData($id_user){
 		$q = $this->db->get('teams');
 		if ($q -> num_rows() < 3) {
 			$data = array(
-			'name'=>$name,
-			'departamento'=>$departamento,
-			'zone_team'=>$zone_team,
-			'ciudad'=>$ciudad,
-			'description'=>$descripcion,			
-			'leader_id'=>$user_id,
-			);
-		$this->db->insert('teams',$data);
-		return true;
+				'name'=>$name,
+				'departamento'=>$departamento,
+				'zone_team'=>$zone_team,
+				'ciudad'=>$ciudad,
+				'description'=>$descripcion,			
+				'leader_id'=>$user_id,
+				);
+			$this->db->insert('teams',$data);
+			return true;
 		}
 		else {return false;}
 
@@ -210,21 +210,21 @@ public function userData($id_user){
 		$q = $this->db->get('users_teams');
 		if ($q -> num_rows() < 1) {
 
-		$data = array(
-			'id_user'=>$id_user,
-			'id_team'=>$id_team,			
-			);
-		$this->db->insert('users_teams',$data);
+			$data = array(
+				'id_user'=>$id_user,
+				'id_team'=>$id_team,			
+				);
+			$this->db->insert('users_teams',$data);
 
-				$json_reply["error"]=false;
-				
+			$json_reply["error"]=false;
+
 		}
 		else{
 			$json_reply["error"]=true;
 			$json_reply["error_code"]=2;
 			$json_reply["message_error"]="usted ya se encuentra suscrito al equipo: ";
-			}
-			return ($json_reply); 
+		}
+		return ($json_reply); 
 	}
 
 	public function select_from_city($id_city,$id_user)
@@ -240,7 +240,7 @@ public function userData($id_user){
 			
 		} else {
 
-				$json_reply=$cities;
+			$json_reply=$cities;
 
 			
 		}
@@ -253,13 +253,17 @@ public function userData($id_user){
 		$q = $this->db->get('teams');
 
 		if ($q -> num_rows() != 0) {
+			
+			foreach ($json_reply as $key => $team) {
+				$this->validate_players($json_reply[$key]);
+			}
 			return($json_reply=$q->result_array());
 
 		}
 		else{
 			return($json_reply["error"]=true);
-}
-}
+		}
+	}
 
 	public function verify_convocatory($id, $tipo_consulta) {
 		if ($tipo_consulta == 0) {
@@ -385,7 +389,7 @@ public function userData($id_user){
 			$json_reply["error"]=false;
 			$json_reply["message_error"]="Debes esperar a que pase la fecha de la convocatoria para poder evaluar";
 			return ($json_reply);
-			}
+		}
 
 
 
@@ -463,110 +467,110 @@ public function userData($id_user){
 		$json_reply["error"]=false;
 		return $json_reply;
 
-		}
-		public function resultsRequests($id_conv){
+	}
+	public function resultsRequests($id_conv){
 
-			$this->db->where('id_conv', $id_conv);
-			$q = $this->db->get('resultados');
-				if ($q -> num_rows() < 2) {
+		$this->db->where('id_conv', $id_conv);
+		$q = $this->db->get('resultados');
+		if ($q -> num_rows() < 2) {
 
-					$json_reply["error"]="true";
-					$json_reply["message_error"]="Debes esperar a que el otro equipo evalue para ver los resultados";
-					return($json_reply);
+			$json_reply["error"]="true";
+			$json_reply["message_error"]="Debes esperar a que el otro equipo evalue para ver los resultados";
+			return($json_reply);
 
-				}else{
-					$result = $q->result_array();
+		}else{
+			$result = $q->result_array();
 
-					foreach ($result as $key => $value) {
+			foreach ($result as $key => $value) {
 
-							$this->db->where('id_team',$result[$key]["id_equipo"]);
-						
-							$q = $this->db->get('users_teams');
+				$this->db->where('id_team',$result[$key]["id_equipo"]);
 
-							if ($q -> num_rows() < 5) {
-								$result[$key]["n_Subscribers"]=0;
-							}else if ($q -> num_rows() < 7 && $q -> num_rows() > 5 ) {
-								$result[$key]["n_Subscribers"]=2;
-								# code...
-							}else if ($q -> num_rows() > 8) {
-								$result[$key]["n_Subscribers"]=3;
-							}
-							
-					}
-					$result[0]["total"]=0;
-					$result[1]["total"]=0;
-					$temp=$result[0]["otherTeam"];
-					$result[0]["otherTeam"]=$result[1]["otherTeam"];
-					$result[1]["otherTeam"]=$temp;
-					foreach ($result as $key => $value) {
-							$result[$key]["name_team"]=0;
-							$this->db->where('id', $result[$key]["id_equipo"]);
-							$q = $this->db->get('teams');
-							$team=$q->result_array();
-								$result[$key]["name_team"]=$team[0]["name"];
-
-
-
-
-							foreach ($result[$key] as $key2 => $value) {
-
-							if ($key2=="id"||$key2=="name_team"||$key2=="id_conv"||$key2=="id_equipo"||$key2=="id_user"||$key2=="principio"||$key2=="total") {
-								
-							}else{
-								
-								$result[$key]["total"]=$result[$key]["total"]+ $result[$key][$key2];
-								}
-							}
-				
-					}
-				}
-
-				return $result;
-		}
-
-
-		public function savePoints($results) {
-
-			foreach ($results as $key => $value) {
-				
-				$this->db->where('id_team', $results[$key]['id_equipo']);
 				$q = $this->db->get('users_teams');
-				$users=$q->result_array();
 
-				foreach ($users as $keyTwo => $value) {
-					$this->db->where('id',$users[$keyTwo]['id_user'] );
-					$q = $this->db->get('users');
-					$user=$q->result_array();
-					$user=$user[0];
-					$points=$user['points']+$results[$key]['total'];
-					$data = array(               
-						'points'=> $points,
-					);
-					$this->db->where('id',$users[$keyTwo]['id_user'] );
-					$this->db->update('users', $data);
-
+				if ($q -> num_rows() < 5) {
+					$result[$key]["n_Subscribers"]=0;
+				}else if ($q -> num_rows() < 7 && $q -> num_rows() > 5 ) {
+					$result[$key]["n_Subscribers"]=2;
+								# code...
+				}else if ($q -> num_rows() > 8) {
+					$result[$key]["n_Subscribers"]=3;
 				}
 
 			}
+			$result[0]["total"]=0;
+			$result[1]["total"]=0;
+			$temp=$result[0]["otherTeam"];
+			$result[0]["otherTeam"]=$result[1]["otherTeam"];
+			$result[1]["otherTeam"]=$temp;
+			foreach ($result as $key => $value) {
+				$result[$key]["name_team"]=0;
+				$this->db->where('id', $result[$key]["id_equipo"]);
+				$q = $this->db->get('teams');
+				$team=$q->result_array();
+				$result[$key]["name_team"]=$team[0]["name"];
 
+
+
+
+				foreach ($result[$key] as $key2 => $value) {
+
+					if ($key2=="id"||$key2=="name_team"||$key2=="id_conv"||$key2=="id_equipo"||$key2=="id_user"||$key2=="principio"||$key2=="total") {
+
+					}else{
+
+						$result[$key]["total"]=$result[$key]["total"]+ $result[$key][$key2];
+					}
+				}
+				
+			}
+		}
+
+		return $result;
+	}
+
+
+	public function savePoints($results) {
+
+		foreach ($results as $key => $value) {
+
+			$this->db->where('id_team', $results[$key]['id_equipo']);
+			$q = $this->db->get('users_teams');
+			$users=$q->result_array();
+
+			foreach ($users as $keyTwo => $value) {
+				$this->db->where('id',$users[$keyTwo]['id_user'] );
+				$q = $this->db->get('users');
+				$user=$q->result_array();
+				$user=$user[0];
+				$points=$user['points']+$results[$key]['total'];
+				$data = array(               
+					'points'=> $points,
+					);
+				$this->db->where('id',$users[$keyTwo]['id_user'] );
+				$this->db->update('users', $data);
+
+			}
 
 		}
 
-		public function  getData($id_user){
-			$this->db->where('id',$id_user);
-			$q = $this->db->get('users');
-			$user=$q->result_array();
-			$user=$user[0];
-			return $user;
+
+	}
+
+	public function  getData($id_user){
+		$this->db->where('id',$id_user);
+		$q = $this->db->get('users');
+		$user=$q->result_array();
+		$user=$user[0];
+		return $user;
 
 
-		}
+	}
 
-		public function getImagesNames(){
-			
-			$this->db->order_by("id", "desc"); 
-			$q = $this->db->get('images');
-			$files=$q->result_array();
+	public function getImagesNames(){
+
+		$this->db->order_by("id", "desc"); 
+		$q = $this->db->get('images');
+		$files=$q->result_array();
 		
 
 		return($files);
@@ -575,15 +579,15 @@ public function userData($id_user){
 
 
 
-		}
-		public function get_team($id_team)
-		{
-			$this->db->where('id',$id_team);
-			$q = $this->db->get('teams');
-			$user=$q->result_array();
-			$user=$user[0];
-			return $user;
-		}
+	}
+	public function get_team($id_team)
+	{
+		$this->db->where('id',$id_team);
+		$q = $this->db->get('teams');
+		$user=$q->result_array();
+		$user=$user[0];
+		return $user;
+	}
 
 
 
