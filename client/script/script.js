@@ -760,6 +760,7 @@ function register_facebook(){
 
 
 function data_server_team(){
+  //GOL-91
   loadingOpen("Procesando solicitud");
 
   $('#join').find("input:checked").each(function(e) {
@@ -1139,7 +1140,7 @@ function show_teams () {
       $(".your_team").append('<label>Tus Equipos</label><ul id="lista" data-role="listview" data-split-icon="gear"  data-inset="true" ></ul>');
       for (var i = 0; i < response.length  ; i++) {
         var j=i+1;
-        $(".your_team #lista").append('<li><a onclick="selectTeam(this)" href="#">'+
+        $(".your_team #lista").append('<li><a onclick="selectTeam(this)" href="#" data-error="'+response[i].error+'" data-message_error="'+response[i].message_error+'" >'+
           response[i].name+
           '</a>'+
           '<a onclick="carryData(this)" theName="'+response[i].name+'" theId="'+response[i].id+'" theDescription="'+response[i].description+'" href="#deleteTeam" data-rel="popup" data-position-to="window" data-transition="pop">Purchase album</a>'+
@@ -1160,24 +1161,27 @@ $( document ).on( "pageshow", "#convocate", function() {
 });
 
 function selectTeam(element){
+  if (!$(element).data("error")) {
+      $(element).parents('ul').find('li').find('a').each(function(key,value){
+      $(value).removeClass("activeButton");
+      console.log("asdasqwe");
+      });
+      $(element).parents('li').find('a:first-child').addClass("activeButton");
+      console.log("werwer");
 
-  $(element).parents('ul').find('li').find('a').each(function(key,value){
-    $(value).removeClass("activeButton");
-
-    console.log("asdasqwe");
-
-  });
-  $(element).parents('li').find('a:first-child').addClass("activeButton");
+  }else{
+    customAlert($(element).data("message_error"));
+  }
+  
 
 
-  console.log("werwer");
 
 
 
 }
 
 
-function carryData(element){ 
+function carryData(element){
 
   $("#deleteTeam h3").html($(element).attr("theName"));
   $("#deleteTeam p").html($(element).attr("theDescription"));
@@ -1359,10 +1363,8 @@ $( document ).on( "pageshow", "#my_conv", function(event) {
 
      }
 
-     
 
 
-     
    }else{
     customAlert("En este momento no has convocado ningun Juego");
     emptyPage=true;
@@ -1418,7 +1420,6 @@ $.post(server+"teams/conv_team", post_values, function(response) {
                                   '</a></li>');
 
      }
-     
 
 
    
@@ -1897,6 +1898,7 @@ $( document ).on( "pageshow", "#join", function() {
 
   $("#join .ciudad").on( "change",
     function  (e) {
+      //GOL-90
       loadingOpen("Cargando equipos");
 
 
@@ -1962,6 +1964,7 @@ $( document ).on( "pageshow", "#join", function() {
               email:localStorage.getItem('email'),
               team_id:id[1],
             };
+            //GOL-32
             $.post(server+"teams/get_players", post_values, function(response) {
 
               response = jQuery.parseJSON(response);
