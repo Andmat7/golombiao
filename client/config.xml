@@ -54,5 +54,6 @@
 	
 	<access origin="*" />
 	<preference name="orientation" value="portrait" />
+    <preference name="webviewbounce" value="false" />
  
 </widget>

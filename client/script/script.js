@@ -19,14 +19,20 @@ user= {
   birthday:"01/20/1990",
 };
 var init;
+var internet_conexion_alert=false;
 $(window).load(function() {
 
 
   setInterval(function () {
     connectionStatus = navigator.onLine ? 'online' : 'offline';
     if (connectionStatus=="offline") {
+      internet_conexion_alert=true;
+      if (!internet_conexion_alert) {
+        customAlert("Por favor revisa tu conexion a internet");
+        internet_conexion_alert=false;
 
-      customAlert("Por favor revisa tu conexion a internet");
+      };
+      
 
     }else{
         if(!init){
@@ -118,6 +124,15 @@ function cleanforms(){
 });
 
 
+
+}
+function clear_form (id_page) {
+  $(':input','#'+id_page)
+ .not(':button, :submit, :reset, :hidden')
+ .val('')
+ .removeAttr('checked')
+ .removeAttr('selected');
+ $("select",'#'+id_page).selectmenu('refresh');
 
 }
 
@@ -316,7 +331,7 @@ function aceptRequest(element,typeRequest){
 
 
   }else if (!(response.error)&&typeRequest==2) {
-    customAlert("Se ha eliminado la convocatoria");
+    customAlert("Se ha rechazado la convocatoria");
     changePage("#pre_conv");changePage("#my_conv");
 
 
@@ -1323,15 +1338,27 @@ $( document ).on( "pageshow", "#my_conv", function(event) {
 
 
     response = jQuery.parseJSON(response);
+    console.log(response);
     if (!(response.error)) {
       $("#title_mi_reto").html('<div class="title_my_conv">Mis convocatorias</div><ul id="myRequest" data-role="listview" data-inset="true" data-split-icon="plus"></ul>');
       for (var i = 0; i < response.length  ; i++) {
         var j=i+1;
-        if (response[i]["acepta_convocatoria"]=="0") {
-         check='uncheck.png'
+        if (response[i]["acepta_convocatoria"]==="0") {
+         check='checkyellow.png';
        }else{
+          if (response[i]['acepta_convocatoria']==="1") {
+            check='check.png';
 
-         check='check.png'
+          }else{
+             if (response[i]['acepta_convocatoria']==="2") {
+            check='uncheck.png';
+
+          }else{
+            check='checkorange.png';
+          }
+            
+          }
+         
 
 
        }
@@ -1382,16 +1409,28 @@ $.post(server+"teams/conv_team", post_values, function(response) {
 
 
   response = jQuery.parseJSON(response);
+  console.log(response);
   if (!(response.error)) {
     $("#title_mi_reto2").html('<div class="title_my_conv">Me convocaron</div><ul id="request" data-role="listview" data-inset="true" data-split-icon="plus"></ul>');
     
     for (var i = 0; i < response.length  ; i++) {
       var j=i+1;
-              if (response[i]["acepta_convocatoria"]=="0") {
-         check='uncheck.png'
+      if (response[i]["acepta_convocatoria"]==="0") {
+         check='checkyellow.png';
        }else{
+          if (response[i]['acepta_convocatoria']==="1") {
+            check='check.png';
 
-         check='check.png'
+          }else{
+             if (response[i]['acepta_convocatoria']==="2") {
+            check='uncheck.png';
+
+          }else{
+            check='checkorange.png';
+          }
+            
+          }
+         
 
 
        }
@@ -1441,14 +1480,15 @@ loadingClose();
 
 function carryDataConv(element){
   var elmt=element;
+  var accept;
   if ($(elmt).parent().attr('acepta_convocatoria')=="1")
   {
-    var accept="Convocatoria aceptada";
+    accept="Convocatoria aceptada";
     $(".acceptConv").hide();
   }else{
 
-    var accept="Convocatoria no aceptada";
-        if ($(elmt).parent().parent().attr('id')=="request") 
+    accept="Convocatoria sin aceptar";
+    if ($(elmt).parent().parent().attr('id')=="request")
     {
       $(".acceptConv").show();
 
@@ -1461,12 +1501,13 @@ function carryDataConv(element){
   }
 
 
-$("#infoConv h3").html($(element).parent().find("h3").html());
-$("#infoConv h4").html("fecha: "+$(element).parent().attr('date'));
-$("#infoConv p").html(accept);
-$("#infoConv .acceptConv").attr("id",$(element).parent().attr('id'));
+  $("#infoConv h3").html($(element).parent().find("h3").html());
+  $("#infoConv h4").html("fecha: "+$(element).parent().attr('date'));
+  $("#infoConv p").html(accept);
+  $("#infoConv .acceptConv").attr("id",$(element).parent().attr('id'));
 
 }
+
 
 
 //login
@@ -1801,6 +1842,7 @@ function placeMarker(location) {
     //customAlert("convoca2");
   });
   $( document ).on( "pageshow", "#create", function() {
+    clear_form("create");
     $( "#form_create" ).validate({
       rules:{
         ciudad:{
@@ -1856,6 +1898,8 @@ function placeMarker(location) {
 $( document ).on( "pageshow", "#join", function() {
   $(".miJoinTeams").html(" ");
   $(".teams_city").html(" ");
+   clear_form("join");
+   $("#join_select_departament").val($("#join_select_departament option:first").val());
   
 
   var post_values= {
@@ -1896,7 +1940,7 @@ $( document ).on( "pageshow", "#join", function() {
 
 
 
-  $("#join .ciudad").on( "change",
+  $("#join .ciudad").off( "change").on( "change",
     function  (e) {
       //GOL-90
       loadingOpen("Cargando equipos");
@@ -1953,7 +1997,7 @@ $( document ).on( "pageshow", "#join", function() {
 
           
           $('#join').find("input[type='checkbox']").checkboxradio();
-          $('#join').find(".colapse").one('expand', function () {
+          $('#join').find(".colapse").one('collapsibleexpand', function () {
             loadingOpen("Cargando Jugadores");
 
             var myClass=$(this).attr("class");

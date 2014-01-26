@@ -925,3 +925,7 @@ background-color: #679F25 !important;
 color: white !important;
 text-shadow: 1px 1px black !important;
 }
+.ui-listview>.ui-li-has-icon>.ui-btn>img:first-child {
+
+top: 1.2em;
+}

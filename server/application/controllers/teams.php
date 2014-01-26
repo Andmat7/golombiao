@@ -146,7 +146,7 @@ class Teams extends MY_Controller {
 		$tipo_consulta= $this->input->post('tipo_consulta');
 		$result=$this->team->verify_convocatory($this->_USER['id'], $tipo_consulta);
 		echo json_encode($result);
-	}
+}	
 
 
 	public function guardar_convocatoria()	{		
@@ -175,10 +175,11 @@ class Teams extends MY_Controller {
 		$leader=$this->team->getData($equipo_2['leader_id']);
 		$full_name=$leader['first_name']." ". $leader['last_name'];
 		
-		$mensaje = " Hola ".$full_name.", Revisa tu aplicación de golombiao ya que el equipo, ".$equipo_1['name']." ha convocado a tu equipo ".$equipo_2['name'].",  el día ".$this->input->post('fecha').', a las '.$this->input->post('hora') .' para un partido de Golombiao en un juego de '.$tipodepartido[$this->input->post('tipo_juego')].'.
+		$mensaje = "Hola ".$full_name.", Revisa tu aplicación de golombiao ya que el equipo, ".$equipo_1['name']." ha convocado a tu equipo ".$equipo_2['name'].",  el día ".$this->input->post('fecha').', a las '.$this->input->post('hora') .' para un partido de Golombiao en un juego de '.$tipodepartido[$this->input->post('tipo_juego')].'.
+Recuerda tomar fotografías para que puedas subirlas a la página de Golombiao y compartirlas.
 
-		Recuerda tomar fotografías para que puede subirlas a la página de Golombiao y compartirlas.
-		';
+El equipo de Golombiao y Colombia Joven.
+';
 
 		$email_from = $leader['email'];
 		//ini_set(sendmail_from,'info@golombiao.com');
@@ -292,7 +293,7 @@ class Teams extends MY_Controller {
 	public function deleteRequest() {
 		$id_conv = $this->input->post('id_conv');
 		$id_user = $this->_USER['id'];
-		$result = $this->team->deleteRequest($id_user,$id_conv);
+		$result = $this->team->rejectRequest($id_user,$id_conv);
 		echo json_encode($result);
 	}
 

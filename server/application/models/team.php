@@ -25,7 +25,11 @@ class team extends CI_Model {
 				$this->db->where('id', $json_reply[$key]["id_team"]);
 				$q = $this->db->get('teams');
 				$team=$q->result_array();
-				$json_reply[$key]["name_team"]=$team[0]["name"];
+				if(isset($team)){
+					$json_reply[$key]["name_team"]=$team[0]["name"];
+
+				}
+				
 			}
 
 
@@ -196,7 +200,7 @@ class team extends CI_Model {
 	{
 		$this->db->where('id_user', $id_user);
 		$q = $this->db->get('users_teams');
-		if ($q -> num_rows() == 5)
+		if ($q -> num_rows() >= 3)
 		{
 			$json_reply["error"]=true;
 			$json_reply["error_code"]=1;
@@ -253,11 +257,19 @@ class team extends CI_Model {
 		$q = $this->db->get('teams');
 
 		if ($q -> num_rows() != 0) {
+			$json_reply=$q->result_array();
 			
 			foreach ($json_reply as $key => $team) {
-				$this->validate_players($json_reply[$key]);
+				$array=$this->validate_players($json_reply[$key]['id']);
+				if (isset($array["message_error"])) {
+					$json_reply[$key]["message_error"]=$array["message_error"];
+				}
+				
+				$json_reply[$key]["error"]=$array["error"];
+
+				
 			}
-			return($json_reply=$q->result_array());
+			return($json_reply);
 
 		}
 		else{
@@ -301,6 +313,16 @@ class team extends CI_Model {
 
 		$result_list = $query->result_array();
 		if(sizeof($result_list) != 0 ){
+			//print_r($result_list);
+			foreach ($result_list as $key => $value ) {
+				$time=strtotime($result_list[$key]['fecha']." ".$result_list[$key]['hora']);
+				//print_r($result_list[$key]);
+				if (time()>$time&&$result_list[$key]['acepta_convocatoria']!='2') {
+					$result_list[$key]['acepta_convocatoria']='3';
+					$result_list[$key]['time']=$time;
+					
+				}
+			}
 			return($result_list);
 		} else {
 			$json_reply["error"]=true;
@@ -464,6 +486,17 @@ class team extends CI_Model {
 	public function deleteRequest($id_user, $id_conv) {
 
 		$this->db->delete('convocatoria', array('id' => $id_conv));
+		$json_reply["error"]=false;
+		return $json_reply;
+
+	}
+	public function rejectRequest($id_user, $id_conv) {
+	$data = array(               
+			'acepta_convocatoria'=> 2,
+			);
+
+		$this->db->where('id', $id_conv);
+		$this->db->update('convocatoria', $data);
 		$json_reply["error"]=false;
 		return $json_reply;
 
