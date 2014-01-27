@@ -52,9 +52,16 @@ font-size: 1.1em;
 }
 
 .sections {
-margin-top: 9%;
+margin-top: 0%;
 }
 
+
+.dataUser {
+position: relative;
+height: 43%;
+padding: 2%;
+padding-top: 0%;
+}
 
 
 

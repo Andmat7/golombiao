@@ -203,7 +203,7 @@ function verifyData(){
    {
 
     customAlert("Usuario deslogueado, por favor accede con tu correo y contraseña");
-    changePage('index.html#login');
+    changePage('#login');
 
   }
 
@@ -240,7 +240,7 @@ if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){}e
   localStorage.setItem('session_id',"0");
   localStorage.setItem('email',"0");
   localStorage.setItem('id_user',"0");
-  changePage('index.html#login');
+  changePage('#login');
 
 
 
@@ -399,7 +399,7 @@ $( document ).on("click", ".userData", function() {
 $( document ).on("click", ".home_icon", function() {
 
 
-  changePage('index.html#home');
+  changePage('#home');
 });
 $( document ).on("click", ".reto_my_team", function() {
 
@@ -573,7 +573,7 @@ function login(){
             localStorage.setItem('id_user',response_v.user_id);
             console.log(fb_user);
 
-            changePage('index.html#home');
+            changePage('#home');
 
           }else{
             console.log("no registrado");
@@ -599,7 +599,7 @@ function login(){
             $( "input:text[name=email]" ).val(fb_user.email);
             photoUrl="https://graph.facebook.com/"+fb_user.username+"/picture?width=300&height=400";
             $("#photo").attr("src",photoUrl) ;
-            changePage('index.html#register');
+            changePage('#register');
           }
 
 
@@ -671,7 +671,7 @@ function login(){
                     if (!(response.error)) {
                       loadingClose();
                       customAlert("Se ha enviado tu calificación.");
-                      changePage('index.html#my_conv');
+                      changePage('#my_conv');
                     }else{
                       loadingClose();
                       customAlert(response2.message_error);
@@ -721,7 +721,7 @@ function send_results(){
     if (!(response.error)) {
       loadingClose();
       customAlert("se ha enviado tus resultados");
-      changePage('index.html#my_conv');
+      changePage('#my_conv');
     }else{
       loadingClose();
       customAlert(response2.message_error);
@@ -766,7 +766,7 @@ function register_facebook(){
   },{scope: 'publish_actions,email,user_birthday,user_location'});
 
 	
-  changePage('index.html#register');
+  changePage('#register');
 
 
 
@@ -807,7 +807,7 @@ function data_server_team(){
           customAlert(response.message_error);
           
 
-          changePage('index.html#my_conv');
+          changePage('#my_conv');
 
 
 
@@ -880,7 +880,7 @@ function enviar_contrasenas (argument) {
 
         customAlert("Hemos actualizado correctamente tu contraseña");
         $("#popupCode").popup("close");
-        changePage('index.html#');
+        changePage('#');
 
 
     }else{
@@ -940,7 +940,7 @@ function zone(teams){
                     $(vsTeam).attr("theName")+
                     '</a></li>'+
                     '</ul>');
-                  changePage('index.html#convocate2');
+                  changePage('#convocate2');
 
               }
               
@@ -1093,7 +1093,7 @@ $( document ).on( "pageshow", "#home", function() {
   $("#join .teams_city").html("");
 
   var heightPhoto=$("#photo_container").height();
-  $(".dataUser").css("min-height",heightPhoto+20);
+  $(".dataUser").css("min-height",heightPhoto+10);
 
 
 
@@ -1165,7 +1165,7 @@ function show_teams () {
     }else{
       customAlert("Debes ser el creador de un equipo para poder convocar a juego");
       
-      changePage('index.html#play');
+      changePage('#play');
     }
   });
 }
@@ -1246,7 +1246,7 @@ if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){}e
     if (!(response.error)) {
 
       customAlert("Se ha eliminado el equipo exitosamente");
-      changePage('index.html#convocate');
+      changePage('#convocate');
       show_teams ();
       loadingClose();
       
@@ -1296,7 +1296,7 @@ if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){}e
     if (!(response.error)) {
 
       customAlert("Se ha eliminado la subscripcion existosamente");
-      changePage('index.html#join');
+      changePage('#join');
 
 
     }else{
@@ -1348,6 +1348,11 @@ $( document ).on( "pageshow", "#my_conv", function(event) {
        }else{
           if (response[i]['acepta_convocatoria']==="1") {
             check='check.png';
+              if (response[i]['results']==="1")
+              {
+                check='sun.png';
+                
+              }
 
           }else{
              if (response[i]['acepta_convocatoria']==="2") {
@@ -1418,10 +1423,16 @@ $.post(server+"teams/conv_team", post_values, function(response) {
       if (response[i]["acepta_convocatoria"]==="0") {
          check='checkyellow.png';
        }else{
-          if (response[i]['acepta_convocatoria']==="1") {
+          if (response[i]['acepta_convocatoria']==="1"){
             check='check.png';
+              if (response[i]['results']==="1")
+              {
+                check='sun.png';
+                
+              }
 
-          }else{
+          }
+          else{
              if (response[i]['acepta_convocatoria']==="2") {
             check='uncheck.png';
 
@@ -1465,7 +1476,7 @@ $.post(server+"teams/conv_team", post_values, function(response) {
 
  }else{
   customAlert("En este momento no te han convocado a ningun Juego");
-  if (emptyPage){changePage("index.html#pre_conv");
+  if (emptyPage){changePage("#pre_conv");
   location.reload();}
 
 }
@@ -1485,7 +1496,17 @@ function carryDataConv(element){
   {
     accept="Convocatoria aceptada";
     $(".acceptConv").hide();
-  }else{
+  }else if ($(elmt).parent().attr('acepta_convocatoria')=="2"){
+
+        accept="Convocatoria rechazada";
+    $(".acceptConv").hide();
+
+  }
+
+
+
+
+  else{
 
     accept="Convocatoria sin aceptar";
     if ($(elmt).parent().parent().attr('id')=="request")
@@ -1557,7 +1578,7 @@ $( document ).on( "pageshow", "#login", function() {
           $("#location_user").html(response.city);
                 //city=post_values.city;
                 $.mobile.loading( 'hide');
-                changePage('index.html#home');
+                changePage('#home');
               }else{
                 $.mobile.loading( 'hide');
                 customAlert(response.message_error);
@@ -1685,7 +1706,7 @@ $( document ).on( "pageshow", "#register", function() {
         city=post_values.city;
         
         loadingClose();
-        changePage('index.html#login');
+        changePage('#login');
         customAlert("Usuario creado exitosamente");
         cleanforms(); 
       }else{
@@ -1815,7 +1836,7 @@ function placeMarker(location) {
                           loadingClose();
                           customAlert("se ha enviado una solicitud al lider del otro equipo");
                           
-                          changePage('index.html#my_conv');
+                          changePage('#my_conv');
                         }else{
                           loadingClose();
                           customAlert(response.message_error);
@@ -1888,7 +1909,7 @@ function placeMarker(location) {
           }else{
             customAlert(response.message_error);
 
-            changePage('index.html#play');
+            changePage('#play');
           }
         });
       }
@@ -2066,7 +2087,7 @@ $( "#form_create" ).validate({
 
         customAlert("El equipo se creo exitosamente");
         
-        changePage('index.html#convocate');
+        changePage('#convocate');
 
       }else{
         customAlert(response.message_error);

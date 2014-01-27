@@ -315,9 +315,22 @@ class team extends CI_Model {
 		if(sizeof($result_list) != 0 ){
 			//print_r($result_list);
 			foreach ($result_list as $key => $value ) {
+				$this->db->where('id_conv', $result_list[$key]['id']);
+				$q = $this->db->get('resultados');
+				if ($q -> num_rows() == 2) {
+					$result_list[$key]['results']='1';
+
+				}else{
+
+					$result_list[$key]['results']='0';
+
+				}
+
+
+
 				$time=strtotime($result_list[$key]['fecha']." ".$result_list[$key]['hora']);
 				//print_r($result_list[$key]);
-				if (time()>$time&&$result_list[$key]['acepta_convocatoria']!='2') {
+				if (time()>$time&&$result_list[$key]['acepta_convocatoria']!='2'&&$result_list[$key]['acepta_convocatoria']!='1') {
 					$result_list[$key]['acepta_convocatoria']='3';
 					$result_list[$key]['time']=$time;
 					
