@@ -25,7 +25,7 @@ class team extends CI_Model {
 				$this->db->where('id', $json_reply[$key]["id_team"]);
 				$q = $this->db->get('teams');
 				$team=$q->result_array();
-				if(isset($team)){
+				if(isset($team[0])){
 					$json_reply[$key]["name_team"]=$team[0]["name"];
 
 				}
@@ -62,7 +62,7 @@ class team extends CI_Model {
 	public function get_players($id_team,$id_user){
 		$this->db->where('id_team', $id_team);
 		$q = $this->db->get('users_teams');
-		if ($q -> num_rows() == 3) {
+		if ($q -> num_rows() <1) {
 
 			$json_reply["error"]=true;
 			$json_reply["error_code"]=1;

@@ -1107,7 +1107,7 @@ $( document ).on( "pageshow", "#home", function() {
    if (response.points==null ) 
     {response.points=0;};
 
-  $("#points").html("<h3>"+response.points+"</h3><img src='images/sun.png'>");
+  $("#points2").html(response.points);
   $("#name_user").html(response.first_name+" "+response.last_name);
   $("#age_user").html(response.age);
   
@@ -1294,7 +1294,7 @@ if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){}e
 
     response = jQuery.parseJSON(response);
     if (!(response.error)) {
-
+      load_teams();
       customAlert("Se ha eliminado la subscripcion existosamente");
       changePage('#join');
 
@@ -1916,14 +1916,8 @@ function placeMarker(location) {
 
     });
 });
-$( document ).on( "pageshow", "#join", function() {
-  $(".miJoinTeams").html(" ");
-  $(".teams_city").html(" ");
-   clear_form("join");
-   $("#join_select_departament").val($("#join_select_departament option:first").val());
-  
-
-  var post_values= {
+function load_teams () {
+    var post_values= {
     session_id:localStorage.getItem('session_id'),
     email:localStorage.getItem('email'),
   };
@@ -1956,6 +1950,15 @@ $( document ).on( "pageshow", "#join", function() {
 
 
   });
+}
+$( document ).on( "pageshow", "#join", function() {
+  $(".miJoinTeams").html(" ");
+  $(".teams_city").html(" ");
+   clear_form("join");
+   $("#join_select_departament").val($("#join_select_departament option:first").val());
+  
+
+  load_teams();
 
 
 
@@ -2242,20 +2245,26 @@ function setup2() {
           function add_description () {
 
             var description=$('#description_text').val();
-
-            var post_values={
-              session_id:localStorage.getItem('session_id'),
-              email:localStorage.getItem('email'),
-              description: description,
-              image_id:localStorage.getItem('id_image')
-            };
-            console.log(post_values);
+            if (description==="") {
+              customAlert("Por favor describe la imagen");
             
-            $.post(server+"upload/add_description", post_values , function(response) {
-              response = jQuery.parseJSON(response);
-              console.log(response);
-              });
-            $('#description_image').dialog('close');
+            }else{
+              var post_values={
+                session_id:localStorage.getItem('session_id'),
+                email:localStorage.getItem('email'),
+                description: description,
+                image_id:localStorage.getItem('id_image')
+              };
+              console.log(post_values);
+              
+              $.post(server+"upload/add_description", post_values , function(response) {
+                response = jQuery.parseJSON(response);
+                console.log(response);
+                });
+              $('#description_image').dialog('close');
+
+            }
+            
           }
 
 
