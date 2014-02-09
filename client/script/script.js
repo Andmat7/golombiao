@@ -22,125 +22,93 @@ var init;
 var internet_conexion_alert=false;
 $(window).load(function() {
 
-
   setInterval(function () {
     connectionStatus = navigator.onLine ? 'online' : 'offline';
-    if (connectionStatus=="offline") {
+    if (connectionStatus=="offline") 
+    {
       internet_conexion_alert=true;
-      if (!internet_conexion_alert) {
+      if (!internet_conexion_alert) 
+      {
         customAlert("Por favor revisa tu conexion a internet");
         internet_conexion_alert=false;
-
-      };
-      
-
+      }
     }else{
-        if(!init){
-          init=true;
-            FB.init({
-              appId:431026877004103,
-              nativeInterface: CDV.FB,
-              cookie:true,
-              status:true,
-              xfbml:true
-            });
-            
-        }
+      if(!init)
+      {
+        init=true;
+        FB.init({
+          appId:431026877004103,
+          nativeInterface: CDV.FB,
+          cookie:true,
+          status:true,
+          xfbml:true
+        });
+      }
     }
-
   }, 5000);
 
   $(".backButton").click(function() {
-
-
     window.history.back();
     cleanforms();
-
-
-
-
   });
-  $(".homeButton").click(function() {
 
+  $(".homeButton").click(function() {
     $.mobile.changePage( "#home");
     cleanforms();
-
-
-
-
-
   });
-
-
-
 
   $( "#galeria .container" ).scroll(function(event) {
     console.log("scroll");
     event.preventDefault();
     var height=$("#galeria .container").scrollTop()+$("#galeria .container")[0].clientHeight;
     var maxHeight=$("#galeria .container")[0].scrollHeight-15;
-    if (maxHeight<height||maxHeight==height) {
-
+    if (maxHeight<height||maxHeight==height) 
+    {
       if (galeryImages[counter].name) {
-
 
         $("#galeria .container").append("<img alt='' src='"+imagePath+galeryImages[counter].name+"'/> <p class='ui-body ui-body-a'>"+galeryImages[counter].description+"<p/>");
         counter=counter+1;
+
       }
     }
-
-
   });
-
-
-
-  
-
-
-
 });
 
 
 
 function cleanforms(){
- $("form input").each(function(key,value){
-  if ($(value).attr("type")=="button" || $(value).attr("type")=="submit") {}else{
 
+ $("form input").each(function(key,value){
+  if ($(value).attr("type")=="button" || $(value).attr("type")=="submit")
+  {
+
+  }else
+  {
     $(value).val(null);
   }
   $("#identf2").hide();
-  
-
 });
-
-
  $(".ciudad").html(" ");
-
  $("select").each(function(index,element) {
   var myselect = $(element);
   myselect[0].selectedIndex = 0;
   myselect.selectmenu("refresh");
-
 });
-
-
-
 }
+
+
 function clear_form (id_page) {
   $(':input','#'+id_page)
- .not(':button, :submit, :reset, :hidden')
- .val('')
- .removeAttr('checked')
- .removeAttr('selected');
- $("select",'#'+id_page).selectmenu('refresh');
-
+  .not(':button, :submit, :reset, :hidden')
+  .val('')
+  .removeAttr('checked')
+  .removeAttr('selected');
+  $("select",'#'+id_page).selectmenu('refresh');
 }
 
 
 
 $( document ).on( "pageshow", "#galeria", function() {
-
-
 
   var post_values={
     session_id:localStorage.getItem('session_id'),
@@ -152,45 +120,33 @@ $( document ).on( "pageshow", "#galeria", function() {
     galeryImages = jQuery.parseJSON(response);
     console.log(galeryImages.length);
     $("#galeria .container").html(
-                "<h3>Galeriá de fotos de Golombiao</h3>"+
-                "<p>Encuentra aquí las evidencias fotográficas de los encuentros de Golombiao en toda Colombia.</p>"+
-                "<img alt='' src='"+
-                imagePath+
-                galeryImages[0].name+
-                "'/><p class='ui-body ui-body-a'>"+
-                galeryImages[0].description+
-                "</p>"+
-                "<img alt='' src='"+
-                imagePath+
-                galeryImages[1].name+
-                "'/><p class='ui-body ui-body-a'>"+
-                galeryImages[1].description+
-                "</p>"+
-                "<img alt='' src='"+
-                imagePath+
-                galeryImages[2].name+
-                "'/><p class='ui-body ui-body-a'>"+
-                galeryImages[2].description+
-                "</p>"
-                );
-
+      "<h3>Galeriá de fotos de Golombiao</h3>"+
+      "<p>Encuentra aquí las evidencias fotográficas de los encuentros de Golombiao en toda Colombia.</p>"+
+      "<img alt='' src='"+
+      imagePath+
+      galeryImages[0].name+
+      "'/><p class='ui-body ui-body-a'>"+
+      galeryImages[0].description+
+      "</p>"+
+      "<img alt='' src='"+
+      imagePath+
+      galeryImages[1].name+
+      "'/><p class='ui-body ui-body-a'>"+
+      galeryImages[1].description+
+      "</p>"+
+      "<img alt='' src='"+
+      imagePath+
+      galeryImages[2].name+
+      "'/><p class='ui-body ui-body-a'>"+
+      galeryImages[2].description+
+      "</p>"
+      );
     counter=3;
-
-
-    console.log("asdasd");
-
-
   });
-
-
-
-  
-
 });
 
 
 function verifyData(){
-
 
   var post_values= {
     session_id:localStorage.getItem('session_id'),
@@ -201,20 +157,10 @@ function verifyData(){
    response = jQuery.parseJSON(response);
    if (response.message_error=="Usuario no logueado" )
    {
-
     customAlert("Usuario deslogueado, por favor accede con tu correo y contraseña");
     changePage('#login');
-
   }
-
-
-
-
 });
-
-
-
-
 }
 
 
@@ -230,17 +176,17 @@ function deleteData(){
 function closeSession(){
 
 
-if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){}else{
+  if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){}else{
     if(confirm('Desea cerrar sesion?'))
-    {} else{ return(false);}
-}
+      {} else{ return(false);}
+  }
 
-
+ changePage('#login');
 
   localStorage.setItem('session_id',"0");
   localStorage.setItem('email',"0");
   localStorage.setItem('id_user',"0");
-  changePage('#login');
+ 
 
 
 
@@ -250,43 +196,29 @@ if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){}e
 
 
 function closeApp(){
-
   navigator.app.exitApp();
-
-
 }
 
 function reloadApp(){
   $( "#internetPopup" ).popup("close");
   location.reload();
-
-  
 }
 
 $( document ).on( "pageshow", function( event, ui) {
 
+  if ($(event.target).attr("id")=="login"||$(event.target).attr("id")=="register"||$(event.target).attr("id")=="olvidarcontrasena") 
+  {
 
-
-
-
-
-
-  if ($(event.target).attr("id")=="login"||$(event.target).attr("id")=="register"||$(event.target).attr("id")=="olvidarcontrasena") {}
-    else{
-      verifyData();
-    }
-    var windowHeight=$(window).height();
-    var containerHeight=$(event.target).find(".container").height();
-    var footerHeight=$(event.target).find('div[data-role="footer"]').height();
-    var headerHeight=$(event.target).find('div[data-role="header"]').height();
-    $(event.target).find(".container").height(windowHeight-footerHeight-headerHeight+'px');
-  });
-
-
-
-
-
-
+  }
+  else{
+    verifyData();
+  }
+  var windowHeight=$(window).height();
+  var containerHeight=$(event.target).find(".container").height();
+  var footerHeight=$(event.target).find('div[data-role="footer"]').height();
+  var headerHeight=$(event.target).find('div[data-role="header"]').height();
+  $(event.target).find(".container").height(windowHeight-footerHeight-headerHeight+'px');
+});
 
 
 function refreshPage()
@@ -299,11 +231,8 @@ function refreshPage()
 }
 
 function aceptRequest(element,typeRequest){
-  loadingOpen("aceptando solicitud");
-
-  
+  loadingOpen("Aceptando solicitud");
   var direction;
-
 
   var post_values={
     session_id:localStorage.getItem('session_id'),
@@ -311,45 +240,29 @@ function aceptRequest(element,typeRequest){
     id_conv:$(element).parent().attr("id"),
   };
   if (typeRequest==1) {
-   direction="teams/aceptRequest";
- }else{
-
-   direction="teams/deleteRequest";
-
- }
- $.post(server+direction, post_values, function(response) {
-
-  response = jQuery.parseJSON(response);
-
-  loadingClose();
-  if (!(response.error)&&typeRequest==1) {
-    customAlert("Has aceptado la convocatoria");
-    changePage("#pre_conv");changePage("#my_conv");
-
-
-
-  }else if (!(response.error)&&typeRequest==2) {
-    customAlert("Se ha rechazado la convocatoria");
-    changePage("#pre_conv");changePage("#my_conv");
-
-
-
+    direction="teams/aceptRequest";
   }else{
-    customAlert(response.message_error);
+    direction="teams/deleteRequest";
   }
+  $.post(server+direction, post_values, function(response) {
+    response = jQuery.parseJSON(response);
+    loadingClose();
+    if (!(response.error)&&typeRequest==1) {
 
-});
+      customAlert("Has aceptado la convocatoria");
+      changePage("#pre_conv");changePage("#my_conv");
+
+    }else if (!(response.error)&&typeRequest==2) {
+
+      customAlert("Se ha rechazado la convocatoria");
+      changePage("#pre_conv");changePage("#my_conv");
+
+    }else{
+
+      customAlert(response.message_error);
+    }
+  });
 }
-
-$( document ).on("click", "#me_retaron img", function() {
-
-  $( "#myPanel" ).popup( "open" );
-
-  
-
-
-
-});
 
 
 
@@ -362,64 +275,43 @@ $( document ).on("click", ".userData", function() {
     id_user:$(this).attr("myid"),
   };
 
-
   $.post(server+"teams/userData", post_values, function(response) {
     response = jQuery.parseJSON(response);
-
-    if (response.gender==1) {  response.gender="Hombre";  }else{ response.gender="Mujer";}
-
+    if (response.gender==1) {
+      response.gender="Hombre";  
+    }else{
+      response.gender="Mujer";
+    }
     $(".myData2 .nameJ").html(response.first_name+" "+response.last_name);
     $(".myData2 .ageJ").html(response.age+" Años");
     $(".myData2 .genderJ").html(response.gender);
     $(".myData2 .pointsJ").html(response.points+" puntos");
     $( "#userData2" ).popup();
-
-
-    console.log("asdasd");
-
-
     $( "#userData2" ).popup( "open" );
     loadingClose();
   });
-
-  console.log("asdasd");
-
-
-
-
-
 });
 
-
-
-
-
-$( document ).on("click", ".home_icon", function() {
-
-
-  changePage('#home');
-});
 $( document ).on("click", ".reto_my_team", function() {
 
-  console.log("Resultados");
   var post_values= {
     session_id:localStorage.getItem('session_id'),
     email:localStorage.getItem('email'),
     id_conv:$(this).parent().attr("id"),
     id_equipo:$(this).parent().attr("id_equipo")
   };
+
   $("#conv_result").val($(this).parent().attr("id"));
   $("#results .principio img").attr("src","images/acuerdos/"+$(this).parent().attr("principio")+".png");
   $("#results .principio h2").html(values[$(this).parent().attr("principio")]);
   $("#results #myteam input[name='id_equipo']").val($(this).parent().attr("id_equipo1"));
   $("#results #otherteam input[name='id_equipo']").val($(this).parent().attr("id_equipo2"));
 
-
   $.post(server+"teams/existen_resultados", post_values, function(response) {
-
 
     response = jQuery.parseJSON(response);
     if (!(response.error)) {
+
       $.post(server+"teams/resultsRequests", post_values, function(response2) {
 
         response2 = jQuery.parseJSON(response2);
@@ -430,11 +322,10 @@ $( document ).on("click", ".reto_my_team", function() {
 
           if (response2[0].total==response2[1].total) {
 
-            $("#equipodestacado").parent().html("Equipos destacados: <span id='equipodestacado'>"+response2[0].name_team+" y "+response2[1].name_team+"</span>"
-              );
-
+            $("#equipodestacado").parent().html("Equipos destacados: <span id='equipodestacado'>"+response2[0].name_team+" y "+response2[1].name_team+"</span>");
 
           }else if (response2[0].total>response2[1].total) {
+
             $("#equipodestacado").html(response2[0].name_team);
 
           }else{
@@ -443,62 +334,37 @@ $( document ).on("click", ".reto_my_team", function() {
 
           }
 
-
           $.each(response2[0],function(element){
 
-
-            fuckYourTable(element,response2);
-
-
+            renderTable(element,response2);
 
           });
 
-          function fuckYourTable(myClass,data){
+          function renderTable(myClass,data){
 
             $("#results2 ."+myClass+" td").each(function(key,value){
 
               $(value).html(data[key][myClass]+'<img src="images/sun-2.gif">');
-
             });
           }
 
+          changePage( "#results2");
 
-
-
-          $.mobile.changePage( "#results2");
         }else{
 
           customAlert(response2.message_error);
 
         }
-
-
-
-
       });
-
-
-
-}else if(response.message_error=="Aun no has evaluado, por favor hazlo para ver los resultados"){
-  customAlert(response.message_error);
-  $.mobile.changePage( "#results");
-
-
-}else{
-
-  customAlert(response.message_error);
-
-
 }
-
-
-
+else if(response.message_error=="Aun no has evaluado, por favor hazlo para ver los resultados"){
+  customAlert(response.message_error);
+  changePage( "#results");
+}else{
+  customAlert(response.message_error);
+}
 });
-
 });
-
-
-
 
 
 function calculate_age(date_string)
@@ -507,7 +373,6 @@ function calculate_age(date_string)
   var birth_month=parseInt(birthday[0],10);
   var birth_day=parseInt(birthday[1],10);
   var birth_year=parseInt(birthday[2],10);
-
   var today_date = new Date();
   var today_year = today_date.getFullYear();
   var today_month = today_date.getMonth();
@@ -530,37 +395,23 @@ function calculate_age(date_string)
 function login(){
 
   FB.logout();
-
-  FB.login(function(response) {
-
+  FB.login(function(response){
     FB.api('/me', function(fb_user) {
 
-
-
       if (fb_user.id) {
-        console.log('entro');
-        console.log(fb_user);
-
         var post_values={
           fb_id:fb_user.id,
           email:fb_user.email,
         };
-        $.mobile.loading( 'show', {
-          text: '',
-          textVisible: true,
-          theme: 'a',
-          html: ""
-        });
+        loadingOpen("Cargando");
 
         $.post(server+"login/verify_registerfb", post_values, function(response_v) {
-          console.log("hizo la peticion");
-          $.mobile.loading( 'hide' );
-          response_v = jQuery.parseJSON(response_v);
-          
 
-          
+          loadingClose();
+          response_v = jQuery.parseJSON(response_v);
+
           if (response_v.success=="true") {
-            console.log("ya registrado");
+
             $("#name_user").html(fb_user.name);
             $("#age_user").html(fb_user.birthday);
             photoUrl="https://graph.facebook.com/"+fb_user.username+"/picture?width=300&height=400";
@@ -569,126 +420,121 @@ function login(){
             localStorage.setItem('session_id',response_v.session_id);
             localStorage.setItem('email',response_v.email);
             localStorage.setItem('id_user',response_v.user_id);
-            console.log(fb_user);
 
             changePage('#home');
 
           }else{
-            console.log("no registrado");
-            
+
             var middle_name="";
+
             if(fb_user.middle_name!==undefined){
+
               middle_name=fb_user.middle_name;
 
             }
+
             $("#register input[name='first_name']").val(fb_user.first_name+" "+middle_name);
             $("#register input[name='last_name']").val(fb_user.last_name);
             $("#register input[name='age']").val(calculate_age(fb_user.birthday));
             $("#register input[name='fb_id']").val(fb_user.id);
             $("#register input[name='email']").val(fb_user.email);
 
-
-
             if (fb_user.gender=="male"){
+
               $( "select[name=gender]" ).val(1);
+
             }else{
+
               $( "select[name=gender]" ).val(2);
+
             }
+
             $( "input:text[name=email]" ).val(fb_user.email);
+
             photoUrl="https://graph.facebook.com/"+fb_user.username+"/picture?width=300&height=400";
+
             $("#photo").attr("src",photoUrl) ;
+
             changePage('#register');
           }
-
-
-
         }).fail(function() {
           customAlert( "error" );
         });
       }
-
     });
 },{scope: 'publish_actions,email,user_birthday,user_location'});
 }
 
 
-  $( document ).on( "pageshow", "#results", function() {
+$( document ).on( "pageshow", "#results", function() {
 
+  $( "#form_results" ).validate({
+    rules:{
+      barra:{
+        required:true,
+      },
+      cump_acuerdos:{
+        required:true,
+      },
+      faltas:{
+        required:true
+      },
+      meritos:{
+        required:true
+      },
+      no_players_presents:{
+        required:true
+      },
+      no_players:{
+        required:true
+      },
+      autoevaluacion:{
+        required:true
+      },
+      otherTeam:{
+        required:true
+      },
+      asesor:{
+        required:true
+      }
+    },
 
-    $( "#form_results" ).validate({
-            rules:{
-              barra:{
-                required:true,
-              },
-               cump_acuerdos:{
-                required:true,
-              },
-              faltas:{
-                required:true
-              },
-              meritos:{
-                required:true
-              },
-              no_players_presents:{
-                required:true
-              },
-              no_players:{
-                required:true
-              },
-              autoevaluacion:{
-                required:true
-              },
-              otherTeam:{
-                required:true
-              },
-              asesor:{
-                required:true
-              }
-            },
+    submitHandler: function( form ) {
 
-            submitHandler: function( form ) {
-                loadingOpen("Enviando resultados");
+      loadingOpen("Enviando resultados");
 
-                  var post_values={
-                    session_id:localStorage.getItem('session_id'),
-                    email:localStorage.getItem('email'),
-                    id_conv:$("#conv_result").val(),
-                    barra:$("#results #select-choice-custom2").val()
+      var post_values={
+        session_id:localStorage.getItem('session_id'),
+        email:localStorage.getItem('email'),
+        id_conv:$("#conv_result").val(),
+        barra:$("#results #select-choice-custom2").val()
+      };
 
-                  };
-                  $(':input', "#results #myteam").each(function(index, input_element) {
-                   post_values[input_element.name] = $(input_element).val();
+      $(':input', "#results #myteam").each(function(index, input_element) {
 
-                 });
+       post_values[input_element.name] = $(input_element).val();
+     });
 
+      $.post(server+"teams/guardar_resultados", post_values, function(response) {
 
-                  $.post(server+"teams/guardar_resultados", post_values, function(response) {
+        response = jQuery.parseJSON(response);
 
-                    response = jQuery.parseJSON(response);
+        if (!(response.error)) {
 
-                    if (!(response.error)) {
-                      loadingClose();
-                      customAlert("Se ha enviado tu calificación.");
-                      changePage('#my_conv');
-                    }else{
-                      loadingClose();
-                      customAlert(response2.message_error);
-                    }
+          loadingClose();
+          customAlert("Se ha enviado tu calificación.");
+          changePage('#my_conv');
 
+        }else{
 
-                  });
+          loadingClose();
+          customAlert(response2.message_error);
 
-
-
-
-            }
-
-          });
-
-    //customAlert("convoca2");
+        }
+      });
+    }
   });
-
-
+});
 
 
 
@@ -704,13 +550,12 @@ function send_results(){
     email:localStorage.getItem('email'),
     id_conv:$("#conv_result").val(),
     barra:$("#results #select-choice-custom2").val()
-
   };
+
   $(':input', "#results #myteam").each(function(index, input_element) {
-   post_values[input_element.name] = $(input_element).val();
 
- });
-
+    post_values[input_element.name] = $(input_element).val();
+  });
 
   $.post(server+"teams/guardar_resultados", post_values, function(response) {
 
@@ -724,56 +569,36 @@ function send_results(){
       loadingClose();
       customAlert(response2.message_error);
     }
-
-
   });
-
-
-
-
-
-
-
-
 }
 
 
 
 function register_facebook(){
 
-	FB.login(function(response) {
-
-
+  FB.login(function(response) {
     FB.api('/me', function(response) {
 
       $( "input:text[name=name]" ).val(response.name);
       if (response.gender=="male"){
         $( "select[name=gender]" ).val(1);
       }else{
-        $( "select[name=gender]" ).val(2);
+        $("select[name=gender]" ).val(2);
       }
       $( "input:text[name=email]" ).val(response.email);
       $( "input:text[name=city]" ).val(response.location.name);
       $( "input:text[name=birthday]" ).val(response.birthday);
       photoUrl="https://graph.facebook.com/"+response.username+"/picture?width=300&height=400";
       $("#photo").attr("src",photoUrl);
-
     });
-
-
   },{scope: 'publish_actions,email,user_birthday,user_location'});
-
-	
   changePage('#register');
-
-
-
 }
 
 
 
 function data_server_team(){
-  //GOL-91
+
   loadingOpen("Procesando solicitud");
 
   $('#join').find("input:checked").each(function(e) {
@@ -783,40 +608,34 @@ function data_server_team(){
       session_id:localStorage.getItem('session_id'),
       email:localStorage.getItem('email'),
       team_id:$(this).val(),
-
     };
+    
     $.post(server+"teams/suscribe", post_values, function(response) {
+
       response = jQuery.parseJSON(response);
+
       if (!(response.error)) {
         localStorage.setItem('team_id',response.team_id);
         localStorage.setItem('name_team',response.name_team);
-
         customAlert("Te has unido al equipo  "+team_name);
         location.reload();
-        
-
       }else{
+
         if (response.error_code==2) {
 
-
           customAlert(response.message_error+team_name);
+
         }else
+
         {
+
           customAlert(response.message_error);
-          
-
           changePage('#my_conv');
-
-
-
         }
       }
-
     });
     loadingClose();
   });
-
-
 }
 
 
@@ -825,10 +644,9 @@ function select_own_team(team){
   console.log("asdasd");
   $(team).parent().find("li").addClass("green").removeClass("red");
   $(team).addClass("red").removeClass("green");
-
-
-
 }
+
+
 function IsEmail(email) {
   var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
   return regex.test(email);
@@ -836,77 +654,67 @@ function IsEmail(email) {
 
 function enviar_email_pass () {
   if(IsEmail($("#email_recuperar").val())){
-   loadingOpen("Cargando");
-  post_values={
-    email:$("#email_recuperar").val()
-  };
-  $.post(server+"login/recovery_pass", post_values, function(response) {
-    
-    event.preventDefault();
-    response = jQuery.parseJSON(response);
-    if (!(response.error)) {
+    loadingOpen("Cargando");
+    post_values={
+      email:$("#email_recuperar").val()
+    };
+    $.post(server+"login/recovery_pass", post_values, function(response) {
 
+      event.preventDefault();
+      response = jQuery.parseJSON(response);
+      if (!(response.error)) {
         customAlert("Te hemos enviado un email por favor ingresa el código acá");
         $("#olvidarcontrasena input").val("");
         $("#popupCode").popup("open");
-
-    }else{
-      customAlert(response.message_error);
-      
-    }
-    loadingClose();
-  });
-
+      }else{
+        customAlert(response.message_error);
+      }
+      loadingClose();
+    });
   }else{
     customAlert("email inválido");
   }
-  
 }
 
 
 function enviar_contrasenas (argument) {
+
   event.preventDefault();
-
   if ($("#password_recuperar").val()!=$("#ver_password_recuperar").val()) {
-
-     customAlert("Las contraseñas no coinciden");
-     return false;
-
-
+    customAlert("Las contraseñas no coinciden");
+    return false;
   };
-
   loadingOpen("Cargando");
   post_values={
     password:$("#password_recuperar").val(),
     ver_password:$("#ver_password_recuperar").val(),
     code:$("#codigo_ver").val()
   };
-    $.post(server+"login/recuperar_contra", post_values, function(response) {
-    
+  $.post(server+"login/recuperar_contra", post_values, function(response) {
+
     response = jQuery.parseJSON(response);
     if (!(response.error)) {
 
-        customAlert("Hemos actualizado correctamente tu contraseña");
-        $("#popupCode").popup("close");
-        $("#popupCode input").val("");        
-        $("#olvidarcontrasena input").val("");
-        
-        changePage("#login");
-
+      customAlert("Hemos actualizado correctamente tu contraseña");
+      
+      $("#popupCode input").val("");
+      $("#olvidarcontrasena input").val("");
+      changePage("#login");
 
     }else{
-      
-      customAlert(response.message_error);
-      
-    }
-    loadingClose();
-  });
-  
-}
-function zone(teams){
-  event.preventDefault();
-  $("#convocate .container .your_team .ui-btn-active").size();
 
+      customAlert(response.message_error);
+
+    }
+
+    loadingClose();
+
+  });
+}
+
+function zone(teams){
+
+  event.preventDefault();
 
   if ($("#convocate .your_team .activeButton").size()===0) {
     customAlert("Debes seleccionar uno de tus equipos antes de continuar");
@@ -915,79 +723,65 @@ function zone(teams){
     customAlert("Debes seleccionar un equipo contrincante antes de continuar");
     return  false;
   }else {
-        var post_values= {
-            session_id:localStorage.getItem('session_id'),
-            email:localStorage.getItem('email'),
-            id_team:$("#convocate .your_team .activeButton").parent().find("a:nth-child(2)").attr("theId"),
-            vs_team:$("#convocate .vs_team2 .activeButton").parent().find("a:nth-child(2)").attr("theId")
-          };
-          $.post(server+"teams/validate_team", post_values, function(response) {
-              
-              response = jQuery.parseJSON(response);
+    var post_values= {
+      session_id:localStorage.getItem('session_id'),
+      email:localStorage.getItem('email'),
+      id_team:$("#convocate .your_team .activeButton").parent().find("a:nth-child(2)").attr("theId"),
+      vs_team:$("#convocate .vs_team2 .activeButton").parent().find("a:nth-child(2)").attr("theId")
+    };
+    $.post(server+"teams/validate_team", post_values, function(response) {
 
+      response = jQuery.parseJSON(response);
 
-              if ((response.error)) {
-                customAlert(response.message_error);
-                return(false);
+      if ((response.error)) {
 
-                
-              }else{
-                console.log("funciono");
-                
-                  var myTeam=$("#convocate .your_team .activeButton").parent().find("a:nth-child(2)");
-                  var vsTeam=$("#convocate .vs_team2 .activeButton").parent().find("a:nth-child(2)");
-                  $(".two_teams").html(" ");
-                  $(".two_teams").html('<div style="display:none">aqui</div>'+
-                    '<ul theId="'+
-                    $(myTeam).attr("theId")+
-                    '" data-role="listview" data-inset="true"  data-theme="c">'+
-                    '<li data-icon="false"><a href="#">'+
-                    $(myTeam).attr("theName")+
-                    '</a></li>'+
-                    '</ul>'+
-                    '<b>V.S.</b>'+
-                    '<ul theId="'+
-                    $(vsTeam).attr("theId")+
-                    '" data-role="listview" data-inset="true" data-theme="c">'+
-                    '<li data-icon="false"><a href="#">'+
-                    $(vsTeam).attr("theName")+
-                    '</a></li>'+
-                    '</ul>');
-                  
-                  changePage('#convocate2');
+        customAlert(response.message_error);
+        return(false);
 
-              }
-              
-        });
+      }else{
 
-  }
-
-
-
-  
+        var myTeam=$("#convocate .your_team .activeButton").parent().find("a:nth-child(2)");
+        var vsTeam=$("#convocate .vs_team2 .activeButton").parent().find("a:nth-child(2)");
+        $(".two_teams").html(" ");
+        $(".two_teams").html('<div style="display:none">aqui</div>'+
+          '<ul theId="'+
+          $(myTeam).attr("theId")+
+          '" data-role="listview" data-inset="true"  data-theme="c">'+
+          '<li data-icon="false"><a href="#">'+
+          $(myTeam).attr("theName")+
+          '</a></li>'+
+          '</ul>'+
+          '<b>V.S.</b>'+
+          '<ul theId="'+
+          $(vsTeam).attr("theId")+
+          '" data-role="listview" data-inset="true" data-theme="c">'+
+          '<li data-icon="false"><a href="#">'+
+          $(vsTeam).attr("theName")+
+          '</a></li>'+
+          '</ul>');
+        changePage('#convocate2');
+      }
+    });
+}
 }
 
 
 
 
 
-
-
-
-
 function vs_team(vs_steam){
-  loadingOpen("Cargando");
 
-  console.log("asdasd");
+  loadingOpen("Cargando");
   var post_values={
     session_id:localStorage.getItem('session_id'),
     email:localStorage.getItem('email'),
     id_city:vs_steam.value
   };
+
   $.post(server+"teams/get_fromcity", post_values, function(response) {
+
     event.preventDefault();
     response = jQuery.parseJSON(response);
-
 
     if (!(response.error)) {
 
@@ -1003,27 +797,14 @@ function vs_team(vs_steam){
       }
       $('#lista2').listview();
     }else{
+
       customAlert(response.message_error);
-      
+
     }
+
     loadingClose();
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   });
-
-
 
 }
 function loadingOpen(legend){
@@ -1045,10 +826,8 @@ function loadingClose(){
 
 
 function sel_city(departamento) {
+
   loadingOpen("Cargando ciudades");
-
-
-
   var post_values={
     session_id:localStorage.getItem('session_id'),
     email:localStorage.getItem('email')
@@ -1059,14 +838,11 @@ function sel_city(departamento) {
 
     response = jQuery.parseJSON(response);
     loadingClose();
+
     for (var i = 0; i < response.length  ; i++) {
       var j=i+1;
       $(".ciudad").append("<option value="+response[i]["idCiudad"]+">"+response[i]["nombre"]+"</option>");
     }
-
-
-
-
   });
 }
 
@@ -1074,43 +850,38 @@ function sel_city(departamento) {
 
 
 function camera(){
- console.log("camera");
+  navigator.camera.getPicture(onSuccessCamera, onFailCamera, { quality: 50,
+    destinationType: Camera.DestinationType.FILE_URI,
+    targetWidth: 300,
+    targetHeight: 400,
+    correctOrientation: true
+  });
 
- navigator.camera.getPicture(onSuccess, onFail, { quality: 50,
-  destinationType: Camera.DestinationType.FILE_URI,
-  targetWidth: 300,
-  targetHeight: 400,
-  correctOrientation: true
-});
-
- function onSuccess(imageURI) {
-  var image = document.getElementById('photo');
-  localStorage.setItem("photo_"+localStorage.getItem("id_user"),imageURI);
-  image.src = localStorage.getItem("photo_"+localStorage.getItem("id_user"));
-  console.log("funciono");
-}
-
-function onFail(message) {
-  console.log('Accion Cancelada');
-}
-
+  function onSuccessCaemra(imageURI) {
+    var image = document.getElementById('photo');
+    localStorage.setItem("photo_"+localStorage.getItem("id_user"),imageURI);
+    image.src = localStorage.getItem("photo_"+localStorage.getItem("id_user"));
+    console.log("funciono");
+  }
+  function onFailCamera(message) {
+    console.log('Accion Cancelada');
+  }
 
 }
 
-
-
-//for unique photo
 
 
 $( document ).on( "pageshow", "#home", function() {
+
   $(".your_team").html(" ");
+
   $(".vs_team2").html(" ");
+
   $("#join .teams_city").html("");
 
   var heightPhoto=$("#photo_container").height();
+
   $(".dataUser").css("min-height",heightPhoto+10);
-
-
 
   var post_values= {
     session_id:localStorage.getItem('session_id'),
@@ -1118,59 +889,51 @@ $( document ).on( "pageshow", "#home", function() {
   };
 
   $.post(server+"teams/getData", post_values, function(response) {
-   response = jQuery.parseJSON(response);
-   if (response.points==null ) 
-    {response.points=0;};
-
-  var homeName=response.first_name.split(" ");
-  var lastName=response.last_name.split(" ");
-
-
-  $("#points2").html(response.points);
-  $("#name_user").html(homeName[0]+" "+lastName[0]);
-  $("#age_user").html(response.age);
-  
-
-  var image = document.getElementById('photo');
-  if (localStorage.getItem("photo_"+localStorage.getItem("id_user"))) {
-    image.src = localStorage.getItem("photo_"+localStorage.getItem("id_user"));
-  }else if(response.fb_id != "0" && response.fb_id != null){
-
-    image.src ="http://graph.facebook.com/"+response.fb_id+"/picture?width=300&height=400";
-
-  }
-  else
-  {
-
-    image.src ="http://graph.facebook.com/Golombiao/picture?width=300&height=400";
-  }
+    response = jQuery.parseJSON(response);
+    if (response.points==null )
+    {
+      response.points=0;
+    };
 
 
+    var homeName=response.first_name.split(" ");
+    var lastName=response.last_name.split(" ");
+
+    $("#points2").html(response.points);
+    $("#name_user").html(homeName[0]+" "+lastName[0]);
+    $("#age_user").html(response.age);
+
+    var image = document.getElementById('photo');
+    if (localStorage.getItem("photo_"+localStorage.getItem("id_user"))) {
+      image.src = localStorage.getItem("photo_"+localStorage.getItem("id_user"));
+    }else if(response.fb_id != "0" && response.fb_id != null){
+      image.src ="http://graph.facebook.com/"+response.fb_id+"/picture?width=300&height=400";
+    }
+    else
+    {
+      image.src ="http://graph.facebook.com/Golombiao/picture?width=300&height=400";
+    }
+  });
 });
 
-
-
-
-
-});
 
 function show_teams () {
   var post_values= {
     session_id:localStorage.getItem('session_id'),
     email:localStorage.getItem('email')
   };
+
   event.preventDefault();
 
-
   $.post(server+"teams/verify_team", post_values, function(response) {
+
     event.preventDefault();
 
-
     response = jQuery.parseJSON(response);
+
     if (!(response.error)) {
+
       $(".your_team").html(" ");
-      
-      
       $(".your_team").append('<label>Tus Equipos</label><ul id="lista" data-role="listview" data-split-icon="gear"  data-inset="true" ></ul>');
       for (var i = 0; i < response.length  ; i++) {
         var j=i+1;
@@ -1183,11 +946,11 @@ function show_teams () {
       $('#lista').listview();
     }else{
       customAlert("Debes ser el creador de un equipo para poder convocar a juego");
-      
       changePage('#play');
     }
   });
 }
+
 
 $( document ).on( "pageshow", "#convocate", function() {
   clear_form ("convocate");
@@ -1198,23 +961,19 @@ $( document ).on( "pageshow", "#convocate", function() {
 });
 
 function selectTeam(element){
+
   if (!$(element).data("error")) {
-      $(element).parents('ul').find('li').find('a').each(function(key,value){
+
+    $(element).parents('ul').find('li').find('a').each(function(key,value){
       $(value).removeClass("activeButton");
-      console.log("asdasqwe");
-      });
-      $(element).parents('li').find('a:first-child').addClass("activeButton");
-      console.log("werwer");
+    });
 
+    $(element).parents('li').find('a:first-child').addClass("activeButton");
   }else{
+
     customAlert($(element).data("message_error"));
+
   }
-  
-
-
-
-
-
 }
 
 
@@ -1223,9 +982,8 @@ function carryData(element){
   $("#deleteTeam h3").html($(element).attr("theName"));
   $("#deleteTeam p").html($(element).attr("theDescription"));
   $("#deleteTeam a").attr("theId",$(element).attr("theId"));
-
-
 }
+
 function carryDataInfo(element){ 
 
   $("#infoTeam h3").html($(element).attr("theName"));
@@ -1233,7 +991,7 @@ function carryDataInfo(element){
   $("#infoTeam a").attr("theId",$(element).attr("theId"));
 
 }
-function carryDataSubscription(element){ 
+function carryDataSubscription(element){
 
   $("#deleteSubscription h3").html($(element).attr("theName"));
   $("#deleteSubscription a").attr("theId",$(element).attr("theId"));
@@ -1242,19 +1000,20 @@ function carryDataSubscription(element){
 
 
 function deleteTeam(team){
-if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){}else{
+
+  if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){
+
+  }else{
 
     if(confirm('Al eliminar el equipo, se eliminara todas las convocatorias referentes a este equipo;Esta seguro que desea borrar el equipo?')) 
-  {} else{ return(false);}
- }
+    {
 
-
+    }else{ 
+      return(false);
+    }
+  }
 
   loadingOpen("Procesando");
-
-
-
-  console.log("delete");
 
   var post_values= {
     session_id:localStorage.getItem('session_id'),
@@ -1265,10 +1024,13 @@ if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){}e
   $.post(server+"teams/deleteTeam", post_values, function(response) {
 
     response = jQuery.parseJSON(response);
+
     if (!(response.error)) {
 
       customAlert("Se ha eliminado el equipo exitosamente");
+
       changePage('#convocate');
+
       show_teams ();
       loadingClose();
       
@@ -1276,36 +1038,27 @@ if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){}e
 
     }else{
 
-
       customAlert("ha habido un error procesando tu solicitud");
       loadingClose();
       $.mobile.refresh();
-
-
     }
-
-
-    console.log("delete");
-
-
   });
-
-
 }
 
 
 
 function deleteSubscription(team){
 
-if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){}else{
+  if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i))
+  {
+  }else{
 
-  if(confirm('Esta seguro que desea salirse del equipo?')) 
-    {} else{ return(false);}
-
-}
-
-  console.log("delete");
-
+    if(confirm('Esta seguro que desea salirse del equipo?'))
+    {
+    }else{
+      return(false);
+    }
+  }
   var post_values= {
     session_id:localStorage.getItem('session_id'),
     email:localStorage.getItem('email'),
@@ -1323,19 +1076,9 @@ if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){}e
 
     }else{
 
-
       customAlert("ha habido un error procesando tu solicitud");
-
-
     }
-
-
-    console.log("delete");
-
-
   });
-
-
 }
 
 
@@ -1357,8 +1100,6 @@ $( document ).on( "pageshow", "#my_conv", function(event) {
   var check;
   var action;
   $.post(server+"teams/conv_team", post_values, function(response) {
-    
-
 
     response = jQuery.parseJSON(response);
     console.log(response);
@@ -1367,160 +1108,123 @@ $( document ).on( "pageshow", "#my_conv", function(event) {
       for (var i = 0; i < response.length  ; i++) {
         var j=i+1;
         if (response[i]["acepta_convocatoria"]==="0") {
-         check='checkyellow.png';
-         action='reto_my_team'
-       }else{
-          if (response[i]['acepta_convocatoria']==="1") {
-            check='check.png';
-            action='reto_my_team';
-              if (response[i]['results']==="1")
-              {
-                check='sun-2.gif';
-                action='reto_my_team';
-                
-              }
-
-          }else{
-             if (response[i]['acepta_convocatoria']==="2") {
-            check='uncheck.png';
-            action='';
-
-          }else{
-            check='checkorange.png';
-            action='';
+          check='checkyellow.png';
+          action='reto_my_team'
+        }else if (response[i]['acepta_convocatoria']==="1") {
+          check='check.png';
+          action='reto_my_team';
+          if (response[i]['results']==="1")
+          {
+            check='sun-2.gif';
           }
-            
-          }
-         
 
+        }else if (response[i]['acepta_convocatoria']==="2") {
+          check='uncheck.png';
+          action='';
 
-       }
+        }else{
+          check='checkorange.png';
+          action='';
+        }
 
+        $("#myRequest").append('<li  id_equipo1="'+
+          response[i]["equipo_1"]+
+          '" id_equipo2="'+
+          response[i]["equipo_2"]+
+          '" principio="'+
+          response[i]["principio"]+
+          '" id="'+response[i]["id"]+
+          '" date="'+response[i]["hora"]+' '+response[i]["fecha"]+
+          '" principio="'+response[i]["principio"]+
+          '" acepta_convocatoria="'+response[i]["acepta_convocatoria"]+
+          '">'+
+          '<a href="#" class="'+action+'"><img src="images/'+
+          check+
+          '" alt="" class="ui-li-icon ui-corner-none"><h3>'+
+          response[i]["equipo_1_name"]+
+          '  V.s. '+
+          response[i]["equipo_2_name"]+
+          '</h3></a>'+
+          '<a href="#infoConv" onclick="carryDataConv(this)" data-rel="popup" data-position-to="window" data-transition="pop" '+
 
- 
-       $("#myRequest").append('<li  id_equipo1="'+
-                                  response[i]["equipo_1"]+
-                                  '" id_equipo2="'+
-                                  response[i]["equipo_2"]+
-                                  '" principio="'+
-                                  response[i]["principio"]+
-                                  '" id="'+response[i]["id"]+
-                                  '" date="'+response[i]["hora"]+' '+response[i]["fecha"]+
-                                  '" principio="'+response[i]["principio"]+
-                                  '" acepta_convocatoria="'+response[i]["acepta_convocatoria"]+
-                                  '">'+
-                                  '<a href="#" class="'+action+'"><img src="images/'+
-                                  check+
-                                  '" alt="" class="ui-li-icon ui-corner-none"><h3>'+
-                                  response[i]["equipo_1_name"]+
-                                  '  V.s. '+
-                                  response[i]["equipo_2_name"]+
-                                  '</h3></a>'+
-                                  '<a href="#infoConv" onclick="carryDataConv(this)" data-rel="popup" data-position-to="window" data-transition="pop" '+
+          '>'+
+          '</a></li>');
 
-                                  '>'+
-                                  '</a></li>');
+      }
+    }else{
+      customAlert("En este momento no has convocado ningun Juego");
+      emptyPage=true;
+    }
 
-     }
+    $("#my_conv [data-role='listview']").listview();
 
-
-
-   }else{
-    customAlert("En este momento no has convocado ningun Juego");
-    emptyPage=true;
-  }
-  $("#my_conv [data-role='listview']").listview();
-});
+  });
 
 post_values= {
   session_id:localStorage.getItem('session_id'),
   email:localStorage.getItem('email'),
   tipo_consulta:1
 };
-
 $.post(server+"teams/conv_team", post_values, function(response) {
-
-
   response = jQuery.parseJSON(response);
   console.log(response);
   if (!(response.error)) {
     $("#title_mi_reto2").html('<div class="title_my_conv">Me convocaron</div><ul id="request" data-role="listview" data-inset="true" data-split-icon="plus"></ul>');
-    
     for (var i = 0; i < response.length  ; i++) {
       var j=i+1;
       if (response[i]["acepta_convocatoria"]==="0") {
-         check='checkyellow.png';
-         action='reto_my_team'
-       }else{
-          if (response[i]['acepta_convocatoria']==="1"){
-            check='check.png';
-            action='reto_my_team' 
-              if (response[i]['results']==="1")
-              {
-                check='sun-2.gif';
-                action='reto_my_team'
-                
-              }
+        check='checkyellow.png';
+        action='reto_my_team'
+      }else if (response[i]['acepta_convocatoria']==="1") {
+        check='check.png';
+        action='reto_my_team';
+        if (response[i]['results']==="1")
+        {
+          check='sun-2.gif';
+        }
 
-          }
-          else{
-             if (response[i]['acepta_convocatoria']==="2") {
-            check='uncheck.png';
-            action='';
+      }else if (response[i]['acepta_convocatoria']==="2") {
+        check='uncheck.png';
+        action='';
 
-          }else{
-            check='checkorange.png';
-            action='';
-          }
-            
-          }
-         
+      }else{
+        check='checkorange.png';
+        action='';
+      }
 
+      $("#request").append('<li  id_equipo1="'+
+        response[i]["equipo_2"]+
+        '" id_equipo2="'+
+        response[i]["equipo_1"]+
+        '" principio="'+
+        response[i]["principio"]+
+        '" id="'+response[i]["id"]+
+        '" date="'+response[i]["hora"]+' '+response[i]["fecha"]+
+        '" principio="'+response[i]["principio"]+
+        '" acepta_convocatoria="'+response[i]["acepta_convocatoria"]+
+        '">'+
+        '<a href="#" class="'+action+'"><img src="images/'+
+        check+
+        '" alt="" class="ui-li-icon ui-corner-none"><h3>'+
+        response[i]["equipo_1_name"]+
+        '  V.s. '+
+        response[i]["equipo_2_name"]+
+        '</h3></a>'+
+        '<a href="#infoConv" onclick="carryDataConv(this)" data-rel="popup" data-position-to="window" data-transition="pop" '+
 
-       }
-
-
-
-             $("#request").append('<li  id_equipo1="'+
-                                  response[i]["equipo_2"]+
-                                  '" id_equipo2="'+
-                                  response[i]["equipo_1"]+
-                                  '" principio="'+
-                                  response[i]["principio"]+
-                                  '" id="'+response[i]["id"]+
-                                  '" date="'+response[i]["hora"]+' '+response[i]["fecha"]+
-                                  '" principio="'+response[i]["principio"]+
-                                  '" acepta_convocatoria="'+response[i]["acepta_convocatoria"]+
-                                  '">'+
-                                  '<a href="#" class="'+action+'"><img src="images/'+
-                                  check+
-                                  '" alt="" class="ui-li-icon ui-corner-none"><h3>'+
-                                  response[i]["equipo_1_name"]+
-                                  '  V.s. '+
-                                  response[i]["equipo_2_name"]+
-                                  '</h3></a>'+
-                                  '<a href="#infoConv" onclick="carryDataConv(this)" data-rel="popup" data-position-to="window" data-transition="pop" '+
-
-                                  '>'+
-                                  '</a></li>');
-
-     }
-
-
-   
-
- }else{
-  customAlert("En este momento no te han convocado a ningun Juego");
-  if (emptyPage){changePage("#pre_conv");
-  location.reload();}
-
-}
-$("#my_conv [data-role='listview']").listview();
+        '>'+
+        '</a></li>');
+    }
+  }else{
+    customAlert("En este momento no te han convocado a ningun Juego");
+    if (emptyPage){
+      changePage("#pre_conv");
+      location.reload();
+    }
+  }
+  $("#my_conv [data-role='listview']").listview();
 });
-
-
 loadingClose();
-
 });
 
 
@@ -1528,37 +1232,34 @@ function carryDataConv(element){
   var elmt=element;
   var accept;
   var image=$(element).parent().find("img").attr("src");
-if (image=="images/check.png") {
+  if (image=="images/check.png") {
     accept="Convocatoria aceptada";
     $(".acceptConv").hide();
-
   }else if (image=="images/checkyellow.png") {
+
     accept="Convocatoria aun no aceptada";
-            if ($(elmt).parent().parent().attr('id')=="request")
-        {
-          $(".acceptConv").show();
 
+    if ($(elmt).parent().parent().attr('id')=="request")
+    {
+      $(".acceptConv").show();
+    }else{
 
-        }else{
-
-          $(".acceptConv").hide();
-
-        }
+      $(".acceptConv").hide();
+    }
 
   }else if (image=="images/sun-2.gif") {
-      accept="Convocatoria calificada";
-      $(".acceptConv").hide();
+    accept="Convocatoria calificada";
+    $(".acceptConv").hide();
     
   }else if (image=="images/uncheck.png") {
     accept="Convocatoria rechazada";
     $(".acceptConv").hide();
-      
+
   }else if (image=="images/checkorange.png") {
     accept="Convocatoria vencida no aceptada";
     $(".acceptConv").hide();
     
   };
-
 
   $("#infoConv h3").html($(element).parent().find("h3").html());
   $("#infoConv h4").html("fecha: "+$(element).parent().attr('date'));
@@ -1572,39 +1273,32 @@ if (image=="images/check.png") {
 //login
 $( document ).on( "pageshow", "#login", function() {
 
-
-
   $( "#form_login" ).validate({
+
     rules:{
       email:{
         required:true,
         email:true
       },
-
       encrypted_password: "required",
-
     },
 
     submitHandler: function( form ) {
-      $.mobile.loading( 'show', {
-        text: 'Verificando datos',
-        textVisible: true,
-        theme: 'a',
-        html: ""
-      });
-
-
-
+      loadingOpen("Verificando");
       var post_values={};
       $(':input', "#form_login").each(function(index, input_element) {
-       post_values[input_element.name] = $(input_element).val();
 
-     });
+        post_values[input_element.name] = $(input_element).val();
+      });
+
       post_values.encrypted_password=CryptoJS.SHA256(post_values.encrypted_password).toString(CryptoJS.enc.Base64);
+
       $.post(server+"login", post_values, function(response) {
 
         response = jQuery.parseJSON(response);
+
         if (!(response.error)) {
+
           localStorage.setItem('session_id',response.session_id);
           localStorage.setItem('email',response.email);
           localStorage.setItem('id_user',response.user_id);
@@ -1612,48 +1306,44 @@ $( document ).on( "pageshow", "#login", function() {
           var last_name=response.last_name.split(" ");
           $("#name_user").html(first_name[0] +' '+ last_name[0]);
           $("#age_user").html(response.age);
-
           $("#location_user").html(response.city);
-                //city=post_values.city;
-                $.mobile.loading( 'hide');
-                changePage('#home');
-              }else{
-                $.mobile.loading( 'hide');
-                customAlert(response.message_error);
-              }
-
-            });
-
+          changePage('#home');
+        }else{
+          customAlert(response.message_error);
+        }
+        loadingClose();
+      });
     }
-
   });
 });
+
+
 function level_function(select){
+
   if($(select).val()==1){
     $("#identf2").show();
   }else{
     $("#identf2").hide();
   }
-  
-
 }
+
+
 function load_map (position) {
-
   var myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
   map  = new google.maps.Map(document.getElementById('geoLocation2'), {
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     center: myLocation,
     zoom: 4
   });
-  
 }
 
 $( document ).on( "pageshow", "#mapa", function() {
+
   var post_values= {
     session_id:localStorage.getItem('session_id'),
     email:localStorage.getItem('email')
   };
+
   $.post(server+"teams/maps_convocatoria", post_values, function(response) {
     response = jQuery.parseJSON(response);
     var colombialatlng = new google.maps.LatLng( 4.127285,-73.696289);
@@ -1675,16 +1365,11 @@ $( document ).on( "pageshow", "#mapa", function() {
          map: colombia,
          icon: icon
        });
-
-
-
       }
     }
-
   });
-
-
 });
+
 $( document ).on( "pageshow", "#register", function() {
  $( "#form_register" ).validate({
   rules:{
@@ -1721,9 +1406,7 @@ $( document ).on( "pageshow", "#register", function() {
     }
   },
   submitHandler: function( form ) {
-
     loadingOpen("Registrando");
-
     var post_values= {};
     $(':input', "#form_register").each(function(index, input_element) {
       post_values.NewField = input_element.name;
@@ -1731,34 +1414,29 @@ $( document ).on( "pageshow", "#register", function() {
     });
     post_values.encrypted_password=CryptoJS.SHA256(post_values.encrypted_password).toString(CryptoJS.enc.Base64);
     $.post(server+"login/newuser", post_values, function(response) {
-
       response = jQuery.parseJSON(response);
-      console.log(response);
-
       if (!(response.error)) {
-
         localStorage.setItem('id_user',response.id_user);
         $("#name_user").html(post_values.first_name+" "+post_values.last_name);
         $("#age_user").html(post_values.birthday);
         $("#location_user").html(post_values.city);
         city=post_values.city;
-        
         loadingClose();
         changePage('#login');
         customAlert("Usuario creado exitosamente");
-        cleanforms(); 
+        cleanforms();
       }else{
         customAlert(response.message_error);
         loadingClose();
       }
-
     });
   }
+});
+});
 
-});
-});
 
 var marker;
+
 function placeMarker(location) {
 
   if ( marker ) {
@@ -1775,187 +1453,172 @@ function placeMarker(location) {
   geolocation.setCenter(pos);
   $("#latitud").val(marker.getPosition().lat());
   $("#longitud").val(marker.getPosition().lng());
-    //customAlert("añadida ubicación en: lat"+pos.lat()+"long"+pos.lng);
-  }
-  function load_map_loc (position) {
-    console.log("cargo");
+}
 
-    var myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+function load_map_loc (position) {
 
-    geolocation  = new google.maps.Map(document.getElementById('geolocation'), {
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      center: myLocation,
-      zoom: 18
-    });
-    google.maps.event.addListener(geolocation,'click',function  (event) {
+  var myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
-
-      placeMarker(event.latLng);
-
-
-
-    });
-
-
-  }
-  function load_map (err) {
-    
-    console.warn('ERROR(' + err.code + '): ' + err.message);
-
-    if(err.code==1){
-      customAlert("por favor habilita tu geolocalización");
-    }
-    var myLocation = new google.maps.LatLng(4.127285,-73.696289);
-
-    geolocation  = new google.maps.Map(document.getElementById('geolocation'), {
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      center: myLocation,
-      zoom:4
-    });
-    google.maps.event.addListener(geolocation,'click',function  (event) {
-
-
-      placeMarker(event.latLng);
-
-
-
-    });
-
-
-  }
-
-  $( document ).on( "pageshow", "#convocate2", function() {
-    navigator.geolocation.getCurrentPosition(load_map_loc, load_map,{maximumAge:60000, timeout:10000, enableHighAccuracy:true});
-    $("#dateConvocate").mobiscroll().date();
-    $("#timeConvocate").mobiscroll().time();
-    $('#dateConvocate').mobiscroll('option', { lang: 'es',animate:'flip',dateFormat:'yy-mm-dd'});
-    $('#timeConvocate').mobiscroll('option', { lang: 'es',animate:'flip' });
-
-    $( "#form_convocate2" ).validate({
-            rules:{
-              fecha:{
-                required:true,
-              },
-              hora:{
-                required:true
-              },
-              tipo_juego:{
-                required:true
-              },
-              principio:{
-                required:true
-              }
-            },
-
-            submitHandler: function( form ) {
-              var longi=$('#latitud').val();
-              var lati=$('#longitud').val();
-              if (longi!==""&&lati!=="") {
-                loadingOpen("Solicitando encuentro");
-
-
-                      var post_values={
-                        session_id:localStorage.getItem('session_id'),
-                        email:localStorage.getItem('email'),
-                        equipo_1:$($("#convocate2 .container ul")[0]).attr("theId"),
-                        equipo_2:$($("#convocate2 .container ul")[1]).attr("theId"),
-
-                      };
-                      $(':input', "#convocate2").each(function(index, input_element) {
-                       post_values[input_element.name] = $(input_element).val();
-
-                     });
-                      $.post(server+"teams/guardar_convocatoria", post_values, function(response) {
-
-                        response = jQuery.parseJSON(response);
-
-
-                        if (!(response.error)) {
-                          loadingClose();
-                          customAlert("se ha enviado una solicitud al lider del otro equipo");
-                          
-                          changePage('#my_conv');
-                        }else{
-                          loadingClose();
-                          customAlert(response.message_error);
-                        }
-
-                      });
-
-              }else{
-                customAlert("Selecciona en el mapa la ubicación del partido");
-              }
-               
-            }
-
-          });
-
-
-
-$(".two_teams ul").listview()
-
-
-
-
-
-    //customAlert("convoca2");
+  geolocation  = new google.maps.Map(document.getElementById('geolocation'), {
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    center: myLocation,
+    zoom: 18
   });
-  $( document ).on( "pageshow", "#create", function() {
-    clear_form("create");
-    $( "#form_create" ).validate({
-      rules:{
-        ciudad:{
-          required:true
-        },
-        name:{
-          required:true,
-        },
-        departamento:{
-          required:true
-        },
+  google.maps.event.addListener(geolocation,'click',function  (event) {
+
+    placeMarker(event.latLng);
+  });
+}
+
+function load_map (err) {
+  console.warn('ERROR(' + err.code + '): ' + err.message);
+  if(err.code==1){
+    customAlert("por favor habilita tu geolocalización");
+  }
+  var myLocation = new google.maps.LatLng(4.127285,-73.696289);
+  geolocation  = new google.maps.Map(document.getElementById('geolocation'), {
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    center: myLocation,
+    zoom:4
+  });
+
+  google.maps.event.addListener(geolocation,'click',function  (event) {
+    placeMarker(event.latLng);
+  });
+}
 
 
-        descripcion:{
-          required:true
-        },
-        zone_team:{
-          required:true
-        },
 
+
+$( document ).on( "pageshow", "#convocate2", function() {
+
+  navigator.geolocation.getCurrentPosition(load_map_loc, load_map,{maximumAge:60000, timeout:10000, enableHighAccuracy:true});
+  $("#dateConvocate").mobiscroll().date();
+  $("#timeConvocate").mobiscroll().time();
+  $('#dateConvocate').mobiscroll('option', { lang: 'es',animate:'flip',dateFormat:'yy-mm-dd'});
+  $('#timeConvocate').mobiscroll('option', { lang: 'es',animate:'flip' });
+
+  $( "#form_convocate2" ).validate({
+    rules:{
+      fecha:{
+        required:true,
       },
+      hora:{
+        required:true
+      },
+      tipo_juego:{
+        required:true
+      },
+      principio:{
+        required:true
+      }
+    },
+    submitHandler: function( form ) {
 
-      submitHandler: function( form ) {
-        var post_values= {
+      var longi=$('#latitud').val();
+      var lati=$('#longitud').val();
+
+      if (longi!==""&&lati!=="") {
+
+        loadingOpen("Solicitando encuentro");
+
+        var post_values={
           session_id:localStorage.getItem('session_id'),
-          email:localStorage.getItem('email')
+          email:localStorage.getItem('email'),
+          equipo_1:$($("#convocate2 .container ul")[0]).attr("theId"),
+          equipo_2:$($("#convocate2 .container ul")[1]).attr("theId"),
         };
-        $(':input', "#form_create").each(function(index, input_element) {
-         post_values[input_element.name] = $(input_element).val();
 
-       });
-        $.post(server+"teams/new_team", post_values, function(response) {
+        $(':input', "#convocate2").each(function(index, input_element) {
+          post_values[input_element.name] = $(input_element).val();
+        });
 
+        $.post(server+"teams/guardar_convocatoria", post_values, function(response) {
 
           response = jQuery.parseJSON(response);
-          if (!(response.error)) {
-            localStorage.setItem('team_id',response.team_id);
-            localStorage.setItem('name_team',response.name_team);
 
-            customAlert("El equipo se creó exitosamente");
-            changePage('#convocate');
+          if (!(response.error)) {
+
+            customAlert("se ha enviado una solicitud al lider del otro equipo");
+            changePage('#my_conv');
 
           }else{
+
             customAlert(response.message_error);
 
-            changePage('#play');
           }
-        });
-      }
 
-    });
+          loadingClose();
+        });
+      }else{
+        customAlert("Selecciona en el mapa la ubicación del partido");
+      }
+    }
+  });
+$(".two_teams ul").listview()
 });
+
+
+
+$( document ).on( "pageshow", "#create", function() {
+  clear_form("create");
+  $( "#form_create" ).validate({
+    rules:{
+      ciudad:{
+        required:true
+      },
+      name:{
+        required:true,
+      },
+      departamento:{
+        required:true
+      },
+
+
+      descripcion:{
+        required:true
+      },
+      zone_team:{
+        required:true
+      },
+
+    },
+
+    submitHandler: function( form ) {
+      var post_values= {
+        session_id:localStorage.getItem('session_id'),
+        email:localStorage.getItem('email')
+      };
+      $(':input', "#form_create").each(function(index, input_element) {
+       post_values[input_element.name] = $(input_element).val();
+
+     });
+      $.post(server+"teams/new_team", post_values, function(response) {
+
+
+        response = jQuery.parseJSON(response);
+        if (!(response.error)) {
+          localStorage.setItem('team_id',response.team_id);
+          localStorage.setItem('name_team',response.name_team);
+
+          customAlert("El equipo se creó exitosamente");
+          changePage('#convocate');
+
+        }else{
+          customAlert(response.message_error);
+
+          changePage('#play');
+        }
+      });
+    }
+
+  });
+});
+
+
+
 function load_teams () {
-    var post_values= {
+  var post_values= {
     session_id:localStorage.getItem('session_id'),
     email:localStorage.getItem('email'),
   };
@@ -1996,101 +1659,70 @@ function load_teams () {
 
 
 function verifyTeamCity(element){
+  loadingOpen("Cargando equipos");
+  var post_values= {
+    session_id:localStorage.getItem('session_id'),
+    email:localStorage.getItem('email'),
+    id_city:element.value
+  };
 
-
-      //GOL-90
-      loadingOpen("Cargando equipos");
-
-
-      var post_values= {
-        session_id:localStorage.getItem('session_id'),
-        email:localStorage.getItem('email'),
-        id_city:element.value
-
-      };
-      $.post(server+"teams/get_fromcity", post_values, function(response) {
-        $("#join .teams_city").html("");
-
-        response = jQuery.parseJSON(response);
-        if (!(response.error)) {
-          if(response.length===0) {
-            customAlert("no hay equipos para esta ciudad o municipio");
-          }else{
-            for (var i = response.length - 1; i >= 0; i--) {
-              console.log(response[i]);
-              var team_div='<div data-role="collapsible team_'+response[i].id+'" team_id="'+response[i].id+'">'+
-              '<h3>'+response[i].name+'</h3>'+
-              '<div data-role="fieldcontain" class="join_checkbox" >'+
-              '<fieldset data-role="controlgroup">'+
-              '<input data-mini="true"  type="checkbox" name="join_to_team" id="checkbox" class="custom" value="'+response[i].id+'" team_name="'+response[i].name+'"/>'+
-              '<label for="checkbox">Unirse</label>'+
-              '</fieldset>'+
-              '</div>'+
-
-              '<p>'+
-              '<div class="colapse jugadores_'+response[i].id+'"  data-role="collapsible" data-theme="b" data-content-theme="d" data-inset="false">'+
-              '<h3>Jugadores</h3>'+
-              '<ul data-role="listview">'+
-
-
-              '</ul>'+
-              '</div>';
-
-
-            // '<div class="jugadores_'+response[i].id+'">'+
-            //   '<ul class="colapse" data-role="collapsible">'+
-            //     '<h3>Jugadores</h3>'+
-            //   '</ul>'+
-            // '</div>'+
-            // '</div>'+
-            // '</p>'+
-            // '</div>';
-            $("#join .teams_city").append(team_div);
-
-          }
-          $('#join').find('div[data-role=collapsible]').collapsible();
-          
-
-          
-          $('#join').find("input[type='checkbox']").checkboxradio();
-          $('#join').find(".colapse").one('collapsibleexpand', function () {
-            loadingOpen("Cargando Jugadores");
-
-            var myClass=$(this).attr("class");
-            myClass=myClass.split(" ");
-            var id=myClass[1].split("_");
-            var post_values= {
-              session_id:localStorage.getItem('session_id'),
-              email:localStorage.getItem('email'),
-              team_id:id[1],
-            };
-            //GOL-32
-            $.post(server+"teams/get_players", post_values, function(response) {
-
-              response = jQuery.parseJSON(response);
-
-              for (var i = 0; i <response.length  ; i++) {
-                $("."+myClass[1]).find("ul[data-role=listview]").append("<li class='userData'myId='"+response[i]['id_user']+"'>"+response[i]['name_user']+"</li>"); 
-              }
-              $('#join').find("."+myClass[1]).find("ul[data-role=listview]").listview();
-            });
-            loadingClose();
-          });
+  $.post(server+"teams/get_fromcity", post_values, function(response) {
+    $("#join .teams_city").html("");
+    response = jQuery.parseJSON(response);
+    if (!(response.error)) {
+      if(response.length===0) {
+        customAlert("no hay equipos para esta ciudad o municipio");
+      }else{
+        for (var i = response.length - 1; i >= 0; i--) {
+          var team_div='<div data-role="collapsible team_'+response[i].id+'" team_id="'+response[i].id+'">'+
+          '<h3>'+response[i].name+'</h3>'+
+          '<div data-role="fieldcontain" class="join_checkbox" >'+
+          '<fieldset data-role="controlgroup">'+
+          '<input data-mini="true"  type="checkbox" name="join_to_team" id="checkbox" class="custom" value="'+response[i].id+'" team_name="'+response[i].name+'"/>'+
+          '<label for="checkbox">Unirse</label>'+
+          '</fieldset>'+
+          '</div>'+
+          '<p>'+
+          '<div class="colapse jugadores_'+response[i].id+'"  data-role="collapsible" data-theme="b" data-content-theme="d" data-inset="false">'+
+          '<h3>Jugadores</h3>'+
+          '<ul data-role="listview">'+
+          '</ul>'+
+          '</div>';
+          $("#join .teams_city").append(team_div);
         }
 
+        $('#join').find('div[data-role=collapsible]').collapsible();
+        $('#join').find("input[type='checkbox']").checkboxradio();
+        $('#join').find(".colapse").one('collapsibleexpand', function () {
+          loadingOpen("Cargando Jugadores");
+          var myClass=$(this).attr("class");
+          myClass=myClass.split(" ");
+          var id=myClass[1].split("_");
+          var post_values= {
+            session_id:localStorage.getItem('session_id'),
+            email:localStorage.getItem('email'),
+            team_id:id[1],
+          };
 
+          $.post(server+"teams/get_players", post_values, function(response) {
 
+            response = jQuery.parseJSON(response);
 
-      }else{
-        customAlert(response.message_error);
+            for (var i = 0; i <response.length  ; i++) {
+              $("."+myClass[1]).find("ul[data-role=listview]").append("<li class='userData'myId='"+response[i]['id_user']+"'>"+response[i]['name_user']+"</li>"); 
+            }
+            $('#join').find("."+myClass[1]).find("ul[data-role=listview]").listview();
+          }); 
+
+          loadingClose();
+
+        });
       }
-
-    });
+    }else{
+      customAlert(response.message_error);
+    }
+  });
 loadingClose();
-
-
-
-
 }
 
 
@@ -2099,18 +1731,14 @@ loadingClose();
 $( document ).on( "pageshow", "#join", function() {
   $(".miJoinTeams").html(" ");
   $(".teams_city").html(" ");
-   clear_form("join");
-   $("#join_select_departament").val($("#join_select_departament option:first").val());
+  clear_form("join");
+  $("#join_select_departament").val($("#join_select_departament option:first").val());
   
 
   load_teams();
 
-
-
-
-
-$( "#form_create" ).validate({
-  rules:{
+  $( "#form_create" ).validate({
+   rules:{
     name_team:{
       required:true,
     },
@@ -2127,10 +1755,11 @@ $( "#form_create" ).validate({
       session_id:localStorage.getItem('session_id'),
       email:localStorage.getItem('email')
     };
+
     $(':input', "#form_create").each(function(index, input_element) {
      post_values[input_element.name] = $(input_element).val();
-
    });
+
     $.post(server+"teams/new_team", post_values, function(response) {
 
 
@@ -2140,7 +1769,7 @@ $( "#form_create" ).validate({
         localStorage.setItem('name_team',response.name_team);
 
         customAlert("El equipo se creo exitosamente");
-        
+
         changePage('#convocate');
 
       }else{
@@ -2148,46 +1777,41 @@ $( "#form_create" ).validate({
       }
     });
   }
-
 });
 });
-
-
-//maps
 
 
 
 google.maps.event.addDomListener(window, 'load', setup);
+
 function onError(e){
   console.log(e);
 
 }
+
 function setup() {
-    // wait for PhoneGap to load
-    document.addEventListener("deviceready", onDeviceReady, false);
+  document.addEventListener("deviceready", onDeviceReady, false);
+  function onDeviceReady() {
+    navigator.geolocation.getCurrentPosition(onSuccess, onError);
+  }
 
-    function onDeviceReady() {
-        // get device's geographical location and return it as a Position object (which is then passed to onSuccess)
-        navigator.geolocation.getCurrentPosition(onSuccess, onError);
-      }
-      function onError (e) {
-        console.log(e);
-      }
-    }
-    function onSuccess(position) {
-      var myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  function onError (e) {
+    console.log(e);
+  }
+}
 
-      map  = new google.maps.Map(document.getElementById('geoLocation'), {
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        center: myLocation,
-        zoom: 15
-      });
-      var request = { location: myLocation, radius: currentRadiusValue, types: [currentPlaceType] };
-      infowindow  = new google.maps.InfoWindow();
-   /* google.maps.event.addListener(marker, 'click', function () {
-        infowindow.setContent(place.name);
-        infowindow.open(map, this);
-      });*/
+function onSuccess(position) {
+
+  var myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+  map  = new google.maps.Map(document.getElementById('geoLocation'), {
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    center: myLocation,
+    zoom: 15
+  });
+
+  var request = { location: myLocation, radius: currentRadiusValue, types: [currentPlaceType] };
+  infowindow  = new google.maps.InfoWindow();
+
 }
 
 
@@ -2195,240 +1819,200 @@ function setup() {
 google.maps.event.addDomListener(window, 'load', setup2);
 
 function setup2() {
-    // wait for PhoneGap to load
-    document.addEventListener("deviceready", onDeviceReady2, false);
+  document.addEventListener("deviceready", onDeviceReady2, false);
 
-    function onDeviceReady2() {
-        // get device's geographical location and return it as a Position object (which is then passed to onSuccess)
-        navigator.geolocation.getCurrentPosition(onSuccess2, onError2);
-      }
-      function onError2 (e) {
-        console.log(e);
+  function onDeviceReady2() {
+    navigator.geolocation.getCurrentPosition(onSuccess2, onError2);
+  }
+
+  function onError2 (e) {
+    console.log(e);
+  }
+}
+
+function onSuccess2(position) {
+
+  var myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+  map  = new google.maps.Map(document.getElementById('geoLocation2'), {
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    center: myLocation,
+    zoom: 15
+  });
+  var request = { location: myLocation, radius: currentRadiusValue, types: [currentPlaceType] };
+  infowindow  = new google.maps.InfoWindow();
+  google.maps.event.addListener(marker, 'click', function () {
+    infowindow.setContent(place.name);
+    infowindow.open(map, this);
+  });
+}
+
+
+function get_galery_photo() {
+  console.log("enter onDeviceReady");
+
+  navigator.camera.getPicture(confirmPhoto,function(message){customAlert('Se ha cancelado la subida')},{
+      quality: 100,
+      destinationType: navigator.camera.DestinationType.FILE_URI,
+      sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
+      targetWidth: 1200,
+      targetHeight: 1600,
+      correctOrientation: true
+    }
+  );
+  console.log("end onDeviceReady");
+}
+
+function confirmPhoto(imageURI){
+  customConfirm("Desea subir esta foto?, una ves echo esto, no se podra deshacer",4,imageURI);
+}
+
+function uploadPhoto(imageURI) {
+  loadingOpen("Subiendo Imagen")
+  console.log("enter uploadPhoto");
+  var options = new FileUploadOptions();
+  options.fileKey="userfile";
+  if(navigator.userAgent.match(/OS/i)){
+    options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
+  }
+  options.mimeType="image/jpg";
+  console.log("defined image");
+
+  var params = new Object();
+  params.value1 = "test";
+  params.value2 = "param";
+  console.log("defined param");
+
+  options.params = params;
+
+  console.log("object ready");
+  var ft = new FileTransfer();
+
+  ft.upload(imageURI, encodeURI(server+"upload/do_upload"), win, fail, options);
+  console.log("image sended");
+}
+
+function win(r) {
+  console.log("Code = " + r.responseCode);
+  console.log("Response = " + r.response);
+  console.log("Sent = " + r.bytesSent);
+  response=r.response;
+  response = jQuery.parseJSON(response);
+  console.log(response);
+  localStorage.setItem('id_image',response.id_image);
+  $.mobile.changePage('#description_image', 'pop', true, true);
+  loadingClose();
+}
+
+function fail(error) {
+  customAlert("Ha ocurrido un error: Code = " + error.code);
+  loadingClose();
+}
+
+function add_description () {
+  var description=$('#description_text').val();
+  if (description==="") {
+    customAlert("Por favor describe la imagen");
+  }else{
+
+    var post_values={
+      session_id:localStorage.getItem('session_id'),
+      email:localStorage.getItem('email'),
+      description: description,
+      image_id:localStorage.getItem('id_image')
+    };
+
+    $.post(server+"upload/add_description", post_values , function(response) {
+      response = jQuery.parseJSON(response);
+      console.log(response);
+    });
+
+    $('#description_image').dialog('close');
+  }
+
+}
+
+function changePage(page){
+
+  if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){
+
+
+
+    $.mobile.changePage(page);
+  }else{
+     window.location.href = page;
+  }
+}
+
+function customAlert(message)
+{
+  if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){
+    
+    navigator.notification.vibrate(1000);
+
+    function alertDismissed() {
+    }
+
+    navigator.notification.alert(message,
+      alertDismissed,
+      'Alerta Golombiao',
+      'Cerrar'
+      );
+
+  }else{
+
+    alert(message);
+  }
+}
+
+
+function customConfirm(message,tmp,team)
+
+{  
+
+  if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){
+
+    navigator.notification.confirm(message,
+
+      onConfirm,
+      'Confirmar Accion',
+      'Aceptar,Cancelar'
+      );
+
+    function onConfirm(button) {
+      if (button==1) {
+        switch (tmp)
+        {
+          case 1:
+          closeSession();
+          break
+          case 2:
+          deleteTeam(team);
+          break
+          case 3:
+          deleteSubscription(team);
+          break
+          case 4:
+          uploadPhoto(team);
+          break
+        }
       }
     }
-    function onSuccess2(position) {
-      var myLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
-      map  = new google.maps.Map(document.getElementById('geoLocation2'), {
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
-        center: myLocation,
-        zoom: 15
-      });
-      var request = { location: myLocation, radius: currentRadiusValue, types: [currentPlaceType] };
-      infowindow  = new google.maps.InfoWindow();
-      google.maps.event.addListener(marker, 'click', function () {
-        infowindow.setContent(place.name);
-        infowindow.open(map, this);
-      });
+  }else{
+    switch (tmp)
+    {
+      case 1:
+      closeSession();
+      break
+      case 2:
+      deleteTeam(team);
+      break
+      case 3:
+      deleteSubscription(team);
+      break
+      case 4:
+      uploadPhoto(team);
+      break
     }
-
-
-
-    function get_galery_photo() {
-
-            // Retrieve image file location from specified source
-            console.log("enter onDeviceReady");
-            navigator.camera.getPicture(confirmPhoto,
-              function(message) { customAlert('Se ha cancelado la subida'); },
-              { quality: 100,
-                destinationType: navigator.camera.DestinationType.FILE_URI,
-                sourceType: navigator.camera.PictureSourceType.PHOTOLIBRARY,
-                targetWidth: 1200,
-                targetHeight: 1600,
-                correctOrientation: true }
-                );
-
-            console.log("end onDeviceReady");
-
-
-          }
-          function confirmPhoto(imageURI){
-
-            customConfirm("Desea subir esta foto?, una ves echo esto, no se podra deshacer",4,imageURI);
-
-          }
-
-          function uploadPhoto(imageURI) {
-            console.log(imageURI);
-            $.mobile.loading( 'show', {
-              text: 'subiendo imagen',
-              textVisible: true,
-              theme: 'a',
-              html: ""
-            });
-            console.log("enter uploadPhoto");
-            var options = new FileUploadOptions();
-            options.fileKey="userfile";
-            if(navigator.userAgent.match(/OS/i)){
-            options.fileName = imageURI.substr(imageURI.lastIndexOf('/')+1);
-            }
-            options.mimeType="image/jpg";
-            console.log("defined image");
-
-            var params = new Object();
-            params.value1 = "test";
-            params.value2 = "param";
-            console.log("defined param");
-
-            options.params = params;
-
-            console.log("object ready");
-            var ft = new FileTransfer();
-
-            ft.upload(imageURI, encodeURI(server+"upload/do_upload"), win, fail, options);
-            console.log("image sended");
-          }
-
-          function win(r) {
-            console.log("Code = " + r.responseCode);
-            console.log("Response = " + r.response);
-            console.log("Sent = " + r.bytesSent);
-            response=r.response;
-            response = jQuery.parseJSON(response);
-            console.log(response);
-            //customAlert(response.message_success);
-            localStorage.setItem('id_image',response.id_image);
-            $.mobile.changePage('#description_image', 'pop', true, true);
-            $.mobile.loading( 'hide' );
-          }
-
-          function fail(error) {
-            customAlert("Ha ocurrido un error: Code = " + error.code);
-            $.mobile.loading( 'hide' );
-          }
-
-
-          function add_description () {
-
-            var description=$('#description_text').val();
-            if (description==="") {
-              customAlert("Por favor describe la imagen");
-            
-            }else{
-              var post_values={
-                session_id:localStorage.getItem('session_id'),
-                email:localStorage.getItem('email'),
-                description: description,
-                image_id:localStorage.getItem('id_image')
-              };
-              console.log(post_values);
-              
-              $.post(server+"upload/add_description", post_values , function(response) {
-                response = jQuery.parseJSON(response);
-                console.log(response);
-                });
-              $('#description_image').dialog('close');
-
-            }
-            
-          }
-
-
-
-
-
-
-          function changePage(page){
-
-            if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){
-              event.preventDefault();
-
-              $.mobile.changePage(page);
-
-            }else{
-event.preventDefault();
-              window.location.href = page;
-
-            }
-
-
-          }
-
-
-
-  function customAlert(message)
-          {
-
-
-            if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){
-               navigator.notification.vibrate(1000);
-                            function alertDismissed() {
-                                // hacer algo
-                            }
-
-                            navigator.notification.alert(
-                                message,     // mensaje (message)
-                                alertDismissed,         // función 'callback' (alertCallback)
-                                'Alerta Golombiao',            // titulo (title)
-                                'Cerrar'                // nombre del botón (buttonName)
-                            );
-
-            }else{
-
-              alert(message);
-
-
-          }
-        }
-
-
-
-  function customConfirm(message,tmp,team)
-          {  
-
-
-            if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){
-
-
-                                navigator.notification.confirm(
-                                    message,  // message
-                                    onConfirm,              // callback to invoke with index of button pressed
-                                    'Confirmar Accion',            // title
-                                    'Aceptar,Cancelar'          // buttonLabels restar 1 exit 2
-                                );
-                                function onConfirm(button) {
-                                  if (button==1) {
-                                      switch (tmp)
-                                      {
-                                        case 1:
-                                        closeSession();
-                                          break
-                                        case 2:
-                                        deleteTeam(team);
-                                        break
-                                        case 3:
-                                        deleteSubscription(team);
-                                        break
-                                        case 4:
-                                        uploadPhoto(team);
-                                        break
-                                        }
-
-                                  }
-                                    
-                                }
-
-            }else{
-
-               switch (tmp)
-                                      {
-                                        case 1:
-                                        closeSession();
-                                          break
-                                        case 2:
-                                        deleteTeam(team);
-                                        break
-                                        case 3:
-                                        deleteSubscription(team);
-                                        break
-                                        case 4:
-                                        uploadPhoto(team);
-                                        break
-                                        }
-
-
-
-
-          }
-
-        }
+  }
+}
