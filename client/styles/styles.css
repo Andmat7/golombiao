@@ -1,28 +1,20 @@
-@font-face {
 
-	font-family: arial_narrow;
 
-	src: url("../fonts/Arial_Narrow.ttf") format(‘truetype’);
 
-}
-@font-face {
+body{
 
-	font-family: arial_bold;
-
-	src: url("../fonts/Arial_bold.ttf") format(‘truetype’);
-
-}
-@font-face {
-
-	font-family: aller_bold;
-
-	src: url("../fonts/Aller_BdIt.ttf") format(‘truetype’);
+	font-family: arial !important;
 
 }
 
 
 
 
+.join_checkbox{
+
+width: 50%;
+
+}
 
 
 #login .help {
@@ -353,7 +345,6 @@ right: 0;
 	float: left;
 clear: left;
 color: white;
-font-family: arial_bold;
 font-size: 1.4em;
 
 
@@ -464,7 +455,7 @@ float: left;
 }
 
 #play .subButton h1 {
-font-family: aller_bold;
+
 color: #679F25;
 text-shadow: 1px 1px black;
 font-size: 1.5em;
@@ -532,7 +523,7 @@ width: 82%;
 
 
 #pre_conv .subButton h1 {
-font-family: aller_bold;
+
 color: #679F25;
 text-shadow: 1px 1px black;
 font-size: 1.5em;
@@ -591,7 +582,7 @@ padding-top: 1%;
 
 #create label{
 	clear: left;
-	font-family: aller_bold;
+	
 	font-size: 1.5em;
 
 

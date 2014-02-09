@@ -121,38 +121,10 @@
 							<img data-role="button" src="images/facebook.png"  onclick="login()">
 						</div>
 
-										<a href="#olvidarcontrasena">olvidaste la contraseña?</a>
+										<a href="#olvidarcontrasena">Olvidaste la contraseña?</a>
 
 
 					</div>
-				</form>
-			</div>
-
-			<div data-role="popup" id="popupRegister" >
-
-				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right"></a>
-				<h1 align="center">Registro</h1>
-				<form>
-					<label>Correo Institucional:</label>
-					<input type="email" placeholder="Correo" name="email" onblur="verifyUnalMail(this)">
-					<label>Nombre:</label>
-					<input type="text" placeholder="Nombre" name="name">
-					<div class="halfInput leftAlign">
-						<label>Edad:</label>
-						<input type="text" placeholder="Edad" name="age">
-					</div>
-					<div class="halfInput rightAlign">
-						<label>Ciudad:</label>
-						<input type="text" placeholder="ciudad" 
-						name="city">
-					</div>
-					<label>Carrera:</label>
-					<input type="text" placeholder="Carrera" name="career">
-					<label>Materias que estas viendo:</label>
-					<input type="text" placeholder="Materias" name="subjects">
-					<span class="sendButton">	
-						<input type="submit" value="Enviar">
-					</span>
 				</form>
 			</div>
 
@@ -162,63 +134,6 @@
 
 
 
-
-
-	<div data-role="page" id="login2">
-		<div class=" overthrow container" align="center">
-
-
-				<div class="headerLogin"><h1>Ingresa</h1>
-					
-				</div>
-				<form id="form_login" >
-					<input id="input_email" type="email" name="email" placeholder="email" ><br>
-					<input id="input_pass" type="password" name="encrypted_password" placeholder="Contraseña" >
-					<input type="submit" class="enviar_login" value="Ingresar">
-
-					<img  onclick="login()" class="login_facebook" src="images/faceLogin.png"> 
-				</form>
-				<a href="#olvidarcontrasena">olvidaste la contraseña</a>
-				<h1>No tienes cuenta?</h1>
-				<a href="#register" data-transition="flip">
-					<img class="register" src="images/registerButton.png">
-				</a>
-
-
-			</div>
-
-		</div>
-
-		<div data-role="page" id="olvidarcontrasena" >
-			<div data-role="popup" id="popupCode" data-theme="d" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
-				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
-				<label>Codigo:</label>
-				<input type="text" placeholder="Codigo" id="codigo_ver">
-				<label>Nueva contraseña:</label>
-				<input type="password" placeholder="Nueva Contraseña" id="password_recuperar">
-				<label>Repita la Nueva contraseña:</label>
-				<input type="password" placeholder="Digite de Nuevo Contraseña" id="ver_password_recuperar">
-				<button type="submit" onclick="enviar_contrasenas()">Enviar</button>
-			</div>
-
-			<div data-role="content">
-				<div class="ui-body ui-body-a ui-corner-all">
-				<p>Por favor proporciona dirección de correo que usaste al registrarte</p>
-				 <p>
-				Te enviaremos un correo que te permitirá reinicializar tu contraseña.</p>
-							<label>Correo Electronico:</label>				
-							<input type="email" name="email" placeholder="Correo Electronico" id="email_recuperar"/>
-							<button type="submit" class="ui-btn-inline ui-btn ui-corner-all ui-shadow ui-btn-b   ui-icon-check"   onclick="enviar_email_pass()">enviar</button>
-				</div>
-				<div class="ui-body ui-body-a ui-corner-all">
-				<p>ó ingresa tú codigo para actualizar tu contraseña</p>
-					<button type="submit" class="ui-btn-inline ui-btn ui-corner-all ui-shadow ui-btn-b   ui-icon-check"   onclick="$('#popupCode').popup('open');">ingresa acá tu código</button>
-				</div>
-
-				<button onclick="changePage('main.html#');"> VOLVER</button>
-			</div>
-
-		</div>
 
 		<div data-role="page" id="register" >
 			<div class=" overthrow container" align="center">
@@ -248,37 +163,38 @@
 					<label>Departamento:</label>
 					<select name="departamento" class="prueba departamento" onchange="sel_city(this)">
 						<option value=""></option>
+						<option value="0">Departamento</option>
 						<option value="1">ANTIOQUIA</option>
+						<option value="25">ARAUCA</option>
+						<option value="29">AMAZONAS</option>
 						<option value="2">ATLANTICO</option>
 						<option value="3">BOGOTA</option>
 						<option value="4">BOLIVAR</option>
 						<option value="5">BOYACA</option>
 						<option value="6">CALDAS</option>
 						<option value="7">CAQUETA</option>
+						<option value="26">CASANARE</option>
 						<option value="8">CAUCA</option>
 						<option value="9">CESAR</option>
 						<option value="10">CORDOBA</option>
 						<option value="11">CUNDINAMARCA</option>
 						<option value="12">CHOCO</option>
+						<option value="30">GUAINIA</option>
+						<option value="31">GUAVIARE</option>
 						<option value="13">HUILA</option>
 						<option value="14">LA GUAJIRA</option>
 						<option value="15">MAGDALENA</option>
 						<option value="16">META</option>
 						<option value="17">NARIÑO</option>
 						<option value="18">N. DE SANTANDER</option>
+						<option value="27">PUTUMAYO</option>
 						<option value="19">QUINDIO</option>
 						<option value="20">RISARALDA</option>
+						<option value="28">SAN ANDRES</option>
 						<option value="21">SANTANDER</option>
 						<option value="22">SUCRE</option>
 						<option value="23">TOLIMA</option>
 						<option value="24">VALLE DEL CAUCA</option>
-						<option value="25">ARAUCA</option>
-						<option value="26">CASANARE</option>
-						<option value="27">PUTUMAYO</option>
-						<option value="28">SAN ANDRES</option>
-						<option value="29">AMAZONAS</option>
-						<option value="30">GUAINIA</option>
-						<option value="31">GUAVIARE</option>
 						<option value="32">VAUPES</option>
 						<option value="33">VICHADA</option> 	
 					</select>
@@ -288,6 +204,7 @@
 							<option value=""></option>
 						</select>
 					</div>
+
 					<div class="small_input_right">
 						<label>Estudia:</label>
 						<select id="study_1" name="study" onchange="level_function(this)">
@@ -594,39 +511,39 @@
 					<div class="total_width">
 						<select name="departamento" class="departamento" onchange="sel_city(this)">
 							<option value="">Departamento</option>
-							<option value="1">ANTIOQUIA</option>
-							<option value="2">ATLANTICO</option>
-							<option value="3">BOGOTA</option>
-							<option value="4">BOLIVAR</option>
-							<option value="5">BOYACA</option>
-							<option value="6">CALDAS</option>
-							<option value="7">CAQUETA</option>
-							<option value="8">CAUCA</option>
-							<option value="9">CESAR</option>
-							<option value="10">CORDOBA</option>
-							<option value="11">CUNDINAMARCA</option>
-							<option value="12">CHOCO</option>
-							<option value="13">HUILA</option>
-							<option value="14">LA GUAJIRA</option>
-							<option value="15">MAGDALENA</option>
-							<option value="16">META</option>
-							<option value="17">NARIÑO</option>
-							<option value="18">N. DE SANTANDER</option>
-							<option value="19">QUINDIO</option>
-							<option value="20">RISARALDA</option>
-							<option value="21">SANTANDER</option>
-							<option value="22">SUCRE</option>
-							<option value="23">TOLIMA</option>
-							<option value="24">VALLE DEL CAUCA</option>
-							<option value="25">ARAUCA</option>
-							<option value="26">CASANARE</option>
-							<option value="27">PUTUMAYO</option>
-							<option value="28">SAN ANDRES</option>
-							<option value="29">AMAZONAS</option>
-							<option value="30">GUAINIA</option>
-							<option value="31">GUAVIARE</option>
-							<option value="32">VAUPES</option>
-							<option value="33">VICHADA</option>
+						<option value="1">ANTIOQUIA</option>
+						<option value="25">ARAUCA</option>
+						<option value="29">AMAZONAS</option>
+						<option value="2">ATLANTICO</option>
+						<option value="3">BOGOTA</option>
+						<option value="4">BOLIVAR</option>
+						<option value="5">BOYACA</option>
+						<option value="6">CALDAS</option>
+						<option value="7">CAQUETA</option>
+						<option value="26">CASANARE</option>
+						<option value="8">CAUCA</option>
+						<option value="9">CESAR</option>
+						<option value="10">CORDOBA</option>
+						<option value="11">CUNDINAMARCA</option>
+						<option value="12">CHOCO</option>
+						<option value="30">GUAINIA</option>
+						<option value="31">GUAVIARE</option>
+						<option value="13">HUILA</option>
+						<option value="14">LA GUAJIRA</option>
+						<option value="15">MAGDALENA</option>
+						<option value="16">META</option>
+						<option value="17">NARIÑO</option>
+						<option value="18">N. DE SANTANDER</option>
+						<option value="27">PUTUMAYO</option>
+						<option value="19">QUINDIO</option>
+						<option value="20">RISARALDA</option>
+						<option value="28">SAN ANDRES</option>
+						<option value="21">SANTANDER</option>
+						<option value="22">SUCRE</option>
+						<option value="23">TOLIMA</option>
+						<option value="24">VALLE DEL CAUCA</option>
+						<option value="32">VAUPES</option>
+						<option value="33">VICHADA</option> 
 						</select>
 					</div>
 					<label>Ciudad:</label>
@@ -707,46 +624,47 @@
 						Departamento:
 						<select name="departamento" id="join_select_departament"class="departamento" onchange="sel_city(this)">
 							<option value="0">Departamento</option>
-							<option value="1">ANTIOQUIA</option>
-							<option value="2">ATLANTICO</option>
-							<option value="3">BOGOTA</option>
-							<option value="4">BOLIVAR</option>
-							<option value="5">BOYACA</option>
-							<option value="6">CALDAS</option>
-							<option value="7">CAQUETA</option>
-							<option value="8">CAUCA</option>
-							<option value="9">CESAR</option>
-							<option value="10">CORDOBA</option>
-							<option value="11">CUNDINAMARCA</option>
-							<option value="12">CHOCO</option>
-							<option value="13">HUILA</option>
-							<option value="14">LA GUAJIRA</option>
-							<option value="15">MAGDALENA</option>
-							<option value="16">META</option>
-							<option value="17">NARIÑO</option>
-							<option value="18">N. DE SANTANDER</option>
-							<option value="19">QUINDIO</option>
-							<option value="20">RISARALDA</option>
-							<option value="21">SANTANDER</option>
-							<option value="22">SUCRE</option>
-							<option value="23">TOLIMA</option>
-							<option value="24">VALLE DEL CAUCA</option>
-							<option value="25">ARAUCA</option>
-							<option value="26">CASANARE</option>
-							<option value="27">PUTUMAYO</option>
-							<option value="28">SAN ANDRES</option>
-							<option value="29">AMAZONAS</option>
-							<option value="30">GUAINIA</option>
-							<option value="31">GUAVIARE</option>
-							<option value="32">VAUPES</option>
-							<option value="33">VICHADA</option>
+						<option value="1">ANTIOQUIA</option>
+						<option value="25">ARAUCA</option>
+						<option value="29">AMAZONAS</option>
+						<option value="2">ATLANTICO</option>
+						<option value="3">BOGOTA</option>
+						<option value="4">BOLIVAR</option>
+						<option value="5">BOYACA</option>
+						<option value="6">CALDAS</option>
+						<option value="7">CAQUETA</option>
+						<option value="26">CASANARE</option>
+						<option value="8">CAUCA</option>
+						<option value="9">CESAR</option>
+						<option value="10">CORDOBA</option>
+						<option value="11">CUNDINAMARCA</option>
+						<option value="12">CHOCO</option>
+						<option value="30">GUAINIA</option>
+						<option value="31">GUAVIARE</option>
+						<option value="13">HUILA</option>
+						<option value="14">LA GUAJIRA</option>
+						<option value="15">MAGDALENA</option>
+						<option value="16">META</option>
+						<option value="17">NARIÑO</option>
+						<option value="18">N. DE SANTANDER</option>
+						<option value="27">PUTUMAYO</option>
+						<option value="19">QUINDIO</option>
+						<option value="20">RISARALDA</option>
+						<option value="28">SAN ANDRES</option>
+						<option value="21">SANTANDER</option>
+						<option value="22">SUCRE</option>
+						<option value="23">TOLIMA</option>
+						<option value="24">VALLE DEL CAUCA</option>
+						<option value="32">VAUPES</option>
+						<option value="33">VICHADA</option> 
 						</select>
 					</div>
 					<div class="total_width">
 						Ciudad:
-						<select name="ciudad" class="ciudad" >
+						<select name="ciudad" class="ciudad" onchange="verifyTeamCity(this);" >
 							<option value="">Ciudad</option>
 						</select>
+
 					</div>
 					<div data-role="collapsible-set" class="teams_city">
 
@@ -869,40 +787,40 @@
 					<form id="form_vs">
 						Departamento:
 						<select name="departamento" class="departamento" onchange="sel_city(this)">
-							<option value="">Departamento</option>
-							<option value="1">ANTIOQUIA</option>
-							<option value="2">ATLANTICO</option>
-							<option value="3">BOGOTA</option>
-							<option value="4">BOLIVAR</option>
-							<option value="5">BOYACA</option>
-							<option value="6">CALDAS</option>
-							<option value="7">CAQUETA</option>
-							<option value="8">CAUCA</option>
-							<option value="9">CESAR</option>
-							<option value="10">CORDOBA</option>
-							<option value="11">CUNDINAMARCA</option>
-							<option value="12">CHOCO</option>
-							<option value="13">HUILA</option>
-							<option value="14">LA GUAJIRA</option>
-							<option value="15">MAGDALENA</option>
-							<option value="16">META</option>
-							<option value="17">NARIÑO</option>
-							<option value="18">N. DE SANTANDER</option>
-							<option value="19">QUINDIO</option>
-							<option value="20">RISARALDA</option>
-							<option value="21">SANTANDER</option>
-							<option value="22">SUCRE</option>
-							<option value="23">TOLIMA</option>
-							<option value="24">VALLE DEL CAUCA</option>
-							<option value="25">ARAUCA</option>
-							<option value="26">CASANARE</option>
-							<option value="27">PUTUMAYO</option>
-							<option value="28">SAN ANDRES</option>
-							<option value="29">AMAZONAS</option>
-							<option value="30">GUAINIA</option>
-							<option value="31">GUAVIARE</option>
-							<option value="32">VAUPES</option>
-							<option value="33">VICHADA</option>
+							<option value="0">Departamento</option>
+						<option value="1">ANTIOQUIA</option>
+						<option value="25">ARAUCA</option>
+						<option value="29">AMAZONAS</option>
+						<option value="2">ATLANTICO</option>
+						<option value="3">BOGOTA</option>
+						<option value="4">BOLIVAR</option>
+						<option value="5">BOYACA</option>
+						<option value="6">CALDAS</option>
+						<option value="7">CAQUETA</option>
+						<option value="26">CASANARE</option>
+						<option value="8">CAUCA</option>
+						<option value="9">CESAR</option>
+						<option value="10">CORDOBA</option>
+						<option value="11">CUNDINAMARCA</option>
+						<option value="12">CHOCO</option>
+						<option value="30">GUAINIA</option>
+						<option value="31">GUAVIARE</option>
+						<option value="13">HUILA</option>
+						<option value="14">LA GUAJIRA</option>
+						<option value="15">MAGDALENA</option>
+						<option value="16">META</option>
+						<option value="17">NARIÑO</option>
+						<option value="18">N. DE SANTANDER</option>
+						<option value="27">PUTUMAYO</option>
+						<option value="19">QUINDIO</option>
+						<option value="20">RISARALDA</option>
+						<option value="28">SAN ANDRES</option>
+						<option value="21">SANTANDER</option>
+						<option value="22">SUCRE</option>
+						<option value="23">TOLIMA</option>
+						<option value="24">VALLE DEL CAUCA</option>
+						<option value="32">VAUPES</option>
+						<option value="33">VICHADA</option> 
 						</select>
 						
 						Ciudad:
@@ -1029,12 +947,15 @@
 			<div data-role="content" class=" overthrow container" align="center">
 
 				
-				<input  type="button" name="my_photo" value="Subir foto" onclick="get_galery_photo()" >
+
 				
 				
 
 				<div style="display:none"><input id="conv_result" onclick="" type="hidden">
 					<input id="princ_result" onclick="" type="hidden">
+				</div>
+				<div>
+					<a href="#" onclick="get_galery_photo()" class="ui-btn">Subir foto</a>	
 				</div>
 				<div class="principio">
 					
@@ -1057,7 +978,7 @@
 							<option value="3">3 soles</option>
 							<option value="2">2 soles</option>
 							<option value="1">1 sol</option>
-							<option value="0">ningún sol</option>
+							<option value="0">Ningún sol</option>
 
 
 
@@ -1071,7 +992,7 @@
 							<option value="3">3 soles</option>
 							<option value="2">2 soles</option>
 							<option value="1">1 sol</option>
-							<option value="0">ningún sol</option>
+							<option value="0">Ningún sol</option>
 							
 							
 							
@@ -1092,7 +1013,7 @@
 						<label for="select-choice-custom5" class="select">Número de méritos</label>
 						<select name="meritos" id="select-choice-custom5" >
 							<option value="">Número de méritos</option>
-							<option value="3">más de  5 jugadores con mérito, 3 soles</option>
+							<option value="3">Más de  5 jugadores con mérito, 3 soles</option>
 							<option value="2">3 a 5 jugadores con mérito , 2 soles</option>
 							<option value="1">1 a 3 jugadores con mérito ,1 sol</option>
 							<option value="-1">Ningún jugador con mérito, -	 1 sol</option>
@@ -1111,7 +1032,7 @@
 						<select name="no_players" id="select-choice-custom9" >
 							<option value="">Número de jugadores asistentes</option>
 							<option value="3">5 jugadores o mas,3 soles</option>
-							<option value="0">Menos de 5 jugadores con merito 0 soles</option>
+							<option value="0">Menos de 5 jugadores 0 soles</option>
 						</select>
 					</div>	
 					<div data-role="fieldcontain">
@@ -1121,7 +1042,7 @@
 							<option value="3">3 soles</option>
 							<option value="2">2 soles</option>
 							<option value="1">1 sol</option>
-							<option value="0">ningun sol</option>
+							<option value="0">Ningún sol</option>
 						</select>
 					</div>	
 					<div data-role="fieldcontain">
@@ -1131,11 +1052,11 @@
 							<option value="3">3 soles</option>
 							<option value="2">2 soles</option>
 							<option value="1">1 sol</option>
-							<option value="0">ningun sol</option>
+							<option value="0">Ningún sol</option>
 						</select>
 					</div>		
 					Asesor de Juego:
-					<input type="text" name="asesor" placeholder="asesor de Juego">		
+					<input type="text" name="asesor" placeholder="Asesor de juego">		
 				</div>
 
 
@@ -1478,6 +1399,41 @@
 
 
 		</div>
+
+
+
+
+		<div data-role="page" id="olvidarcontrasena" >
+			<div data-role="popup" id="popupCode" data-theme="d" data-overlay-theme="b" class="ui-content" style="max-width:340px; padding-bottom:2em;">
+				<a href="#" data-rel="back" data-role="button" data-theme="a" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a>
+				<label>Código:</label>
+				<input type="text" placeholder="Codigo" id="codigo_ver">
+				<label>Nueva contraseña.:</label>
+				<input type="password" placeholder="Nueva Contraseña" id="password_recuperar">
+				<label>Repita la nueva contraseña.:</label>
+				<input type="password" placeholder="Digite de Nuevo Contraseña" id="ver_password_recuperar">
+				<button type="submit" onclick="enviar_contrasenas()">Enviar</button>
+			</div>
+
+			<div data-role="content">
+				<div class="ui-body ui-body-a ui-corner-all">
+				<p>Por favor proporciona dirección de correo que usaste al registrarte</p>
+				 <p>
+				Te enviaremos un correo que te permitirá reinicializar tu contraseña.</p>
+							<label>Correo Electronico:</label>				
+							<input type="email" name="email" placeholder="Correo Electronico" id="email_recuperar"/>
+							<button type="submit" class="ui-btn-inline ui-btn ui-corner-all ui-shadow ui-btn-b   ui-icon-check"   onclick="enviar_email_pass()">enviar</button>
+				</div>
+				<div class="ui-body ui-body-a ui-corner-all">
+				<p>ó ingresa tú codigo para actualizar tu contraseña</p>
+					<button type="submit" class="ui-btn-inline ui-btn ui-corner-all ui-shadow ui-btn-b   ui-icon-check"   onclick="$('#popupCode').popup('open');">Ingresa acá tu código</button>
+				</div>
+
+				<button onclick="changePage('main.html#');"> VOLVER</button>
+			</div>
+
+		</div>
+
 
 
 

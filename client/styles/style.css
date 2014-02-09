@@ -1,6 +1,6 @@
 
 *{
-	font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+	/*font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;*/
 
 	}
 ul li, ul{
@@ -13,6 +13,7 @@ ul li, ul{
 	width:95%;
 	}
 }	
+
 @media all and (max-width: 768px) and (min-width: 481px) {
 	html{
 		font-size:1.2em

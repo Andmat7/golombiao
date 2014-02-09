@@ -117,7 +117,7 @@ class Login extends MY_Controller {
 			$user=$this->user->verify_email($email);
 			if ($user) {
 				$string=$this->user->get_email_string($user['id']);
-				$mensaje = 'hemos recibido una notificación para un cambio de contraseña por favor introduce este codigo en tu aplicación: '.$string;
+				$mensaje = 'Hemos recibido una notificación para un cambio de contraseña. Por favor introduce este código en tu aplicación:  '.$string;
 
 				$email_from = $email;
 				
@@ -158,12 +158,13 @@ class Login extends MY_Controller {
 		
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('code', 'codigo ', 'required');
-		$this->form_validation->set_rules('password', 'password', 'required|min_length[3]');
-		$this->form_validation->set_rules('ver_password', 'password', 'required|min_length[3]');
+		$this->form_validation->set_rules('password', 'la contraseña', 'required|min_length[3]');
 		if ($this->form_validation->run() == FALSE)
 		{
 				$output['error']=true;
-				$output['message_error']='error:'.validation_errors();
+				$response = str_replace("<p>", "",validation_errors());
+				$response = str_replace("</p>", "",$response);
+				$output['message_error']=$response;
 			
 
 

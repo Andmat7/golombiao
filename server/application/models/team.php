@@ -327,10 +327,11 @@ class team extends CI_Model {
 				}
 
 
-
+				date_default_timezone_set("America/Bogota");
+				$today=strtotime(date("Y-m-d H:i:s"));
 				$time=strtotime($result_list[$key]['fecha']." ".$result_list[$key]['hora']);
 				//print_r($result_list[$key]);
-				if (time()>$time&&$result_list[$key]['acepta_convocatoria']!='2'&&$result_list[$key]['acepta_convocatoria']!='1') {
+				if ($today>$time&&$result_list[$key]['acepta_convocatoria']!='2'&&$result_list[$key]['acepta_convocatoria']!='1') {
 					$result_list[$key]['acepta_convocatoria']='3';
 					$result_list[$key]['time']=$time;
 					
@@ -369,7 +370,7 @@ class team extends CI_Model {
 		}		
 
 		$query = $this->db
-		->select('id')
+		->select('*')
 		->from('convocatoria')
 		->where('equipo_1', $datos['equipo_1'])
 		->where('equipo_2', $datos['equipo_2'])
@@ -381,12 +382,34 @@ class team extends CI_Model {
 
 		if(sizeof($result_list) == 0 ) {
 
+
+
 			$this->db->insert('convocatoria', $datos); 
 			$json_reply["error"]=false;
 			
 		} else {
-			$json_reply["error"]=true;
-			$json_reply["message_error"]="Ya se ha solicitado un encuentro con este equipo";
+			$accept=true;
+			date_default_timezone_set("America/Bogota");
+			$today=strtotime(date("Y-m-d H:i:s"));
+
+			foreach ($result_list as $key => $value) {
+
+				$convocateDate=strtotime($result_list[$key]['fecha']." ".$result_list[$key]['hora']);
+
+				if ($convocateDate>$today && ($result_list[$key]['acepta_convocatoria']=="1"|| $result_list[$key]['acepta_convocatoria']=="0" )) {
+					$accept=false;
+
+				}
+			}
+
+			if ($accept) {
+				$this->db->insert('convocatoria', $datos); 
+				$json_reply["error"]=false;
+			}else{
+
+				$json_reply["error"]=true;
+				$json_reply["message_error"]="Tienes una convocatoria vigente con este equipo";
+			}
 		}
 		return $json_reply;
 
@@ -504,7 +527,7 @@ class team extends CI_Model {
 
 	}
 	public function rejectRequest($id_user, $id_conv) {
-	$data = array(               
+		$data = array(               
 			'acepta_convocatoria'=> 2,
 			);
 

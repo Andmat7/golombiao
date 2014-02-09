@@ -271,8 +271,6 @@ $( document ).on( "pageshow", function( event, ui) {
 
 
 
-
-
   if ($(event.target).attr("id")=="login"||$(event.target).attr("id")=="register"||$(event.target).attr("id")=="olvidarcontrasena") {}
     else{
       verifyData();
@@ -459,7 +457,7 @@ $( document ).on("click", ".reto_my_team", function() {
 
             $("#results2 ."+myClass+" td").each(function(key,value){
 
-              $(value).html(data[key][myClass]+'<img src="images/sun.png">');
+              $(value).html(data[key][myClass]+'<img src="images/sun-2.gif">');
 
             });
           }
@@ -793,7 +791,7 @@ function data_server_team(){
         localStorage.setItem('team_id',response.team_id);
         localStorage.setItem('name_team',response.name_team);
 
-        customAlert("Te has unido al grupo  "+team_name);
+        customAlert("Te has unido al equipo  "+team_name);
         location.reload();
         
 
@@ -838,7 +836,7 @@ function IsEmail(email) {
 
 function enviar_email_pass () {
   if(IsEmail($("#email_recuperar").val())){
-    loadingOpen();
+   loadingOpen("Cargando");
   post_values={
     email:$("#email_recuperar").val()
   };
@@ -849,6 +847,7 @@ function enviar_email_pass () {
     if (!(response.error)) {
 
         customAlert("Te hemos enviado un email por favor ingresa el código acá");
+        $("#olvidarcontrasena input").val("");
         $("#popupCode").popup("open");
 
     }else{
@@ -866,7 +865,17 @@ function enviar_email_pass () {
 
 
 function enviar_contrasenas (argument) {
-  loadingOpen();
+  event.preventDefault();
+
+  if ($("#password_recuperar").val()!=$("#ver_password_recuperar").val()) {
+
+     customAlert("Las contraseñas no coinciden");
+     return false;
+
+
+  };
+
+  loadingOpen("Cargando");
   post_values={
     password:$("#password_recuperar").val(),
     ver_password:$("#ver_password_recuperar").val(),
@@ -874,16 +883,19 @@ function enviar_contrasenas (argument) {
   };
     $.post(server+"login/recuperar_contra", post_values, function(response) {
     
-    event.preventDefault();
     response = jQuery.parseJSON(response);
     if (!(response.error)) {
 
         customAlert("Hemos actualizado correctamente tu contraseña");
         $("#popupCode").popup("close");
-        changePage('#');
+        $("#popupCode input").val("");        
+        $("#olvidarcontrasena input").val("");
+        
+        changePage("#login");
 
 
     }else{
+      
       customAlert(response.message_error);
       
     }
@@ -906,7 +918,8 @@ function zone(teams){
         var post_values= {
             session_id:localStorage.getItem('session_id'),
             email:localStorage.getItem('email'),
-            id_team:$("#convocate .your_team .activeButton").parent().find("a:nth-child(2)").attr("theId")
+            id_team:$("#convocate .your_team .activeButton").parent().find("a:nth-child(2)").attr("theId"),
+            vs_team:$("#convocate .vs_team2 .activeButton").parent().find("a:nth-child(2)").attr("theId")
           };
           $.post(server+"teams/validate_team", post_values, function(response) {
               
@@ -940,6 +953,7 @@ function zone(teams){
                     $(vsTeam).attr("theName")+
                     '</a></li>'+
                     '</ul>');
+                  
                   changePage('#convocate2');
 
               }
@@ -1034,6 +1048,7 @@ function sel_city(departamento) {
   loadingOpen("Cargando ciudades");
 
 
+
   var post_values={
     session_id:localStorage.getItem('session_id'),
     email:localStorage.getItem('email')
@@ -1107,8 +1122,12 @@ $( document ).on( "pageshow", "#home", function() {
    if (response.points==null ) 
     {response.points=0;};
 
+  var homeName=response.first_name.split(" ");
+  var lastName=response.last_name.split(" ");
+
+
   $("#points2").html(response.points);
-  $("#name_user").html(response.first_name+" "+response.last_name);
+  $("#name_user").html(homeName[0]+" "+lastName[0]);
   $("#age_user").html(response.age);
   
 
@@ -1171,6 +1190,9 @@ function show_teams () {
 }
 
 $( document ).on( "pageshow", "#convocate", function() {
+  clear_form ("convocate");
+  $("#convocate select[name='ciudad']").html("<option value=''>Ciudad</option>");
+
   show_teams ();
 
 });
@@ -1297,7 +1319,7 @@ if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){}e
       load_teams();
       customAlert("Se ha eliminado la subscripcion existosamente");
       changePage('#join');
-
+      $("a[onclick='carryDataSubscription(this)'][theid='"+$(team).attr('theId')+"']").parent().hide();
 
     }else{
 
@@ -1333,6 +1355,7 @@ $( document ).on( "pageshow", "#my_conv", function(event) {
   };
   var emptyPage=false;
   var check;
+  var action;
   $.post(server+"teams/conv_team", post_values, function(response) {
     
 
@@ -1345,21 +1368,26 @@ $( document ).on( "pageshow", "#my_conv", function(event) {
         var j=i+1;
         if (response[i]["acepta_convocatoria"]==="0") {
          check='checkyellow.png';
+         action='reto_my_team'
        }else{
           if (response[i]['acepta_convocatoria']==="1") {
             check='check.png';
+            action='reto_my_team';
               if (response[i]['results']==="1")
               {
-                check='sun.png';
+                check='sun-2.gif';
+                action='reto_my_team';
                 
               }
 
           }else{
              if (response[i]['acepta_convocatoria']==="2") {
             check='uncheck.png';
+            action='';
 
           }else{
             check='checkorange.png';
+            action='';
           }
             
           }
@@ -1381,7 +1409,7 @@ $( document ).on( "pageshow", "#my_conv", function(event) {
                                   '" principio="'+response[i]["principio"]+
                                   '" acepta_convocatoria="'+response[i]["acepta_convocatoria"]+
                                   '">'+
-                                  '<a href="#" class="reto_my_team"><img src="images/'+
+                                  '<a href="#" class="'+action+'"><img src="images/'+
                                   check+
                                   '" alt="" class="ui-li-icon ui-corner-none"><h3>'+
                                   response[i]["equipo_1_name"]+
@@ -1422,12 +1450,15 @@ $.post(server+"teams/conv_team", post_values, function(response) {
       var j=i+1;
       if (response[i]["acepta_convocatoria"]==="0") {
          check='checkyellow.png';
+         action='reto_my_team'
        }else{
           if (response[i]['acepta_convocatoria']==="1"){
             check='check.png';
+            action='reto_my_team' 
               if (response[i]['results']==="1")
               {
-                check='sun.png';
+                check='sun-2.gif';
+                action='reto_my_team'
                 
               }
 
@@ -1435,9 +1466,11 @@ $.post(server+"teams/conv_team", post_values, function(response) {
           else{
              if (response[i]['acepta_convocatoria']==="2") {
             check='uncheck.png';
+            action='';
 
           }else{
             check='checkorange.png';
+            action='';
           }
             
           }
@@ -1445,6 +1478,8 @@ $.post(server+"teams/conv_team", post_values, function(response) {
 
 
        }
+
+
 
              $("#request").append('<li  id_equipo1="'+
                                   response[i]["equipo_2"]+
@@ -1457,7 +1492,7 @@ $.post(server+"teams/conv_team", post_values, function(response) {
                                   '" principio="'+response[i]["principio"]+
                                   '" acepta_convocatoria="'+response[i]["acepta_convocatoria"]+
                                   '">'+
-                                  '<a href="#" class="reto_my_team"><img src="images/'+
+                                  '<a href="#" class="'+action+'"><img src="images/'+
                                   check+
                                   '" alt="" class="ui-li-icon ui-corner-none"><h3>'+
                                   response[i]["equipo_1_name"]+
@@ -1492,34 +1527,37 @@ loadingClose();
 function carryDataConv(element){
   var elmt=element;
   var accept;
-  if ($(elmt).parent().attr('acepta_convocatoria')=="1")
-  {
+  var image=$(element).parent().find("img").attr("src");
+if (image=="images/check.png") {
     accept="Convocatoria aceptada";
     $(".acceptConv").hide();
-  }else if ($(elmt).parent().attr('acepta_convocatoria')=="2"){
 
-        accept="Convocatoria rechazada";
-    $(".acceptConv").hide();
-
-  }
-
-
+  }else if (image=="images/checkyellow.png") {
+    accept="Convocatoria aun no aceptada";
+            if ($(elmt).parent().parent().attr('id')=="request")
+        {
+          $(".acceptConv").show();
 
 
-  else{
+        }else{
 
-    accept="Convocatoria sin aceptar";
-    if ($(elmt).parent().parent().attr('id')=="request")
-    {
-      $(".acceptConv").show();
+          $(".acceptConv").hide();
 
+        }
 
-    }else{
-
+  }else if (image=="images/sun-2.gif") {
+      accept="Convocatoria calificada";
       $(".acceptConv").hide();
-
-    }
-  }
+    
+  }else if (image=="images/uncheck.png") {
+    accept="Convocatoria rechazada";
+    $(".acceptConv").hide();
+      
+  }else if (image=="images/checkorange.png") {
+    accept="Convocatoria vencida no aceptada";
+    $(".acceptConv").hide();
+    
+  };
 
 
   $("#infoConv h3").html($(element).parent().find("h3").html());
@@ -1854,7 +1892,7 @@ function placeMarker(location) {
 
 
 
-
+$(".two_teams ul").listview()
 
 
 
@@ -1951,21 +1989,15 @@ function load_teams () {
 
   });
 }
-$( document ).on( "pageshow", "#join", function() {
-  $(".miJoinTeams").html(" ");
-  $(".teams_city").html(" ");
-   clear_form("join");
-   $("#join_select_departament").val($("#join_select_departament option:first").val());
-  
-
-  load_teams();
 
 
 
 
 
-  $("#join .ciudad").off( "change").on( "change",
-    function  (e) {
+
+function verifyTeamCity(element){
+
+
       //GOL-90
       loadingOpen("Cargando equipos");
 
@@ -1973,7 +2005,7 @@ $( document ).on( "pageshow", "#join", function() {
       var post_values= {
         session_id:localStorage.getItem('session_id'),
         email:localStorage.getItem('email'),
-        id_city:this.value
+        id_city:element.value
 
       };
       $.post(server+"teams/get_fromcity", post_values, function(response) {
@@ -1990,7 +2022,7 @@ $( document ).on( "pageshow", "#join", function() {
               '<h3>'+response[i].name+'</h3>'+
               '<div data-role="fieldcontain" class="join_checkbox" >'+
               '<fieldset data-role="controlgroup">'+
-              '<input type="checkbox" name="join_to_team" id="checkbox" class="custom" value="'+response[i].id+'" team_name="'+response[i].name+'"/>'+
+              '<input data-mini="true"  type="checkbox" name="join_to_team" id="checkbox" class="custom" value="'+response[i].id+'" team_name="'+response[i].name+'"/>'+
               '<label for="checkbox">Unirse</label>'+
               '</fieldset>'+
               '</div>'+
@@ -2055,8 +2087,27 @@ $( document ).on( "pageshow", "#join", function() {
 
     });
 loadingClose();
+
+
+
+
 }
-);
+
+
+
+
+$( document ).on( "pageshow", "#join", function() {
+  $(".miJoinTeams").html(" ");
+  $(".teams_city").html(" ");
+   clear_form("join");
+   $("#join_select_departament").val($("#join_select_departament option:first").val());
+  
+
+  load_teams();
+
+
+
+
 
 $( "#form_create" ).validate({
   rules:{
@@ -2177,7 +2228,7 @@ function setup2() {
 
             // Retrieve image file location from specified source
             console.log("enter onDeviceReady");
-            navigator.camera.getPicture(uploadPhoto,
+            navigator.camera.getPicture(confirmPhoto,
               function(message) { customAlert('Se ha cancelado la subida'); },
               { quality: 100,
                 destinationType: navigator.camera.DestinationType.FILE_URI,
@@ -2189,6 +2240,11 @@ function setup2() {
 
             console.log("end onDeviceReady");
 
+
+          }
+          function confirmPhoto(imageURI){
+
+            customConfirm("Desea subir esta foto?, una ves echo esto, no se podra deshacer",4,imageURI);
 
           }
 
@@ -2275,12 +2331,12 @@ function setup2() {
           function changePage(page){
 
             if(navigator.userAgent.match(/OS/i) || navigator.userAgent.match(/Android/i)){
-
+              event.preventDefault();
 
               $.mobile.changePage(page);
 
             }else{
-
+event.preventDefault();
               window.location.href = page;
 
             }
@@ -2343,6 +2399,9 @@ function setup2() {
                                         case 3:
                                         deleteSubscription(team);
                                         break
+                                        case 4:
+                                        uploadPhoto(team);
+                                        break
                                         }
 
                                   }
@@ -2361,6 +2420,9 @@ function setup2() {
                                         break
                                         case 3:
                                         deleteSubscription(team);
+                                        break
+                                        case 4:
+                                        uploadPhoto(team);
                                         break
                                         }
 

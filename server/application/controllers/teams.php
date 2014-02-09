@@ -53,7 +53,20 @@ class Teams extends MY_Controller {
 	public function validate_team()
 	{
 		$id= $this->input->post('id_team');
+		$vsid= $this->input->post('vs_team');
 		$json_reply=$this->team->validate_players($id);
+		if (!$json_reply["error"]) {
+
+			$json_reply_vs=$this->team->validate_players($vsid);
+			if ($json_reply_vs["error"]) {
+
+			$json_reply["error"]=true;
+			$json_reply["message_error"]="El equipo contrario no cuenta con los suficientes jugadores"; 
+
+
+			}
+
+		}
 		echo json_encode($json_reply);
 	}
 
@@ -162,7 +175,9 @@ class Teams extends MY_Controller {
 
 		$result=$this->team->guardar_convocatoria($datos);
 		
-		$tipodepartido=array(
+		if (!$result["error"]) {
+			
+					$tipodepartido=array(
 			'1'=>"Basquetball",
 			'2'=>"Ultimate",
 			'3'=>"Micro",
@@ -174,12 +189,7 @@ class Teams extends MY_Controller {
 		$equipo_2=$this->team->get_team($this->input->post('equipo_2'));
 		$leader=$this->team->getData($equipo_2['leader_id']);
 		$full_name=$leader['first_name']." ". $leader['last_name'];
-		
-		$mensaje = "Hola ".$full_name.", Revisa tu aplicación de golombiao ya que el equipo, ".$equipo_1['name']." ha convocado a tu equipo ".$equipo_2['name'].",  el día ".$this->input->post('fecha').', a las '.$this->input->post('hora') .' para un encuentro de Golombiao en un juego de '.$tipodepartido[$this->input->post('tipo_juego')].'.
-Recuerda tomar fotografías para que puedas subirlas a la página de Golombiao y compartirlas.
 
-El equipo de Golombiao y Colombia Joven.
-';
 
 		$email_from = $leader['email'];
 		//ini_set(sendmail_from,'info@golombiao.com');
@@ -191,12 +201,64 @@ El equipo de Golombiao y Colombia Joven.
 		$headers = 'From: golombiao@golombiao.com' . "\r\n" .
 		    'X-Mailer: PHP/' . phpversion();
 		// Send
-		if(mail($leader['email'], 'Te han enviado una convocatoria de Golombiao', $mensaje,$headers) ){
+
+		    $para  = 'aidan@example.com' . ', '; // atención a la coma
+			$para .= 'wez@example.com';
+
+			// subject
+			$titulo = 'Recordatorio de cumpleaños para Agosto';
+
+			// message
+			$mensaje = '
+			<html>
+			<head>
+			  <title>Recordatorio de cumpleaños para Agosto</title>
+			</head>
+			<body>
+				Hola '.$full_name.', revisa tu aplicación de golombiao ya que el equipo '.$equipo_1["name"].',  ha convocado a tu equipo '.$equipo_2["name"].', el día '.$this->input->post("fecha").', a las '.$this->input->post("hora") .' para un encuentro de Golombiao en un juego de '.$tipodepartido[$this->input->post("tipo_juego")].'.
+				<br />
+				<div style="margin-top:3%">
+				Recuerda tomar fotografías para que puedas subirlas a la página de Golombiao y compartirlas.
+				</div>
+				<br />
+				<div style="margin-top:3%">
+				El equipo de Golombiao y Colombia Joven.
+				</div>
+
+				<br /><small><a href="https://maps.google.es/maps?f=q&amp;source=embed&amp;hl=es&amp;geocode=&amp;q='.$this->input->post("latitud") .'+'.$this->input->post("longitud") .'&amp;aq=&amp;sll=40.396764,-3.713379&amp;sspn=9.951903,21.643066&amp;ie=UTF8&amp;t=m&amp;z=16&amp;ll='.$this->input->post("latitud") .','.$this->input->post("longitud") .'" style="color:#0000FF;text-align:left">Ver lugar de encuentro</a></small>
+
+			</body>
+			</html>
+			';
+
+			// Para enviar un correo HTML mail, la cabecera Content-type debe fijarse
+			$cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+			$cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+			// Cabeceras adicionales
+			$cabeceras .= 'To: '.$full_name.' <'.$leader["email"].'>.' . "\r\n";
+			$cabeceras .= 'From: Nueva Convocatoria <golombia@golombiao.com>' . "\r\n";
+
+			// Mail it
+			
+
+
+
+
+
+
+		if(mail($leader['email'], 'Te han enviado una convocatoria de Golombiao', utf8_decode($mensaje), $cabeceras) ){
 			$return['email_enviado']=true;
 		    
 		}else{
 			$return['email_enviado']=false;
 		}
+
+
+
+		}
+
+
 	
 		echo json_encode($result);
 	}

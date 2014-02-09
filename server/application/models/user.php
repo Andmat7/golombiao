@@ -326,6 +326,7 @@ class user extends CI_Model {
 	public function sel_city($id)
 	{
 		$this->db->where('idDepartamento', $id);
+		$this->db->order_by("nombre", "asc"); 
 		$q = $this->db->get('ciudades');
 		$cities=$q->result_array();
 
