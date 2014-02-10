@@ -599,9 +599,20 @@ function register_facebook(){
 
 function data_server_team(){
 
+  var control=0;
+
   loadingOpen("Procesando solicitud");
 
+
+        if ($('#join').find("input:checked").length==0) { customAlert("Debes seleccionar un equipo al cual inscribirte")
+          loadingClose();
+          return false;
+      };
+
   $('#join').find("input:checked").each(function(e) {
+
+
+
 
     var team_name =$(this).attr('team_name');
     var post_values= {
@@ -609,6 +620,7 @@ function data_server_team(){
       email:localStorage.getItem('email'),
       team_id:$(this).val(),
     };
+
     
     $.post(server+"teams/suscribe", post_values, function(response) {
 
@@ -857,7 +869,7 @@ function camera(){
     correctOrientation: true
   });
 
-  function onSuccessCaemra(imageURI) {
+  function onSuccessCamera(imageURI) {
     var image = document.getElementById('photo');
     localStorage.setItem("photo_"+localStorage.getItem("id_user"),imageURI);
     image.src = localStorage.getItem("photo_"+localStorage.getItem("id_user"));

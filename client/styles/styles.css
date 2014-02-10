@@ -8,6 +8,10 @@ body{
 }
 
 
+label.error{
+font-size: 0.8em !important;
+}
+
 
 
 .join_checkbox{

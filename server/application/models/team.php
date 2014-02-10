@@ -238,6 +238,24 @@ class team extends CI_Model {
 
 		$q = $this->db->get('teams');
 		$cities=$q->result_array();
+		foreach ($cities as $key => $value) {
+
+			$this->db->where('id_team', $cities[$key]["id"]);
+			$q = $this->db->get('user_teams');
+			
+			print_r($q -> num_rows());
+			exit();
+
+
+			
+
+		}
+
+
+
+
+
+
 		if(sizeof($cities) == 0 ) {
 			$json_reply["error"]=true;
 			$json_reply["message_error"]="No hay equipos en esta ciudad";
