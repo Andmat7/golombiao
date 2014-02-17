@@ -105,6 +105,7 @@ class team extends CI_Model {
 				$q = $this->db->get('users');
 				$user=$q->result_array();
 
+
 				if($user[0]["gender"]=='1'||$user[0]["gender"]=='1'){
 					$numero_hombres=$numero_hombres+1;
 				}else{
@@ -232,41 +233,54 @@ class team extends CI_Model {
 	}
 
 	public function select_from_city($id_city,$id_user)
-	{
+	{	
+
 		$this->db->where('ciudad', $id_city);
 		$this->db->where_not_in('leader_id',$id_user);
-
 		$q = $this->db->get('teams');
 		$cities=$q->result_array();
-		foreach ($cities as $key => $value) {
-
-			$this->db->where('id_team', $cities[$key]["id"]);
-			$q = $this->db->get('user_teams');
-			
-			print_r($q -> num_rows());
-			exit();
-
-
-			
-
-		}
-
-
-
-
-
-
 		if(sizeof($cities) == 0 ) {
 			$json_reply["error"]=true;
 			$json_reply["message_error"]="No hay equipos en esta ciudad";
 			
 		} else {
+			$this->db->select('*');
+			$this->db->from('teams');
+			$this->db->join('users_teams', 'users_teams.id_team = teams.id');
+			$this->db->where('teams.ciudad', $id_city);
+			//$this->db->where_not_in('teams.leader_id',$id_user);
+			$this->db->where('users_teams.id_user',$id_user);
+			$q2 = $this->db->get();
+			$cities_paila=$q2->result_array();
+			foreach ($cities as $key =>$city) {
+				$control=true;
+				foreach ($cities_paila as $key_paila => $city_paila) {
 
-			$json_reply=$cities;
-
+					if($city['id']==$city_paila['id_team']){
+						unset($cities[$key]);
+						unset($city_paila[$key_paila]);
+						$control=false;
+					}
+				}
+				if($control){
+					$cities2[]=$city;
+				}
+			}
+			if (!isset($cities2)) {
+				$cities2=$cities;
+			}
 			
+			
+			
+			 
+			$json_reply=$cities2;
 		}
 		return $json_reply;
+
+
+
+		
+		
 
 	}
 	public function verify_team($id)
